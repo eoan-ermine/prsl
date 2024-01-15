@@ -1,47 +1,22 @@
 #pragma once
 
+#include "Types/Token.hpp"
 #include <cctype>
 #include <string_view>
-
-class Token {
-public:
-    enum class Type {
-        IDENT,
-        NUMBER,
-        EQUALS,
-        SEMICOLON,
-        ERROR,
-        EOF_
-    };
-
-    Token(Type type, std::string_view str, int line) : type(type), start(str.data()), length(str.size()), line(line) {}
-
-    bool isError() {
-        return type == Type::ERROR;
-    }
-
-    Type getType() const {
-        return type;
-    }
-
-    std::string_view getView() const {
-        return {start, length};
-    }
-
-    int getLine() const {
-        return line;
-    }
-
-private:
-    Type type;
-    const char *start;
-    size_t length;
-    int line;
-};
+#include <vector>
 
 class Scanner {
 public:
-    explicit Scanner(std::string_view source);
+    explicit Scanner(std::string_view source) : start(source.data()), current(source.data()) { }
+
+    std::vector<Token> scanTokens() {
+        std::vector<Token> tokens;
+        while (!isAtEnd()) {
+            tokens.push_back(scanToken());
+        }
+        tokens.push_back({Token::Type::EOF_, "", line});
+        return tokens;
+    }
 
     Token scanToken() {
         skipWhitespace();
@@ -87,6 +62,8 @@ private:
             while (std::isdigit(peek()))
                 advance();
         }
+
+        return makeToken(Token::Type::NUMBER);
     }
 
     bool isAtEnd() {
