@@ -41,6 +41,26 @@ public:
       return makeToken(Token::Type::EQUALS);
     case ';':
       return makeToken(Token::Type::SEMICOLON);
+    case '/': {
+      if (match('/')) {
+        while (peek() != '\n' && !isEOL())
+          advance();
+      } else if (match('*')) {
+        while (!(peek() == '*' && peekNext() == '/') && !isEOL()) {
+          if (peek() == '\n')
+            line++;
+          advance();
+        }
+        if (isEOL()) {
+          return makeError("Multiline comment has no termination");
+        }
+        advance();
+        advance();
+      } else {
+        return makeError("Unknown character");
+      }
+      return tokenizeOne();
+    }
     default:
         return makeError("Unknown character");
     }
@@ -77,7 +97,14 @@ private:
   char peekNext() {
     if (isEOL())
       return '\0';
-    return current[-1];
+    return current[1];
+  }
+
+  bool match(char expect) {
+    if (isEOL()) return false;
+    if (peek() != expect) return false;
+    advance();
+    return true;
   }
 
   void skipWhitespace() {
