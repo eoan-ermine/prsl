@@ -39,7 +39,7 @@ private:
     ExprPtrVariant primaryExpr() {
         consume(Token::Type::NUMBER, "Expect number");
         
-        auto view = previous().getView();
+        auto view = previous().getLexeme();
         int result{};
         auto [ptr, ec] = std::from_chars(view.begin(), view.end(), result);
 

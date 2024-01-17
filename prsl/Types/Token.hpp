@@ -23,7 +23,7 @@ public:
         return type;
     }
 
-    std::string_view getView() const {
+    std::string_view getLexeme() const {
         return {start, length};
     }
 
