@@ -33,6 +33,7 @@ public:
     }
 
     std::string toString() const {
+        if (type == Token::Type::EOF_) return "<EOF>";
         return {start, length};
     }
 
