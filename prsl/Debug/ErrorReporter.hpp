@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace prsl::ErrorsAndDebug {
+namespace prsl::Errors {
 
 enum struct LoxStatus { OK, ERROR };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string_view>
+#include <string>
 
 class Token {
 public:
@@ -15,7 +16,7 @@ public:
 
     Token(Type type, std::string_view str, int line) : type(type), start(str.data()), length(str.size()), line(line) {}
 
-    bool isError() {
+    bool isError() const {
         return type == Type::ERROR;
     }
 
@@ -29,6 +30,10 @@ public:
 
     int getLine() const {
         return line;
+    }
+
+    std::string toString() const {
+        return {start, length};
     }
 
 private:

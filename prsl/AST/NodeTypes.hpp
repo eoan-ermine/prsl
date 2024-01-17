@@ -4,6 +4,8 @@
 #include <variant>
 #include "../Types/Token.hpp"
 
+namespace AST {
+
 struct LiteralExpr;
 
 using LiteralExprPtr = std::unique_ptr<LiteralExpr>;
@@ -15,14 +17,6 @@ struct VarStmt;
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
 using StmtPtrVariant = std::variant<VarStmtPtr>;
-
-inline auto createLiteralEPV(int literalVal) -> ExprPtrVariant {
-    return std::make_unique<LiteralExpr>(literalVal);
-}
-
-inline auto createVarSPV(Token varName, ExprPtrVariant initializer) -> StmtPtrVariant {
-    return std::make_unique<VarStmt>(varName, std::move(initializer));
-}
 
 struct LiteralExpr final {
     int literalVal;
@@ -36,3 +30,13 @@ struct VarStmt final {
     ExprPtrVariant initializer;
     explicit VarStmt(Token varName, ExprPtrVariant initializer) : varName(varName), initializer(std::move(initializer)) { }
 };
+
+inline auto createLiteralEPV(int literalVal) -> ExprPtrVariant {
+    return std::make_unique<LiteralExpr>(literalVal);
+}
+
+inline auto createVarSPV(Token varName, ExprPtrVariant initializer) -> StmtPtrVariant {
+    return std::make_unique<VarStmt>(varName, std::move(initializer));
+}
+
+}

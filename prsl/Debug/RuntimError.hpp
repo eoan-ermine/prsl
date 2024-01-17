@@ -6,7 +6,7 @@
 #include "ErrorReporter.hpp"
 #include "../Types/Token.hpp"
 
-namespace prsl::ErrorsAndDebug {
+namespace prsl::Errors {
 
 class RuntimeError : std::exception {};
 
