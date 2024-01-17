@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Types/Token.hpp"
+#include "prsl/Types/Token.hpp"
 #include <cctype>
 #include <string_view>
 #include <vector>
@@ -114,5 +114,5 @@ private:
 private:
     const char *start;
     const char *current;
-    int line;
+    int line{0};
 };
