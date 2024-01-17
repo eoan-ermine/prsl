@@ -8,15 +8,15 @@
 
 namespace prsl::Errors {
 
-enum struct LoxStatus { OK, ERROR };
+enum struct PrslStatus { OK, ERROR };
 
 class ErrorReporter {
 public:
   void clearErrors() {
     errorMessages.clear();
-    status = LoxStatus::OK;
+    status = PrslStatus::OK;
   }
-  auto getStatus() -> LoxStatus { return status; }
+  auto getStatus() -> PrslStatus { return status; }
   void printToErr() {
     for (auto &s : errorMessages) {
       std::cerr << s << std::endl;
@@ -26,12 +26,12 @@ public:
   void setError(int line, Args&&... params) {
     errorMessages.emplace_back("[Line " + std::to_string(line) +
                                "] Error: " + (params + ...));
-    status = LoxStatus::ERROR;
+    status = PrslStatus::ERROR;
   }
 
 private:
   std::vector<std::string> errorMessages;
-  LoxStatus status = LoxStatus::OK;
+  PrslStatus status = PrslStatus::OK;
 };
 
 } // namespace prsl::ErrorsAndDebug

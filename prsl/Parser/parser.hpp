@@ -19,7 +19,7 @@ public:
     this->currentIter = this->tokens.begin();
   }
 
-  class ParseError : std::exception {}; // Exception types
+  class ParseError : public std::exception {}; // Exception types
 
   std::vector<StmtPtrVariant> parse() {
     return program();
@@ -32,11 +32,7 @@ private:
       while (!isEOF()) {
         statements.emplace_back(decl());
       }
-    } catch (const std::exception &e) {
-      std::string errorMessage = "Caught exception: ";
-      errorMessage += e.what();
-      eReporter.setError(peek().getLine(), errorMessage);
-    }
+    } catch (const ParseError &e) { }
     return statements;
   }
 

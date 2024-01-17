@@ -1,15 +1,20 @@
 #include <iostream>
 
-#include "scanner.hpp"
-#include "parser.hpp"
+#include "prsl/Scanner/scanner.hpp"
+#include "prsl/Parser/parser.hpp"
 #include <fstream>
 #include <iterator>
 
 void run(std::string_view source) {
     Scanner scanner(source);
     auto tokens = scanner.scanTokens();
-    Parser parser(tokens);
+    prsl::Errors::ErrorReporter eReporter;
+    prsl::Parser::Parser parser(tokens, eReporter);
     auto statements = parser.parse();
+
+    if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
+        eReporter.printToErr();
+    }
 }
 
 void runFile(std::string_view path) {
