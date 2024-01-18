@@ -5,6 +5,10 @@
 #include <string_view>
 #include <vector>
 
+namespace prsl::Scanner {
+
+using prsl::Types::Token;
+
 class Scanner {
 public:
   explicit Scanner(std::string_view source)
@@ -140,3 +144,5 @@ private:
   const char *current;
   int line{0};
 };
+
+}

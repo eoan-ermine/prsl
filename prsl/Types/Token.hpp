@@ -3,6 +3,8 @@
 #include <string_view>
 #include <string>
 
+namespace prsl::Types {
+
 class Token {
 public:
     enum class Type {
@@ -43,3 +45,5 @@ private:
     size_t length;
     int line;
 };
+
+}

@@ -8,6 +8,8 @@
 
 namespace prsl::Parser {
 
+using prsl::Types::Token;
+
 using AST::ExprPtrVariant;
 using AST::StmtPtrVariant;
 

@@ -6,7 +6,7 @@
 #include <iterator>
 
 void run(std::string_view source) {
-    Scanner scanner(source);
+    prsl::Scanner::Scanner scanner(source);
     auto tokens = scanner.tokenize();
     prsl::Errors::ErrorReporter eReporter;
     prsl::Parser::Parser parser(tokens, eReporter);

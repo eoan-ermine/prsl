@@ -4,7 +4,7 @@
 #include <variant>
 #include "../Types/Token.hpp"
 
-namespace AST {
+namespace prsl::AST {
 
 struct LiteralExpr;
 
@@ -24,6 +24,8 @@ struct LiteralExpr final {
         literalVal = value;
     }
 };
+
+using prsl::Types::Token;
 
 struct VarStmt final {
     Token varName;
