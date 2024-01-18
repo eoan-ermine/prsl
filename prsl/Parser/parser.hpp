@@ -56,8 +56,14 @@ private:
   ExprPtrVariant expr() { return primaryExpr(); }
 
   ExprPtrVariant primaryExpr() {
-    auto token = consumeOrError(Token::Type::NUMBER, "Expect number");
+    if (match(Token::Type::NUMBER)) return literalExpr();
+    if (match(Token::Type::LEFT_PAREN)) return groupingExpr();
 
+    throw error("Expect expression, got something else");
+  }
+
+  ExprPtrVariant literalExpr() {
+    auto token = getTokenAdvance();
     auto view = token.getLexeme();
     int result{};
     auto [ptr, ec] = std::from_chars(view.begin(), view.end(), result);
@@ -66,6 +72,13 @@ private:
       return AST::createLiteralEPV(result);
 
     throw error("Literal is not a number");
+  }
+
+  ExprPtrVariant groupingExpr() {
+    advance();
+    ExprPtrVariant expression = expr();
+    consumeOrError(Token::Type::RIGHT_PAREN, "Expect a closing paren after expression");
+    return AST::createGroupingEPV(std::move(expression));
   }
 
   void advance() {
@@ -88,11 +101,6 @@ private:
   }
   [[nodiscard]] auto getCurrentTokenType() const -> Token::Type {
     return currentIter->getType();
-  }
-  auto getTokenAndAdvance() -> Token {
-    Token token = peek();
-    advance();
-    return token;
   }
   [[nodiscard]] auto isEOF() const -> bool {
     return peek().getType() == Token::Type::EOF_;

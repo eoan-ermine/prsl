@@ -45,6 +45,10 @@ public:
       return makeToken(Token::Type::EQUALS);
     case ';':
       return makeToken(Token::Type::SEMICOLON);
+    case '(':
+      return makeToken(Token::Type::LEFT_PAREN);
+    case ')':
+      return makeToken(Token::Type::RIGHT_PAREN);
     case '/': {
       if (match('/')) {
         while (peek() != '\n' && !isEOL())

@@ -12,6 +12,8 @@ public:
         NUMBER,
         EQUALS,
         SEMICOLON,
+        LEFT_PAREN,
+        RIGHT_PAREN,
         ERROR,
         EOF_
     };
