@@ -10,10 +10,22 @@ public:
     enum class Type {
         IDENT,
         NUMBER,
-        EQUALS,
+        EQUAL,
         SEMICOLON,
         LEFT_PAREN,
         RIGHT_PAREN,
+        PLUS_PLUS,
+        MINUS_MINUS,
+        PLUS,
+        MINUS,
+        STAR,
+        SLASH,
+        GREATER,
+        LESS,
+        GREATER_EQUAL,
+        LESS_EQUAL,
+        EQUAL_EQUAL,
+        NOT_EQUAL,
         ERROR,
         EOF_
     };

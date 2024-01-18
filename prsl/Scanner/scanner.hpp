@@ -42,13 +42,25 @@ public:
 
     switch (c) {
     case '=':
-      return makeToken(Token::Type::EQUALS);
+      if (match('='))
+        return makeToken(Token::Type::EQUAL_EQUAL);
+      return makeToken(Token::Type::EQUAL);
     case ';':
       return makeToken(Token::Type::SEMICOLON);
     case '(':
       return makeToken(Token::Type::LEFT_PAREN);
     case ')':
       return makeToken(Token::Type::RIGHT_PAREN);
+    case '+':
+      if (match('+'))
+        return makeToken(Token::Type::PLUS_PLUS);
+      return makeToken(Token::Type::PLUS);
+    case '-':
+      if (match('-'))
+        return makeToken(Token::Type::MINUS_MINUS);
+      return makeToken(Token::Type::MINUS);
+    case '*':
+      return makeToken(Token::Type::STAR);
     case '/': {
       if (match('/')) {
         while (peek() != '\n' && !isEOL())
@@ -65,10 +77,22 @@ public:
         advance();
         advance();
       } else {
-        return makeError("Unknown character");
+        return makeToken(Token::Type::SLASH);
       }
       return tokenizeOne();
     }
+    case '>':
+      if (match('='))
+        return makeToken(Token::Type::GREATER_EQUAL);
+      return makeToken(Token::Type::GREATER);
+    case '<':
+      if (match('='))
+        return makeToken(Token::Type::LESS_EQUAL);
+      return makeToken(Token::Type::LESS);
+    case '!':
+      if (match('='))
+        return makeToken(Token::Type::NOT_EQUAL);
+      return makeError("Expect '=' sign");
     default:
         return makeError("Unknown character");
     }
@@ -85,12 +109,15 @@ private:
   Token number() {
     auto error = makeError("Not a NUMBER");
 
-    while (std::isdigit(peek())) advance();
+    while (std::isdigit(peek()))
+      advance();
 
     if (peek() == '.') {
       advance();
-      if (!std::isdigit(peek())) return error;
-      while (std::isdigit(peek())) advance();
+      if (!std::isdigit(peek()))
+        return error;
+      while (std::isdigit(peek()))
+        advance();
     }
 
     return makeToken(Token::Type::NUMBER);
@@ -109,8 +136,10 @@ private:
   }
 
   bool match(char expect) {
-    if (isEOL()) return false;
-    if (peek() != expect) return false;
+    if (isEOL())
+      return false;
+    if (peek() != expect)
+      return false;
     advance();
     return true;
   }
@@ -149,4 +178,4 @@ private:
   int line{0};
 };
 
-}
+} // namespace prsl::Scanner

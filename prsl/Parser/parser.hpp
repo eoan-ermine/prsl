@@ -3,6 +3,7 @@
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
 #include <charconv>
+#include <initializer_list>
 #include <string_view>
 #include <vector>
 
@@ -23,9 +24,7 @@ public:
 
   class ParseError : public std::exception {}; // Exception types
 
-  std::vector<StmtPtrVariant> parse() {
-    return program();
-  }
+  std::vector<StmtPtrVariant> parse() { return program(); }
 
 private:
   std::vector<StmtPtrVariant> program() {
@@ -34,7 +33,8 @@ private:
       while (!isEOF()) {
         statements.emplace_back(decl());
       }
-    } catch (const ParseError &e) { }
+    } catch (const ParseError &e) {
+    }
     return statements;
   }
 
@@ -46,18 +46,69 @@ private:
 
   StmtPtrVariant varDecl() {
     Token ident = getTokenAdvance();
-    consumeOrError(Token::Type::EQUALS, "Expect equals sign after identifier.");
+    consumeOrError(Token::Type::EQUAL, "Expect equals sign after identifier.");
     ExprPtrVariant initializer = expr();
     consumeOrError(Token::Type::SEMICOLON,
                    "Expect ';' after variable declaration.");
     return createVarSPV(ident, std::move(initializer));
   }
 
-  ExprPtrVariant expr() { return primaryExpr(); }
+  ExprPtrVariant expr() { return comparisonExpr(); }
+
+  ExprPtrVariant comparisonExpr() {
+    auto comparatorTypes = {Token::Type::GREATER, Token::Type::GREATER_EQUAL,
+                            Token::Type::LESS,    Token::Type::LESS_EQUAL,
+                            Token::Type::EQUAL,   Token::Type::NOT_EQUAL};
+    auto expr = additionExpr();
+    while (match(comparatorTypes)) {
+      Token op = getTokenAdvance();
+      expr = createBinaryEPV(std::move(expr), op, additionExpr());
+    }
+    return expr;
+  }
+
+  ExprPtrVariant additionExpr() {
+    auto additionTypes = {Token::Type::PLUS, Token::Type::MINUS};
+    auto expr = multiplicationExpr();
+    while (match(additionTypes)) {
+      Token op = getTokenAdvance();
+      expr = createBinaryEPV(std::move(expr), op, multiplicationExpr());
+    }
+    return expr;
+  }
+
+  ExprPtrVariant multiplicationExpr() {
+    auto multiplicationTypes = {Token::Type::STAR, Token::Type::SLASH};
+    auto expr = unaryExpr();
+    while (match(multiplicationTypes)) {
+      Token op = getTokenAdvance();
+      expr = createBinaryEPV(std::move(expr), op, unaryExpr());
+    }
+    return expr;
+  }
+
+  ExprPtrVariant unaryExpr() {
+    if (match(Token::Type::MINUS)) {
+      auto op = getTokenAdvance();
+      auto expr = postfixExpr();
+      return createUnaryEPV(std::move(expr), op);
+    }
+    return postfixExpr();
+  }
+
+  ExprPtrVariant postfixExpr() {
+    auto expr = primaryExpr();
+    if (match({Token::Type::PLUS_PLUS, Token::Type::MINUS_MINUS})) {
+      return createPostfixEPV(std::move(expr), getTokenAdvance());
+    }
+    return expr;
+  }
 
   ExprPtrVariant primaryExpr() {
-    if (match(Token::Type::NUMBER)) return literalExpr();
-    if (match(Token::Type::LEFT_PAREN)) return groupingExpr();
+    if (match(Token::Type::NUMBER))
+      return literalExpr();
+    if (match(Token::Type::LEFT_PAREN))
+      return groupingExpr();
 
     throw error("Expect expression, got something else");
   }
@@ -77,7 +128,8 @@ private:
   ExprPtrVariant groupingExpr() {
     advance();
     ExprPtrVariant expression = expr();
-    consumeOrError(Token::Type::RIGHT_PAREN, "Expect a closing paren after expression");
+    consumeOrError(Token::Type::RIGHT_PAREN,
+                   "Expect a closing paren after expression");
     return AST::createGroupingEPV(std::move(expression));
   }
 
@@ -108,6 +160,14 @@ private:
   [[nodiscard]] auto match(Token::Type type) -> bool {
     if (type == getCurrentTokenType()) {
       return true;
+    }
+    return false;
+  }
+  [[nodiscard]] auto match(std::initializer_list<Token::Type> types) -> bool {
+    auto currentType = getCurrentTokenType();
+    for (auto type : types) {
+      if (type == currentType)
+        return true;
     }
     return false;
   }
