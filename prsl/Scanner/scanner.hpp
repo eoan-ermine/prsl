@@ -190,7 +190,10 @@ private:
   int line{0};
 
   std::unordered_map<std::string_view, Token::Type> keywords = {
-      {"if", Token::Type::IF}, {"else", Token::Type::ELSE}, {"while", Token::Type::WHILE}};
+      {"if", Token::Type::IF},
+      {"else", Token::Type::ELSE},
+      {"while", Token::Type::WHILE},
+      {"print", Token::Type::PRINT}};
 };
 
 } // namespace prsl::Scanner

@@ -32,6 +32,7 @@ public:
     RIGHT_BRACE,
     WHILE,
     INPUT,
+    PRINT,
     ERROR,
     EOF_
   };

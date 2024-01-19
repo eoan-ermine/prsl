@@ -64,6 +64,8 @@ private:
       return blockStmt();
     if (match(Token::Type::WHILE))
       return whileStmt();
+    if (match(Token::Type::PRINT))
+      return printStmt();
 
     throw error("Expect statement, got something else");
   }
@@ -102,6 +104,14 @@ private:
     consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after if condition");
 
     return AST::createWhileSPV(std::move(condition), stmt());
+  }
+
+  StmtPtrVariant printStmt() {
+    advance();
+    ExprPtrVariant value = expr();
+    consumeOrError(Token::Type::SEMICOLON,
+                   "Expect ';' after print statement");
+    return AST::createPrintSPV(std::move(value));
   }
 
   ExprPtrVariant expr() { return comparisonExpr(); }
