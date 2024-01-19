@@ -16,6 +16,8 @@ struct VarExpr;
 
 struct InputExpr;
 
+struct AssignmentExpr;
+
 struct UnaryExpr;
 
 struct BinaryExpr;
@@ -30,6 +32,8 @@ using VarExprPtr = std::unique_ptr<VarExpr>;
 
 using InputExprPtr = std::unique_ptr<InputExpr>;
 
+using AssignmentExprPtr = std::unique_ptr<AssignmentExpr>;
+
 using UnaryExprPtr = std::unique_ptr<UnaryExpr>;
 
 using BinaryExprPtr = std::unique_ptr<BinaryExpr>;
@@ -38,7 +42,8 @@ using PostfixExprPtr = std::unique_ptr<PostfixExpr>;
 
 using ExprPtrVariant =
     std::variant<LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr,
-                 UnaryExprPtr, BinaryExprPtr, PostfixExprPtr>;
+                 AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr,
+                 PostfixExprPtr>;
 
 struct VarStmt;
 
@@ -79,6 +84,13 @@ struct VarExpr final {
 
 struct InputExpr final {
   explicit InputExpr() {}
+};
+
+struct AssignmentExpr final {
+  Token varName;
+  ExprPtrVariant initializer;
+  explicit AssignmentExpr(Token varName, ExprPtrVariant initializer)
+      : varName(varName), initializer(std::move(initializer)) {}
 };
 
 struct UnaryExpr final {
@@ -150,6 +162,11 @@ inline auto createVarEPV(Token ident) -> ExprPtrVariant {
 
 inline auto createInputEPV() -> ExprPtrVariant {
   return std::make_unique<InputExpr>();
+}
+
+inline auto createAssignmentEPV(Token varName,
+                                ExprPtrVariant initializer) -> ExprPtrVariant {
+  return std::make_unique<AssignmentExpr>(varName, std::move(initializer));
 }
 
 inline auto createUnaryEPV(ExprPtrVariant expression,

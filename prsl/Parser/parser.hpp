@@ -6,6 +6,7 @@
 #include <initializer_list>
 #include <optional>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 namespace prsl::Parser {
@@ -104,6 +105,22 @@ private:
   }
 
   ExprPtrVariant expr() { return comparisonExpr(); }
+
+  ExprPtrVariant assignmentExpr() {
+    auto expr = comparisonExpr();
+
+    if (match(Token::Type::EQUAL)) {
+      advance();
+      if (std::holds_alternative<AST::VarExprPtr>(expr)) {
+        Token varName = std::get<AST::VarExprPtr>(expr)->ident;
+        return AST::createAssignmentEPV(varName, assignmentExpr());
+      }
+
+      throw error("Expect assignment target, got something else");
+    }
+
+    return expr;
+  }
 
   ExprPtrVariant comparisonExpr() {
     auto comparatorTypes = {Token::Type::GREATER, Token::Type::GREATER_EQUAL,
