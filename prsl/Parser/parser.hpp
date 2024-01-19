@@ -61,6 +61,8 @@ private:
       return ifStmt();
     if (match(Token::Type::LEFT_BRACE))
       return blockStmt();
+    if (match(Token::Type::WHILE))
+      return whileStmt();
 
     throw error("Expect statement, got something else");
   }
@@ -90,6 +92,15 @@ private:
     }
     consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after block");
     return AST::createBlockSPV(std::move(statements));
+  }
+
+  StmtPtrVariant whileStmt() {
+    advance();
+    consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after if");
+    ExprPtrVariant condition = expr();
+    consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after if condition");
+
+    return AST::createWhileSPV(std::move(condition), stmt());
   }
 
   ExprPtrVariant expr() { return comparisonExpr(); }

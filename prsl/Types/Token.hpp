@@ -30,6 +30,7 @@ public:
     ELSE,
     LEFT_BRACE,
     RIGHT_BRACE,
+    WHILE,
     ERROR,
     EOF_
   };
