@@ -109,8 +109,7 @@ private:
   StmtPtrVariant printStmt() {
     advance();
     ExprPtrVariant value = expr();
-    consumeOrError(Token::Type::SEMICOLON,
-                   "Expect ';' after print statement");
+    consumeOrError(Token::Type::SEMICOLON, "Expect ';' after print statement");
     return AST::createPrintSPV(std::move(value));
   }
 

@@ -22,8 +22,7 @@ public:
       std::cerr << s << std::endl;
     }
   }
-  template <typename... Args>
-  void setError(int line, Args&&... params) {
+  template <typename... Args> void setError(int line, Args &&...params) {
     errorMessages.emplace_back("[Line " + std::to_string(line) +
                                "] Error: " + (params + ...));
     status = PrslStatus::ERROR;
@@ -34,4 +33,4 @@ private:
   PrslStatus status = PrslStatus::OK;
 };
 
-} // namespace prsl::ErrorsAndDebug
+} // namespace prsl::Errors
