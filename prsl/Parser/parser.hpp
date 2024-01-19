@@ -4,6 +4,7 @@
 #include "prsl/Debug/ErrorReporter.hpp"
 #include <charconv>
 #include <initializer_list>
+#include <optional>
 #include <string_view>
 #include <vector>
 
@@ -39,9 +40,11 @@ private:
   }
 
   StmtPtrVariant decl() {
-    if (match(Token::Type::IDENT))
+    if (match(Token::Type::IDENT)) {
       return varDecl();
-    throw error("Expect variable declaration, got something else");
+    }
+
+    return stmt();
   }
 
   StmtPtrVariant varDecl() {
@@ -51,6 +54,42 @@ private:
     consumeOrError(Token::Type::SEMICOLON,
                    "Expect ';' after variable declaration.");
     return createVarSPV(ident, std::move(initializer));
+  }
+
+  StmtPtrVariant stmt() {
+    if (match(Token::Type::IF))
+      return ifStmt();
+    if (match(Token::Type::LEFT_BRACE))
+      return blockStmt();
+
+    throw error("Expect statement, got something else");
+  }
+
+  StmtPtrVariant ifStmt() {
+    advance();
+    consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after if");
+    ExprPtrVariant condition = expr();
+    consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after if condition");
+
+    StmtPtrVariant thenBranch = stmt();
+    std::optional<StmtPtrVariant> elseBranch;
+    if (match(Token::Type::ELSE)) {
+      advance();
+      elseBranch = stmt();
+    }
+
+    return AST::createIfSPV(std::move(condition), std::move(thenBranch),
+                            std::move(elseBranch));
+  }
+
+  StmtPtrVariant blockStmt() {
+    advance();
+    std::vector<StmtPtrVariant> statements;
+    while (!match(Token::Type::RIGHT_BRACE) && !isEOF()) {
+      statements.push_back(decl());
+    }
+    consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after block");
+    return AST::createBlockSPV(std::move(statements));
   }
 
   ExprPtrVariant expr() { return comparisonExpr(); }
@@ -109,6 +148,8 @@ private:
       return literalExpr();
     if (match(Token::Type::LEFT_PAREN))
       return groupingExpr();
+    if (match(Token::Type::IDENT))
+      return varExpr();
 
     throw error("Expect expression, got something else");
   }
@@ -131,6 +172,11 @@ private:
     consumeOrError(Token::Type::RIGHT_PAREN,
                    "Expect a closing paren after expression");
     return AST::createGroupingEPV(std::move(expression));
+  }
+
+  ExprPtrVariant varExpr() {
+    Token varName = getTokenAdvance();
+    return AST::createVarEPV(varName);
   }
 
   void advance() {

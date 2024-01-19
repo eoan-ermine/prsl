@@ -2,13 +2,17 @@
 
 #include "../Types/Token.hpp"
 #include <memory>
+#include <optional>
 #include <variant>
+#include <vector>
 
 namespace prsl::AST {
 
 struct LiteralExpr;
 
 struct GroupingExpr;
+
+struct VarExpr;
 
 struct UnaryExpr;
 
@@ -20,6 +24,8 @@ using LiteralExprPtr = std::unique_ptr<LiteralExpr>;
 
 using GroupingExprPtr = std::unique_ptr<GroupingExpr>;
 
+using VarExprPtr = std::unique_ptr<VarExpr>;
+
 using UnaryExprPtr = std::unique_ptr<UnaryExpr>;
 
 using BinaryExprPtr = std::unique_ptr<BinaryExpr>;
@@ -27,14 +33,24 @@ using BinaryExprPtr = std::unique_ptr<BinaryExpr>;
 using PostfixExprPtr = std::unique_ptr<PostfixExpr>;
 
 using ExprPtrVariant =
-    std::variant<LiteralExprPtr, GroupingExprPtr, UnaryExprPtr, BinaryExprPtr,
-                 PostfixExprPtr>;
+    std::variant<LiteralExprPtr, GroupingExprPtr, VarExprPtr, UnaryExprPtr,
+                 BinaryExprPtr, PostfixExprPtr>;
 
 struct VarStmt;
 
+struct IfStmt;
+
+struct BlockStmt;
+
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
-using StmtPtrVariant = std::variant<VarStmtPtr>;
+using IfStmtPtr = std::unique_ptr<IfStmt>;
+
+using BlockStmtPtr = std::unique_ptr<BlockStmt>;
+
+using StmtPtrVariant = std::variant<VarStmtPtr, IfStmtPtr, BlockStmtPtr>;
+
+using prsl::Types::Token;
 
 struct LiteralExpr final {
   int literalVal;
@@ -45,6 +61,11 @@ struct GroupingExpr final {
   ExprPtrVariant expression;
   explicit GroupingExpr(ExprPtrVariant expression)
       : expression(std::move(expression)) {}
+};
+
+struct VarExpr final {
+  Token ident;
+  explicit VarExpr(Token ident) : ident(ident) {}
 };
 
 struct UnaryExpr final {
@@ -71,13 +92,28 @@ struct PostfixExpr final {
       : expression(std::move(expression)), op(op) {}
 };
 
-using prsl::Types::Token;
-
 struct VarStmt final {
   Token varName;
   ExprPtrVariant initializer;
   explicit VarStmt(Token varName, ExprPtrVariant initializer)
       : varName(varName), initializer(std::move(initializer)) {}
+};
+
+struct IfStmt final {
+  ExprPtrVariant condition;
+  StmtPtrVariant thenBranch;
+  std::optional<StmtPtrVariant> elseBranch;
+
+  explicit IfStmt(ExprPtrVariant condition, StmtPtrVariant thenBranch,
+                  std::optional<StmtPtrVariant> elseBranch)
+      : condition(std::move(condition)), thenBranch(std::move(thenBranch)),
+        elseBranch(std::move(elseBranch)) {}
+};
+
+struct BlockStmt final {
+  std::vector<StmtPtrVariant> statements;
+  explicit BlockStmt(std::vector<StmtPtrVariant> statements)
+      : statements(std::move(statements)) {}
 };
 
 inline auto createLiteralEPV(int literalVal) -> ExprPtrVariant {
@@ -86,6 +122,10 @@ inline auto createLiteralEPV(int literalVal) -> ExprPtrVariant {
 
 inline auto createGroupingEPV(ExprPtrVariant expression) -> ExprPtrVariant {
   return std::make_unique<GroupingExpr>(std::move(expression));
+}
+
+inline auto createVarEPV(Token ident) -> ExprPtrVariant {
+  return std::make_unique<VarExpr>(ident);
 }
 
 inline auto createUnaryEPV(ExprPtrVariant expression,
@@ -100,13 +140,23 @@ inline auto createBinaryEPV(ExprPtrVariant lhsExpression, Types::Token op,
 }
 
 inline auto createPostfixEPV(ExprPtrVariant expression,
-                              Types::Token op) -> ExprPtrVariant {
+                             Types::Token op) -> ExprPtrVariant {
   return std::make_unique<PostfixExpr>(std::move(expression), op);
 }
 
 inline auto createVarSPV(Token varName,
                          ExprPtrVariant initializer) -> StmtPtrVariant {
   return std::make_unique<VarStmt>(varName, std::move(initializer));
+}
+
+inline auto createIfSPV(ExprPtrVariant condition, StmtPtrVariant thenBranch,
+                        std::optional<StmtPtrVariant> elseBranch) {
+  return std::make_unique<IfStmt>(std::move(condition), std::move(thenBranch),
+                                  std::move(elseBranch));
+}
+
+inline auto createBlockSPV(std::vector<StmtPtrVariant> statements) {
+  return std::make_unique<BlockStmt>(std::move(statements));
 }
 
 } // namespace prsl::AST

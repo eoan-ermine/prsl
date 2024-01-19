@@ -3,6 +3,7 @@
 #include "prsl/Types/Token.hpp"
 #include <cctype>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace prsl::Scanner {
@@ -32,14 +33,6 @@ public:
     }
 
     char c = advance();
-    if (std::isalpha(c)) {
-      return ident();
-    }
-    if (c == '-' ||
-        (std::isdigit(c) && !(c == '0' && std::isdigit(peekNext())))) {
-      return number();
-    }
-
     switch (c) {
     case '=':
       if (match('='))
@@ -93,8 +86,20 @@ public:
       if (match('='))
         return makeToken(Token::Type::NOT_EQUAL);
       return makeError("Expect '=' sign");
+    case '{':
+      return makeToken(Token::Type::LEFT_BRACE);
+    case '}':
+      return makeToken(Token::Type::RIGHT_BRACE);
     default:
-        return makeError("Unknown character");
+      if (std::isalpha(c)) {
+        return ident();
+      }
+      if (c == '-' ||
+          (std::isdigit(c) && !(c == '0' && std::isdigit(peekNext())))) {
+        return number();
+      }
+
+      return makeError("Unknown character");
     }
   }
 
@@ -103,7 +108,12 @@ private:
     while (std::isalnum(peek()))
       advance();
 
-    return makeToken(Token::Type::IDENT);
+    std::string_view view = {start, static_cast<size_t>(current - start)};
+    auto it = keywords.find(view);
+    if (it == keywords.end())
+      return makeToken(Token::Type::IDENT);
+
+    return makeToken(it->second);
   }
 
   Token number() {
@@ -176,6 +186,9 @@ private:
   const char *start;
   const char *current;
   int line{0};
+
+  std::unordered_map<std::string_view, Token::Type> keywords = {
+      {"if", Token::Type::IF}, {"else", Token::Type::ELSE}};
 };
 
 } // namespace prsl::Scanner
