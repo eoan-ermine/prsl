@@ -90,6 +90,8 @@ public:
       return makeToken(Token::Type::LEFT_BRACE);
     case '}':
       return makeToken(Token::Type::RIGHT_BRACE);
+    case '?':
+      return makeToken(Token::Type::INPUT);
     default:
       if (std::isalpha(c)) {
         return ident();

@@ -14,6 +14,8 @@ struct GroupingExpr;
 
 struct VarExpr;
 
+struct InputExpr;
+
 struct UnaryExpr;
 
 struct BinaryExpr;
@@ -26,6 +28,8 @@ using GroupingExprPtr = std::unique_ptr<GroupingExpr>;
 
 using VarExprPtr = std::unique_ptr<VarExpr>;
 
+using InputExprPtr = std::unique_ptr<InputExpr>;
+
 using UnaryExprPtr = std::unique_ptr<UnaryExpr>;
 
 using BinaryExprPtr = std::unique_ptr<BinaryExpr>;
@@ -33,8 +37,8 @@ using BinaryExprPtr = std::unique_ptr<BinaryExpr>;
 using PostfixExprPtr = std::unique_ptr<PostfixExpr>;
 
 using ExprPtrVariant =
-    std::variant<LiteralExprPtr, GroupingExprPtr, VarExprPtr, UnaryExprPtr,
-                 BinaryExprPtr, PostfixExprPtr>;
+    std::variant<LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr,
+                 UnaryExprPtr, BinaryExprPtr, PostfixExprPtr>;
 
 struct VarStmt;
 
@@ -71,6 +75,10 @@ struct GroupingExpr final {
 struct VarExpr final {
   Token ident;
   explicit VarExpr(Token ident) : ident(ident) {}
+};
+
+struct InputExpr final {
+  explicit InputExpr() {}
 };
 
 struct UnaryExpr final {
@@ -138,6 +146,10 @@ inline auto createGroupingEPV(ExprPtrVariant expression) -> ExprPtrVariant {
 
 inline auto createVarEPV(Token ident) -> ExprPtrVariant {
   return std::make_unique<VarExpr>(ident);
+}
+
+inline auto createInputEPV() -> ExprPtrVariant {
+  return std::make_unique<InputExpr>();
 }
 
 inline auto createUnaryEPV(ExprPtrVariant expression,

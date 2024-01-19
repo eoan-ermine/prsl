@@ -161,6 +161,8 @@ private:
       return groupingExpr();
     if (match(Token::Type::IDENT))
       return varExpr();
+    if (match(Token::Type::INPUT))
+      return inputExpr();
 
     throw error("Expect expression, got something else");
   }
@@ -188,6 +190,11 @@ private:
   ExprPtrVariant varExpr() {
     Token varName = getTokenAdvance();
     return AST::createVarEPV(varName);
+  }
+
+  ExprPtrVariant inputExpr() {
+    advance();
+    return AST::createInputEPV();
   }
 
   void advance() {
