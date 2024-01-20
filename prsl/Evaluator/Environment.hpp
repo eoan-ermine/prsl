@@ -7,7 +7,7 @@
 #include <variant>
 
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Debug/RuntimError.hpp"
+#include "prsl/Debug/RuntimeError.hpp"
 #include "prsl/Evaluator/Objects.hpp"
 #include "prsl/Types/Token.hpp"
 
