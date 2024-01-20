@@ -46,8 +46,7 @@ public:
   auto get(size_t varNameHash) -> VarValue {
     auto it = objects.find(varNameHash);
     if (it != objects.end()) {
-      if (std::holds_alternative<std::nullptr_t>(it->second))
-        throw UninitVarAccess{};
+      // TODO: Universal check for uninit
       return it->second;
     }
 
