@@ -8,7 +8,6 @@
 
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
-#include "prsl/Evaluator/Objects.hpp"
 #include "prsl/Types/Token.hpp"
 
 namespace prsl::Evaluator {
@@ -22,14 +21,15 @@ class UninitVarAccess : public std::exception {};
 
 } // namespace
 
-class Environment : std::enable_shared_from_this<Environment> {
+template <typename VarValue>
+class Environment : std::enable_shared_from_this<Environment<VarValue>> {
 public:
   using EnvironmentPtr = std::shared_ptr<Environment>;
 
   explicit Environment(EnvironmentPtr parentEnv)
       : parentEnv(std::move(parentEnv)) {}
 
-  auto assign(size_t varNameHash, PrslObject object) -> bool {
+  auto assign(size_t varNameHash, VarValue object) -> bool {
     auto iter = objects.find(varNameHash);
     if (iter != objects.end()) {
       objects.insert_or_assign(varNameHash, object);
@@ -39,11 +39,11 @@ public:
     throw UndefVarAccess{};
   }
 
-  void define(size_t varNameHash, PrslObject object) {
+  void define(size_t varNameHash, VarValue object) {
     objects.insert_or_assign(varNameHash, object);
   }
 
-  auto get(size_t varNameHash) -> PrslObject {
+  auto get(size_t varNameHash) -> VarValue {
     auto it = objects.find(varNameHash);
     if (it != objects.end()) {
       if (std::holds_alternative<std::nullptr_t>(it->second))
@@ -62,24 +62,25 @@ public:
   auto isGlobal() -> bool { return parentEnv == nullptr; }
 
 private:
-  std::unordered_map<size_t, PrslObject> objects;
+  std::unordered_map<size_t, VarValue> objects;
   EnvironmentPtr parentEnv = nullptr;
 };
 
+template <typename VarValue>
 class EnvironmentManager {
 public:
   explicit EnvironmentManager(ErrorReporter &eReporter)
-      : eReporter(eReporter), curEnv(std::make_shared<Environment>(nullptr)) {}
+      : eReporter(eReporter), curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
 
-  void createNewEnviron() { curEnv = std::make_shared<Environment>(curEnv); }
+  void createNewEnviron() { curEnv = std::make_shared<Environment<VarValue>>(curEnv); }
 
   void
-  discardEnvironsTill(const Environment::EnvironmentPtr &environToRestore) {
+  discardEnvironsTill(const Environment<VarValue>::EnvironmentPtr &environToRestore) {
     while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get())
       curEnv = curEnv->getParentEnv();
   }
 
-  void assign(const Types::Token &token, PrslObject object) {
+  void assign(const Types::Token &token, VarValue object) {
     try {
       curEnv->assign(hasher(token.getLexeme()), std::move(object));
     } catch (const UndefVarAccess &e) {
@@ -88,15 +89,15 @@ public:
     }
   }
 
-  void define(std::string_view str, PrslObject object) {
+  void define(std::string_view str, VarValue object) {
     curEnv->define(hasher(str), std::move(object));
   }
 
-  void define(const Types::Token &token, PrslObject object) {
+  void define(const Types::Token &token, VarValue object) {
     curEnv->define(hasher(token.getLexeme()), std::move(object));
   }
 
-  auto get(const Types::Token &token) -> PrslObject {
+  auto get(const Types::Token &token) -> VarValue {
     try {
       return curEnv->get(hasher(token.getLexeme()));
     } catch (const UndefVarAccess &e) {
@@ -108,15 +109,15 @@ public:
     }
   }
 
-  auto getCurEnv() -> Environment::EnvironmentPtr { return curEnv; }
+  auto getCurEnv() -> Environment<VarValue>::EnvironmentPtr { return curEnv; }
 
-  void setCurEnv(Environment::EnvironmentPtr newCur) {
+  void setCurEnv(Environment<VarValue>::EnvironmentPtr newCur) {
     curEnv = std::move(newCur);
   }
 
 private:
   ErrorReporter &eReporter;
-  Environment::EnvironmentPtr curEnv;
+  Environment<VarValue>::EnvironmentPtr curEnv;
   std::hash<std::string_view> hasher;
 };
 

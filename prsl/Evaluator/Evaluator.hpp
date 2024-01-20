@@ -222,7 +222,7 @@ private:
   }
 
   ErrorReporter &eReporter;
-  EnvironmentManager envManager;
+  EnvironmentManager<PrslObject> envManager;
 };
 
 } // namespace prsl::Evaluator
