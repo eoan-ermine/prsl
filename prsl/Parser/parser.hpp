@@ -134,7 +134,7 @@ private:
   ExprPtrVariant comparisonExpr() {
     auto comparatorTypes = {Token::Type::GREATER, Token::Type::GREATER_EQUAL,
                             Token::Type::LESS,    Token::Type::LESS_EQUAL,
-                            Token::Type::EQUAL,   Token::Type::NOT_EQUAL};
+                            Token::Type::EQUAL_EQUAL,   Token::Type::NOT_EQUAL};
     auto expr = additionExpr();
     while (match(comparatorTypes)) {
       Token op = getTokenAdvance();
