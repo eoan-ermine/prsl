@@ -35,7 +35,7 @@ public:
       : eReporter(eReporter), context(std::make_unique<LLVMContext>()),
         module(std::make_unique<Module>("Prsl", *context)),
         builder(std::make_unique<IRBuilder<>>(*context)),
-        envManager(this->eReporter) {
+        envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
     FunctionType *FT = FunctionType::get(llvm::Type::getVoidTy(*context),
                                          std::vector<llvm::Type *>{}, false);
     Function *F = Function::Create(FT, Function::ExternalLinkage, "__main__",
@@ -98,7 +98,7 @@ public:
 
 private:
   auto codegenLiteralExpr(const LiteralExprPtr &expr) -> Value * {
-    return ConstantInt::get(*context, APInt(32, expr->literalVal, true));
+    return ConstantInt::get(intType, expr->literalVal);
   }
 
   auto codegenGroupingExpr(const GroupingExprPtr &expr) -> Value * {
@@ -107,8 +107,8 @@ private:
 
   auto codegenVarExpr(const VarExprPtr &expr) -> Value * {
     AllocaInst *V = envManager.get(expr->ident);
-    return builder->CreateLoad(V->getAllocatedType(), V,
-                               expr->ident.getLexeme().data());
+    return builder->CreateLoad(intType, V,
+                               expr->ident.getLexeme());
   }
 
   auto codegenInputExpr(const InputExprPtr &expr) -> Value * {
@@ -116,9 +116,9 @@ private:
     Function *func_scanf = module->getFunction("scanf");
 
     if (!func_scanf) {
-      std::vector<llvm::Type *> ints(0, llvm::Type::getInt32Ty(*context));
+      std::vector<llvm::Type *> ints(0, intType);
       FunctionType *funcType =
-          FunctionType::get(llvm::Type::getInt32Ty(*context), ints, false);
+          FunctionType::get(intType, ints, false);
       func_scanf = Function::Create(funcType, Function::ExternalLinkage,
                                     "scanf", module.get());
       func_scanf->setCallingConv(CallingConv::C);
@@ -190,7 +190,7 @@ private:
   }
 
   auto postfixExpr(const Token &op, Value *obj) {
-    Value *constOne = ConstantInt::get(*context, APInt(32, 1, true));
+    Value *constOne = ConstantInt::get(intType, 1);
 
     Value *value;
     switch (op.getType()) {
@@ -225,7 +225,7 @@ private:
   Value *codegenIfStmt(const IfStmtPtr &stmt) {
     Value *conditionV = codegenExpr(stmt->condition);
     conditionV = builder->CreateICmpNE(
-        conditionV, ConstantInt::get(*context, APInt(32, 0, true)));
+        conditionV, ConstantInt::get(intType, 0));
 
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *function = insertBB->getParent();
@@ -283,7 +283,7 @@ private:
       return nullptr;
 
     endCondition = builder->CreateICmpNE(
-        endCondition, ConstantInt::get(*context, APInt(32, 0, true)),
+        endCondition, ConstantInt::get(intType, 0),
         "loopcondition");
 
     BasicBlock *afterLoopBB = builder->GetInsertBlock();
@@ -300,9 +300,9 @@ private:
     Function *func_printf = module->getFunction("printf");
 
     if (!func_printf) {
-      std::vector<llvm::Type *> ints(1, llvm::Type::getInt32Ty(*context));
+      std::vector<llvm::Type *> ints(1, intType);
       FunctionType *funcType =
-          FunctionType::get(llvm::Type::getInt32Ty(*context), ints, false);
+          FunctionType::get(intType, ints, false);
       func_printf = Function::Create(funcType, Function::ExternalLinkage,
                                      "printf", module.get());
       func_printf->setCallingConv(CallingConv::C);
@@ -321,7 +321,7 @@ private:
     Function *func = insertBB->getParent();
     builder->SetInsertPoint(&func->getEntryBlock(),
                             func->getEntryBlock().begin());
-    AllocaInst *inst = builder->CreateAlloca(llvm::Type::getInt32Ty(*context),
+    AllocaInst *inst = builder->CreateAlloca(intType,
                                              0, variable.getLexeme());
     builder->SetInsertPoint(insertBB);
     envManager.define(variable, inst);
@@ -341,6 +341,8 @@ private:
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;
   Evaluator::EnvironmentManager<AllocaInst *> envManager;
+  llvm::Type* intType;
+
 };
 
 } // namespace prsl::Codegen
