@@ -15,6 +15,8 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
+#include <llvm-18/llvm/IR/CallingConv.h>
+#include <llvm-18/llvm/IR/Instructions.h>
 #include <memory>
 #include <variant>
 
@@ -104,7 +106,22 @@ private:
   }
 
   auto codegenInputExpr(const InputExprPtr &expr) -> Value * {
-    return nullptr;
+    BasicBlock *insertBB = builder->GetInsertBlock();
+    Function *func_scanf = module->getFunction("scanf");
+    
+    if (!func_scanf) {
+      std::vector<llvm::Type*> ints(0, llvm::Type::getInt32Ty(*context));
+      FunctionType *funcType = FunctionType::get(llvm::Type::getInt32Ty(*context), ints, false);
+      func_scanf = Function::Create(funcType, Function::ExternalLinkage, "scanf", module.get());
+      func_scanf->setCallingConv(CallingConv::C);
+    }
+
+    Value *str = builder->CreateGlobalStringPtr("%d");
+    std::vector<Value*> call_params;
+    call_params.push_back(str);
+
+    CallInst *call = llvm::CallInst::Create(func_scanf, call_params, "calltmp", insertBB);
+    return call;
   }
 
   auto codegenAssignmentExpr(const AssignmentExprPtr &expr) -> Value * {
