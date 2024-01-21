@@ -56,6 +56,10 @@ public:
     throw UndefVarAccess{};
   }
 
+  auto contains(size_t varNameHash) -> bool {
+    return objects.contains(varNameHash);
+  }
+
   auto getParentEnv() -> EnvironmentPtr { return parentEnv; }
 
   auto isGlobal() -> bool { return parentEnv == nullptr; }
@@ -65,16 +69,18 @@ private:
   EnvironmentPtr parentEnv = nullptr;
 };
 
-template <typename VarValue>
-class EnvironmentManager {
+template <typename VarValue> class EnvironmentManager {
 public:
   explicit EnvironmentManager(ErrorReporter &eReporter)
-      : eReporter(eReporter), curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
+      : eReporter(eReporter),
+        curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
 
-  void createNewEnviron() { curEnv = std::make_shared<Environment<VarValue>>(curEnv); }
+  void createNewEnviron() {
+    curEnv = std::make_shared<Environment<VarValue>>(curEnv);
+  }
 
-  void
-  discardEnvironsTill(const Environment<VarValue>::EnvironmentPtr &environToRestore) {
+  void discardEnvironsTill(
+      const Environment<VarValue>::EnvironmentPtr &environToRestore) {
     while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get())
       curEnv = curEnv->getParentEnv();
   }
@@ -106,6 +112,10 @@ public:
       throw Errors::reportRuntimeError(eReporter, token,
                                        "Attempt to access an uninit variable");
     }
+  }
+
+  auto contains(const Types::Token &token) -> bool {
+    return curEnv->contains(hasher(token.getLexeme()));
   }
 
   auto getCurEnv() -> Environment<VarValue>::EnvironmentPtr { return curEnv; }

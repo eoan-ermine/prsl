@@ -4,8 +4,6 @@
 #include "prsl/Evaluator/Environment.hpp"
 #include "prsl/Types/Token.hpp"
 
-#include "llvm/ADT/APFloat.h"
-#include "llvm/ADT/STLExtras.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DerivedTypes.h"
@@ -15,8 +13,8 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
-#include <llvm-18/llvm/IR/CallingConv.h>
-#include <llvm-18/llvm/IR/Instructions.h>
+#include <llvm/IR/CallingConv.h>
+#include <llvm/IR/Instructions.h>
 #include <memory>
 #include <variant>
 
@@ -34,8 +32,17 @@ using Type = Types::Token::Type;
 class Codegen {
 public:
   explicit Codegen(ErrorReporter &eReporter)
-      : eReporter(eReporter), context(std::make_unique<LLVMContext>()), module(std::make_unique<Module>("Prsl", *context)), builder(std::make_unique<IRBuilder<>>(*context)),
-        envManager(this->eReporter) {}
+      : eReporter(eReporter), context(std::make_unique<LLVMContext>()),
+        module(std::make_unique<Module>("Prsl", *context)),
+        builder(std::make_unique<IRBuilder<>>(*context)),
+        envManager(this->eReporter) {
+    FunctionType *FT = FunctionType::get(llvm::Type::getVoidTy(*context),
+                                         std::vector<llvm::Type *>{}, false);
+    Function *F = Function::Create(FT, Function::ExternalLinkage, "__main__",
+                                   module.get());
+    BasicBlock *BB = BasicBlock::Create(*context, "", F);
+    builder->SetInsertPoint(BB);
+  }
 
   auto codegenExpr(const ExprPtrVariant &expr) -> Value * {
     switch (expr.index()) {
@@ -87,9 +94,7 @@ public:
     }
   }
 
-  auto print() {
-    module->print(errs(), nullptr);
-  }
+  auto print() { module->print(errs(), nullptr); }
 
 private:
   auto codegenLiteralExpr(const LiteralExprPtr &expr) -> Value * {
@@ -101,8 +106,9 @@ private:
   }
 
   auto codegenVarExpr(const VarExprPtr &expr) -> Value * {
-    Value *V = envManager.get(expr->ident);
-    return V;
+    AllocaInst *V = envManager.get(expr->ident);
+    return builder->CreateLoad(V->getAllocatedType(), V,
+                               expr->ident.getLexeme().data());
   }
 
   auto codegenInputExpr(const InputExprPtr &expr) -> Value * {
@@ -110,23 +116,28 @@ private:
     Function *func_scanf = module->getFunction("scanf");
     
     if (!func_scanf) {
-      std::vector<llvm::Type*> ints(0, llvm::Type::getInt32Ty(*context));
-      FunctionType *funcType = FunctionType::get(llvm::Type::getInt32Ty(*context), ints, false);
-      func_scanf = Function::Create(funcType, Function::ExternalLinkage, "scanf", module.get());
+      std::vector<llvm::Type *> ints(0, llvm::Type::getInt32Ty(*context));
+      FunctionType *funcType =
+          FunctionType::get(llvm::Type::getInt32Ty(*context), ints, false);
+      func_scanf = Function::Create(funcType, Function::ExternalLinkage,
+                                    "scanf", module.get());
       func_scanf->setCallingConv(CallingConv::C);
     }
 
     Value *str = builder->CreateGlobalStringPtr("%d");
-    std::vector<Value*> call_params;
+    std::vector<Value *> call_params;
     call_params.push_back(str);
 
-    CallInst *call = llvm::CallInst::Create(func_scanf, call_params, "calltmp", insertBB);
+    CallInst *call =
+        llvm::CallInst::Create(func_scanf, call_params, "calltmp", insertBB);
     return call;
   }
 
   auto codegenAssignmentExpr(const AssignmentExprPtr &expr) -> Value * {
-    envManager.assign(expr->varName, codegenExpr(expr->initializer));
-    return envManager.get(expr->varName);
+    Value *value = codegenExpr(expr->initializer);
+    AllocaInst *varInst = getOrCreateAllocVar(expr->varName);
+    builder->CreateStore(value, varInst);
+    return value;
   }
 
   auto codegenUnaryExpr(const UnaryExprPtr &expr) -> Value * {
@@ -178,36 +189,37 @@ private:
                              "Illegal operator in expression");
   }
 
-  auto postfixExpr(const Token &op, Value *obj) -> Value * {
+  auto postfixExpr(const Token &op, Value *obj) {
     Value *constOne = ConstantInt::get(*context, APInt(32, 1, true));
 
+    Value *value;
     switch (op.getType()) {
     case Token::Type::PLUS_PLUS:
-      return builder->CreateAdd(obj, constOne);
-    case Token::Type::MINUS_MINUS:
-      return builder->CreateSub(obj, constOne);
-    default:
+      value = builder->CreateAdd(obj, constOne);
       break;
+    case Token::Type::MINUS_MINUS:
+      value = builder->CreateSub(obj, constOne);
+      break;
+    default:
+      throw reportRuntimeError(eReporter, op, "Illegal operator in expression");
     }
 
-    throw reportRuntimeError(eReporter, op, "Illegal operator in expression");
+    builder->CreateStore(value, obj);
   }
 
   auto codegenPostfixExpr(const PostfixExprPtr &expr) -> Value * {
     Value *obj = codegenExpr(expr->expression);
     if (std::holds_alternative<VarExprPtr>(expr->expression)) {
-      envManager.assign(std::get<VarExprPtr>(expr->expression)->ident,
-                        postfixExpr(expr->op, obj));
+      postfixExpr(expr->op, obj);
     }
     return obj;
   }
 
   Value *codegenVarStmt(const VarStmtPtr &stmt) {
-    auto V = codegenExpr(stmt->initializer);
-    if (!V)
-      return nullptr;
-    envManager.define(stmt->varName, codegenExpr(stmt->initializer));
-    return nullptr;
+    Value *value = codegenExpr(stmt->initializer);
+    AllocaInst *varInst = getOrCreateAllocVar(stmt->varName);
+    builder->CreateStore(value, varInst);
+    return value;
   };
 
   Value *codegenIfStmt(const IfStmtPtr &stmt) {
@@ -274,7 +286,9 @@ private:
     if (!endCondition)
         return nullptr;
 
-    endCondition = builder->CreateICmpNE(endCondition, ConstantInt::get(*context, APInt(32, 0, true)), "loopcondition");
+    endCondition = builder->CreateICmpNE(
+        endCondition, ConstantInt::get(*context, APInt(32, 0, true)),
+        "loopcondition");
 
     BasicBlock *afterLoopBB = builder->GetInsertBlock();
     BasicBlock *afterBB = BasicBlock::Create(*context, "afterloop", function);
@@ -285,14 +299,31 @@ private:
   }
 
   Value *codegenPrintStmt(const PrintStmtPtr &stmt) {
-    return nullptr;
+
+  AllocaInst *allocVar(const Token &variable) {
+    BasicBlock *insertBB = builder->GetInsertBlock();
+    Function *func = insertBB->getParent();
+    llvm::IRBuilder<> tmpB(&func->getEntryBlock(),
+                           func->getEntryBlock().begin());
+    AllocaInst *inst = tmpB.CreateAlloca(llvm::Type::getInt32Ty(*context), 0,
+                                         variable.getLexeme());
+    envManager.define(variable, inst);
+
+    return inst;
+  }
+
+  AllocaInst *getOrCreateAllocVar(const Token &variable) {
+    if (envManager.contains(variable))
+      return envManager.get(variable);
+    AllocaInst *inst = allocVar(variable);
+    return inst;
   }
 
   ErrorReporter &eReporter;
   std::unique_ptr<LLVMContext> context;
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;
-  Evaluator::EnvironmentManager<Value *> envManager;
+  Evaluator::EnvironmentManager<AllocaInst *> envManager;
 };
 
 } // namespace prsl::Codegen
