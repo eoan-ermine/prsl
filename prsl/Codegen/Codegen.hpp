@@ -114,7 +114,7 @@ private:
   auto codegenInputExpr(const InputExprPtr &expr) -> Value * {
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *func_scanf = module->getFunction("scanf");
-    
+
     if (!func_scanf) {
       std::vector<llvm::Type *> ints(0, llvm::Type::getInt32Ty(*context));
       FunctionType *funcType =
@@ -280,11 +280,11 @@ private:
     builder->SetInsertPoint(loopBB);
 
     if (!codegenStmt(stmt->body))
-        return nullptr;
+      return nullptr;
 
     Value *endCondition = codegenExpr(stmt->condition);
     if (!endCondition)
-        return nullptr;
+      return nullptr;
 
     endCondition = builder->CreateICmpNE(
         endCondition, ConstantInt::get(*context, APInt(32, 0, true)),
@@ -299,6 +299,26 @@ private:
   }
 
   Value *codegenPrintStmt(const PrintStmtPtr &stmt) {
+    Value *val = codegenExpr(stmt->value);
+    BasicBlock *insertBB = builder->GetInsertBlock();
+    Function *func_printf = module->getFunction("printf");
+
+    if (!func_printf) {
+      std::vector<llvm::Type *> ints(1, llvm::Type::getInt32Ty(*context));
+      FunctionType *funcType =
+          FunctionType::get(llvm::Type::getInt32Ty(*context), ints, false);
+      func_printf = Function::Create(funcType, Function::ExternalLinkage,
+                                     "printf", module.get());
+      func_printf->setCallingConv(CallingConv::C);
+    }
+
+    Value *str = builder->CreateGlobalStringPtr("%d");
+    std::vector<llvm::Value *> call_params;
+    call_params.push_back(val);
+    CallInst::Create(func_printf, call_params, "calltmp", insertBB);
+
+    return val;
+  }
 
   AllocaInst *allocVar(const Token &variable) {
     BasicBlock *insertBB = builder->GetInsertBlock();
