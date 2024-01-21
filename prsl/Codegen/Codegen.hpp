@@ -313,6 +313,7 @@ private:
 
     Value *str = builder->CreateGlobalStringPtr("%d");
     std::vector<llvm::Value *> call_params;
+    call_params.push_back(str);
     call_params.push_back(val);
     CallInst::Create(func_printf, call_params, "calltmp", insertBB);
 
