@@ -224,43 +224,39 @@ private:
 
   Value *codegenIfStmt(const IfStmtPtr &stmt) {
     Value *conditionV = codegenExpr(stmt->condition);
-    if (!conditionV)
-      return nullptr;
-
     conditionV = builder->CreateICmpNE(
         conditionV, ConstantInt::get(*context, APInt(32, 0, true)));
 
-    Function *function = builder->GetInsertBlock()->getParent();
+    BasicBlock *insertBB = builder->GetInsertBlock();
+    Function *function = insertBB->getParent();
+
     BasicBlock *thenBB = BasicBlock::Create(*context, "then", function);
-    BasicBlock *elseBB = BasicBlock::Create(*context, "else");
+    BasicBlock *elseBB;
     BasicBlock *mergeBB = BasicBlock::Create(*context, "ifcont");
 
+    if (stmt->elseBranch) {
+      elseBB = BasicBlock::Create(*context, "else");
+      builder->CreateCondBr(conditionV, thenBB, elseBB);
+    } else {
+      builder->CreateCondBr(conditionV, thenBB, mergeBB);
+    }
+
     builder->SetInsertPoint(thenBB);
-
-    Value *thenV = codegenStmt(stmt->thenBranch);
-    if (!thenV)
-      return nullptr;
-
+    codegenStmt(stmt->thenBranch);
     builder->CreateBr(mergeBB);
     thenBB = builder->GetInsertBlock();
 
-    function->insert(function->end(), elseBB);
-    builder->SetInsertPoint(elseBB);
-
-    Value *elseV = codegenStmt(*stmt->elseBranch);
-    if (!elseV)
-      return nullptr;
-
-    builder->CreateBr(mergeBB);
-    elseBB = builder->GetInsertBlock();
+    if (stmt->elseBranch) {
+      function->insert(function->end(), elseBB);
+      builder->SetInsertPoint(elseBB);
+      codegenStmt(*stmt->elseBranch);
+      builder->CreateBr(mergeBB);
+      elseBB = builder->GetInsertBlock();
+    }
 
     function->insert(function->end(), mergeBB);
     builder->SetInsertPoint(mergeBB);
-    PHINode *PN =
-        builder->CreatePHI(llvm::Type::getInt32Ty(*context), 2, "iftmp");
-    PN->addIncoming(thenV, thenBB);
-    PN->addIncoming(elseV, elseBB);
-    return PN;
+    return nullptr;
   }
 
   Value *codegenBlockStmt(const BlockStmtPtr &stmt) {
@@ -323,10 +319,11 @@ private:
   AllocaInst *allocVar(const Token &variable) {
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *func = insertBB->getParent();
-    llvm::IRBuilder<> tmpB(&func->getEntryBlock(),
-                           func->getEntryBlock().begin());
-    AllocaInst *inst = tmpB.CreateAlloca(llvm::Type::getInt32Ty(*context), 0,
-                                         variable.getLexeme());
+    builder->SetInsertPoint(&func->getEntryBlock(),
+                            func->getEntryBlock().begin());
+    AllocaInst *inst = builder->CreateAlloca(llvm::Type::getInt32Ty(*context),
+                                             0, variable.getLexeme());
+    builder->SetInsertPoint(insertBB);
     envManager.define(variable, inst);
 
     return inst;
