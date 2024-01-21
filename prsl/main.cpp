@@ -6,7 +6,8 @@
 #include "prsl/Parser/parser.hpp"
 #include "prsl/Scanner/scanner.hpp"
 #include <fstream>
-#include <iterator>
+
+#include "llvm/Support/FileSystem.h"
 
 void run(prsl::Errors::ErrorReporter eReporter,
          prsl::Evaluator::Evaluator evaluator, std::string_view source) {
@@ -34,13 +35,21 @@ void codegen(prsl::Errors::ErrorReporter eReporter,
   }
 
   codegen.codegenStmts(statements);
-  codegen.print();
+
+  std::error_code ec;
+  auto fileStream =
+      llvm::raw_fd_ostream("output.ll", ec, llvm::sys::fs::OpenFlags::OF_None);
+  if (ec)
+    std::cout << ec << '\n';
+  codegen.dump(fileStream);
 }
 
 void runFile(std::string_view path, bool codegen_ = false) {
   std::ifstream file{path.data()};
-  std::string source{std::istream_iterator<char>{file},
-                     std::istream_iterator<char>{}};
+  std::ostringstream sstr;
+  sstr << file.rdbuf();
+  auto source = sstr.str();
+
   prsl::Errors::ErrorReporter eReporter;
   if (codegen_) {
     prsl::Codegen::Codegen codegenObj{eReporter};
@@ -55,9 +64,10 @@ void runPrompt(bool codegen_ = false) {
   prsl::Codegen::Codegen codegenObj{eReporter};
 
   for (std::string line; std::getline(std::cin, line);) {
-    if (codegen_)
+    if (codegen_) {
+      // TODO: It doesn't work
       codegen(eReporter, codegenObj, line);
-    else
+    } else
       run(eReporter, evaluator, line);
   }
 }

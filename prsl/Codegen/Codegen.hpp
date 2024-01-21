@@ -38,7 +38,7 @@ public:
         envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
     FunctionType *FT = FunctionType::get(llvm::Type::getVoidTy(*context),
                                          std::vector<llvm::Type *>{}, false);
-    Function *F = Function::Create(FT, Function::ExternalLinkage, "__main__",
+    Function *F = Function::Create(FT, Function::ExternalLinkage, "main",
                                    module.get());
     BasicBlock *BB = BasicBlock::Create(*context, "", F);
     builder->SetInsertPoint(BB);
@@ -94,7 +94,10 @@ public:
     }
   }
 
-  auto print() { module->print(errs(), nullptr); }
+  auto dump(raw_ostream& stream) { 
+    builder->CreateRetVoid();
+    module->print(stream, nullptr);
+  }
 
 private:
   auto codegenLiteralExpr(const LiteralExprPtr &expr) -> Value * {
