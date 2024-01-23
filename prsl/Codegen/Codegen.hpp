@@ -173,17 +173,17 @@ private:
     case Token::Type::SLASH:
       return builder->CreateSDiv(lhs, rhs, "divtmp");
     case Token::Type::NOT_EQUAL:
-      return builder->CreateICmpNE(lhs, rhs);
+      return builder->CreateICmpNE(lhs, rhs, "netmp");
     case Token::Type::EQUAL_EQUAL:
-      return builder->CreateICmpEQ(lhs, rhs);
+      return builder->CreateICmpEQ(lhs, rhs, "etmp");
     case Token::Type::LESS:
-      return builder->CreateICmpSLT(lhs, rhs);
+      return builder->CreateICmpSLT(lhs, rhs, "ltmp");
     case Token::Type::LESS_EQUAL:
-      return builder->CreateICmpSLE(lhs, rhs);
+      return builder->CreateICmpSLE(lhs, rhs, "letmp");
     case Token::Type::GREATER:
-      return builder->CreateICmpSGT(lhs, rhs);
+      return builder->CreateICmpSGT(lhs, rhs, "gtmp");
     case Token::Type::GREATER_EQUAL:
-      return builder->CreateICmpSGE(lhs, rhs);
+      return builder->CreateICmpSGE(lhs, rhs, "getmp");
     default:
       break;
     }
@@ -198,10 +198,10 @@ private:
     Value *value;
     switch (op.getType()) {
     case Token::Type::PLUS_PLUS:
-      value = builder->CreateAdd(obj, constOne);
+      value = builder->CreateAdd(obj, constOne, "inctmp");
       break;
     case Token::Type::MINUS_MINUS:
-      value = builder->CreateSub(obj, constOne);
+      value = builder->CreateSub(obj, constOne, "dectmp");
       break;
     default:
       throw reportRuntimeError(eReporter, op, "Illegal operator in expression");
@@ -228,7 +228,7 @@ private:
   Value *codegenIfStmt(const IfStmtPtr &stmt) {
     Value *conditionV = codegenExpr(stmt->condition);
     conditionV = builder->CreateICmpNE(
-        conditionV, ConstantInt::get(intType, 0));
+        conditionV, ConstantInt::get(intType, 0), "condtmp");
 
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *function = insertBB->getParent();
