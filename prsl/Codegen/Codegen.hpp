@@ -38,8 +38,8 @@ public:
         envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
     FunctionType *FT = FunctionType::get(llvm::Type::getVoidTy(*context),
                                          std::vector<llvm::Type *>{}, false);
-    Function *F = Function::Create(FT, Function::ExternalLinkage, "main",
-                                   module.get());
+    Function *F =
+        Function::Create(FT, Function::ExternalLinkage, "main", module.get());
     BasicBlock *BB = BasicBlock::Create(*context, "", F);
     builder->SetInsertPoint(BB);
   }
@@ -94,7 +94,7 @@ public:
     }
   }
 
-  auto dump(raw_ostream& stream) { 
+  auto dump(raw_ostream &stream) {
     builder->CreateRetVoid();
     module->print(stream, nullptr);
   }
@@ -110,8 +110,7 @@ private:
 
   auto codegenVarExpr(const VarExprPtr &expr) -> Value * {
     AllocaInst *V = envManager.get(expr->ident);
-    return builder->CreateLoad(intType, V,
-                               expr->ident.getLexeme());
+    return builder->CreateLoad(intType, V, expr->ident.getLexeme());
   }
 
   auto codegenInputExpr(const InputExprPtr &expr) -> Value * {
@@ -120,8 +119,7 @@ private:
 
     if (!func_scanf) {
       std::vector<llvm::Type *> ints(0, intType);
-      FunctionType *funcType =
-          FunctionType::get(intType, ints, false);
+      FunctionType *funcType = FunctionType::get(intType, ints, false);
       func_scanf = Function::Create(funcType, Function::ExternalLinkage,
                                     "scanf", module.get());
       func_scanf->setCallingConv(CallingConv::C);
@@ -228,8 +226,9 @@ private:
 
   Value *codegenIfStmt(const IfStmtPtr &stmt) {
     Value *conditionV = codegenExpr(stmt->condition);
-    conditionV = builder->CreateICmpNE(conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
-                                       "condtmp");
+    conditionV = builder->CreateICmpNE(
+        conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
+        "condtmp");
 
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *function = insertBB->getParent();
@@ -279,21 +278,16 @@ private:
     builder->CreateBr(loopBB);
     builder->SetInsertPoint(loopBB);
 
-    if (!codegenStmt(stmt->body))
-      return nullptr;
+    codegenStmt(stmt->body);
 
-    Value *endCondition = codegenExpr(stmt->condition);
-    if (!endCondition)
-      return nullptr;
-
-    endCondition = builder->CreateICmpNE(
-        endCondition, ConstantInt::get(intType, 0),
+    Value *conditionV = codegenExpr(stmt->condition);
+    conditionV = builder->CreateICmpNE(
+        conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
         "loopcondition");
 
-    BasicBlock *afterLoopBB = builder->GetInsertBlock();
     BasicBlock *afterBB = BasicBlock::Create(*context, "afterloop", function);
-
-    builder->CreateCondBr(endCondition, loopBB, afterBB);
+    builder->CreateCondBr(conditionV, loopBB, afterBB);
+    builder->SetInsertPoint(afterBB);
 
     return nullptr;
   }
@@ -305,8 +299,7 @@ private:
 
     if (!func_printf) {
       std::vector<llvm::Type *> ints(1, intType);
-      FunctionType *funcType =
-          FunctionType::get(intType, ints, false);
+      FunctionType *funcType = FunctionType::get(intType, ints, false);
       func_printf = Function::Create(funcType, Function::ExternalLinkage,
                                      "printf", module.get());
       func_printf->setCallingConv(CallingConv::C);
@@ -326,8 +319,7 @@ private:
     Function *func = insertBB->getParent();
     builder->SetInsertPoint(&func->getEntryBlock(),
                             func->getEntryBlock().begin());
-    AllocaInst *inst = builder->CreateAlloca(intType,
-                                             0, variable.getLexeme());
+    AllocaInst *inst = builder->CreateAlloca(intType, 0, variable.getLexeme());
     builder->SetInsertPoint(insertBB);
     envManager.define(variable, inst);
 
@@ -346,8 +338,7 @@ private:
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;
   Evaluator::EnvironmentManager<AllocaInst *> envManager;
-  llvm::Type* intType;
-
+  llvm::Type *intType;
 };
 
 } // namespace prsl::Codegen

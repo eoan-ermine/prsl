@@ -57,6 +57,8 @@ public:
   }
 
   auto contains(size_t varNameHash) -> bool {
+    if (parentEnv != nullptr)
+      return parentEnv->contains(varNameHash);
     return objects.contains(varNameHash);
   }
 
