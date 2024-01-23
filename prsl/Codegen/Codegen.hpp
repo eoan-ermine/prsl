@@ -228,8 +228,8 @@ private:
 
   Value *codegenIfStmt(const IfStmtPtr &stmt) {
     Value *conditionV = codegenExpr(stmt->condition);
-    conditionV = builder->CreateICmpNE(
-        conditionV, ConstantInt::get(intType, 0), "condtmp");
+    conditionV = builder->CreateICmpNE(conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
+                                       "condtmp");
 
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *function = insertBB->getParent();
