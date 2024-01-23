@@ -192,7 +192,7 @@ private:
                              "Illegal operator in expression");
   }
 
-  auto postfixExpr(const Token &op, Value *obj) {
+  auto postfixExpr(const Token &op, Value *obj, Value *res) {
     Value *constOne = ConstantInt::get(intType, 1);
 
     Value *value;
@@ -207,13 +207,14 @@ private:
       throw reportRuntimeError(eReporter, op, "Illegal operator in expression");
     }
 
-    builder->CreateStore(value, obj);
+    builder->CreateStore(value, res);
   }
 
   auto codegenPostfixExpr(const PostfixExprPtr &expr) -> Value * {
     Value *obj = codegenExpr(expr->expression);
     if (std::holds_alternative<VarExprPtr>(expr->expression)) {
-      postfixExpr(expr->op, obj);
+      const auto &varExpr = std::get<VarExprPtr>(expr->expression);
+      postfixExpr(expr->op, obj, envManager.get(varExpr->ident));
     }
     return obj;
   }
