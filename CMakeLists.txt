@@ -12,11 +12,11 @@ include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
 add_executable(
-    prsl
+    ${PROJECT_NAME}
     prsl/main.cpp
 )
 
 llvm_map_components_to_libnames(llvm_libs support core irreader)
 
-target_include_directories(prsl PRIVATE .)
-target_link_libraries(prsl ${llvm_libs})
+target_include_directories(${PROJECT_NAME} PRIVATE .)
+target_link_libraries(${PROJECT_NAME} ${llvm_libs})
