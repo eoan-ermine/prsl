@@ -126,12 +126,14 @@ private:
     }
 
     Value *str = builder->CreateGlobalStringPtr("%d");
+    auto* temp_var = allocVar("inputtemp");
     std::vector<Value *> call_params;
     call_params.push_back(str);
+    call_params.push_back(temp_var);
 
     CallInst *call =
         llvm::CallInst::Create(func_scanf, call_params, "calltmp", insertBB);
-    return call;
+    return builder->CreateLoad(intType, temp_var, "inputres");
   }
 
   auto codegenAssignmentExpr(const AssignmentExprPtr &expr) -> Value * {
@@ -314,22 +316,21 @@ private:
     return val;
   }
 
-  AllocaInst *allocVar(const Token &variable) {
+  AllocaInst *allocVar(std::string_view name) {
     BasicBlock *insertBB = builder->GetInsertBlock();
     Function *func = insertBB->getParent();
     builder->SetInsertPoint(&func->getEntryBlock(),
                             func->getEntryBlock().begin());
-    AllocaInst *inst = builder->CreateAlloca(intType, 0, variable.getLexeme());
+    AllocaInst *inst = builder->CreateAlloca(intType, 0, name);
     builder->SetInsertPoint(insertBB);
-    envManager.define(variable, inst);
-
     return inst;
   }
 
   AllocaInst *getOrCreateAllocVar(const Token &variable) {
     if (envManager.contains(variable))
       return envManager.get(variable);
-    AllocaInst *inst = allocVar(variable);
+    auto inst = allocVar(variable.getLexeme());
+    envManager.define(variable, inst);
     return inst;
   }
 
