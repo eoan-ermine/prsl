@@ -1,6 +1,5 @@
 #pragma once
 
-#include <exception>
 #include <memory>
 #include <string>
 #include <utility>
@@ -68,7 +67,7 @@ public:
     }
   }
 
-  void evaluateStmts(const std::vector<StmtPtrVariant> &stmts) {
+  void executeStmts(const std::vector<StmtPtrVariant> &stmts) {
     for (const auto &stmt : stmts) {
       try {
         evaluateStmt(stmt);
@@ -76,6 +75,10 @@ public:
         eReporter.printToErr();
       }
     }
+  }
+
+  auto dump(std::string_view) {
+    // NO-OP
   }
 
 private:
@@ -207,7 +210,7 @@ private:
   void evaluateBlockStmt(const BlockStmtPtr &stmt) {
     auto curEnv = envManager.getCurEnv();
     envManager.createNewEnviron();
-    evaluateStmts(stmt->statements);
+    executeStmts(stmt->statements);
     envManager.discardEnvironsTill(curEnv);
   }
 

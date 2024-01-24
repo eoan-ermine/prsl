@@ -13,6 +13,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
+#include <llvm/Support/FileSystem.h>
 #include <llvm/IR/CallingConv.h>
 #include <llvm/IR/Instructions.h>
 #include <memory>
@@ -84,7 +85,7 @@ public:
     }
   }
 
-  auto codegenStmts(const std::vector<StmtPtrVariant> &stmts) {
+  auto executeStmts(const std::vector<StmtPtrVariant> &stmts) {
     for (const auto &stmt : stmts) {
       try {
         codegenStmt(stmt);
@@ -94,9 +95,16 @@ public:
     }
   }
 
-  auto dump(raw_ostream &stream) {
+  auto dump(std::string_view filename) {
     builder->CreateRetVoid();
-    module->print(stream, nullptr);
+
+    std::error_code ec;
+    auto fileStream = llvm::raw_fd_ostream(filename, ec,
+                                           llvm::sys::fs::OpenFlags::OF_None);
+    if (ec)
+      std::cout << ec << '\n';
+
+    module->print(fileStream, nullptr);
   }
 
 private:
@@ -267,7 +275,7 @@ private:
   Value *codegenBlockStmt(const BlockStmtPtr &stmt) {
     auto curEnv = envManager.getCurEnv();
     envManager.createNewEnviron();
-    codegenStmts(stmt->statements);
+    executeStmts(stmt->statements);
     envManager.discardEnvironsTill(curEnv);
     return nullptr;
   }
