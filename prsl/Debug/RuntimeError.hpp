@@ -10,11 +10,7 @@ namespace prsl::Errors {
 
 class RuntimeError : std::exception {};
 
-inline auto reportRuntimeError(ErrorReporter &eReporter,
-                               const prsl::Types::Token &token,
-                               const std::string &message) -> RuntimeError {
-  eReporter.setError(token.getLine(), token.toString(), ": ", message);
-  return RuntimeError();
-}
-
+RuntimeError reportRuntimeError(ErrorReporter &eReporter,
+                                const prsl::Types::Token &token,
+                                const std::string &message);
 } // namespace prsl::Errors

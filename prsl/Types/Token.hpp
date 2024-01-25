@@ -37,27 +37,70 @@ public:
     EOF_
   };
 
-  Token(Type type, std::string_view str, int line)
-      : type(type), start(str.data()), length(str.size()), line(line) {}
+  /**
+   * Constructor for Token class.
+   *
+   * @param type the type of the token
+   * @param str the string representation of the token
+   * @param line the line number where the token appears
+   *
+   * @return None
+   *
+   * @throws None
+   */
+  Token(Type type, std::string_view str, int line) noexcept
+      : type(type), lexeme(str), line(line) {}
 
-  bool isError() const { return type == Type::ERROR; }
+  /**
+   * Check if the token represents an error.
+   *
+   * @return true if the token represents an error, false otherwise
+   *
+   * @throws None
+   */
+  bool isError() const noexcept { return type == Type::ERROR; }
 
-  Type getType() const { return type; }
+  /**
+   * Get the type of the token.
+   *
+   * @return the type of the token
+   *
+   * @throws None
+   */
+  Type getType() const noexcept { return type; }
 
-  std::string_view getLexeme() const { return {start, length}; }
+  /**
+   * Get the lexeme of the token.
+   *
+   * @return the lexeme of the token
+   *
+   * @throws None
+   */
+  std::string_view getLexeme() const noexcept { return lexeme; }
 
-  int getLine() const { return line; }
+  /**
+   * Get the line number where the token appears.
+   *
+   * @return the line number
+   *
+   * @throws None
+   */
+  int getLine() const noexcept { return line; }
 
+  /**
+   * Converts the token to a string.
+   *
+   * @return the string representation of the token
+   */
   std::string toString() const {
     if (type == Token::Type::EOF_)
-      return "<EOF>";
-    return {start, length};
+      return "EOF";
+    return {lexeme.data(), lexeme.size()};
   }
 
 private:
   Type type;
-  const char *start;
-  size_t length;
+  std::string_view lexeme;
   int line;
 };
 

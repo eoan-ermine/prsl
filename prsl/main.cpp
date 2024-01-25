@@ -3,9 +3,9 @@
 #include "prsl/Codegen/Codegen.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Evaluator.hpp"
-#include "prsl/Parser/parser.hpp"
+#include "prsl/Parser/Parser.hpp"
 #include "prsl/Semantics/Semantics.hpp"
-#include "prsl/Scanner/scanner.hpp"
+#include "prsl/Scanner/Scanner.hpp"
 #include <fstream>
 
 #include <boost/program_options.hpp>

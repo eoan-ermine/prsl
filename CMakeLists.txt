@@ -22,6 +22,13 @@ find_package(Boost 1.74 COMPONENTS program_options REQUIRED)
 add_executable(
     ${PROJECT_NAME}
     prsl/main.cpp
+    prsl/AST/NodeTypes.cpp
+    prsl/Codegen/Codegen.cpp
+    prsl/Debug/ErrorReporter.cpp prsl/Debug/RuntimeError.cpp
+    prsl/Evaluator/Evaluator.cpp prsl/Evaluator/Objects.cpp
+    prsl/Parser/Parser.cpp
+    prsl/Scanner/Scanner.cpp
+    prsl/Semantics/Semantics.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

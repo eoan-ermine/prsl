@@ -1,10 +1,8 @@
 #pragma once
 
-#pragma once
-
-#include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 namespace prsl::Errors {
 
@@ -12,19 +10,15 @@ enum struct PrslStatus { OK, ERROR };
 
 class ErrorReporter {
 public:
-  void clearErrors() {
-    errorMessages.clear();
-    status = PrslStatus::OK;
-  }
-  auto getStatus() -> PrslStatus { return status; }
-  void printToErr() {
-    for (auto &s : errorMessages) {
-      std::cerr << s << std::endl;
-    }
-  }
+  PrslStatus getStatus();
+
+  void printToErr();
+  void clearErrors();
   template <typename... Args> void setError(int line, Args &&...params) {
+    std::ostringstream ss;
+    ((ss << std::forward<Args>(params)), ...);
     errorMessages.emplace_back("[Line " + std::to_string(line) +
-                               "] Error: " + (params + ...));
+                               "] Error: " + ss.str());
     status = PrslStatus::ERROR;
   }
 

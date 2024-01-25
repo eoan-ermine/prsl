@@ -4,7 +4,6 @@
 #include <exception>
 #include <memory>
 #include <unordered_map>
-#include <variant>
 
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
@@ -29,11 +28,11 @@ public:
   explicit Environment(EnvironmentPtr parentEnv)
       : parentEnv(std::move(parentEnv)) {}
 
-  auto assign(size_t varNameHash, VarValue object) -> bool {
+  void assign(size_t varNameHash, VarValue object) {
     auto iter = objects.find(varNameHash);
     if (iter != objects.end()) {
       objects.insert_or_assign(varNameHash, object);
-      return true;
+      return;
     }
 
     if (parentEnv != nullptr)
@@ -50,10 +49,9 @@ public:
     assign(varNameHash, object);
   }
 
-  auto get(size_t varNameHash) -> VarValue {
+  VarValue get(size_t varNameHash) {
     auto it = objects.find(varNameHash);
     if (it != objects.end()) {
-      // TODO: Universal check for uninit
       return it->second;
     }
 
@@ -63,15 +61,15 @@ public:
     throw UndefVarAccess{};
   }
 
-  auto contains(size_t varNameHash) -> bool {
+  bool contains(size_t varNameHash) {
     if (parentEnv != nullptr)
       return parentEnv->contains(varNameHash);
     return objects.contains(varNameHash);
   }
 
-  auto getParentEnv() -> EnvironmentPtr { return parentEnv; }
+  EnvironmentPtr getParentEnv() { return parentEnv; }
 
-  auto isGlobal() -> bool { return parentEnv == nullptr; }
+  bool isGlobal() { return parentEnv == nullptr; }
 
 private:
   std::unordered_map<size_t, VarValue> objects;
@@ -84,11 +82,11 @@ public:
       : eReporter(eReporter),
         curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
 
-  void createNewEnviron() {
+  void createNewEnv() {
     curEnv = std::make_shared<Environment<VarValue>>(curEnv);
   }
 
-  void discardEnvironsTill(
+  void discardEnvsTill(
       const Environment<VarValue>::EnvironmentPtr &environToRestore) {
     while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get())
       curEnv = curEnv->getParentEnv();
@@ -99,7 +97,7 @@ public:
       curEnv->assign(hasher(token.getLexeme()), std::move(object));
     } catch (const UndefVarAccess &e) {
       throw Errors::reportRuntimeError(eReporter, token,
-                                       "Attempt to access an uninit variable");
+                                       "Attempt to access an undef variable");
     }
   }
 
@@ -111,7 +109,7 @@ public:
     curEnv->defineOrAssign(hasher(token.getLexeme()), std::move(object));
   }
 
-  auto get(const Types::Token &token) -> VarValue {
+  VarValue get(const Types::Token &token) {
     try {
       return curEnv->get(hasher(token.getLexeme()));
     } catch (const UndefVarAccess &e) {
@@ -123,11 +121,11 @@ public:
     }
   }
 
-  auto contains(const Types::Token &token) -> bool {
+  bool contains(const Types::Token &token) {
     return curEnv->contains(hasher(token.getLexeme()));
   }
 
-  auto getCurEnv() -> Environment<VarValue>::EnvironmentPtr { return curEnv; }
+  Environment<VarValue>::EnvironmentPtr getCurEnv() { return curEnv; }
 
   void setCurEnv(Environment<VarValue>::EnvironmentPtr newCur) {
     curEnv = std::move(newCur);

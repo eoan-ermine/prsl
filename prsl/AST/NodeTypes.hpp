@@ -76,36 +76,33 @@ using prsl::Types::Token;
 
 struct LiteralExpr final {
   int literalVal;
-  explicit LiteralExpr(int value) { literalVal = value; }
+  explicit LiteralExpr(int value);
 };
 
 struct GroupingExpr final {
   ExprPtrVariant expression;
-  explicit GroupingExpr(ExprPtrVariant expression)
-      : expression(std::move(expression)) {}
+  explicit GroupingExpr(ExprPtrVariant expression);
 };
 
 struct VarExpr final {
   Token ident;
-  explicit VarExpr(Token ident) : ident(ident) {}
+  explicit VarExpr(Token ident);
 };
 
 struct InputExpr final {
-  explicit InputExpr() {}
+  explicit InputExpr();
 };
 
 struct AssignmentExpr final {
   Token varName;
   ExprPtrVariant initializer;
-  explicit AssignmentExpr(Token varName, ExprPtrVariant initializer)
-      : varName(varName), initializer(std::move(initializer)) {}
+  explicit AssignmentExpr(Token varName, ExprPtrVariant initializer);
 };
 
 struct UnaryExpr final {
   Types::Token op;
   ExprPtrVariant expression;
-  explicit UnaryExpr(ExprPtrVariant expression, Types::Token op)
-      : expression(std::move(expression)), op(op) {}
+  explicit UnaryExpr(ExprPtrVariant expression, Types::Token op);
 };
 
 struct BinaryExpr final {
@@ -113,23 +110,19 @@ struct BinaryExpr final {
   ExprPtrVariant lhsExpression;
   ExprPtrVariant rhsExpression;
   explicit BinaryExpr(ExprPtrVariant lhsExpression, Types::Token op,
-                      ExprPtrVariant rhsExpression)
-      : lhsExpression(std::move(lhsExpression)), op(op),
-        rhsExpression(std::move(rhsExpression)) {}
+                      ExprPtrVariant rhsExpression);
 };
 
 struct PostfixExpr final {
   Types::Token op;
   ExprPtrVariant expression;
-  explicit PostfixExpr(ExprPtrVariant expression, Types::Token op)
-      : expression(std::move(expression)), op(op) {}
+  explicit PostfixExpr(ExprPtrVariant expression, Types::Token op);
 };
 
 struct VarStmt final {
   Token varName;
   ExprPtrVariant initializer;
-  explicit VarStmt(Token varName, ExprPtrVariant initializer)
-      : varName(varName), initializer(std::move(initializer)) {}
+  explicit VarStmt(Token varName, ExprPtrVariant initializer);
 };
 
 struct IfStmt final {
@@ -138,96 +131,58 @@ struct IfStmt final {
   std::optional<StmtPtrVariant> elseBranch;
 
   explicit IfStmt(ExprPtrVariant condition, StmtPtrVariant thenBranch,
-                  std::optional<StmtPtrVariant> elseBranch)
-      : condition(std::move(condition)), thenBranch(std::move(thenBranch)),
-        elseBranch(std::move(elseBranch)) {}
+                  std::optional<StmtPtrVariant> elseBranch);
 };
 
 struct BlockStmt final {
   std::vector<StmtPtrVariant> statements;
-  explicit BlockStmt(std::vector<StmtPtrVariant> statements)
-      : statements(std::move(statements)) {}
+  explicit BlockStmt(std::vector<StmtPtrVariant> statements);
 };
 
 struct WhileStmt final {
   ExprPtrVariant condition;
   StmtPtrVariant body;
-  explicit WhileStmt(ExprPtrVariant condition, StmtPtrVariant body)
-      : condition(std::move(condition)), body(std::move(body)) {}
+  explicit WhileStmt(ExprPtrVariant condition, StmtPtrVariant body);
 };
 
 struct PrintStmt final {
   ExprPtrVariant value;
-  explicit PrintStmt(ExprPtrVariant value) : value(std::move(value)) {}
+  explicit PrintStmt(ExprPtrVariant value);
 };
 
 struct ExprStmt final {
   ExprPtrVariant expression;
-  explicit ExprStmt(ExprPtrVariant expression) : expression(std::move(expression)) {}
+  explicit ExprStmt(ExprPtrVariant expression);
 };
 
-inline auto createLiteralEPV(int literalVal) -> ExprPtrVariant {
-  return std::make_unique<LiteralExpr>(literalVal);
-}
+ExprPtrVariant createLiteralEPV(int literalVal);
 
-inline auto createGroupingEPV(ExprPtrVariant expression) -> ExprPtrVariant {
-  return std::make_unique<GroupingExpr>(std::move(expression));
-}
+ExprPtrVariant createGroupingEPV(ExprPtrVariant expression);
 
-inline auto createVarEPV(Token ident) -> ExprPtrVariant {
-  return std::make_unique<VarExpr>(ident);
-}
+ExprPtrVariant createVarEPV(Token ident);
 
-inline auto createInputEPV() -> ExprPtrVariant {
-  return std::make_unique<InputExpr>();
-}
+ExprPtrVariant createInputEPV();
 
-inline auto createAssignmentEPV(Token varName,
-                                ExprPtrVariant initializer) -> ExprPtrVariant {
-  return std::make_unique<AssignmentExpr>(varName, std::move(initializer));
-}
+ExprPtrVariant createAssignmentEPV(Token varName, ExprPtrVariant initializer);
 
-inline auto createUnaryEPV(ExprPtrVariant expression,
-                           Types::Token op) -> ExprPtrVariant {
-  return std::make_unique<UnaryExpr>(std::move(expression), op);
-}
+ExprPtrVariant createUnaryEPV(ExprPtrVariant expression, Types::Token op);
 
-inline auto createBinaryEPV(ExprPtrVariant lhsExpression, Types::Token op,
-                            ExprPtrVariant rhsExpression) -> ExprPtrVariant {
-  return std::make_unique<BinaryExpr>(std::move(lhsExpression), op,
-                                      std::move(rhsExpression));
-}
+ExprPtrVariant createBinaryEPV(ExprPtrVariant lhsExpression, Types::Token op,
+                               ExprPtrVariant rhsExpression);
 
-inline auto createPostfixEPV(ExprPtrVariant expression,
-                             Types::Token op) -> ExprPtrVariant {
-  return std::make_unique<PostfixExpr>(std::move(expression), op);
-}
+ExprPtrVariant createPostfixEPV(ExprPtrVariant expression, Types::Token op);
 
-inline auto createVarSPV(Token varName,
-                         ExprPtrVariant initializer) -> StmtPtrVariant {
-  return std::make_unique<VarStmt>(varName, std::move(initializer));
-}
+StmtPtrVariant createVarSPV(Token varName, ExprPtrVariant initializer);
 
-inline auto createIfSPV(ExprPtrVariant condition, StmtPtrVariant thenBranch,
-                        std::optional<StmtPtrVariant> elseBranch) {
-  return std::make_unique<IfStmt>(std::move(condition), std::move(thenBranch),
-                                  std::move(elseBranch));
-}
+StmtPtrVariant createIfSPV(ExprPtrVariant condition, StmtPtrVariant thenBranch,
+                           std::optional<StmtPtrVariant> elseBranch);
 
-inline auto createBlockSPV(std::vector<StmtPtrVariant> statements) {
-  return std::make_unique<BlockStmt>(std::move(statements));
-}
+StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements);
 
-inline auto createWhileSPV(ExprPtrVariant condition, StmtPtrVariant body) {
-  return std::make_unique<WhileStmt>(std::move(condition), std::move(body));
-}
+StmtPtrVariant createWhileSPV(ExprPtrVariant condition, StmtPtrVariant body);
 
-inline auto createPrintSPV(ExprPtrVariant value) {
-  return std::make_unique<PrintStmt>(std::move(value));
-}
+StmtPtrVariant createPrintSPV(ExprPtrVariant value);
 
-inline auto createExprSPV(ExprPtrVariant expression) {
-  return std::make_unique<ExprStmt>(std::move(expression));
-}
+StmtPtrVariant createExprSPV(ExprPtrVariant expression);
 
 } // namespace prsl::AST
