@@ -80,6 +80,8 @@ public:
       return codegenWhileStmt(std::get<3>(stmt));
     case 4:
       return codegenPrintStmt(std::get<4>(stmt));
+    case 5:
+      return codegenExprStmt(std::get<5>(stmt));
     default:
       std::unreachable();
     }
@@ -322,6 +324,11 @@ private:
     CallInst::Create(func_printf, call_params, "calltmp", insertBB);
 
     return val;
+  }
+
+  Value *codegenExprStmt(const ExprStmtPtr &stmt) {
+    codegenExpr(stmt->expression);
+    return nullptr;
   }
 
   AllocaInst *allocVar(std::string_view name) {

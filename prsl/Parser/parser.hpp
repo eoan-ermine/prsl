@@ -66,8 +66,7 @@ private:
       return whileStmt();
     if (match(Token::Type::PRINT))
       return printStmt();
-
-    throw error("Expect statement, got something else");
+    return exprStmt();
   }
 
   StmtPtrVariant ifStmt() {
@@ -111,6 +110,12 @@ private:
     ExprPtrVariant value = expr();
     consumeOrError(Token::Type::SEMICOLON, "Expect ';' after print statement");
     return AST::createPrintSPV(std::move(value));
+  }
+
+  StmtPtrVariant exprStmt() {
+    auto expression = expr();
+    consumeOrError(Token::Type::SEMICOLON, "Expect ';' after expression statement.");
+    return AST::createExprSPV(std::move(expression));
   }
 
   ExprPtrVariant expr() { return assignmentExpr(); }

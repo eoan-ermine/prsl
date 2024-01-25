@@ -62,6 +62,8 @@ public:
       return evaluateWhileStmt(std::get<3>(stmt));
     case 4:
       return evaluatePrintStmt(std::get<4>(stmt));
+    case 5:
+      return evaluateExprStmt(std::get<5>(stmt));
     default:
       std::unreachable();
     }
@@ -222,6 +224,10 @@ private:
   void evaluatePrintStmt(const PrintStmtPtr &stmt) {
     auto obj = evaluateExpr(stmt->value);
     std::cout << toString(obj) << std::endl;
+  }
+
+  void evaluateExprStmt(const ExprStmtPtr &stmt) {
+    evaluateExpr(stmt->expression);
   }
 
   ErrorReporter &eReporter;

@@ -55,6 +55,8 @@ struct WhileStmt;
 
 struct PrintStmt;
 
+struct ExprStmt;
+
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
 using IfStmtPtr = std::unique_ptr<IfStmt>;
@@ -65,8 +67,10 @@ using WhileStmtPtr = std::unique_ptr<WhileStmt>;
 
 using PrintStmtPtr = std::unique_ptr<PrintStmt>;
 
+using ExprStmtPtr = std::unique_ptr<ExprStmt>;
+
 using StmtPtrVariant = std::variant<VarStmtPtr, IfStmtPtr, BlockStmtPtr,
-                                    WhileStmtPtr, PrintStmtPtr>;
+                                    WhileStmtPtr, PrintStmtPtr, ExprStmtPtr>;
 
 using prsl::Types::Token;
 
@@ -157,6 +161,11 @@ struct PrintStmt final {
   explicit PrintStmt(ExprPtrVariant value) : value(std::move(value)) {}
 };
 
+struct ExprStmt final {
+  ExprPtrVariant expression;
+  explicit ExprStmt(ExprPtrVariant expression) : expression(std::move(expression)) {}
+};
+
 inline auto createLiteralEPV(int literalVal) -> ExprPtrVariant {
   return std::make_unique<LiteralExpr>(literalVal);
 }
@@ -215,6 +224,10 @@ inline auto createWhileSPV(ExprPtrVariant condition, StmtPtrVariant body) {
 
 inline auto createPrintSPV(ExprPtrVariant value) {
   return std::make_unique<PrintStmt>(std::move(value));
+}
+
+inline auto createExprSPV(ExprPtrVariant expression) {
+  return std::make_unique<ExprStmt>(std::move(expression));
 }
 
 } // namespace prsl::AST
