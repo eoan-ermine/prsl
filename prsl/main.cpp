@@ -4,6 +4,7 @@
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Evaluator.hpp"
 #include "prsl/Parser/parser.hpp"
+#include "prsl/Resolver/Resolver.hpp"
 #include "prsl/Scanner/scanner.hpp"
 #include <fstream>
 
@@ -21,6 +22,12 @@ auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
   return parser.parse();
 }
 
+auto resolve(prsl::Errors::ErrorReporter &eReporter,
+        const std::vector<prsl::AST::StmtPtrVariant> &statements) {
+  prsl::Resolver::Resolver resolver(eReporter);
+  resolver.executeStmts(statements);
+}
+
 template <typename T>
 auto execute(std::string_view inputFilename, InputMode inputMode,
              ExecutionMode executionMode, std::string_view outputFilename) {
@@ -29,6 +36,11 @@ auto execute(std::string_view inputFilename, InputMode inputMode,
 
   auto executeStmts = [&](std::string_view source) {
     auto statements = parse(source, eReporter);
+    if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
+      eReporter.printToErr();
+      return false;
+    }
+    resolve(eReporter, statements);
     if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
       eReporter.printToErr();
       return false;
@@ -70,7 +82,7 @@ int main(int argc, char *argv[]) try {
   // clang-format off
   desc.add_options()
     ("help", "produce help message")
-    ("parse", "run the parser stage")
+    ("parse", "run the parser & semantics stage")
     ("codegen", "produce LLVM IR for given code")
     ("interpret", "interpret given code (default)")
     ("input-file", po::value<std::string>(), "Input file")
@@ -109,9 +121,11 @@ int main(int argc, char *argv[]) try {
       vm.count("parse") ? ExecutionMode::PARSE : ExecutionMode::EXECUTE;
 
   if (vm.count("codegen")) {
-    execute<prsl::Codegen::Codegen>(inputFile, inputMode, executionMode, outputFile);
+    execute<prsl::Codegen::Codegen>(inputFile, inputMode, executionMode,
+                                    outputFile);
   } else {
-    execute<prsl::Evaluator::Evaluator>(inputFile, inputMode, executionMode, outputFile);
+    execute<prsl::Evaluator::Evaluator>(inputFile, inputMode, executionMode,
+                                        outputFile);
   }
 } catch (const std::exception &e) {
   std::cout << "prsl: error: " << e.what() << '\n';
