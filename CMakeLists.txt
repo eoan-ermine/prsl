@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(prsl)
 
+include(cmake/ClangFormat.cmake)
+
 set(CMAKE_CXX_STANDARD 23)
 
 # -- LLVM
@@ -19,8 +21,7 @@ llvm_map_components_to_libnames(llvm_libs support core irreader)
 
 find_package(Boost 1.74 COMPONENTS program_options REQUIRED)
 
-add_executable(
-    ${PROJECT_NAME}
+set(sources
     prsl/main.cpp
     prsl/AST/NodeTypes.cpp
     prsl/Codegen/Codegen.cpp
@@ -30,6 +31,19 @@ add_executable(
     prsl/Scanner/Scanner.cpp
     prsl/Semantics/Semantics.cpp
 )
+
+set(headers
+    prsl/AST/NodeTypes.hpp
+    prsl/Codegen/Codegen.hpp
+    prsl/Debug/ErrorReporter.hpp prsl/Debug/RuntimeError.hpp
+    prsl/Evaluator/Environment.hpp prsl/Evaluator/Evaluator.hpp prsl/Evaluator/Objects.hpp
+    prsl/Parser/Parser.hpp
+    prsl/Scanner/Scanner.hpp
+    prsl/Semantics/Semantics.hpp
+    prsl/Types/Token.hpp
+)
+
+add_executable(${PROJECT_NAME} ${sources})
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)
 target_link_libraries(${PROJECT_NAME} ${llvm_libs} Boost::program_options)
@@ -41,3 +55,5 @@ add_custom_target(check-all
     DEPENDS ${PROJECT_NAME}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+add_clang_format_target()

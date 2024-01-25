@@ -19,6 +19,7 @@ ParaCL language interpreter & transpiler (to LLVM IR)
   * `cmake --build build [--target <target>]`
     * The default target (i.e `cmake --build build` or `make -C build`) will build all prsl
     * The `check-all` target (i.e `ninja check-all`) will run the regression tests to ensure everything is in working order
+    * The `format` target (i.e `ninja format`) will run clang-format on all project files
 
 ## Usage
 

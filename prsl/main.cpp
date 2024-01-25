@@ -4,8 +4,8 @@
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Evaluator.hpp"
 #include "prsl/Parser/Parser.hpp"
-#include "prsl/Semantics/Semantics.hpp"
 #include "prsl/Scanner/Scanner.hpp"
+#include "prsl/Semantics/Semantics.hpp"
 #include <fstream>
 
 #include <boost/program_options.hpp>
@@ -23,7 +23,7 @@ auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
 }
 
 auto resolve(prsl::Errors::ErrorReporter &eReporter,
-        const std::vector<prsl::AST::StmtPtrVariant> &statements) {
+             const std::vector<prsl::AST::StmtPtrVariant> &statements) {
   prsl::Semantics::Semantics resolver(eReporter);
   resolver.executeStmts(statements);
 }
