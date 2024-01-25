@@ -20,6 +20,31 @@ ParaCL language interpreter & transpiler (to LLVM IR)
     * The default target (i.e `cmake --build build` or `make -C build`) will build all prsl
     * The `check-all` target (i.e `ninja check-all`) will run the regression tests to ensure everything is in working order
 
+## Usage
+
+### Syntax & semantics checking mode
+
+```shell
+prsl --parse source.prsl
+```
+
+### Interpretation mode
+
+```shell
+prsl --interpret source.prsl
+# Interpretation mode is the default
+prsl source.prsl
+```
+
+### Compiling mode
+
+```shell
+prsl --codegen source.prsl --output-file source.ll
+# Now we have LLVM IR, we can compile it with clang
+clang source.ll -o source
+# Now we can execute it!
+./source
+```
 
 ## Language description
 
