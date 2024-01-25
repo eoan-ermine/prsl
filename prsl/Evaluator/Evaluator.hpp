@@ -112,7 +112,7 @@ private:
   }
 
   auto evaluateAssignmentExpr(const AssignmentExprPtr &expr) -> PrslObject {
-    envManager.assign(expr->varName, evaluateExpr(expr->initializer));
+    envManager.define(expr->varName, evaluateExpr(expr->initializer));
     return envManager.get(expr->varName);
   }
 
