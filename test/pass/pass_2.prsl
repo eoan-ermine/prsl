@@ -1,0 +1,8 @@
+// RUN: echo 15 | prsl %s | filecheck %s
+// CHECK: 16
+
+a=?;
+if (a++ > 12)
+{
+print a; 
+}

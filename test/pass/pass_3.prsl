@@ -1,0 +1,13 @@
+// RUN: echo 10 | prsl %s | filecheck %s
+// CHECK: 1
+
+a=1;
+b=?;
+if (a>b)
+{
+print a--;
+}
+else
+{
+print b++;
+}

@@ -1,0 +1,13 @@
+// RUN: echo 10 | prsl %s | filecheck %s
+// CHECK: 89
+
+fst = 0;
+snd=1;
+n=?;
+while(n-- >0)
+{
+tmp = fst;
+snd = (fst=snd) + tmp;
+}
+
+print snd;

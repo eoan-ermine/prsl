@@ -1,0 +1,6 @@
+// RUN: echo 5 | prsl %s | filecheck %s
+// CHECK: 5
+// CHECK-NEXT: 5
+
+print a = ?;
+print a;

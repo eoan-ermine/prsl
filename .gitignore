@@ -33,3 +33,6 @@
 
 build/
 .cache
+
+test/*/Output
+test/.lit_test_times.txt

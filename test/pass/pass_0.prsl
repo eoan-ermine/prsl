@@ -1,0 +1,13 @@
+// RUN: echo 10 | prsl %s | filecheck %s
+// CHECK: 3628800
+
+n = ?;
+fact = 1;
+
+while (n > 0)
+{
+	fact = fact * n;
+	n--;
+}
+
+print fact;
