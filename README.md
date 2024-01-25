@@ -25,33 +25,32 @@ ParaCL language interpreter
   | <integer> "." [0-9]+
 
 <program> ::=
-  <declaration>
-  | <program> <declaration>
+  <decl>*
 
-<declaration> ::=
-  <statement>
-  | <varDeclaration>
+<decl> ::=
+  <stmt>
+  | <varDecl>
 
-<varDeclaration> ::=
+<varDecl> ::=
   <ident> "=" <expr> ";"
 
-<statement> ::=
-  <ifStatement>
-  | <blockStatement>
-  | <whileStatement>
-  | <printStatement>
+<stmt> ::=
+  <ifStmt>
+  | <blockStmt>
+  | <whileStmt>
+  | <printStmt>
 
-<ifStatement> ::=
-  "if(" <expr> "){" <statement> "}"
-  | "if(" <expr> "){" <statement> "}else{" <statement> "}"
+<ifStmt> ::=
+  "if(" <expr> "){" <stmt> "}"
+  | "if(" <expr> "){" <stmt> "}else{" <stmt> "}"
 
-<blockStatement> ::=
+<blockStmt> ::=
   "{" <program> "}"
  
-<whileStatement> ::=
-  "while(" <expr> "){" <statement> "}"
+<whileStmt> ::=
+  "while(" <expr> "){" <stmt> "}"
 
-<printStatement> ::=
+<printStmt> ::=
   "print" <expr> ";"
 
 <expr> ::=
