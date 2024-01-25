@@ -51,10 +51,10 @@ private:
 
   StmtPtrVariant varDecl() {
     Token ident = getTokenAdvance();
-    consumeOrError(Token::Type::EQUAL, "Expect equals sign after identifier.");
+    consumeOrError(Token::Type::EQUAL, "Expect equals sign after identifier");
     ExprPtrVariant initializer = expr();
     consumeOrError(Token::Type::SEMICOLON,
-                   "Expect ';' after variable declaration.");
+                   "Expect ';' after variable declaration");
     return createVarSPV(ident, std::move(initializer));
   }
 
@@ -115,7 +115,7 @@ private:
 
   StmtPtrVariant exprStmt() {
     auto expression = expr();
-    consumeOrError(Token::Type::SEMICOLON, "Expect ';' after expression statement.");
+    consumeOrError(Token::Type::SEMICOLON, "Expect ';' after expression statement");
     return AST::createExprSPV(std::move(expression));
   }
 
@@ -255,7 +255,7 @@ private:
   Token consumeOrError(Token::Type tType, const std::string &errorMessage) {
     if (getCurrentTokenType() == tType)
       return getTokenAdvance();
-    throw error(errorMessage + " Got: " + peek().toString());
+    throw error(errorMessage + ", got: " + peek().toString());
   }
   auto error(const std::string &eMessage) -> ParseError {
     reportError(eMessage);
