@@ -292,9 +292,9 @@ private:
     const Token &token = peek();
     std::string error = message;
     if (token.getType() == Token::Type::EOF_)
-      error = " at EOF: " + error;
+      error = "at EOF: " + error;
     else
-      error = " at '" + token.toString() + "': " + error;
+      error = "at '" + token.toString() + "': " + error;
     eReporter.setError(token.getLine(), error);
   }
 
