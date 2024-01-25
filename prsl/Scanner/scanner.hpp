@@ -187,7 +187,7 @@ private:
 private:
   const char *start;
   const char *current;
-  int line{0};
+  int line{1};
 
   std::unordered_map<std::string_view, Token::Type> keywords = {
       {"if", Token::Type::IF},
