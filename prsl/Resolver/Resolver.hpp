@@ -66,6 +66,7 @@ public:
       try {
         resolveStmt(stmt);
       } catch (const Errors::RuntimeError &e) {
+        break;
       }
     }
   }
