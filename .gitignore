@@ -34,5 +34,7 @@
 build/
 .cache
 
-test/*/Output
-test/.lit_test_times.txt
+test/*
+!test/*/
+test/*/*
+!test/*/*.prsl
