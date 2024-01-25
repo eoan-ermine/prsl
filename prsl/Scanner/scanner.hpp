@@ -119,18 +119,8 @@ private:
   }
 
   Token number() {
-    auto error = makeError("Not a NUMBER");
-
     while (std::isdigit(peek()))
       advance();
-
-    if (peek() == '.') {
-      advance();
-      if (!std::isdigit(peek()))
-        return error;
-      while (std::isdigit(peek()))
-        advance();
-    }
 
     return makeToken(Token::Type::NUMBER);
   }
