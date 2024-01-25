@@ -34,6 +34,8 @@ inline auto toString(const PrslObject &object) -> std::string {
 
 inline auto isTrue(const PrslObject &object) -> bool {
   switch (object.index()) {
+  case 0:
+    return std::get<int>(object) != 0;
   case 1:
     return std::get<bool>(object) == true;
   }
