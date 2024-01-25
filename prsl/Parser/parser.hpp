@@ -99,9 +99,9 @@ private:
 
   StmtPtrVariant whileStmt() {
     advance();
-    consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after if");
+    consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after while");
     ExprPtrVariant condition = expr();
-    consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after if condition");
+    consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after while condition");
 
     return AST::createWhileSPV(std::move(condition), stmt());
   }
@@ -113,7 +113,7 @@ private:
     return AST::createPrintSPV(std::move(value));
   }
 
-  ExprPtrVariant expr() { return comparisonExpr(); }
+  ExprPtrVariant expr() { return assignmentExpr(); }
 
   ExprPtrVariant assignmentExpr() {
     auto expr = comparisonExpr();
@@ -134,7 +134,7 @@ private:
   ExprPtrVariant comparisonExpr() {
     auto comparatorTypes = {Token::Type::GREATER, Token::Type::GREATER_EQUAL,
                             Token::Type::LESS,    Token::Type::LESS_EQUAL,
-                            Token::Type::EQUAL_EQUAL,   Token::Type::NOT_EQUAL};
+                            Token::Type::EQUAL_EQUAL,   Token::Type::NOT_EQUAL, Token::Type::EQUAL_EQUAL};
     auto expr = additionExpr();
     while (match(comparatorTypes)) {
       Token op = getTokenAdvance();
