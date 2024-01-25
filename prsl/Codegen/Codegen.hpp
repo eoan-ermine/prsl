@@ -284,23 +284,24 @@ private:
 
   Value *codegenWhileStmt(const WhileStmtPtr &stmt) {
     Function *function = builder->GetInsertBlock()->getParent();
-    BasicBlock *preheaderBB = builder->GetInsertBlock();
+
+    BasicBlock *conditionBB = BasicBlock::Create(*context, "condition", function);
     BasicBlock *loopBB = BasicBlock::Create(*context, "loop", function);
+    BasicBlock *afterBB = BasicBlock::Create(*context, "afterloop", function);
 
-    builder->CreateBr(loopBB);
-    builder->SetInsertPoint(loopBB);
-
-    codegenStmt(stmt->body);
-
+    builder->CreateBr(conditionBB);
+    builder->SetInsertPoint(conditionBB);
     Value *conditionV = codegenExpr(stmt->condition);
     conditionV = builder->CreateICmpNE(
         conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
         "loopcondition");
-
-    BasicBlock *afterBB = BasicBlock::Create(*context, "afterloop", function);
     builder->CreateCondBr(conditionV, loopBB, afterBB);
-    builder->SetInsertPoint(afterBB);
 
+    builder->SetInsertPoint(loopBB);
+    codegenStmt(stmt->body);
+    builder->CreateBr(conditionBB);
+
+    builder->SetInsertPoint(afterBB);
     return nullptr;
   }
 
