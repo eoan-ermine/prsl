@@ -19,6 +19,8 @@ Parser::Parser(const std::vector<Token> &tokens,
 
 std::vector<StmtPtrVariant> Parser::parse() { return program(); }
 
+//  <program> ::=
+//    <decl>*
 std::vector<StmtPtrVariant> Parser::program() {
   std::vector<StmtPtrVariant> statements;
   try {
@@ -31,6 +33,9 @@ std::vector<StmtPtrVariant> Parser::program() {
   return statements;
 }
 
+// <decl> ::=
+//   <stmt>
+//   | <varDecl>
 StmtPtrVariant Parser::decl() {
   if (match(Token::Type::IDENT) && matchNext(Token::Type::EQUAL)) {
     return varDecl();
@@ -39,6 +44,8 @@ StmtPtrVariant Parser::decl() {
   return stmt();
 }
 
+// <varDecl> ::=
+//   <ident> "=" <expr> ";"
 StmtPtrVariant Parser::varDecl() {
   Token ident = getTokenAdvance();
   consumeOrError(Token::Type::EQUAL, "Expect equals sign after identifier");
@@ -48,6 +55,11 @@ StmtPtrVariant Parser::varDecl() {
   return createVarSPV(ident, std::move(initializer));
 }
 
+// <stmt> ::=
+//   <ifStmt>
+//   | <blockStmt>
+//   | <whileStmt>
+//   | <printStmt>
 StmtPtrVariant Parser::stmt() {
   if (match(Token::Type::IF))
     return ifStmt();
@@ -60,6 +72,9 @@ StmtPtrVariant Parser::stmt() {
   return exprStmt();
 }
 
+// <ifStmt> ::=
+//   "if(" <expr> "){" <stmt> "}"
+//   | "if(" <expr> "){" <stmt> "}else{" <stmt> "}"
 StmtPtrVariant Parser::ifStmt() {
   advance();
   consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after if");
@@ -77,6 +92,8 @@ StmtPtrVariant Parser::ifStmt() {
                           std::move(elseBranch));
 }
 
+// <blockStmt> ::=
+//   "{" <program> "}"
 StmtPtrVariant Parser::blockStmt() {
   advance();
   std::vector<StmtPtrVariant> statements;
@@ -87,6 +104,8 @@ StmtPtrVariant Parser::blockStmt() {
   return AST::createBlockSPV(std::move(statements));
 }
 
+// <whileStmt> ::=
+//   "while(" <expr> "){" <stmt> "}"
 StmtPtrVariant Parser::whileStmt() {
   advance();
   consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after while");
@@ -103,6 +122,8 @@ StmtPtrVariant Parser::printStmt() {
   return AST::createPrintSPV(std::move(value));
 }
 
+// <printStmt> ::=
+//   "print" <expr> ";"
 StmtPtrVariant Parser::exprStmt() {
   auto expression = expr();
   consumeOrError(Token::Type::SEMICOLON,
@@ -110,8 +131,13 @@ StmtPtrVariant Parser::exprStmt() {
   return AST::createExprSPV(std::move(expression));
 }
 
+// <expr> ::=
+//   <assignmentExpr>
 ExprPtrVariant Parser::expr() { return assignmentExpr(); }
 
+// <assignmentExpr> ::=
+//   <comparisonExpr>
+//   | <comparisonExpr> "=" <assignmentExpr>
 ExprPtrVariant Parser::assignmentExpr() {
   auto expr = comparisonExpr();
 
@@ -128,6 +154,14 @@ ExprPtrVariant Parser::assignmentExpr() {
   return expr;
 }
 
+// <comparisonExpr> ::=
+//   <additionExpr>
+//   | <additionExpr> ">" <additionExpr>
+//   | <additionExpr> ">=" <additionExpr>
+//   | <additionExpr> "<" <additionExpr>
+//   | <additionExpr> "<=" <additionExpr>
+//   | <additionExpr> "!=" <additionExpr>
+//   | <additionExpr> "==" <additionExpr>
 ExprPtrVariant Parser::comparisonExpr() {
   auto comparatorTypes = {Token::Type::GREATER,     Token::Type::GREATER_EQUAL,
                           Token::Type::LESS,        Token::Type::LESS_EQUAL,
@@ -141,6 +175,10 @@ ExprPtrVariant Parser::comparisonExpr() {
   return expr;
 }
 
+// <additionExpr> ::=
+//   <multiplicationExpr>
+//   | <multiplicationExpr> "+" <multiplicationExpr>
+//   | <multiplicationExpr> "-" <multiplicationExpr>
 ExprPtrVariant Parser::additionExpr() {
   auto additionTypes = {Token::Type::PLUS, Token::Type::MINUS};
   auto expr = multiplicationExpr();
@@ -151,6 +189,10 @@ ExprPtrVariant Parser::additionExpr() {
   return expr;
 }
 
+// <multiplicationExpr> ::=
+//   <unaryExpr>
+//   | <unaryExpr> "*" <unaryExpr>
+//   | <unaryExpr> "/" <unaryExpr>
 ExprPtrVariant Parser::multiplicationExpr() {
   auto multiplicationTypes = {Token::Type::STAR, Token::Type::SLASH};
   auto expr = unaryExpr();
@@ -161,6 +203,9 @@ ExprPtrVariant Parser::multiplicationExpr() {
   return expr;
 }
 
+// <unaryExpr> ::=
+//   <postfixExpr>
+//   | "-" <postfixExpr>
 ExprPtrVariant Parser::unaryExpr() {
   if (match(Token::Type::MINUS)) {
     auto op = getTokenAdvance();
@@ -170,6 +215,10 @@ ExprPtrVariant Parser::unaryExpr() {
   return postfixExpr();
 }
 
+// <postfixExpr> ::=
+//   <primaryExpr>
+//   | <primaryExpr> "++"
+//   | <primaryExpr> "--"
 ExprPtrVariant Parser::postfixExpr() {
   auto expr = primaryExpr();
   if (match({Token::Type::PLUS_PLUS, Token::Type::MINUS_MINUS})) {
@@ -178,6 +227,11 @@ ExprPtrVariant Parser::postfixExpr() {
   return expr;
 }
 
+// <primaryExpr> ::=
+//   <literalExpr>
+//   | <groupingExpr>
+//   | <varExpr>
+//   | <inputExpr>
 ExprPtrVariant Parser::primaryExpr() {
   if (match(Token::Type::NUMBER))
     return literalExpr();
@@ -191,6 +245,8 @@ ExprPtrVariant Parser::primaryExpr() {
   throw error("Expect expression, got something else");
 }
 
+// <literalExpr> ::=
+//   <number>
 ExprPtrVariant Parser::literalExpr() {
   auto token = getTokenAdvance();
   auto view = token.getLexeme();
@@ -203,6 +259,8 @@ ExprPtrVariant Parser::literalExpr() {
   throw error("Literal is not a number");
 }
 
+// <groupingExpr> ::=
+//   "(" <expr> ")"
 ExprPtrVariant Parser::groupingExpr() {
   advance();
   ExprPtrVariant expression = expr();
@@ -211,11 +269,15 @@ ExprPtrVariant Parser::groupingExpr() {
   return AST::createGroupingEPV(std::move(expression));
 }
 
+// <varExpr> ::=
+//   <ident>
 ExprPtrVariant Parser::varExpr() {
   Token varName = getTokenAdvance();
   return AST::createVarEPV(varName);
 }
 
+// <inputExpr> ::=
+//   "?"
 ExprPtrVariant Parser::inputExpr() {
   advance();
   return AST::createInputEPV();
