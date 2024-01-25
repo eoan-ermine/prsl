@@ -41,7 +41,7 @@ private:
   }
 
   StmtPtrVariant decl() {
-    if (match(Token::Type::IDENT)) {
+    if (match(Token::Type::IDENT) && matchNext(Token::Type::EQUAL)) {
       return varDecl();
     }
 
@@ -265,6 +265,12 @@ private:
         return true;
     }
     return false;
+  }
+  [[nodiscard]] auto matchNext(Token::Type type) -> bool {
+    advance();
+    bool res = match(type);
+    --currentIter;
+    return res;
   }
   [[nodiscard]] auto peek() const -> Token { return *currentIter; };
   void reportError(const std::string &message) {
