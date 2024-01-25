@@ -12,24 +12,31 @@
 
 enum class InputMode { REPL, FILE };
 
+enum class ExecutionMode { PARSE, EXECUTE };
+
+auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
+  prsl::Scanner::Scanner scanner(source);
+  auto tokens = scanner.tokenize();
+  prsl::Parser::Parser parser(tokens, eReporter);
+  return parser.parse();
+}
+
 template <typename T>
 auto execute(std::string_view inputFilename, InputMode inputMode,
-             std::string_view outputFilename) {
+             ExecutionMode executionMode, std::string_view outputFilename) {
   prsl::Errors::ErrorReporter eReporter;
   T executor(eReporter);
 
   auto executeStmts = [&](std::string_view source) {
-    prsl::Scanner::Scanner scanner(source);
-    auto tokens = scanner.tokenize();
-    prsl::Parser::Parser parser(tokens, eReporter);
-    auto statements = parser.parse();
-
+    auto statements = parse(source, eReporter);
     if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
       eReporter.printToErr();
-      return;
+      return false;
     }
-
+    if (executionMode == ExecutionMode::PARSE)
+      return false;
     executor.executeStmts(statements);
+    return true;
   };
 
   if (inputMode == InputMode::FILE) {
@@ -37,8 +44,8 @@ auto execute(std::string_view inputFilename, InputMode inputMode,
     std::ostringstream sstr;
     sstr << file.rdbuf();
     auto source = sstr.str();
-    executeStmts(source);
-    executor.dump(outputFilename);
+    if (executeStmts(source))
+      executor.dump(outputFilename);
   } else {
     std::string line;
     while (std::getline(std::cin, line)) {
@@ -63,6 +70,7 @@ int main(int argc, char *argv[]) try {
   // clang-format off
   desc.add_options()
     ("help", "produce help message")
+    ("parse", "run the parser stage")
     ("codegen", "produce LLVM IR for given code")
     ("interpret", "interpret given code (default)")
     ("input-file", po::value<std::string>(), "Input file")
@@ -86,6 +94,8 @@ int main(int argc, char *argv[]) try {
     return EXIT_SUCCESS;
   }
 
+  conflicting_options(vm, "parse", "interpret");
+  conflicting_options(vm, "parse", "codegen");
   conflicting_options(vm, "codegen", "interpret");
 
   std::string inputFile;
@@ -95,10 +105,13 @@ int main(int argc, char *argv[]) try {
       inputMode == InputMode::FILE ? vm["input-file"].as<std::string>() : "";
   auto outputFile = vm["output-file"].as<std::string>();
 
+  ExecutionMode executionMode =
+      vm.count("parse") ? ExecutionMode::PARSE : ExecutionMode::EXECUTE;
+
   if (vm.count("codegen")) {
-    execute<prsl::Codegen::Codegen>(inputFile, inputMode, outputFile);
+    execute<prsl::Codegen::Codegen>(inputFile, inputMode, executionMode, outputFile);
   } else {
-    execute<prsl::Evaluator::Evaluator>(inputFile, inputMode, outputFile);
+    execute<prsl::Evaluator::Evaluator>(inputFile, inputMode, executionMode, outputFile);
   }
 } catch (const std::exception &e) {
   std::cout << "prsl: error: " << e.what() << '\n';
