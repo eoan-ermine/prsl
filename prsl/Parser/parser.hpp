@@ -36,6 +36,7 @@ private:
         statements.emplace_back(decl());
       }
     } catch (const ParseError &e) {
+      synchronize();
     }
     return statements;
   }
@@ -226,6 +227,20 @@ private:
   ExprPtrVariant inputExpr() {
     advance();
     return AST::createInputEPV();
+  }
+
+  void synchronize() {
+    while (!isEOF()) {
+      switch (getCurrentTokenType()) {
+        case Token::Type::SEMICOLON: advance(); break;
+        case Token::Type::WHILE:
+        case Token::Type::IF:
+        case Token::Type::PRINT:
+          return;
+        default:
+          advance();
+      }
+    }
   }
 
   void advance() {
