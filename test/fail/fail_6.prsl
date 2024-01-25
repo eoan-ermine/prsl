@@ -1,0 +1,10 @@
+// RUN: (prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 10] Error: --: Illegal postfix expression
+
+a = 2;
+
+if (a > 1)
+	print a;
+else
+	print 0--;

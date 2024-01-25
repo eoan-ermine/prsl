@@ -1,0 +1,13 @@
+// RUN: (prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 7] Error: n: Attempt to access an undef variable
+
+fact = 1;
+
+while (n > 0)
+{
+	fact = fact * n;
+	n--;
+}
+
+print fact;

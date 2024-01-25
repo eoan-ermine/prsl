@@ -1,0 +1,13 @@
+// RUN: (prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 10] Error: at 'else': Expect expression, got something else
+
+n = 5;
+
+while (n--)
+	print n;
+	
+else
+{
+	print 0;
+}

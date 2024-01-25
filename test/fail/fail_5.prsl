@@ -1,0 +1,9 @@
+// RUN: (prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 6] Error: at 'b': Expect ';' after expression statement, got: b
+
+a
+b
+c
+d
+e =0;

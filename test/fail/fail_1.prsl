@@ -1,0 +1,11 @@
+// RUN: (prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 5] Error: n: Attempt to access an undef variable
+
+while(n-- >0)
+{
+tmp = fst;
+snd = (fst=snd) + tmp;
+}
+
+print snd;

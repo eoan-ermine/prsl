@@ -1,0 +1,13 @@
+// RUN: (prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 10] Error: at '+': Expect expression, got something else
+
+fact = 1;
+n = 2;
+while (n < 0)
+{
+	fact = fact * n;
+	+1;
+}
+
+print fact;
