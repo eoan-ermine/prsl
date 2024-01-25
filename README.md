@@ -1,6 +1,25 @@
 # prsl
 
-ParaCL language interpreter
+ParaCL language interpreter & transpiler (to LLVM IR)
+
+## Getting the Source Code and Building prsl
+
+1. Check out prsl:
+  * `git clone git@github.com:eoan-ermine/prsl.git`
+  * Or, on windows:
+  `git clone --config core.autocrlf=false git@github.com:eoan-ermine/prsl.git`
+2. Configure and build prsl:
+  * `cd prsl`
+  * `cmake -S . -B build -G <generator>`
+    Some common build system generators are:
+      * Ninja — for generating Ninja build files
+      * Unix Makefiles — for generating make-compatible parallel makefiles
+      * Visual Studio — for generating Visual Studio projects and solutions
+      * Xcode — for generating Xcode projects
+  * `cmake --build build [--target <target>]`
+    * The default target (i.e `cmake --build build` or `make -C build`) will build all prsl
+    * The `check-all` target (i.e `ninja check-all`) will run the regression tests to ensure everything is in working order
+
 
 ## Language description
 
