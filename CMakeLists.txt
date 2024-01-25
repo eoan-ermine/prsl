@@ -34,3 +34,10 @@ add_executable(
 target_include_directories(${PROJECT_NAME} PRIVATE .)
 target_link_libraries(${PROJECT_NAME} ${llvm_libs} Boost::program_options)
 install(TARGETS ${PROJECT_NAME})
+
+message(STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+add_custom_target(check-all
+    COMMAND lit -v -D edir=${CMAKE_CURRENT_BINARY_DIR} ../test
+    DEPENDS ${PROJECT_NAME}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)

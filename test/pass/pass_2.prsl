@@ -1,7 +1,7 @@
-// RUN: prsl --codegen %s --output-file=pass_2.ll
+// RUN: %edir/prsl --codegen %s --output-file=pass_2.ll
 // RUN: clang++ -Wno-override-module pass_2.ll -o pass_2
 // RUN: echo 15 | %S/pass_2 | filecheck %s --match-full-lines
-// RUN: echo 15 | prsl %s | filecheck %s --match-full-lines
+// RUN: echo 15 | %edir/prsl %s | filecheck %s --match-full-lines
 // CHECK: 16
 
 a=?;

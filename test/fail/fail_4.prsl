@@ -1,5 +1,5 @@
-// RUN: (prsl --codegen %s 2>&1) | filecheck %s
-// RUN: (prsl %s 2>&1) | filecheck %s
+// RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (%edir/prsl %s 2>&1) | filecheck %s
 // CHECK: [Line 13] Error: facts: Attempt to access an undef variable
 
 fact = 1;
