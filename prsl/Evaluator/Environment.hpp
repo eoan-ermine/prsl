@@ -36,11 +36,18 @@ public:
       return true;
     }
 
+    if (parentEnv != nullptr)
+      return parentEnv->assign(varNameHash, std::move(object));
+
     throw UndefVarAccess{};
   }
 
-  void define(size_t varNameHash, VarValue object) {
-    objects.insert_or_assign(varNameHash, object);
+  void defineOrAssign(size_t varNameHash, VarValue object) {
+    if (!contains(varNameHash)) {
+      objects.insert_or_assign(varNameHash, object);
+      return;
+    }
+    assign(varNameHash, object);
   }
 
   auto get(size_t varNameHash) -> VarValue {
@@ -97,11 +104,11 @@ public:
   }
 
   void define(std::string_view str, VarValue object) {
-    curEnv->define(hasher(str), std::move(object));
+    curEnv->defineOrAssign(hasher(str), std::move(object));
   }
 
   void define(const Types::Token &token, VarValue object) {
-    curEnv->define(hasher(token.getLexeme()), std::move(object));
+    curEnv->defineOrAssign(hasher(token.getLexeme()), std::move(object));
   }
 
   auto get(const Types::Token &token) -> VarValue {

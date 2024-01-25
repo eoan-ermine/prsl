@@ -176,9 +176,9 @@ private:
       int val = std::get<int>(obj);
       switch (op.getType()) {
       case Token::Type::PLUS_PLUS:
-        return PrslObject(++val);
+        return PrslObject(val + 1);
       case Token::Type::MINUS_MINUS:
-        return PrslObject(--val);
+        return PrslObject(val - 1);
       default:
         break;
       }
