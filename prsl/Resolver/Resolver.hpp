@@ -92,7 +92,8 @@ private:
   void resolveInputExpr(const InputExprPtr &expr) { return; }
 
   void resolveAssignmentExpr(const AssignmentExprPtr &expr) {
-    envManager.define(expr->varName, false);
+    if (!envManager.contains(expr->varName))
+      envManager.define(expr->varName, false);
     resolveExpr(expr->initializer);
     envManager.assign(expr->varName, true);
   }
@@ -111,7 +112,8 @@ private:
   }
 
   void resolveVarStmt(const VarStmtPtr &stmt) {
-    envManager.define(stmt->varName, false);
+    if (!envManager.contains(stmt->varName))
+      envManager.define(stmt->varName, false);
     resolveExpr(stmt->initializer);
     envManager.assign(stmt->varName, true);
   }
