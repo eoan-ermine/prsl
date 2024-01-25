@@ -315,7 +315,7 @@ private:
       func_printf->setCallingConv(CallingConv::C);
     }
 
-    Value *str = builder->CreateGlobalStringPtr("%d");
+    Value *str = builder->CreateGlobalStringPtr("%d\n");
     std::vector<llvm::Value *> call_params;
     call_params.push_back(str);
     call_params.push_back(val);
