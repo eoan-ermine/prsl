@@ -4,8 +4,9 @@
 #include "prsl/Evaluator/Environment.hpp"
 #include "prsl/Types/Token.hpp"
 #include <utility>
+#include <variant>
 
-namespace prsl::Resolver {
+namespace prsl::Semantics {
 
 using namespace AST;
 
@@ -14,9 +15,9 @@ using Errors::ErrorReporter;
 using Types::Token;
 using Type = Types::Token::Type;
 
-class Resolver {
+class Semantics {
 public:
-  explicit Resolver(ErrorReporter &eReporter)
+  explicit Semantics(ErrorReporter &eReporter)
       : eReporter(eReporter), envManager(eReporter) {}
 
   void resolveExpr(const ExprPtrVariant &expr) {
@@ -109,7 +110,11 @@ private:
   }
 
   void resolvePostfixExpr(const PostfixExprPtr &expr) {
-    resolveExpr(expr->expression);
+    const auto& expression = expr->expression;
+    if (std::holds_alternative<VarExprPtr>(expression) || std::holds_alternative<AssignmentExprPtr>(expression))
+      resolveExpr(expression);
+    else
+      throw reportRuntimeError(eReporter, expr->op, "Illegal postfix expression");
   }
 
   void resolveVarStmt(const VarStmtPtr &stmt) {
@@ -145,4 +150,4 @@ private:
   Evaluator::EnvironmentManager<bool> envManager;
 };
 
-} // namespace prsl::Resolver
+} // namespace prsl::Semantics
