@@ -37,7 +37,7 @@ public:
         module(std::make_unique<Module>("Prsl", *context)),
         builder(std::make_unique<IRBuilder<>>(*context)),
         envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
-    FunctionType *FT = FunctionType::get(llvm::Type::getVoidTy(*context),
+    FunctionType *FT = FunctionType::get(llvm::Type::getInt32Ty(*context),
                                          std::vector<llvm::Type *>{}, false);
     Function *F =
         Function::Create(FT, Function::ExternalLinkage, "main", module.get());
@@ -98,7 +98,7 @@ public:
   }
 
   auto dump(std::string_view filename) {
-    builder->CreateRetVoid();
+    builder->CreateRet(ConstantInt::get(intType, 0));
 
     std::error_code ec;
     auto fileStream = llvm::raw_fd_ostream(filename, ec,
