@@ -24,6 +24,6 @@ add_executable(
     prsl/main.cpp
 )
 
-
 target_include_directories(${PROJECT_NAME} PRIVATE .)
 target_link_libraries(${PROJECT_NAME} ${llvm_libs} Boost::program_options)
+install(TARGETS ${PROJECT_NAME})
