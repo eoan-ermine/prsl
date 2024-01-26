@@ -1,14 +1,4 @@
 #
-# Print a message only if the `VERBOSE_OUTPUT` option is on
-#
-
-function(verbose_message content)
-    if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-			message(STATUS ${content})
-    endif()
-endfunction()
-
-#
 # Add a target for formating the project using `clang-format` (i.e: cmake --build build --target format)
 #
 
