@@ -30,6 +30,14 @@ set(headers
 
 
 if (NOT DISABLE_BUILDING_EXECUTABLE)
+    # The magic is for CMake to find the newest version of LLVM, not the oldest
+    SET(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
+    SET(CMAKE_FIND_PACKAGE_SORT_DIRECTION DEC)
+
+    add_executable(${PROJECT_NAME} ${sources})
+
+    # -- LLVM
+
     find_package(LLVM REQUIRED CONFIG)
 
     message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
@@ -40,12 +48,22 @@ if (NOT DISABLE_BUILDING_EXECUTABLE)
 
     llvm_map_components_to_libnames(llvm_libs support core irreader)
 
-    find_package(Boost 1.74 COMPONENTS program_options REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PUBLIC ${llvm_libs})
 
-    add_executable(${PROJECT_NAME} ${sources})
+    # -- Boost
+    # Please, do not remove the magic trick below
+    # It will broke the CI/CD
+    find_package(Boost 1.74 REQUIRED COMPONENTS program_options)
 
     target_include_directories(${PROJECT_NAME} PRIVATE .)
-    target_link_libraries(${PROJECT_NAME} ${llvm_libs} Boost::program_options)
+    if (TARGET Boost::boost)
+        target_link_libraries(${PROJECT_NAME} PUBLIC Boost::boost)
+        target_link_libraries(${PROJECT_NAME} PUBLIC Boost::program_options)
+    else()
+        target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
+        target_link_libraries(${PROJECT_NAME} PUBLIC ${Boost_LIBRARIES})
+    endif()
+
     install(TARGETS ${PROJECT_NAME})
 endif()
 

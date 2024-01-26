@@ -1,7 +1,20 @@
 #pragma once
 
 #include "prsl/AST/NodeTypes.hpp"
-#include <utility>
+
+// Не все компиляторы еще поддерживают стандартный unreachable,
+// Так что пусть будет такой
+[[noreturn]] inline void unreachable()
+{
+    // Uses compiler specific extensions if possible.
+    // Even if no extension is used, undefined behavior is still raised by
+    // an empty function body and the noreturn attribute.
+#if defined(_MSC_VER) && !defined(__clang__) // MSVC
+    __assume(false);
+#else // GCC, Clang
+    __builtin_unreachable();
+#endif
+}
 
 namespace prsl::AST {
 
@@ -27,7 +40,7 @@ public:
     case 7:
       return visitPostfixExpr(std::get<7>(expr));
     default:
-      std::unreachable();
+      unreachable();
     }
   }
   StmtVisitRes visitStmt(const StmtPtrVariant &stmt) {
@@ -47,7 +60,7 @@ public:
     case 6:
       return visitFunctionStmt(std::get<6>(stmt));
     default:
-      std::unreachable();
+      unreachable();
     }
   }
   virtual bool dump(std::string_view) = 0;
