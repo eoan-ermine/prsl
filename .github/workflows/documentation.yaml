@@ -18,7 +18,7 @@ jobs:
 
       - name: Generate docs
         run: |
-          cmake -S . -B building_docs
+          cmake -S . -DDISABLE_BUILDING_EXECUTABLE=1 -B building_docs
           cmake --build building_docs --target docs
 
       - name: Publish

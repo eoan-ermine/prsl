@@ -29,7 +29,7 @@ set(headers
 )
 
 
-if (NOT FORMAT_CI)
+if (NOT DISABLE_BUILDING_EXECUTABLE)
     find_package(LLVM REQUIRED CONFIG)
 
     message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
