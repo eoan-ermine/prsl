@@ -1,0 +1,25 @@
+name: Style
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check-format:
+    name: "Check style"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install format dependencies
+        run: pip3 install clang-format==17.0.6
+
+      - name: Configure
+        run: cmake -S . -B building_format
+
+      - name: Check style
+        run: cmake --build building_format --target check-format
