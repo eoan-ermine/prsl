@@ -2,6 +2,29 @@
 
 ParaCL language interpreter & transpiler (to LLVM IR)
 
+## Dependencies
+
+| Package              | Version |
+| -------------------- | ------- |
+| Boost.ProgramOptions | >=1.74  |
+| LLVM                 | >=14    |
+
+### Installation
+
+#### Ubuntu
+
+```shell
+sudo apt install libboost-program-options-dev
+sudo apt install llvm-dev
+```
+
+#### Arch
+
+```shell
+sudo pacman -S llvm
+sudo pacman -S boost
+```
+
 ## Getting the Source Code and Building prsl
 
 1. Check out prsl:
