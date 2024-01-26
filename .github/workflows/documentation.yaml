@@ -15,6 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install doxygen
+          sudo apt install graphviz
 
       - name: Generate docs
         run: |
