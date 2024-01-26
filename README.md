@@ -67,6 +67,7 @@ sudo pacman -S clang # For clang-format
     * The default target (i.e `cmake --build build` or `make -C build`) will build all prsl
     * The `check-all` target (i.e `ninja check-all`) will run the regression tests to ensure everything is in working order
     * The `format` target (i.e `ninja format`) will run clang-format on all project files
+    * The `docs` target (i.e `ninja docs`) will generate documentation using doxygen
 
 ## Usage
 

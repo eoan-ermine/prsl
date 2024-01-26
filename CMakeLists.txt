@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(prsl)
 
 include(cmake/ClangFormat.cmake)
+include(cmake/Doxygen.cmake)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -57,3 +58,4 @@ add_custom_target(check-all
 )
 
 add_clang_format_target()
+add_docs_target()
