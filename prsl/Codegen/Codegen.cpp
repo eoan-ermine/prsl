@@ -8,80 +8,31 @@ Codegen::Codegen(ErrorReporter &eReporter)
       builder(std::make_unique<IRBuilder<>>(*context)),
       envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {}
 
-Value *Codegen::codegenExpr(const ExprPtrVariant &expr) {
-  switch (expr.index()) {
-  case 0:
-    return codegenLiteralExpr(std::get<0>(expr));
-  case 1:
-    return codegenGroupingExpr(std::get<1>(expr));
-  case 2:
-    return codegenVarExpr(std::get<2>(expr));
-  case 3:
-    return codegenInputExpr(std::get<3>(expr));
-  case 4:
-    return codegenAssignmentExpr(std::get<4>(expr));
-  case 5:
-    return codegenUnaryExpr(std::get<5>(expr));
-  case 6:
-    return codegenBinaryExpr(std::get<6>(expr));
-  case 7:
-    return codegenPostfixExpr(std::get<7>(expr));
-  default:
-    std::unreachable();
-  }
-}
-
-Value *Codegen::codegenStmt(const StmtPtrVariant &stmt) {
-  switch (stmt.index()) {
-  case 0:
-    return codegenVarStmt(std::get<0>(stmt));
-  case 1:
-    return codegenIfStmt(std::get<1>(stmt));
-  case 2:
-    return codegenBlockStmt(std::get<2>(stmt));
-  case 3:
-    return codegenWhileStmt(std::get<3>(stmt));
-  case 4:
-    return codegenPrintStmt(std::get<4>(stmt));
-  case 5:
-    return codegenExprStmt(std::get<5>(stmt));
-  case 6:
-    return codegenFunctionStmt(std::get<6>(stmt));
-  default:
-    std::unreachable();
-  }
-}
-
-void Codegen::execute(const StmtPtrVariant &stmt) {
-  try {
-    codegenStmt(stmt);
-  } catch (const Errors::RuntimeError &e) {
-    eReporter.printToErr();
-  }
-}
-
-void Codegen::dump(std::string_view filename) {
+bool Codegen::dump(std::string_view filename) {
   std::error_code ec;
   auto fileStream =
       llvm::raw_fd_ostream(filename, ec, llvm::sys::fs::OpenFlags::OF_None);
+  if (ec)
+    return false;
 
   module->print(fileStream, nullptr);
+  return true;
 }
 
-Value *Codegen::codegenLiteralExpr(const LiteralExprPtr &expr) {
+Value *Codegen::visitLiteralExpr(const LiteralExprPtr &expr) {
   return ConstantInt::get(intType, expr->literalVal);
 }
 
-Value *Codegen::codegenGroupingExpr(const GroupingExprPtr &expr) {
-  return codegenExpr(expr->expression);
+Value *Codegen::visitGroupingExpr(const GroupingExprPtr &expr) {
+  return visitExpr(expr->expression);
 }
 
-Value *Codegen::codegenVarExpr(const VarExprPtr &expr) {
+Value *Codegen::visitVarExpr(const VarExprPtr &expr) {
   AllocaInst *V = envManager.get(expr->ident);
   return builder->CreateLoad(intType, V, expr->ident.getLexeme());
 }
 
-Value *Codegen::codegenInputExpr(const InputExprPtr &expr) {
+Value *Codegen::visitInputExpr(const InputExprPtr &expr) {
   BasicBlock *insertBB = builder->GetInsertBlock();
   Function *func_scanf = module->getFunction("scanf");
 
@@ -104,15 +55,15 @@ Value *Codegen::codegenInputExpr(const InputExprPtr &expr) {
   return builder->CreateLoad(intType, temp_var, "inputres");
 }
 
-Value *Codegen::codegenAssignmentExpr(const AssignmentExprPtr &expr) {
-  Value *value = codegenExpr(expr->initializer);
+Value *Codegen::visitAssignmentExpr(const AssignmentExprPtr &expr) {
+  Value *value = visitExpr(expr->initializer);
   AllocaInst *varInst = getOrCreateAllocVar(expr->varName);
   builder->CreateStore(value, varInst);
   return value;
 }
 
-Value *Codegen::codegenUnaryExpr(const UnaryExprPtr &expr) {
-  Value *value = codegenExpr(expr->expression);
+Value *Codegen::visitUnaryExpr(const UnaryExprPtr &expr) {
+  Value *value = visitExpr(expr->expression);
 
   switch (expr->op.getType()) {
   case Token::Type::MINUS:
@@ -125,9 +76,9 @@ Value *Codegen::codegenUnaryExpr(const UnaryExprPtr &expr) {
                                    "Illegal unary expression");
 }
 
-Value *Codegen::codegenBinaryExpr(const BinaryExprPtr &expr) {
-  Value *lhs = codegenExpr(expr->lhsExpression);
-  Value *rhs = codegenExpr(expr->rhsExpression);
+Value *Codegen::visitBinaryExpr(const BinaryExprPtr &expr) {
+  Value *lhs = visitExpr(expr->lhsExpression);
+  Value *rhs = visitExpr(expr->rhsExpression);
   if (!lhs || !rhs)
     return nullptr;
 
@@ -178,8 +129,8 @@ Value *Codegen::postfixExpr(const Token &op, Value *obj, Value *res) {
   return builder->CreateStore(value, res);
 }
 
-Value *Codegen::codegenPostfixExpr(const PostfixExprPtr &expr) {
-  Value *obj = codegenExpr(expr->expression);
+Value *Codegen::visitPostfixExpr(const PostfixExprPtr &expr) {
+  Value *obj = visitExpr(expr->expression);
   if (std::holds_alternative<VarExprPtr>(expr->expression)) {
     const auto &varExpr = std::get<VarExprPtr>(expr->expression);
     postfixExpr(expr->op, obj, envManager.get(varExpr->ident));
@@ -187,15 +138,15 @@ Value *Codegen::codegenPostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
-Value *Codegen::codegenVarStmt(const VarStmtPtr &stmt) {
-  Value *value = codegenExpr(stmt->initializer);
+Value *Codegen::visitVarStmt(const VarStmtPtr &stmt) {
+  Value *value = visitExpr(stmt->initializer);
   AllocaInst *varInst = getOrCreateAllocVar(stmt->varName);
   builder->CreateStore(value, varInst);
   return value;
 };
 
-Value *Codegen::codegenIfStmt(const IfStmtPtr &stmt) {
-  Value *conditionV = codegenExpr(stmt->condition);
+Value *Codegen::visitIfStmt(const IfStmtPtr &stmt) {
+  Value *conditionV = visitExpr(stmt->condition);
   conditionV = builder->CreateICmpNE(
       conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
       "condtmp");
@@ -215,14 +166,14 @@ Value *Codegen::codegenIfStmt(const IfStmtPtr &stmt) {
   }
 
   builder->SetInsertPoint(thenBB);
-  codegenStmt(stmt->thenBranch);
+  visitStmt(stmt->thenBranch);
   builder->CreateBr(mergeBB);
   thenBB = builder->GetInsertBlock();
 
   if (stmt->elseBranch) {
     function->insert(function->end(), elseBB);
     builder->SetInsertPoint(elseBB);
-    codegenStmt(*stmt->elseBranch);
+    visitStmt(*stmt->elseBranch);
     builder->CreateBr(mergeBB);
     elseBB = builder->GetInsertBlock();
   }
@@ -232,17 +183,17 @@ Value *Codegen::codegenIfStmt(const IfStmtPtr &stmt) {
   return nullptr;
 }
 
-Value *Codegen::codegenBlockStmt(const BlockStmtPtr &stmt) {
+Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
   auto curEnv = envManager.getCurEnv();
   envManager.createNewEnv();
   for (const auto &stmt : stmt->statements) {
-    codegenStmt(stmt);
+    visitStmt(stmt);
   }
   envManager.discardEnvsTill(curEnv);
   return nullptr;
 }
 
-Value *Codegen::codegenWhileStmt(const WhileStmtPtr &stmt) {
+Value *Codegen::visitWhileStmt(const WhileStmtPtr &stmt) {
   Function *function = builder->GetInsertBlock()->getParent();
 
   BasicBlock *conditionBB = BasicBlock::Create(*context, "condition", function);
@@ -251,22 +202,22 @@ Value *Codegen::codegenWhileStmt(const WhileStmtPtr &stmt) {
 
   builder->CreateBr(conditionBB);
   builder->SetInsertPoint(conditionBB);
-  Value *conditionV = codegenExpr(stmt->condition);
+  Value *conditionV = visitExpr(stmt->condition);
   conditionV = builder->CreateICmpNE(
       conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
       "loopcondition");
   builder->CreateCondBr(conditionV, loopBB, afterBB);
 
   builder->SetInsertPoint(loopBB);
-  codegenStmt(stmt->body);
+  visitStmt(stmt->body);
   builder->CreateBr(conditionBB);
 
   builder->SetInsertPoint(afterBB);
   return nullptr;
 }
 
-Value *Codegen::codegenPrintStmt(const PrintStmtPtr &stmt) {
-  Value *val = codegenExpr(stmt->value);
+Value *Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
+  Value *val = visitExpr(stmt->value);
   BasicBlock *insertBB = builder->GetInsertBlock();
   Function *func_printf = module->getFunction("printf");
 
@@ -287,12 +238,12 @@ Value *Codegen::codegenPrintStmt(const PrintStmtPtr &stmt) {
   return val;
 }
 
-Value *Codegen::codegenExprStmt(const ExprStmtPtr &stmt) {
-  codegenExpr(stmt->expression);
+Value *Codegen::visitExprStmt(const ExprStmtPtr &stmt) {
+  visitExpr(stmt->expression);
   return nullptr;
 }
 
-Value *Codegen::codegenFunctionStmt(const FunctionStmtPtr &stmt) {
+Value *Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
   FunctionType *FT = FunctionType::get(llvm::Type::getInt32Ty(*context),
                                        std::vector<llvm::Type *>{}, false);
   Function *F =
@@ -301,7 +252,7 @@ Value *Codegen::codegenFunctionStmt(const FunctionStmtPtr &stmt) {
   builder->SetInsertPoint(BB);
 
   for (const auto &stmt : stmt->body) {
-    codegenStmt(stmt);
+    visitStmt(stmt);
   }
 
   builder->CreateRet(ConstantInt::get(intType, 0));

@@ -1,13 +1,12 @@
 #pragma once
 
+#include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Debug/RuntimeError.hpp"
 #include "prsl/Evaluator/Environment.hpp"
 #include "prsl/Types/Token.hpp"
 
 #include "llvm/IR/BasicBlock.h"
-#include "llvm/IR/Constants.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/IRBuilder.h"
@@ -19,7 +18,6 @@
 #include <llvm/IR/Instructions.h>
 #include <llvm/Support/FileSystem.h>
 #include <memory>
-#include <variant>
 
 namespace prsl::Codegen {
 
@@ -32,35 +30,30 @@ using Errors::ErrorReporter;
 using Types::Token;
 using Type = Types::Token::Type;
 
-class Codegen {
+class Codegen : public ASTVisitor<Value *, Value *> {
 public:
   explicit Codegen(ErrorReporter &eReporter);
-
-  Value *codegenExpr(const ExprPtrVariant &expr);
-  Value *codegenStmt(const StmtPtrVariant &stmt);
-
-  void execute(const StmtPtrVariant &stmt);
-  void dump(std::string_view filename);
+  bool dump(std::string_view filename) override;
 
 private:
-  Value *codegenLiteralExpr(const LiteralExprPtr &expr);
-  Value *codegenGroupingExpr(const GroupingExprPtr &expr);
-  Value *codegenVarExpr(const VarExprPtr &expr);
-  Value *codegenInputExpr(const InputExprPtr &expr);
-  Value *codegenAssignmentExpr(const AssignmentExprPtr &expr);
-  Value *codegenUnaryExpr(const UnaryExprPtr &expr);
-  Value *codegenBinaryExpr(const BinaryExprPtr &expr);
+  Value *visitLiteralExpr(const LiteralExprPtr &expr) override;
+  Value *visitGroupingExpr(const GroupingExprPtr &expr) override;
+  Value *visitVarExpr(const VarExprPtr &expr) override;
+  Value *visitInputExpr(const InputExprPtr &expr) override;
+  Value *visitAssignmentExpr(const AssignmentExprPtr &expr) override;
+  Value *visitUnaryExpr(const UnaryExprPtr &expr) override;
+  Value *visitBinaryExpr(const BinaryExprPtr &expr) override;
+  Value *visitPostfixExpr(const PostfixExprPtr &expr) override;
+
+  Value *visitVarStmt(const VarStmtPtr &stmt) override;
+  Value *visitIfStmt(const IfStmtPtr &stmt) override;
+  Value *visitBlockStmt(const BlockStmtPtr &stmt) override;
+  Value *visitWhileStmt(const WhileStmtPtr &stmt) override;
+  Value *visitPrintStmt(const PrintStmtPtr &stmt) override;
+  Value *visitExprStmt(const ExprStmtPtr &stmt) override;
+  Value *visitFunctionStmt(const FunctionStmtPtr &stmt) override;
+
   Value *postfixExpr(const Token &op, Value *obj, Value *res);
-  Value *codegenPostfixExpr(const PostfixExprPtr &expr);
-
-  Value *codegenVarStmt(const VarStmtPtr &stmt);
-  Value *codegenIfStmt(const IfStmtPtr &stmt);
-  Value *codegenBlockStmt(const BlockStmtPtr &stmt);
-  Value *codegenWhileStmt(const WhileStmtPtr &stmt);
-  Value *codegenPrintStmt(const PrintStmtPtr &stmt);
-  Value *codegenExprStmt(const ExprStmtPtr &stmt);
-  Value *codegenFunctionStmt(const FunctionStmtPtr &stmt);
-
   AllocaInst *allocVar(std::string_view name);
   AllocaInst *getOrCreateAllocVar(const Token &variable);
 

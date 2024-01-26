@@ -4,7 +4,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <utility>
 #include <variant>
 
 namespace prsl::Evaluator {
@@ -12,61 +11,7 @@ namespace prsl::Evaluator {
 Evaluator::Evaluator(ErrorReporter &eReporter)
     : eReporter(eReporter), envManager(eReporter) {}
 
-PrslObject Evaluator::evaluateExpr(const ExprPtrVariant &expr) {
-  switch (expr.index()) {
-  case 0:
-    return evaluateLiteralExpr(std::get<0>(expr));
-  case 1:
-    return evaluateGroupingExpr(std::get<1>(expr));
-  case 2:
-    return evaluateVarExpr(std::get<2>(expr));
-  case 3:
-    return evaluateInputExpr(std::get<3>(expr));
-  case 4:
-    return evaluateAssignmentExpr(std::get<4>(expr));
-  case 5:
-    return evaluateUnaryExpr(std::get<5>(expr));
-  case 6:
-    return evaluateBinaryExpr(std::get<6>(expr));
-  case 7:
-    return evaluatePostfixExpr(std::get<7>(expr));
-  default:
-    std::unreachable();
-  }
-}
-
-void Evaluator::evaluateStmt(const StmtPtrVariant &stmt) {
-  switch (stmt.index()) {
-  case 0:
-    return evaluateVarStmt(std::get<0>(stmt));
-  case 1:
-    return evaluateIfStmt(std::get<1>(stmt));
-  case 2:
-    return evaluateBlockStmt(std::get<2>(stmt));
-  case 3:
-    return evaluateWhileStmt(std::get<3>(stmt));
-  case 4:
-    return evaluatePrintStmt(std::get<4>(stmt));
-  case 5:
-    return evaluateExprStmt(std::get<5>(stmt));
-  case 6:
-    return evaluateFunctionStmt(std::get<6>(stmt));
-  default:
-    std::unreachable();
-  }
-}
-
-void Evaluator::execute(const StmtPtrVariant &stmt) {
-  try {
-    evaluateStmt(stmt);
-  } catch (const Errors::RuntimeError &e) {
-    eReporter.printToErr();
-  }
-}
-
-void Evaluator::dump(std::string_view) {
-  // NO-OP
-}
+bool Evaluator::dump(std::string_view) { return false; }
 
 int Evaluator::getInt(const Token &token, const PrslObject &obj) {
   if (!std::holds_alternative<int>(obj))
@@ -77,31 +22,31 @@ int Evaluator::getInt(const Token &token, const PrslObject &obj) {
   return std::get<int>(obj);
 }
 
-PrslObject Evaluator::evaluateLiteralExpr(const LiteralExprPtr &expr) {
+PrslObject Evaluator::visitLiteralExpr(const LiteralExprPtr &expr) {
   return PrslObject(expr->literalVal);
 }
 
-PrslObject Evaluator::evaluateGroupingExpr(const GroupingExprPtr &expr) {
-  return evaluateExpr(expr->expression);
+PrslObject Evaluator::visitGroupingExpr(const GroupingExprPtr &expr) {
+  return visitExpr(expr->expression);
 }
 
-PrslObject Evaluator::evaluateVarExpr(const VarExprPtr &expr) {
+PrslObject Evaluator::visitVarExpr(const VarExprPtr &expr) {
   return envManager.get(expr->ident);
 }
 
-PrslObject Evaluator::evaluateInputExpr(const InputExprPtr &expr) {
+PrslObject Evaluator::visitInputExpr(const InputExprPtr &expr) {
   int val;
   std::cin >> val;
   return PrslObject(val);
 }
 
-PrslObject Evaluator::evaluateAssignmentExpr(const AssignmentExprPtr &expr) {
-  envManager.define(expr->varName, evaluateExpr(expr->initializer));
+PrslObject Evaluator::visitAssignmentExpr(const AssignmentExprPtr &expr) {
+  envManager.define(expr->varName, visitExpr(expr->initializer));
   return envManager.get(expr->varName);
 }
 
-PrslObject Evaluator::evaluateUnaryExpr(const UnaryExprPtr &expr) {
-  PrslObject obj = evaluateExpr(expr->expression);
+PrslObject Evaluator::visitUnaryExpr(const UnaryExprPtr &expr) {
+  PrslObject obj = visitExpr(expr->expression);
 
   switch (expr->op.getType()) {
   case Token::Type::MINUS:
@@ -115,9 +60,9 @@ PrslObject Evaluator::evaluateUnaryExpr(const UnaryExprPtr &expr) {
       "Illegal unary expression: " + expr->op.toString() + toString(obj));
 }
 
-PrslObject Evaluator::evaluateBinaryExpr(const BinaryExprPtr &expr) {
-  auto lhs = evaluateExpr(expr->lhsExpression);
-  auto rhs = evaluateExpr(expr->rhsExpression);
+PrslObject Evaluator::visitBinaryExpr(const BinaryExprPtr &expr) {
+  auto lhs = visitExpr(expr->lhsExpression);
+  auto rhs = visitExpr(expr->rhsExpression);
 
   switch (expr->op.getType()) {
   case Token::Type::PLUS:
@@ -172,8 +117,8 @@ static PrslObject postfixExpr(ErrorReporter &eReporter, const Token &op,
                                toString(obj));
 }
 
-PrslObject Evaluator::evaluatePostfixExpr(const PostfixExprPtr &expr) {
-  PrslObject obj = evaluateExpr(expr->expression);
+PrslObject Evaluator::visitPostfixExpr(const PostfixExprPtr &expr) {
+  PrslObject obj = visitExpr(expr->expression);
   if (std::holds_alternative<VarExprPtr>(expr->expression)) {
     envManager.assign(std::get<VarExprPtr>(expr->expression)->ident,
                       postfixExpr(eReporter, expr->op, obj));
@@ -181,43 +126,43 @@ PrslObject Evaluator::evaluatePostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
-void Evaluator::evaluateVarStmt(const VarStmtPtr &stmt) {
-  envManager.define(stmt->varName, evaluateExpr(stmt->initializer));
+void Evaluator::visitVarStmt(const VarStmtPtr &stmt) {
+  envManager.define(stmt->varName, visitExpr(stmt->initializer));
 }
 
-void Evaluator::evaluateIfStmt(const IfStmtPtr &stmt) {
-  if (isTrue(evaluateExpr(stmt->condition)))
-    return evaluateStmt(stmt->thenBranch);
+void Evaluator::visitIfStmt(const IfStmtPtr &stmt) {
+  if (isTrue(visitExpr(stmt->condition)))
+    return visitStmt(stmt->thenBranch);
   if (stmt->elseBranch.has_value())
-    return evaluateStmt(stmt->elseBranch.value());
+    return visitStmt(stmt->elseBranch.value());
 }
 
-void Evaluator::evaluateBlockStmt(const BlockStmtPtr &stmt) {
+void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
   auto curEnv = envManager.getCurEnv();
   envManager.createNewEnv();
   for (const auto &stmt : stmt->statements) {
-    evaluateStmt(stmt);
+    visitStmt(stmt);
   }
   envManager.discardEnvsTill(curEnv);
 }
 
-void Evaluator::evaluateWhileStmt(const WhileStmtPtr &stmt) {
-  while (isTrue(evaluateExpr(stmt->condition)))
-    evaluateStmt(stmt->body);
+void Evaluator::visitWhileStmt(const WhileStmtPtr &stmt) {
+  while (isTrue(visitExpr(stmt->condition)))
+    visitStmt(stmt->body);
 }
 
-void Evaluator::evaluatePrintStmt(const PrintStmtPtr &stmt) {
-  auto obj = evaluateExpr(stmt->value);
+void Evaluator::visitPrintStmt(const PrintStmtPtr &stmt) {
+  auto obj = visitExpr(stmt->value);
   std::cout << toString(obj) << std::endl;
 }
 
-void Evaluator::evaluateExprStmt(const ExprStmtPtr &stmt) {
-  evaluateExpr(stmt->expression);
+void Evaluator::visitExprStmt(const ExprStmtPtr &stmt) {
+  visitExpr(stmt->expression);
 }
 
-void Evaluator::evaluateFunctionStmt(const FunctionStmtPtr &stmt) {
+void Evaluator::visitFunctionStmt(const FunctionStmtPtr &stmt) {
   for (const auto &stmt : stmt->body) {
-    evaluateStmt(stmt);
+    visitStmt(stmt);
   }
 }
 

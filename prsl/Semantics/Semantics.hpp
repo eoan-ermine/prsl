@@ -1,5 +1,6 @@
 #pragma once
 
+#include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Environment.hpp"
@@ -14,33 +15,28 @@ using Errors::ErrorReporter;
 using Types::Token;
 using Type = Types::Token::Type;
 
-class Semantics {
+class Semantics : public ASTVisitor<> {
 public:
   explicit Semantics(ErrorReporter &eReporter);
-
-  void resolveExpr(const ExprPtrVariant &expr);
-  void resolveStmt(const StmtPtrVariant &stmt);
-
-  void execute(const StmtPtrVariant &stmt);
-  void dump(std::string_view filename);
+  bool dump(std::string_view filename) override;
 
 private:
-  void resolveLiteralExpr(const LiteralExprPtr &expr);
-  void resolveGroupingExpr(const GroupingExprPtr &expr);
-  void resolveVarExpr(const VarExprPtr &expr);
-  void resolveInputExpr(const InputExprPtr &expr);
-  void resolveAssignmentExpr(const AssignmentExprPtr &expr);
-  void resolveUnaryExpr(const UnaryExprPtr &expr);
-  void resolveBinaryExpr(const BinaryExprPtr &expr);
-  void resolvePostfixExpr(const PostfixExprPtr &expr);
+  void visitLiteralExpr(const LiteralExprPtr &expr) override;
+  void visitGroupingExpr(const GroupingExprPtr &expr) override;
+  void visitVarExpr(const VarExprPtr &expr) override;
+  void visitInputExpr(const InputExprPtr &expr) override;
+  void visitAssignmentExpr(const AssignmentExprPtr &expr) override;
+  void visitUnaryExpr(const UnaryExprPtr &expr) override;
+  void visitBinaryExpr(const BinaryExprPtr &expr) override;
+  void visitPostfixExpr(const PostfixExprPtr &expr) override;
 
-  void resolveVarStmt(const VarStmtPtr &stmt);
-  void resolveIfStmt(const IfStmtPtr &stmt);
-  void resolveBlockStmt(const BlockStmtPtr &stmt);
-  void resolveWhileStmt(const WhileStmtPtr &stmt);
-  void resolvePrintStmt(const PrintStmtPtr &stmt);
-  void resolveExprStmt(const ExprStmtPtr &stmt);
-  void resolveFunctionStmt(const FunctionStmtPtr &stmt);
+  void visitVarStmt(const VarStmtPtr &stmt) override;
+  void visitIfStmt(const IfStmtPtr &stmt) override;
+  void visitBlockStmt(const BlockStmtPtr &stmt) override;
+  void visitWhileStmt(const WhileStmtPtr &stmt) override;
+  void visitPrintStmt(const PrintStmtPtr &stmt) override;
+  void visitExprStmt(const ExprStmtPtr &stmt) override;
+  void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
 
   ErrorReporter &eReporter;
   Evaluator::EnvironmentManager<bool> envManager;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Environment.hpp"
@@ -15,33 +16,28 @@ using Errors::ErrorReporter;
 using Types::Token;
 using Type = Types::Token::Type;
 
-class Evaluator {
+class Evaluator : public ASTVisitor<PrslObject> {
 public:
   explicit Evaluator(ErrorReporter &eReporter);
-
-  PrslObject evaluateExpr(const ExprPtrVariant &expr);
-  void evaluateStmt(const StmtPtrVariant &stmt);
-
-  void execute(const StmtPtrVariant &stmt);
-  void dump(std::string_view);
+  bool dump(std::string_view) override;
 
 private:
-  PrslObject evaluateLiteralExpr(const LiteralExprPtr &expr);
-  PrslObject evaluateGroupingExpr(const GroupingExprPtr &expr);
-  PrslObject evaluateVarExpr(const VarExprPtr &expr);
-  PrslObject evaluateInputExpr(const InputExprPtr &expr);
-  PrslObject evaluateAssignmentExpr(const AssignmentExprPtr &expr);
-  PrslObject evaluateUnaryExpr(const UnaryExprPtr &expr);
-  PrslObject evaluateBinaryExpr(const BinaryExprPtr &expr);
-  PrslObject evaluatePostfixExpr(const PostfixExprPtr &expr);
+  PrslObject visitLiteralExpr(const LiteralExprPtr &expr) override;
+  PrslObject visitGroupingExpr(const GroupingExprPtr &expr) override;
+  PrslObject visitVarExpr(const VarExprPtr &expr) override;
+  PrslObject visitInputExpr(const InputExprPtr &expr) override;
+  PrslObject visitAssignmentExpr(const AssignmentExprPtr &expr) override;
+  PrslObject visitUnaryExpr(const UnaryExprPtr &expr) override;
+  PrslObject visitBinaryExpr(const BinaryExprPtr &expr) override;
+  PrslObject visitPostfixExpr(const PostfixExprPtr &expr) override;
 
-  void evaluateVarStmt(const VarStmtPtr &stmt);
-  void evaluateIfStmt(const IfStmtPtr &stmt);
-  void evaluateBlockStmt(const BlockStmtPtr &stmt);
-  void evaluateWhileStmt(const WhileStmtPtr &stmt);
-  void evaluatePrintStmt(const PrintStmtPtr &stmt);
-  void evaluateExprStmt(const ExprStmtPtr &stmt);
-  void evaluateFunctionStmt(const FunctionStmtPtr &stmt);
+  void visitVarStmt(const VarStmtPtr &stmt) override;
+  void visitIfStmt(const IfStmtPtr &stmt) override;
+  void visitBlockStmt(const BlockStmtPtr &stmt) override;
+  void visitWhileStmt(const WhileStmtPtr &stmt) override;
+  void visitPrintStmt(const PrintStmtPtr &stmt) override;
+  void visitExprStmt(const ExprStmtPtr &stmt) override;
+  void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
 
   int getInt(const Token &token, const PrslObject &obj);
 

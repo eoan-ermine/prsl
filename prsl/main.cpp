@@ -15,6 +15,17 @@ enum class InputMode { REPL, FILE };
 
 enum class ExecutionMode { PARSE, EXECUTE };
 
+template <typename T>
+auto checkExecution(T &executor, const prsl::AST::StmtPtrVariant &stmt,
+                    prsl::Errors::ErrorReporter &eReporter) {
+  try {
+    executor.visitStmt(stmt);
+  } catch (const prsl::Errors::RuntimeError &e) {
+    eReporter.printToErr();
+  }
+  return eReporter.getStatus() == prsl::Errors::PrslStatus::OK;
+}
+
 auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
   prsl::Scanner::Scanner scanner(source);
   auto tokens = scanner.tokenize();
@@ -25,7 +36,7 @@ auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
 auto resolve(prsl::Errors::ErrorReporter &eReporter,
              const prsl::AST::StmtPtrVariant &stmt) {
   prsl::Semantics::Semantics resolver(eReporter);
-  resolver.execute(stmt);
+  return checkExecution(resolver, stmt, eReporter);
 }
 
 template <typename T>
@@ -40,15 +51,15 @@ auto execute(std::string_view inputFilename, InputMode inputMode,
       eReporter.printToErr();
       return false;
     }
-    resolve(eReporter, stmt);
-    if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
-      eReporter.printToErr();
-      return false;
-    }
+
+    if (auto res = resolve(eReporter, stmt); !res)
+      return res;
+
     if (executionMode == ExecutionMode::PARSE)
-      return false;
-    executor.execute(stmt);
-    return true;
+      return true;
+
+    return checkExecution(executor, stmt, eReporter);
+    ;
   };
 
   if (inputMode == InputMode::FILE) {
