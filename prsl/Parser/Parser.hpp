@@ -20,10 +20,10 @@ public:
 
   class ParseError : public std::exception {};
 
-  std::vector<StmtPtrVariant> parse();
+  StmtPtrVariant parse();
 
 private:
-  std::vector<StmtPtrVariant> program();
+  StmtPtrVariant program();
 
   StmtPtrVariant decl();
   StmtPtrVariant varDecl();

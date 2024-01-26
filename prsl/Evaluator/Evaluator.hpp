@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Environment.hpp"
@@ -24,7 +22,7 @@ public:
   PrslObject evaluateExpr(const ExprPtrVariant &expr);
   void evaluateStmt(const StmtPtrVariant &stmt);
 
-  void executeStmts(const std::vector<StmtPtrVariant> &stmts);
+  void execute(const StmtPtrVariant &stmt);
   void dump(std::string_view);
 
 private:
@@ -43,6 +41,7 @@ private:
   void evaluateWhileStmt(const WhileStmtPtr &stmt);
   void evaluatePrintStmt(const PrintStmtPtr &stmt);
   void evaluateExprStmt(const ExprStmtPtr &stmt);
+  void evaluateFunctionStmt(const FunctionStmtPtr &stmt);
 
   int getInt(const Token &token, const PrslObject &obj);
 

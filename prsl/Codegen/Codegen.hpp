@@ -39,7 +39,7 @@ public:
   Value *codegenExpr(const ExprPtrVariant &expr);
   Value *codegenStmt(const StmtPtrVariant &stmt);
 
-  void executeStmts(const std::vector<StmtPtrVariant> &stmts);
+  void execute(const StmtPtrVariant &stmt);
   void dump(std::string_view filename);
 
 private:
@@ -59,6 +59,7 @@ private:
   Value *codegenWhileStmt(const WhileStmtPtr &stmt);
   Value *codegenPrintStmt(const PrintStmtPtr &stmt);
   Value *codegenExprStmt(const ExprStmtPtr &stmt);
+  Value *codegenFunctionStmt(const FunctionStmtPtr &stmt);
 
   AllocaInst *allocVar(std::string_view name);
   AllocaInst *getOrCreateAllocVar(const Token &variable);

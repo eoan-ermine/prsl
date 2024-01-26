@@ -17,11 +17,11 @@ Parser::Parser(const std::vector<Token> &tokens,
   this->currentIter = this->tokens.begin();
 }
 
-std::vector<StmtPtrVariant> Parser::parse() { return program(); }
+StmtPtrVariant Parser::parse() { return program(); }
 
 //  <program> ::=
 //    <decl>*
-std::vector<StmtPtrVariant> Parser::program() {
+StmtPtrVariant Parser::program() {
   std::vector<StmtPtrVariant> statements;
   try {
     while (!isEOF()) {
@@ -30,7 +30,7 @@ std::vector<StmtPtrVariant> Parser::program() {
   } catch (const ParseError &e) {
     synchronize();
   }
-  return statements;
+  return createFunctionSPV({}, std::move(statements));
 }
 
 // <decl> ::=

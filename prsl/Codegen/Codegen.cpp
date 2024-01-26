@@ -6,14 +6,7 @@ Codegen::Codegen(ErrorReporter &eReporter)
     : eReporter(eReporter), context(std::make_unique<LLVMContext>()),
       module(std::make_unique<Module>("Prsl", *context)),
       builder(std::make_unique<IRBuilder<>>(*context)),
-      envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
-  FunctionType *FT = FunctionType::get(llvm::Type::getInt32Ty(*context),
-                                       std::vector<llvm::Type *>{}, false);
-  Function *F =
-      Function::Create(FT, Function::ExternalLinkage, "main", module.get());
-  BasicBlock *BB = BasicBlock::Create(*context, "", F);
-  builder->SetInsertPoint(BB);
-}
+      envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {}
 
 Value *Codegen::codegenExpr(const ExprPtrVariant &expr) {
   switch (expr.index()) {
@@ -52,24 +45,22 @@ Value *Codegen::codegenStmt(const StmtPtrVariant &stmt) {
     return codegenPrintStmt(std::get<4>(stmt));
   case 5:
     return codegenExprStmt(std::get<5>(stmt));
+  case 6:
+    return codegenFunctionStmt(std::get<6>(stmt));
   default:
     std::unreachable();
   }
 }
 
-void Codegen::executeStmts(const std::vector<StmtPtrVariant> &stmts) {
-  for (const auto &stmt : stmts) {
-    try {
-      codegenStmt(stmt);
-    } catch (const Errors::RuntimeError &e) {
-      eReporter.printToErr();
-    }
+void Codegen::execute(const StmtPtrVariant &stmt) {
+  try {
+    codegenStmt(stmt);
+  } catch (const Errors::RuntimeError &e) {
+    eReporter.printToErr();
   }
 }
 
 void Codegen::dump(std::string_view filename) {
-  builder->CreateRet(ConstantInt::get(intType, 0));
-
   std::error_code ec;
   auto fileStream =
       llvm::raw_fd_ostream(filename, ec, llvm::sys::fs::OpenFlags::OF_None);
@@ -244,7 +235,9 @@ Value *Codegen::codegenIfStmt(const IfStmtPtr &stmt) {
 Value *Codegen::codegenBlockStmt(const BlockStmtPtr &stmt) {
   auto curEnv = envManager.getCurEnv();
   envManager.createNewEnv();
-  executeStmts(stmt->statements);
+  for (const auto &stmt : stmt->statements) {
+    codegenStmt(stmt);
+  }
   envManager.discardEnvsTill(curEnv);
   return nullptr;
 }
@@ -297,6 +290,22 @@ Value *Codegen::codegenPrintStmt(const PrintStmtPtr &stmt) {
 Value *Codegen::codegenExprStmt(const ExprStmtPtr &stmt) {
   codegenExpr(stmt->expression);
   return nullptr;
+}
+
+Value *Codegen::codegenFunctionStmt(const FunctionStmtPtr &stmt) {
+  FunctionType *FT = FunctionType::get(llvm::Type::getInt32Ty(*context),
+                                       std::vector<llvm::Type *>{}, false);
+  Function *F =
+      Function::Create(FT, Function::ExternalLinkage, "main", module.get());
+  BasicBlock *BB = BasicBlock::Create(*context, "", F);
+  builder->SetInsertPoint(BB);
+
+  for (const auto &stmt : stmt->body) {
+    codegenStmt(stmt);
+  }
+
+  builder->CreateRet(ConstantInt::get(intType, 0));
+  return F;
 }
 
 AllocaInst *Codegen::allocVar(std::string_view name) {

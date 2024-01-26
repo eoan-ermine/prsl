@@ -21,7 +21,7 @@ public:
   void resolveExpr(const ExprPtrVariant &expr);
   void resolveStmt(const StmtPtrVariant &stmt);
 
-  void executeStmts(const std::vector<StmtPtrVariant> &stmts);
+  void execute(const StmtPtrVariant &stmt);
   void dump(std::string_view filename);
 
 private:
@@ -40,6 +40,7 @@ private:
   void resolveWhileStmt(const WhileStmtPtr &stmt);
   void resolvePrintStmt(const PrintStmtPtr &stmt);
   void resolveExprStmt(const ExprStmtPtr &stmt);
+  void resolveFunctionStmt(const FunctionStmtPtr &stmt);
 
   ErrorReporter &eReporter;
   Evaluator::EnvironmentManager<bool> envManager;

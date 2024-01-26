@@ -49,18 +49,18 @@ void Evaluator::evaluateStmt(const StmtPtrVariant &stmt) {
     return evaluatePrintStmt(std::get<4>(stmt));
   case 5:
     return evaluateExprStmt(std::get<5>(stmt));
+  case 6:
+    return evaluateFunctionStmt(std::get<6>(stmt));
   default:
     std::unreachable();
   }
 }
 
-void Evaluator::executeStmts(const std::vector<StmtPtrVariant> &stmts) {
-  for (const auto &stmt : stmts) {
-    try {
-      evaluateStmt(stmt);
-    } catch (const Errors::RuntimeError &e) {
-      eReporter.printToErr();
-    }
+void Evaluator::execute(const StmtPtrVariant &stmt) {
+  try {
+    evaluateStmt(stmt);
+  } catch (const Errors::RuntimeError &e) {
+    eReporter.printToErr();
   }
 }
 
@@ -195,7 +195,9 @@ void Evaluator::evaluateIfStmt(const IfStmtPtr &stmt) {
 void Evaluator::evaluateBlockStmt(const BlockStmtPtr &stmt) {
   auto curEnv = envManager.getCurEnv();
   envManager.createNewEnv();
-  executeStmts(stmt->statements);
+  for (const auto &stmt : stmt->statements) {
+    evaluateStmt(stmt);
+  }
   envManager.discardEnvsTill(curEnv);
 }
 
@@ -211,6 +213,12 @@ void Evaluator::evaluatePrintStmt(const PrintStmtPtr &stmt) {
 
 void Evaluator::evaluateExprStmt(const ExprStmtPtr &stmt) {
   evaluateExpr(stmt->expression);
+}
+
+void Evaluator::evaluateFunctionStmt(const FunctionStmtPtr &stmt) {
+  for (const auto &stmt : stmt->body) {
+    evaluateStmt(stmt);
+  }
 }
 
 } // namespace prsl::Evaluator

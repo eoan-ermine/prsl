@@ -46,18 +46,18 @@ void Semantics::resolveStmt(const StmtPtrVariant &stmt) {
     return resolvePrintStmt(std::get<4>(stmt));
   case 5:
     return resolveExprStmt(std::get<5>(stmt));
+  case 6:
+    return resolveFunctionStmt(std::get<6>(stmt));
   default:
     std::unreachable();
   }
 }
 
-void Semantics::executeStmts(const std::vector<StmtPtrVariant> &stmts) {
-  for (const auto &stmt : stmts) {
-    try {
-      resolveStmt(stmt);
-    } catch (const Errors::RuntimeError &e) {
-      break;
-    }
+void Semantics::execute(const StmtPtrVariant &stmt) {
+  try {
+    resolveStmt(stmt);
+  } catch (const Errors::RuntimeError &e) {
+    return;
   }
 }
 
@@ -122,7 +122,9 @@ void Semantics::resolveIfStmt(const IfStmtPtr &stmt) {
 }
 
 void Semantics::resolveBlockStmt(const BlockStmtPtr &stmt) {
-  executeStmts(stmt->statements);
+  for (const auto &stmt : stmt->statements) {
+    resolveStmt(stmt);
+  }
 }
 
 void Semantics::resolveWhileStmt(const WhileStmtPtr &stmt) {
@@ -136,6 +138,12 @@ void Semantics::resolvePrintStmt(const PrintStmtPtr &stmt) {
 
 void Semantics::resolveExprStmt(const ExprStmtPtr &stmt) {
   resolveExpr(stmt->expression);
+}
+
+void Semantics::resolveFunctionStmt(const FunctionStmtPtr &stmt) {
+  for (const auto &stmt : stmt->body) {
+    resolveStmt(stmt);
+  }
 }
 
 } // namespace prsl::Semantics

@@ -57,6 +57,8 @@ struct PrintStmt;
 
 struct ExprStmt;
 
+struct FunctionStmt;
+
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
 using IfStmtPtr = std::unique_ptr<IfStmt>;
@@ -69,8 +71,11 @@ using PrintStmtPtr = std::unique_ptr<PrintStmt>;
 
 using ExprStmtPtr = std::unique_ptr<ExprStmt>;
 
-using StmtPtrVariant = std::variant<VarStmtPtr, IfStmtPtr, BlockStmtPtr,
-                                    WhileStmtPtr, PrintStmtPtr, ExprStmtPtr>;
+using FunctionStmtPtr = std::unique_ptr<FunctionStmt>;
+
+using StmtPtrVariant =
+    std::variant<VarStmtPtr, IfStmtPtr, BlockStmtPtr, WhileStmtPtr,
+                 PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr>;
 
 using prsl::Types::Token;
 
@@ -155,6 +160,13 @@ struct ExprStmt final {
   explicit ExprStmt(ExprPtrVariant expression);
 };
 
+struct FunctionStmt final {
+  std::vector<Token> params;
+  std::vector<StmtPtrVariant> body;
+  explicit FunctionStmt(std::vector<Token> params,
+                        std::vector<StmtPtrVariant> body);
+};
+
 ExprPtrVariant createLiteralEPV(int literalVal);
 
 ExprPtrVariant createGroupingEPV(ExprPtrVariant expression);
@@ -184,5 +196,8 @@ StmtPtrVariant createWhileSPV(ExprPtrVariant condition, StmtPtrVariant body);
 StmtPtrVariant createPrintSPV(ExprPtrVariant value);
 
 StmtPtrVariant createExprSPV(ExprPtrVariant expression);
+
+StmtPtrVariant createFunctionSPV(std::vector<Token> params,
+                                 std::vector<StmtPtrVariant> body);
 
 } // namespace prsl::AST

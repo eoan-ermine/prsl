@@ -23,9 +23,9 @@ auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
 }
 
 auto resolve(prsl::Errors::ErrorReporter &eReporter,
-             const std::vector<prsl::AST::StmtPtrVariant> &statements) {
+             const prsl::AST::StmtPtrVariant &stmt) {
   prsl::Semantics::Semantics resolver(eReporter);
-  resolver.executeStmts(statements);
+  resolver.execute(stmt);
 }
 
 template <typename T>
@@ -35,19 +35,19 @@ auto execute(std::string_view inputFilename, InputMode inputMode,
   T executor(eReporter);
 
   auto executeStmts = [&](std::string_view source) {
-    auto statements = parse(source, eReporter);
+    auto stmt = parse(source, eReporter);
     if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
       eReporter.printToErr();
       return false;
     }
-    resolve(eReporter, statements);
+    resolve(eReporter, stmt);
     if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
       eReporter.printToErr();
       return false;
     }
     if (executionMode == ExecutionMode::PARSE)
       return false;
-    executor.executeStmts(statements);
+    executor.execute(stmt);
     return true;
   };
 

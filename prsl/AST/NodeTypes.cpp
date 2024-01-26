@@ -44,6 +44,10 @@ PrintStmt::PrintStmt(ExprPtrVariant value) : value(std::move(value)) {}
 ExprStmt::ExprStmt(ExprPtrVariant expression)
     : expression(std::move(expression)) {}
 
+FunctionStmt::FunctionStmt(std::vector<Token> params,
+                           std::vector<StmtPtrVariant> body)
+    : params(std::move(params)), body(std::move(body)) {}
+
 ExprPtrVariant createLiteralEPV(int literalVal) {
   return std::make_unique<LiteralExpr>(literalVal);
 }
@@ -100,6 +104,11 @@ StmtPtrVariant createPrintSPV(ExprPtrVariant value) {
 
 StmtPtrVariant createExprSPV(ExprPtrVariant expression) {
   return std::make_unique<ExprStmt>(std::move(expression));
+}
+
+StmtPtrVariant createFunctionSPV(std::vector<Token> params,
+                                 std::vector<StmtPtrVariant> body) {
+  return std::make_unique<FunctionStmt>(std::move(params), std::move(body));
 }
 
 } // namespace prsl::AST
