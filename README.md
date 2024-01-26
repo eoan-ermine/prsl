@@ -9,6 +9,14 @@ ParaCL language interpreter & transpiler (to LLVM IR)
 | Boost.ProgramOptions | >=1.74  |
 | LLVM                 | >=14    |
 
+**Development dependencies**:
+
+| Package      | Version  |
+| ------------ | -------- |
+| lit          | >=17     |
+| filecheck    | >=0.0.24 |
+| clang-format | >= 14    |
+
 ### Installation
 
 #### Ubuntu
@@ -18,11 +26,27 @@ sudo apt install libboost-program-options-dev
 sudo apt install llvm-dev
 ```
 
+**Development dependencies**:
+
+```shell
+pip install lit
+pip install filecheck
+sudo apt install clang-format
+```
+
 #### Arch
 
 ```shell
 sudo pacman -S llvm
 sudo pacman -S boost
+```
+
+**Development dependencies**:
+
+```shell
+pip install lit
+pip install filecheck
+sudo pacman -S clang # For clang-format
 ```
 
 ## Getting the Source Code and Building prsl
