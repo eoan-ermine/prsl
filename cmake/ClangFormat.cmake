@@ -15,7 +15,7 @@ function(add_clang_format_target)
 			message(STATUS "Format the project using the `clang-format` target (i.e: cmake --build build --target format).")
 
             add_custom_target(check-format
-                    COMMAND ${${PROJECT_NAME}_CLANG_FORMAT_BINARY}
+                    COMMAND ${${PROJECT_NAME}_CLANG_FORMAT_BINARY} -Wno-error=unknown
                     -n --Werror ${sources} ${headers}
                     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
     endif()

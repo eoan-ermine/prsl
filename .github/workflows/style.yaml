@@ -19,7 +19,7 @@ jobs:
         run: pip3 install clang-format==17.0.6
 
       - name: Configure
-        run: cmake -S . -B building_format
+        run: cmake -S . -DFORMAT_CI=1 -B building_format
 
       - name: Check style
         run: cmake --build building_format --target check-format
