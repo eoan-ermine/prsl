@@ -126,7 +126,7 @@ clang source.ll -o source
   | <varDecl>
 
 <varDecl> ::=
-  <ident> "=" <expr> ";"
+  <ident> "=" <expr> ";"?
 
 <stmt> ::=
   <ifStmt>
@@ -135,20 +135,21 @@ clang source.ll -o source
   | <printStmt>
 
 <ifStmt> ::=
-  "if(" <expr> "){" <stmt> "}"
-  | "if(" <expr> "){" <stmt> "}else{" <stmt> "}"
+  "if(" <expr> ")" <stmt>
+  | "if(" <expr> ")" <stmt> "else" <stmt>
 
 <blockStmt> ::=
   "{" <program> "}"
  
 <whileStmt> ::=
-  "while(" <expr> "){" <stmt> "}"
+  "while(" <expr> ")" <stmt>
 
 <printStmt> ::=
   "print" <expr> ";"
 
 <expr> ::=
   <assignmentExpr>
+  | <scopeExpr>
 
 <assignmentExpr> ::=
   <comparisonExpr>
@@ -199,4 +200,7 @@ clang source.ll -o source
     
 <inputExpr> ::=
   "?"
+
+<scopeExpr> ::=
+  "{" <program> "}"
 ```

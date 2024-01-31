@@ -45,7 +45,7 @@ StmtPtrVariant Parser::decl() {
 }
 
 // <varDecl> ::=
-//   <ident> "=" <expr> ";"
+//   <ident> "=" <expr> ";"?
 StmtPtrVariant Parser::varDecl() {
   Token ident = getTokenAdvance();
   consumeOrError(Token::Type::EQUAL, "Expect equals sign after identifier");
@@ -289,6 +289,8 @@ ExprPtrVariant Parser::inputExpr() {
   return AST::createInputEPV();
 }
 
+// <scopeExpr> ::=
+//   "{" <program> "}"
 ExprPtrVariant Parser::scopeExpr() {
   advance();
   std::vector<StmtPtrVariant> statements;
