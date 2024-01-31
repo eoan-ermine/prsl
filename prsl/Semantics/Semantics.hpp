@@ -29,14 +29,15 @@ private:
   void visitUnaryExpr(const UnaryExprPtr &expr) override;
   void visitBinaryExpr(const BinaryExprPtr &expr) override;
   void visitPostfixExpr(const PostfixExprPtr &expr) override;
+  void visitScopeExpr(const ScopeExprPtr &expr) override;
 
   void visitVarStmt(const VarStmtPtr &stmt) override;
   void visitIfStmt(const IfStmtPtr &stmt) override;
-  void visitBlockStmt(const BlockStmtPtr &stmt) override;
   void visitWhileStmt(const WhileStmtPtr &stmt) override;
   void visitPrintStmt(const PrintStmtPtr &stmt) override;
   void visitExprStmt(const ExprStmtPtr &stmt) override;
   void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
+  void visitBlockStmt(const BlockStmtPtr &stmt) override;
 
   ErrorReporter &eReporter;
   Evaluator::EnvironmentManager<bool> envManager;

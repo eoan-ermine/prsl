@@ -46,6 +46,7 @@ private:
   ExprPtrVariant groupingExpr();
   ExprPtrVariant varExpr();
   ExprPtrVariant inputExpr();
+  ExprPtrVariant scopeExpr();
 
   void synchronize();
   void advance();

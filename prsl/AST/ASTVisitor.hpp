@@ -18,50 +18,36 @@
 
 namespace prsl::AST {
 
+template<class... Ts>
+struct select : Ts... { using Ts::operator()...; };
+
+
 template <typename ExprVisitRes = void, typename StmtVisitRes = void>
 class ASTVisitor {
 public:
   ExprVisitRes visitExpr(const ExprPtrVariant &expr) {
-    switch (expr.index()) {
-    case 0:
-      return visitLiteralExpr(std::get<0>(expr));
-    case 1:
-      return visitGroupingExpr(std::get<1>(expr));
-    case 2:
-      return visitVarExpr(std::get<2>(expr));
-    case 3:
-      return visitInputExpr(std::get<3>(expr));
-    case 4:
-      return visitAssignmentExpr(std::get<4>(expr));
-    case 5:
-      return visitUnaryExpr(std::get<5>(expr));
-    case 6:
-      return visitBinaryExpr(std::get<6>(expr));
-    case 7:
-      return visitPostfixExpr(std::get<7>(expr));
-    default:
-      unreachable();
-    }
+    return std::visit<ExprVisitRes>(select{
+      [&](const LiteralExprPtr &expr) { return visitLiteralExpr(expr); },
+      [&](const GroupingExprPtr &expr) { return visitGroupingExpr(expr); },
+      [&](const VarExprPtr &expr) { return visitVarExpr(expr); },
+      [&](const InputExprPtr &expr) { return visitInputExpr(expr); },
+      [&](const AssignmentExprPtr &expr) { return visitAssignmentExpr(expr); },
+      [&](const UnaryExprPtr &expr) { return visitUnaryExpr(expr); },
+      [&](const BinaryExprPtr &expr) { return visitBinaryExpr(expr); },
+      [&](const PostfixExprPtr &expr) { return visitPostfixExpr(expr); },
+      [&](const ScopeExprPtr &expr) { return visitScopeExpr(expr); },
+    }, expr);
   }
   StmtVisitRes visitStmt(const StmtPtrVariant &stmt) {
-    switch (stmt.index()) {
-    case 0:
-      return visitVarStmt(std::get<0>(stmt));
-    case 1:
-      return visitIfStmt(std::get<1>(stmt));
-    case 2:
-      return visitBlockStmt(std::get<2>(stmt));
-    case 3:
-      return visitWhileStmt(std::get<3>(stmt));
-    case 4:
-      return visitPrintStmt(std::get<4>(stmt));
-    case 5:
-      return visitExprStmt(std::get<5>(stmt));
-    case 6:
-      return visitFunctionStmt(std::get<6>(stmt));
-    default:
-      unreachable();
-    }
+    return std::visit<StmtVisitRes>(select{
+      [&](const VarStmtPtr &stmt) { return visitVarStmt(stmt); },
+      [&](const IfStmtPtr &stmt) { return visitIfStmt(stmt); },
+      [&](const WhileStmtPtr &stmt) { return visitWhileStmt(stmt); },
+      [&](const PrintStmtPtr &stmt) { return visitPrintStmt(stmt); },
+      [&](const ExprStmtPtr &stmt) { return visitExprStmt(stmt); },
+      [&](const FunctionStmtPtr &stmt) { return visitFunctionStmt(stmt); },
+      [&](const BlockStmtPtr &stmt) { return visitBlockStmt(stmt); },
+    }, stmt);
   }
   virtual bool dump(std::string_view) = 0;
 
@@ -74,14 +60,15 @@ protected:
   virtual ExprVisitRes visitUnaryExpr(const UnaryExprPtr &expr) = 0;
   virtual ExprVisitRes visitBinaryExpr(const BinaryExprPtr &expr) = 0;
   virtual ExprVisitRes visitPostfixExpr(const PostfixExprPtr &expr) = 0;
+  virtual ExprVisitRes visitScopeExpr(const ScopeExprPtr &expr) = 0;
 
   virtual StmtVisitRes visitVarStmt(const VarStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitIfStmt(const IfStmtPtr &stmt) = 0;
-  virtual StmtVisitRes visitBlockStmt(const BlockStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitWhileStmt(const WhileStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitPrintStmt(const PrintStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitExprStmt(const ExprStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitFunctionStmt(const FunctionStmtPtr &stmt) = 0;
+  virtual StmtVisitRes visitBlockStmt(const BlockStmtPtr &stmt) = 0;
 };
 
 } // namespace prsl::AST

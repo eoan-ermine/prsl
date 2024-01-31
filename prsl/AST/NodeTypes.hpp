@@ -24,6 +24,8 @@ struct BinaryExpr;
 
 struct PostfixExpr;
 
+struct ScopeExpr;
+
 using LiteralExprPtr = std::unique_ptr<LiteralExpr>;
 
 using GroupingExprPtr = std::unique_ptr<GroupingExpr>;
@@ -40,16 +42,16 @@ using BinaryExprPtr = std::unique_ptr<BinaryExpr>;
 
 using PostfixExprPtr = std::unique_ptr<PostfixExpr>;
 
+using ScopeExprPtr = std::unique_ptr<ScopeExpr>;
+
 using ExprPtrVariant =
     std::variant<LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr,
-                 AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr,
-                 PostfixExprPtr>;
+                 AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr, PostfixExprPtr,
+                 ScopeExprPtr>;
 
 struct VarStmt;
 
 struct IfStmt;
-
-struct BlockStmt;
 
 struct WhileStmt;
 
@@ -59,11 +61,11 @@ struct ExprStmt;
 
 struct FunctionStmt;
 
+struct BlockStmt;
+
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
 using IfStmtPtr = std::unique_ptr<IfStmt>;
-
-using BlockStmtPtr = std::unique_ptr<BlockStmt>;
 
 using WhileStmtPtr = std::unique_ptr<WhileStmt>;
 
@@ -73,9 +75,11 @@ using ExprStmtPtr = std::unique_ptr<ExprStmt>;
 
 using FunctionStmtPtr = std::unique_ptr<FunctionStmt>;
 
+using BlockStmtPtr = std::unique_ptr<BlockStmt>;
+
 using StmtPtrVariant =
-    std::variant<VarStmtPtr, IfStmtPtr, BlockStmtPtr, WhileStmtPtr,
-                 PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr>;
+    std::variant<VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr,
+                 FunctionStmtPtr, BlockStmtPtr>;
 
 using prsl::Types::Token;
 
@@ -124,6 +128,11 @@ struct PostfixExpr final {
   explicit PostfixExpr(ExprPtrVariant expression, Types::Token op);
 };
 
+struct ScopeExpr final {
+  std::vector<StmtPtrVariant> statements;
+  explicit ScopeExpr(std::vector<StmtPtrVariant> statements);
+};
+
 struct VarStmt final {
   Token varName;
   ExprPtrVariant initializer;
@@ -137,11 +146,6 @@ struct IfStmt final {
 
   explicit IfStmt(ExprPtrVariant condition, StmtPtrVariant thenBranch,
                   std::optional<StmtPtrVariant> elseBranch);
-};
-
-struct BlockStmt final {
-  std::vector<StmtPtrVariant> statements;
-  explicit BlockStmt(std::vector<StmtPtrVariant> statements);
 };
 
 struct WhileStmt final {
@@ -167,6 +171,11 @@ struct FunctionStmt final {
                         std::vector<StmtPtrVariant> body);
 };
 
+struct BlockStmt final {
+  std::vector<StmtPtrVariant> statements;
+  explicit BlockStmt(std::vector<StmtPtrVariant> statements);
+};
+
 ExprPtrVariant createLiteralEPV(int literalVal);
 
 ExprPtrVariant createGroupingEPV(ExprPtrVariant expression);
@@ -184,12 +193,12 @@ ExprPtrVariant createBinaryEPV(ExprPtrVariant lhsExpression, Types::Token op,
 
 ExprPtrVariant createPostfixEPV(ExprPtrVariant expression, Types::Token op);
 
+ExprPtrVariant createScopeEPV(std::vector<StmtPtrVariant> statements);
+
 StmtPtrVariant createVarSPV(Token varName, ExprPtrVariant initializer);
 
 StmtPtrVariant createIfSPV(ExprPtrVariant condition, StmtPtrVariant thenBranch,
                            std::optional<StmtPtrVariant> elseBranch);
-
-StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements);
 
 StmtPtrVariant createWhileSPV(ExprPtrVariant condition, StmtPtrVariant body);
 
@@ -199,5 +208,7 @@ StmtPtrVariant createExprSPV(ExprPtrVariant expression);
 
 StmtPtrVariant createFunctionSPV(std::vector<Token> params,
                                  std::vector<StmtPtrVariant> body);
+
+StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements);
 
 } // namespace prsl::AST
