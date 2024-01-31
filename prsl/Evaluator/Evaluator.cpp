@@ -3,6 +3,7 @@
 #include "prsl/Debug/RuntimeError.hpp"
 #include <iostream>
 #include <memory>
+#include <ranges>
 #include <string>
 #include <variant>
 
@@ -126,6 +127,23 @@ PrslObject Evaluator::visitPostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
+PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
+  auto curEnv = envManager.getCurEnv();
+  envManager.createNewEnv();
+  for (const auto &stmt :
+       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+    visitStmt(stmt);
+  }
+  PrslObject res{0};
+  if (stmt->statements.size())
+    if (const auto &back = stmt->statements.back();
+        std::holds_alternative<ExprStmtPtr>(back)) {
+      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+    }
+  envManager.discardEnvsTill(curEnv);
+  return res;
+}
+
 void Evaluator::visitVarStmt(const VarStmtPtr &stmt) {
   envManager.define(stmt->varName, visitExpr(stmt->initializer));
 }
@@ -135,15 +153,6 @@ void Evaluator::visitIfStmt(const IfStmtPtr &stmt) {
     return visitStmt(stmt->thenBranch);
   if (stmt->elseBranch.has_value())
     return visitStmt(stmt->elseBranch.value());
-}
-
-void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
-  auto curEnv = envManager.getCurEnv();
-  envManager.createNewEnv();
-  for (const auto &stmt : stmt->statements) {
-    visitStmt(stmt);
-  }
-  envManager.discardEnvsTill(curEnv);
 }
 
 void Evaluator::visitWhileStmt(const WhileStmtPtr &stmt) {
@@ -164,6 +173,15 @@ void Evaluator::visitFunctionStmt(const FunctionStmtPtr &stmt) {
   for (const auto &stmt : stmt->body) {
     visitStmt(stmt);
   }
+}
+
+void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
+  auto curEnv = envManager.getCurEnv();
+  envManager.createNewEnv();
+  for (const auto &stmt : stmt->statements) {
+    visitStmt(stmt);
+  }
+  envManager.discardEnvsTill(curEnv);
 }
 
 } // namespace prsl::Evaluator

@@ -25,6 +25,9 @@ BinaryExpr::BinaryExpr(ExprPtrVariant lhsExpression, Types::Token op,
 PostfixExpr::PostfixExpr(ExprPtrVariant expression, Types::Token op)
     : expression(std::move(expression)), op(op) {}
 
+ScopeExpr::ScopeExpr(std::vector<StmtPtrVariant> statements)
+    : statements(std::move(statements)) {}
+
 VarStmt::VarStmt(Token varName, ExprPtrVariant initializer)
     : varName(varName), initializer(std::move(initializer)) {}
 
@@ -32,9 +35,6 @@ IfStmt::IfStmt(ExprPtrVariant condition, StmtPtrVariant thenBranch,
                std::optional<StmtPtrVariant> elseBranch)
     : condition(std::move(condition)), thenBranch(std::move(thenBranch)),
       elseBranch(std::move(elseBranch)) {}
-
-BlockStmt::BlockStmt(std::vector<StmtPtrVariant> statements)
-    : statements(std::move(statements)) {}
 
 WhileStmt::WhileStmt(ExprPtrVariant condition, StmtPtrVariant body)
     : condition(std::move(condition)), body(std::move(body)) {}
@@ -47,6 +47,9 @@ ExprStmt::ExprStmt(ExprPtrVariant expression)
 FunctionStmt::FunctionStmt(std::vector<Token> params,
                            std::vector<StmtPtrVariant> body)
     : params(std::move(params)), body(std::move(body)) {}
+
+BlockStmt::BlockStmt(std::vector<StmtPtrVariant> statements)
+    : statements(std::move(statements)) {}
 
 ExprPtrVariant createLiteralEPV(int literalVal) {
   return std::make_unique<LiteralExpr>(literalVal);
@@ -80,6 +83,10 @@ ExprPtrVariant createPostfixEPV(ExprPtrVariant expression, Types::Token op) {
   return std::make_unique<PostfixExpr>(std::move(expression), op);
 }
 
+ExprPtrVariant createScopeEPV(std::vector<StmtPtrVariant> statements) {
+  return std::make_unique<ScopeExpr>(std::move(statements));
+}
+
 StmtPtrVariant createVarSPV(Token varName, ExprPtrVariant initializer) {
   return std::make_unique<VarStmt>(varName, std::move(initializer));
 }
@@ -88,10 +95,6 @@ StmtPtrVariant createIfSPV(ExprPtrVariant condition, StmtPtrVariant thenBranch,
                            std::optional<StmtPtrVariant> elseBranch) {
   return std::make_unique<IfStmt>(std::move(condition), std::move(thenBranch),
                                   std::move(elseBranch));
-}
-
-StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements) {
-  return std::make_unique<BlockStmt>(std::move(statements));
 }
 
 StmtPtrVariant createWhileSPV(ExprPtrVariant condition, StmtPtrVariant body) {
@@ -109,6 +112,10 @@ StmtPtrVariant createExprSPV(ExprPtrVariant expression) {
 StmtPtrVariant createFunctionSPV(std::vector<Token> params,
                                  std::vector<StmtPtrVariant> body) {
   return std::make_unique<FunctionStmt>(std::move(params), std::move(body));
+}
+
+StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements) {
+  return std::make_unique<BlockStmt>(std::move(statements));
 }
 
 } // namespace prsl::AST

@@ -53,6 +53,12 @@ void Semantics::visitPostfixExpr(const PostfixExprPtr &expr) {
     throw reportRuntimeError(eReporter, expr->op, "Illegal postfix expression");
 }
 
+void Semantics::visitScopeExpr(const ScopeExprPtr &stmt) {
+  for (const auto &stmt : stmt->statements) {
+    visitStmt(stmt);
+  }
+}
+
 void Semantics::visitVarStmt(const VarStmtPtr &stmt) {
   if (!envManager.contains(stmt->varName)) {
     envManager.define(stmt->varName, false);
@@ -66,12 +72,6 @@ void Semantics::visitIfStmt(const IfStmtPtr &stmt) {
   visitStmt(stmt->thenBranch);
   if (stmt->elseBranch)
     visitStmt(*stmt->elseBranch);
-}
-
-void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
-  for (const auto &stmt : stmt->statements) {
-    visitStmt(stmt);
-  }
 }
 
 void Semantics::visitWhileStmt(const WhileStmtPtr &stmt) {
@@ -89,6 +89,12 @@ void Semantics::visitExprStmt(const ExprStmtPtr &stmt) {
 
 void Semantics::visitFunctionStmt(const FunctionStmtPtr &stmt) {
   for (const auto &stmt : stmt->body) {
+    visitStmt(stmt);
+  }
+}
+
+void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
+  for (const auto &stmt : stmt->statements) {
     visitStmt(stmt);
   }
 }

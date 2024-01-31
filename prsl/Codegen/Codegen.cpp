@@ -1,5 +1,7 @@
 #include "Codegen.hpp"
 
+#include <ranges>
+
 namespace prsl::Codegen {
 
 Codegen::Codegen(ErrorReporter &eReporter)
@@ -138,6 +140,23 @@ Value *Codegen::visitPostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
+Value *Codegen::visitScopeExpr(const ScopeExprPtr &stmt) {
+  auto curEnv = envManager.getCurEnv();
+  envManager.createNewEnv();
+  for (const auto &stmt :
+       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+    visitStmt(stmt);
+  }
+  Value *res = ConstantInt::get(intType, 0);
+  if (stmt->statements.size())
+    if (const auto &back = stmt->statements.back();
+        std::holds_alternative<ExprStmtPtr>(back)) {
+      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+    }
+  envManager.discardEnvsTill(curEnv);
+  return res;
+}
+
 Value *Codegen::visitVarStmt(const VarStmtPtr &stmt) {
   Value *value = visitExpr(stmt->initializer);
   AllocaInst *varInst = getOrCreateAllocVar(stmt->varName);
@@ -180,16 +199,6 @@ Value *Codegen::visitIfStmt(const IfStmtPtr &stmt) {
 
   function->insert(function->end(), mergeBB);
   builder->SetInsertPoint(mergeBB);
-  return nullptr;
-}
-
-Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
-  auto curEnv = envManager.getCurEnv();
-  envManager.createNewEnv();
-  for (const auto &stmt : stmt->statements) {
-    visitStmt(stmt);
-  }
-  envManager.discardEnvsTill(curEnv);
   return nullptr;
 }
 
@@ -257,6 +266,16 @@ Value *Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 
   builder->CreateRet(ConstantInt::get(intType, 0));
   return F;
+}
+
+Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
+  auto curEnv = envManager.getCurEnv();
+  envManager.createNewEnv();
+  for (const auto &stmt : stmt->statements) {
+    visitStmt(stmt);
+  }
+  envManager.discardEnvsTill(curEnv);
+  return nullptr;
 }
 
 AllocaInst *Codegen::allocVar(std::string_view name) {

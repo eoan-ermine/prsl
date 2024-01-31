@@ -44,14 +44,15 @@ private:
   Value *visitUnaryExpr(const UnaryExprPtr &expr) override;
   Value *visitBinaryExpr(const BinaryExprPtr &expr) override;
   Value *visitPostfixExpr(const PostfixExprPtr &expr) override;
+  Value *visitScopeExpr(const ScopeExprPtr &stmt) override;
 
   Value *visitVarStmt(const VarStmtPtr &stmt) override;
   Value *visitIfStmt(const IfStmtPtr &stmt) override;
-  Value *visitBlockStmt(const BlockStmtPtr &stmt) override;
   Value *visitWhileStmt(const WhileStmtPtr &stmt) override;
   Value *visitPrintStmt(const PrintStmtPtr &stmt) override;
   Value *visitExprStmt(const ExprStmtPtr &stmt) override;
   Value *visitFunctionStmt(const FunctionStmtPtr &stmt) override;
+  Value *visitBlockStmt(const BlockStmtPtr &stmt) override;
 
   Value *postfixExpr(const Token &op, Value *obj, Value *res);
   AllocaInst *allocVar(std::string_view name);

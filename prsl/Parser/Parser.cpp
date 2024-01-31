@@ -73,8 +73,8 @@ StmtPtrVariant Parser::stmt() {
 }
 
 // <ifStmt> ::=
-//   "if(" <expr> "){" <stmt> "}"
-//   | "if(" <expr> "){" <stmt> "}else{" <stmt> "}"
+//   "if(" <expr> ")" <stmt>
+//   | "if(" <expr> ")" <stmt> "else" <stmt>
 StmtPtrVariant Parser::ifStmt() {
   advance();
   consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after if");
@@ -105,7 +105,7 @@ StmtPtrVariant Parser::blockStmt() {
 }
 
 // <whileStmt> ::=
-//   "while(" <expr> "){" <stmt> "}"
+//   "while(" <expr> ")" <stmt>
 StmtPtrVariant Parser::whileStmt() {
   advance();
   consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after while");
@@ -133,7 +133,13 @@ StmtPtrVariant Parser::exprStmt() {
 
 // <expr> ::=
 //   <assignmentExpr>
-ExprPtrVariant Parser::expr() { return assignmentExpr(); }
+//   | <scopeExpr>
+ExprPtrVariant Parser::expr() {
+  if (match(Token::Type::LEFT_BRACE)) {
+    return scopeExpr();
+  }
+  return assignmentExpr();
+}
 
 // <assignmentExpr> ::=
 //   <comparisonExpr>
@@ -281,6 +287,16 @@ ExprPtrVariant Parser::varExpr() {
 ExprPtrVariant Parser::inputExpr() {
   advance();
   return AST::createInputEPV();
+}
+
+ExprPtrVariant Parser::scopeExpr() {
+  advance();
+  std::vector<StmtPtrVariant> statements;
+  while (!match(Token::Type::RIGHT_BRACE) && !isEOF()) {
+    statements.push_back(decl());
+  }
+  consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after scope");
+  return AST::createScopeEPV(std::move(statements));
 }
 
 void Parser::synchronize() {
