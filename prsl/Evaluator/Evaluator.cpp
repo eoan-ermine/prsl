@@ -128,19 +128,18 @@ PrslObject Evaluator::visitPostfixExpr(const PostfixExprPtr &expr) {
 }
 
 PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
-  auto curEnv = envManager.getCurEnv();
-  envManager.createNewEnv();
-  for (const auto &stmt :
-       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
-    visitStmt(stmt);
-  }
   PrslObject res{0};
-  if (stmt->statements.size())
-    if (const auto &back = stmt->statements.back();
-        std::holds_alternative<ExprStmtPtr>(back)) {
-      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+  envManager.withNewEnviron([&] {
+    for (const auto &stmt :
+         stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+      visitStmt(stmt);
     }
-  envManager.discardEnvsTill(curEnv);
+    if (stmt->statements.size())
+      if (const auto &back = stmt->statements.back();
+          std::holds_alternative<ExprStmtPtr>(back)) {
+        res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+      }
+  });
   return res;
 }
 
@@ -176,12 +175,11 @@ void Evaluator::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 }
 
 void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
-  auto curEnv = envManager.getCurEnv();
-  envManager.createNewEnv();
-  for (const auto &stmt : stmt->statements) {
-    visitStmt(stmt);
-  }
-  envManager.discardEnvsTill(curEnv);
+  envManager.withNewEnviron([&] {
+    for (const auto &stmt : stmt->statements) {
+      visitStmt(stmt);
+    }
+  });
 }
 
 } // namespace prsl::Evaluator

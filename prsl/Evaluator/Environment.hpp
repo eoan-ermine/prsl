@@ -82,14 +82,11 @@ public:
       : eReporter(eReporter),
         curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
 
-  void createNewEnv() {
-    curEnv = std::make_shared<Environment<VarValue>>(curEnv);
-  }
-
-  void discardEnvsTill(
-      const Environment<VarValue>::EnvironmentPtr &environToRestore) {
-    while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get())
-      curEnv = curEnv->getParentEnv();
+  template <typename F> void withNewEnviron(F &&action) {
+    auto environToRestore = curEnv;
+    createNewEnv();
+    action();
+    discardEnvsTill(environToRestore);
   }
 
   void assign(const Types::Token &token, VarValue object) {
@@ -125,10 +122,15 @@ public:
     return curEnv->contains(hasher(token.getLexeme()));
   }
 
-  Environment<VarValue>::EnvironmentPtr getCurEnv() { return curEnv; }
+private:
+  void createNewEnv() {
+    curEnv = std::make_shared<Environment<VarValue>>(curEnv);
+  }
 
-  void setCurEnv(Environment<VarValue>::EnvironmentPtr newCur) {
-    curEnv = std::move(newCur);
+  void discardEnvsTill(
+      const Environment<VarValue>::EnvironmentPtr &environToRestore) {
+    while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get())
+      curEnv = curEnv->getParentEnv();
   }
 
 private:
