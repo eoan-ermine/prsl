@@ -54,9 +54,11 @@ void Semantics::visitPostfixExpr(const PostfixExprPtr &expr) {
 }
 
 void Semantics::visitScopeExpr(const ScopeExprPtr &stmt) {
-  for (const auto &stmt : stmt->statements) {
-    visitStmt(stmt);
-  }
+  envManager.withNewEnviron([&]() {
+    for (const auto &stmt : stmt->statements) {
+      visitStmt(stmt);
+    }
+  });
 }
 
 void Semantics::visitVarStmt(const VarStmtPtr &stmt) {
@@ -94,9 +96,11 @@ void Semantics::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 }
 
 void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
-  for (const auto &stmt : stmt->statements) {
-    visitStmt(stmt);
-  }
+  envManager.withNewEnviron([&]() {
+    for (const auto &stmt : stmt->statements) {
+      visitStmt(stmt);
+    }
+  });
 }
 
 } // namespace prsl::Semantics
