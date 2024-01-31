@@ -134,11 +134,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1PostfixExpr.html">prsl::AST::PostfixExpr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ScopeExpr.html">prsl::AST::ScopeExpr</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1VarStmt.html">prsl::AST::VarStmt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1IfStmt.html">prsl::AST::IfStmt</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1BlockStmt.html">prsl::AST::BlockStmt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1WhileStmt.html">prsl::AST::WhileStmt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,6 +147,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ExprStmt.html">prsl::AST::ExprStmt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1FunctionStmt.html">prsl::AST::FunctionStmt</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1BlockStmt.html">prsl::AST::BlockStmt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -174,14 +176,14 @@ Typedefs</h2></td></tr>
 <tr class="separator:abf292b92fd4f5aa699ac6d2152a0cdc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1145e1cf3e07a008b1eaa499271453d4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a1145e1cf3e07a008b1eaa499271453d4">prsl::AST::PostfixExprPtr</a> = std::unique_ptr&lt; PostfixExpr &gt;</td></tr>
 <tr class="separator:a1145e1cf3e07a008b1eaa499271453d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e243db2360e4aa1d47ec0d364e29b62"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a2e243db2360e4aa1d47ec0d364e29b62">prsl::AST::ExprPtrVariant</a> = std::variant&lt; LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr, AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr, PostfixExprPtr &gt;</td></tr>
-<tr class="separator:a2e243db2360e4aa1d47ec0d364e29b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24b374db88781e2de34569ef1c6ef5ff"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">prsl::AST::ScopeExprPtr</a> = std::unique_ptr&lt; ScopeExpr &gt;</td></tr>
+<tr class="separator:a24b374db88781e2de34569ef1c6ef5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a162cd96ad4aa24b029a88ffab3d4a3c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">prsl::AST::ExprPtrVariant</a> = std::variant&lt; LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr, AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr, PostfixExprPtr, ScopeExprPtr &gt;</td></tr>
+<tr class="separator:a162cd96ad4aa24b029a88ffab3d4a3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8492e2b54ca750eab858c4e8c5d56e7e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a8492e2b54ca750eab858c4e8c5d56e7e">prsl::AST::VarStmtPtr</a> = std::unique_ptr&lt; VarStmt &gt;</td></tr>
 <tr class="separator:a8492e2b54ca750eab858c4e8c5d56e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30b9176dacaed1c37804142c8860baa4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a30b9176dacaed1c37804142c8860baa4">prsl::AST::IfStmtPtr</a> = std::unique_ptr&lt; IfStmt &gt;</td></tr>
 <tr class="separator:a30b9176dacaed1c37804142c8860baa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f2940d692053ab6dcc4ec74dcb7478f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a8f2940d692053ab6dcc4ec74dcb7478f">prsl::AST::BlockStmtPtr</a> = std::unique_ptr&lt; BlockStmt &gt;</td></tr>
-<tr class="separator:a8f2940d692053ab6dcc4ec74dcb7478f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50651da33ce17deed9a6ba2874f34b76"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a50651da33ce17deed9a6ba2874f34b76">prsl::AST::WhileStmtPtr</a> = std::unique_ptr&lt; WhileStmt &gt;</td></tr>
 <tr class="separator:a50651da33ce17deed9a6ba2874f34b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1416a93b826948d4ca2f5772fa6f7cbb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a1416a93b826948d4ca2f5772fa6f7cbb">prsl::AST::PrintStmtPtr</a> = std::unique_ptr&lt; PrintStmt &gt;</td></tr>
@@ -190,8 +192,10 @@ Typedefs</h2></td></tr>
 <tr class="separator:af7728d59ded8469f2d90c855ed882351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90ba763b95cf9961c1d2df35e984baf9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a90ba763b95cf9961c1d2df35e984baf9">prsl::AST::FunctionStmtPtr</a> = std::unique_ptr&lt; FunctionStmt &gt;</td></tr>
 <tr class="separator:a90ba763b95cf9961c1d2df35e984baf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa38059f2e57bd8da3e63ba452b8e7e97"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aa38059f2e57bd8da3e63ba452b8e7e97">prsl::AST::StmtPtrVariant</a> = std::variant&lt; VarStmtPtr, IfStmtPtr, BlockStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr &gt;</td></tr>
-<tr class="separator:aa38059f2e57bd8da3e63ba452b8e7e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f2940d692053ab6dcc4ec74dcb7478f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a8f2940d692053ab6dcc4ec74dcb7478f">prsl::AST::BlockStmtPtr</a> = std::unique_ptr&lt; BlockStmt &gt;</td></tr>
+<tr class="separator:a8f2940d692053ab6dcc4ec74dcb7478f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af585aa37ccb3b74b9a6fa4c4b281357e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">prsl::AST::StmtPtrVariant</a> = std::variant&lt; VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr, BlockStmtPtr &gt;</td></tr>
+<tr class="separator:af585aa37ccb3b74b9a6fa4c4b281357e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -211,12 +215,12 @@ Functions</h2></td></tr>
 <tr class="separator:aaff0885a24b07185bfa57e3fc2cd76ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb184cd35843433c4704a5830c226845"><td class="memItemLeft" align="right" valign="top">ExprPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aeb184cd35843433c4704a5830c226845">prsl::AST::createPostfixEPV</a> (ExprPtrVariant expression, Types::Token op)</td></tr>
 <tr class="separator:aeb184cd35843433c4704a5830c226845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f82c0f651d7077311368a953c76dae"><td class="memItemLeft" align="right" valign="top">ExprPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ae5f82c0f651d7077311368a953c76dae">prsl::AST::createScopeEPV</a> (std::vector&lt; StmtPtrVariant &gt; statements)</td></tr>
+<tr class="separator:ae5f82c0f651d7077311368a953c76dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3511e39e00bc06353092a0df14f35fcc"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a3511e39e00bc06353092a0df14f35fcc">prsl::AST::createVarSPV</a> (Token varName, ExprPtrVariant initializer)</td></tr>
 <tr class="separator:a3511e39e00bc06353092a0df14f35fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a414e84e36601643e4adb5752148e7fad"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a414e84e36601643e4adb5752148e7fad">prsl::AST::createIfSPV</a> (ExprPtrVariant condition, StmtPtrVariant thenBranch, std::optional&lt; StmtPtrVariant &gt; elseBranch)</td></tr>
 <tr class="separator:a414e84e36601643e4adb5752148e7fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab44243b63201a8aa5ccfeadedd375fe1"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ab44243b63201a8aa5ccfeadedd375fe1">prsl::AST::createBlockSPV</a> (std::vector&lt; StmtPtrVariant &gt; statements)</td></tr>
-<tr class="separator:ab44243b63201a8aa5ccfeadedd375fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3362b3b42b5a8e0516c0379b005d2d74"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a3362b3b42b5a8e0516c0379b005d2d74">prsl::AST::createWhileSPV</a> (ExprPtrVariant condition, StmtPtrVariant body)</td></tr>
 <tr class="separator:a3362b3b42b5a8e0516c0379b005d2d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd0159878ba1f0d8079f605080cde472"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#abd0159878ba1f0d8079f605080cde472">prsl::AST::createPrintSPV</a> (ExprPtrVariant value)</td></tr>
@@ -225,6 +229,8 @@ Functions</h2></td></tr>
 <tr class="separator:a5386d3d04835bea6953ee57a00442033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6013dc62f033e1c94e210d2a15f862c"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aa6013dc62f033e1c94e210d2a15f862c">prsl::AST::createFunctionSPV</a> (std::vector&lt; Token &gt; params, std::vector&lt; StmtPtrVariant &gt; body)</td></tr>
 <tr class="separator:aa6013dc62f033e1c94e210d2a15f862c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44243b63201a8aa5ccfeadedd375fe1"><td class="memItemLeft" align="right" valign="top">StmtPtrVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ab44243b63201a8aa5ccfeadedd375fe1">prsl::AST::createBlockSPV</a> (std::vector&lt; StmtPtrVariant &gt; statements)</td></tr>
+<tr class="separator:ab44243b63201a8aa5ccfeadedd375fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

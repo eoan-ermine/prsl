@@ -95,9 +95,6 @@ $(function() {
 : <a class="el" href="classprsl_1_1Evaluator_1_1Environment.html#a63221620d8a05f7523e6aed5ccdba9ba">prsl::Evaluator::Environment&lt; VarValue &gt;</a>
 , <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#aac7fab89915c6c531f7232224018ea39">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
 </li>
-<li>createNewEnv()
-: <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a2d6bf0a3c7614a35b97bf55e63155843">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
-</li>
 </ul>
 
 
@@ -107,9 +104,6 @@ $(function() {
 </li>
 <li>defineOrAssign()
 : <a class="el" href="classprsl_1_1Evaluator_1_1Environment.html#a7445974e2a707fc71dbf00b4606e4216">prsl::Evaluator::Environment&lt; VarValue &gt;</a>
-</li>
-<li>discardEnvsTill()
-: <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a876b9c5c5df8c40de443142c0e74b972">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
 </li>
 <li>dump()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a05008e5be58483cce90f3083762872a1">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
@@ -147,9 +141,6 @@ $(function() {
 <li>get()
 : <a class="el" href="classprsl_1_1Evaluator_1_1Environment.html#a3f8780fbab2b4dd78115c374764b67e2">prsl::Evaluator::Environment&lt; VarValue &gt;</a>
 , <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a4b9710b5a36e27d58a64225dd8d4eec1">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
-</li>
-<li>getCurEnv()
-: <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#aa8e3ec8e54825e0d37447cb6076a52db">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
 </li>
 <li>getLexeme()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#a09cb63910aa9eedab16c75315aaee7e7">prsl::Types::Token</a>
@@ -218,11 +209,11 @@ $(function() {
 <li>Scanner()
 : <a class="el" href="classprsl_1_1Scanner_1_1Scanner.html#ada718fb93c54941cc8f5c49fbceddfb4">prsl::Scanner::Scanner</a>
 </li>
+<li>ScopeExpr()
+: <a class="el" href="structprsl_1_1AST_1_1ScopeExpr.html#a9c16c3cb558220d3870f8b6c09f8e7ac">prsl::AST::ScopeExpr</a>
+</li>
 <li>Semantics()
 : <a class="el" href="classprsl_1_1Semantics_1_1Semantics.html#aa1dc6cb2f4500baa126114139e0eb485">prsl::Semantics::Semantics</a>
-</li>
-<li>setCurEnv()
-: <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a75c8947c5677b1b9074d90be75938b37">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
 </li>
 <li>setError()
 : <a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html#ae4c9ad6f0b4c69cf6294428fd655667d">prsl::Errors::ErrorReporter</a>
@@ -296,6 +287,9 @@ $(function() {
 <li>visitPrintStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ac87c687e49f0ee9eee591cd0d41be0b0">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
 </li>
+<li>visitScopeExpr()
+: <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a37a277470fcba84f560fa3623a37ff82">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+</li>
 <li>visitStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
 </li>
@@ -317,6 +311,9 @@ $(function() {
 <h3><a id="index_w"></a>- w -</h3><ul>
 <li>WhileStmt()
 : <a class="el" href="structprsl_1_1AST_1_1WhileStmt.html#a1498bd52a2ba6a71d281f51957adf88d">prsl::AST::WhileStmt</a>
+</li>
+<li>withNewEnviron()
+: <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a79fb83c70208e2f528c8c9868672ca3b">prsl::Evaluator::EnvironmentManager&lt; VarValue &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

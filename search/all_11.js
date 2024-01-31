@@ -18,9 +18,10 @@ var searchData=
   ['visitliteralexpr_194',['visitLiteralExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a43a5bc7ac0f518d95f8f763d4b9ba15e',1,'prsl::AST::ASTVisitor']]],
   ['visitpostfixexpr_195',['visitPostfixExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a8adc5cb8113d4a4259d8f6b307379bca',1,'prsl::AST::ASTVisitor']]],
   ['visitprintstmt_196',['visitPrintStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#ac87c687e49f0ee9eee591cd0d41be0b0',1,'prsl::AST::ASTVisitor']]],
-  ['visitstmt_197',['visitStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17',1,'prsl::AST::ASTVisitor']]],
-  ['visitunaryexpr_198',['visitUnaryExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a21e197c5e8442ec13c94ce1141bf43a3',1,'prsl::AST::ASTVisitor']]],
-  ['visitvarexpr_199',['visitVarExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a79941b63301edfa4c25022618f28b2ff',1,'prsl::AST::ASTVisitor']]],
-  ['visitvarstmt_200',['visitVarStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b',1,'prsl::AST::ASTVisitor']]],
-  ['visitwhilestmt_201',['visitWhileStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872',1,'prsl::AST::ASTVisitor']]]
+  ['visitscopeexpr_197',['visitScopeExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a37a277470fcba84f560fa3623a37ff82',1,'prsl::AST::ASTVisitor']]],
+  ['visitstmt_198',['visitStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17',1,'prsl::AST::ASTVisitor']]],
+  ['visitunaryexpr_199',['visitUnaryExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a21e197c5e8442ec13c94ce1141bf43a3',1,'prsl::AST::ASTVisitor']]],
+  ['visitvarexpr_200',['visitVarExpr',['../classprsl_1_1AST_1_1ASTVisitor.html#a79941b63301edfa4c25022618f28b2ff',1,'prsl::AST::ASTVisitor']]],
+  ['visitvarstmt_201',['visitVarStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b',1,'prsl::AST::ASTVisitor']]],
+  ['visitwhilestmt_202',['visitWhileStmt',['../classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872',1,'prsl::AST::ASTVisitor']]]
 ];

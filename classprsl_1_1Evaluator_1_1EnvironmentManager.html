@@ -79,10 +79,9 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a20a5f01faa9e230a9a0c5db284211f40"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a20a5f01faa9e230a9a0c5db284211f40">EnvironmentManager</a> (<a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter)</td></tr>
 <tr class="separator:a20a5f01faa9e230a9a0c5db284211f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d6bf0a3c7614a35b97bf55e63155843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a2d6bf0a3c7614a35b97bf55e63155843">createNewEnv</a> ()</td></tr>
-<tr class="separator:a2d6bf0a3c7614a35b97bf55e63155843"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a876b9c5c5df8c40de443142c0e74b972"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a876b9c5c5df8c40de443142c0e74b972">discardEnvsTill</a> (const <a class="el" href="classprsl_1_1Evaluator_1_1Environment.html">Environment</a>&lt; VarValue &gt;::EnvironmentPtr &amp;environToRestore)</td></tr>
-<tr class="separator:a876b9c5c5df8c40de443142c0e74b972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79fb83c70208e2f528c8c9868672ca3b"><td class="memTemplParams" colspan="2">template&lt;typename F &gt; </td></tr>
+<tr class="memitem:a79fb83c70208e2f528c8c9868672ca3b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a79fb83c70208e2f528c8c9868672ca3b">withNewEnviron</a> (F &amp;&amp;action)</td></tr>
+<tr class="separator:a79fb83c70208e2f528c8c9868672ca3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb4fd907533f9f65dc1caeb957544bc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#aeb4fd907533f9f65dc1caeb957544bc3">assign</a> (const <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> &amp;token, VarValue object)</td></tr>
 <tr class="separator:aeb4fd907533f9f65dc1caeb957544bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf5855ac5506d60707f8e719e7104012"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#acf5855ac5506d60707f8e719e7104012">define</a> (std::string_view str, VarValue object)</td></tr>
@@ -93,10 +92,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4b9710b5a36e27d58a64225dd8d4eec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac7fab89915c6c531f7232224018ea39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#aac7fab89915c6c531f7232224018ea39">contains</a> (const <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> &amp;token)</td></tr>
 <tr class="separator:aac7fab89915c6c531f7232224018ea39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e3ec8e54825e0d37447cb6076a52db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Evaluator_1_1Environment.html">Environment</a>&lt; VarValue &gt;::EnvironmentPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#aa8e3ec8e54825e0d37447cb6076a52db">getCurEnv</a> ()</td></tr>
-<tr class="separator:aa8e3ec8e54825e0d37447cb6076a52db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75c8947c5677b1b9074d90be75938b37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html#a75c8947c5677b1b9074d90be75938b37">setCurEnv</a> (<a class="el" href="classprsl_1_1Evaluator_1_1Environment.html">Environment</a>&lt; VarValue &gt;::EnvironmentPtr newCur)</td></tr>
-<tr class="separator:a75c8947c5677b1b9074d90be75938b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a20a5f01faa9e230a9a0c5db284211f40"></a>
@@ -216,33 +211,6 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a2d6bf0a3c7614a35b97bf55e63155843"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d6bf0a3c7614a35b97bf55e63155843">&#9670;&nbsp;</a></span>createNewEnv()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename VarValue &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">prsl::Evaluator::EnvironmentManager</a>&lt; VarValue &gt;::createNewEnv </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a67f6252d28e2c1309d2ba7caa8ab68bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67f6252d28e2c1309d2ba7caa8ab68bf">&#9670;&nbsp;</a></span>define() <span class="overload">[1/2]</span></h2>
 
@@ -328,43 +296,6 @@ template&lt;typename VarValue &gt; </div>
 
 </div>
 </div>
-<a id="a876b9c5c5df8c40de443142c0e74b972"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a876b9c5c5df8c40de443142c0e74b972">&#9670;&nbsp;</a></span>discardEnvsTill()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename VarValue &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">prsl::Evaluator::EnvironmentManager</a>&lt; VarValue &gt;::discardEnvsTill </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classprsl_1_1Evaluator_1_1Environment.html">Environment</a>&lt; VarValue &gt;::EnvironmentPtr &amp;&#160;</td>
-          <td class="paramname"><em>environToRestore</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classprsl_1_1Evaluator_1_1EnvironmentManager_a876b9c5c5df8c40de443142c0e74b972_cgraph.png" border="0" usemap="#aclassprsl_1_1Evaluator_1_1EnvironmentManager_a876b9c5c5df8c40de443142c0e74b972_cgraph" alt=""/></div>
-<map name="aclassprsl_1_1Evaluator_1_1EnvironmentManager_a876b9c5c5df8c40de443142c0e74b972_cgraph" id="aclassprsl_1_1Evaluator_1_1EnvironmentManager_a876b9c5c5df8c40de443142c0e74b972_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,212,47"/>
-<area shape="rect" href="classprsl_1_1Evaluator_1_1Environment.html#a3f8780fbab2b4dd78115c374764b67e2" title=" " alt="" coords="260,13,496,39"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a4b9710b5a36e27d58a64225dd8d4eec1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4b9710b5a36e27d58a64225dd8d4eec1">&#9670;&nbsp;</a></span>get()</h2>
 
@@ -406,49 +337,24 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="aa8e3ec8e54825e0d37447cb6076a52db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e3ec8e54825e0d37447cb6076a52db">&#9670;&nbsp;</a></span>getCurEnv()</h2>
+<a id="a79fb83c70208e2f528c8c9868672ca3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79fb83c70208e2f528c8c9868672ca3b">&#9670;&nbsp;</a></span>withNewEnviron()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename VarValue &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classprsl_1_1Evaluator_1_1Environment.html">Environment</a>&lt;VarValue&gt;::EnvironmentPtr <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">prsl::Evaluator::EnvironmentManager</a>&lt; VarValue &gt;::getCurEnv </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a75c8947c5677b1b9074d90be75938b37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75c8947c5677b1b9074d90be75938b37">&#9670;&nbsp;</a></span>setCurEnv()</h2>
-
-<div class="memitem">
-<div class="memproto">
 <div class="memtemplate">
-template&lt;typename VarValue &gt; </div>
+template&lt;typename F &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">prsl::Evaluator::EnvironmentManager</a>&lt; VarValue &gt;::setCurEnv </td>
+          <td class="memname">void <a class="el" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">prsl::Evaluator::EnvironmentManager</a>&lt; VarValue &gt;::withNewEnviron </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classprsl_1_1Evaluator_1_1Environment.html">Environment</a>&lt; VarValue &gt;::EnvironmentPtr&#160;</td>
-          <td class="paramname"><em>newCur</em></td><td>)</td>
+          <td class="paramtype">F &amp;&amp;&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
