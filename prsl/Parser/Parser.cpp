@@ -50,8 +50,8 @@ StmtPtrVariant Parser::varDecl() {
   Token ident = getTokenAdvance();
   consumeOrError(Token::Type::EQUAL, "Expect equals sign after identifier");
   ExprPtrVariant initializer = expr();
-  consumeOrError(Token::Type::SEMICOLON,
-                 "Expect ';' after variable declaration");
+  if (match(Token::Type::SEMICOLON))
+    advance();
   return createVarSPV(ident, std::move(initializer));
 }
 

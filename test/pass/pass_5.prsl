@@ -3,6 +3,7 @@
 // RUN: %S/pass_5 | filecheck %s --match-full-lines
 // RUN: %edir/prsl %s | filecheck %s --match-full-lines
 // CHECK: 41
+// CHECK-NEXT: 25
 // CHECK-NEXT: 0
 
 x = {
@@ -11,6 +12,13 @@ x = {
     a + b--;
 };
 print x;
+
+y = {
+    a = 10;
+    b = { a + 5; };
+    a + b--;
+}
+print y;
 
 z = { };
 print z;
