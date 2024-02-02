@@ -31,6 +31,8 @@ private:
   PrslObject visitBinaryExpr(const BinaryExprPtr &expr) override;
   PrslObject visitPostfixExpr(const PostfixExprPtr &expr) override;
   PrslObject visitScopeExpr(const ScopeExprPtr &expr) override;
+  PrslObject visitFuncExpr(const FuncExprPtr &expr) override;
+  PrslObject visitCallExpr(const CallExprPtr &expr) override;
 
   void visitVarStmt(const VarStmtPtr &stmt) override;
   void visitIfStmt(const IfStmtPtr &stmt) override;
@@ -45,6 +47,7 @@ private:
 private:
   ErrorReporter &eReporter;
   EnvironmentManager<PrslObject> envManager;
+  std::unordered_map<std::string_view, PrslObject> functionsManager;
 };
 
 } // namespace prsl::Evaluator

@@ -1,0 +1,25 @@
+// RUN: %edir/prsl --codegen %s --output-file=pass_9.ll
+// RUN: clang++ -Wno-override-module pass_9.ll -o pass_9
+// RUN: %S/pass_9 | filecheck %s --match-full-lines
+// RUN: %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: 1
+// CHECK-NEXT: 2
+// CHECK-NEXT: 6
+// CHECK-NEXT: 24
+// CHECK-NEXT: 120
+// CHECK-NEXT: 3628800
+
+factorial = func(x) : fct {
+    res = 1;
+    if (x > 1) {
+        res = x * fct(x - 1);
+    }
+    res;
+}
+
+print fct(1);
+print fct(2);
+print fct(3);
+print fct(4);
+print fct(5);
+print fct(10);

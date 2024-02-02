@@ -39,7 +39,8 @@ private:
       {"if", Token::Type::IF},
       {"else", Token::Type::ELSE},
       {"while", Token::Type::WHILE},
-      {"print", Token::Type::PRINT}};
+      {"print", Token::Type::PRINT},
+      {"func", Token::Type::FUNC}};
 };
 
 } // namespace prsl::Scanner

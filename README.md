@@ -153,7 +153,6 @@ clang source.ll -o source
 
 <expr> ::=
   <assignmentExpr>
-  | <scopeExpr>
 
 <assignmentExpr> ::=
   <comparisonExpr>
@@ -183,15 +182,23 @@ clang source.ll -o source
   | "-" <postfixExpr>
     
 <postfixExpr> ::=
-  <primaryExpr>
-  | <primaryExpr> "++"
-  | <primaryExpr> "--"
+  <callExpr>
+  | <callExpr> "++"
+  | <callExpr> "--"
+
+<callExpr> ::=
+  <primaryExpr> "(" <arguments>? ")"
+
+<arguments> ::=
+  <assignmentExpr> ("," <assignmentExpr>)*
 
 <primaryExpr> ::=
   <literalExpr>
   | <groupingExpr>
   | <varExpr>
   | <inputExpr>
+  | <funcExpr>
+  | <scopeExpr>
 
 <literalExpr> ::=
   <number>
@@ -204,6 +211,9 @@ clang source.ll -o source
     
 <inputExpr> ::=
   "?"
+
+<funcExpr> ::=
+  "func(" (<ident> ("," <ident>)*)? ")" (":" <ident>)? <scopeExpr>
 
 <scopeExpr> ::=
   "{" <program> "}"

@@ -1,0 +1,26 @@
+// RUN: %edir/prsl --codegen %s --output-file=pass_7.ll
+// RUN: clang++ -Wno-override-module pass_7.ll -o pass_7
+// RUN: %S/pass_7 | filecheck %s --match-full-lines
+// RUN: %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: 666
+// CHECK-NEXT: 20
+// CHECK-NEXT: 666
+
+a = 666;
+
+func(a, b) {
+    a = 5;
+    b = 7;
+    c = 8;
+    print a;
+};
+
+print a;
+
+f = func() {
+    a = 20;
+    print a;
+}
+f();
+
+print a;

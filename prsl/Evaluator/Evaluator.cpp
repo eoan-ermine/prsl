@@ -134,12 +134,66 @@ PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
          stmt->statements | std::views::take(stmt->statements.size() - 1)) {
       visitStmt(stmt);
     }
-    if (stmt->statements.size())
-      if (const auto &back = stmt->statements.back();
-          std::holds_alternative<ExprStmtPtr>(back)) {
+    if (stmt->statements.size()) {
+      const auto &back = stmt->statements.back();
+      if (std::holds_alternative<ExprStmtPtr>(back)) {
         res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+      } else {
+        visitStmt(back);
       }
+    }
   });
+  return res;
+}
+
+PrslObject Evaluator::visitFuncExpr(const FuncExprPtr &expr) {
+  auto obj = PrslObject{std::make_shared<FuncObj>(expr)};
+
+  if (expr->name) {
+    functionsManager.emplace(expr->name->getLexeme(), obj);
+  }
+
+  return obj;
+}
+
+PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
+  PrslObject res{0};
+
+  PrslObject obj = nullptr;
+  if (functionsManager.contains(expr->ident.getLexeme())) {
+    obj = functionsManager[expr->ident.getLexeme()];
+  }
+  if (std::holds_alternative<std::nullptr_t>(obj) &&
+      envManager.contains(expr->ident)) {
+    obj = envManager.get(expr->ident);
+    if (!std::holds_alternative<FuncObjPtr>(obj))
+      throw reportRuntimeError(eReporter, expr->ident, "Not a function");
+  }
+
+  auto func = std::get<FuncObjPtr>(obj);
+  if (size_t paramsCount = func->paramsCount(),
+      argsCount = expr->arguments.size();
+      paramsCount != argsCount) {
+    throw reportRuntimeError(eReporter, expr->ident,
+                             "Wrong number of arguments");
+  }
+
+  std::vector<PrslObject> args;
+  for (const auto &arg : expr->arguments) {
+    args.push_back(visitExpr(arg));
+  }
+
+  auto funcEnv = std::make_shared<Environment<PrslObject>>(nullptr);
+  envManager.withNewEnviron(funcEnv, [&] {
+    const auto &params = func->getDeclaration()->parameters;
+    auto paramIt = params.begin();
+    auto argIt = args.begin();
+    for (; paramIt != params.end() && argIt != args.end(); ++paramIt, ++argIt) {
+      envManager.define(*paramIt, *argIt);
+    }
+    res = visitScopeExpr(std::get<ScopeExprPtr>(func->getDeclaration()->body));
+  });
+
   return res;
 }
 

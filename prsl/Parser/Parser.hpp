@@ -47,6 +47,9 @@ private:
   ExprPtrVariant varExpr();
   ExprPtrVariant inputExpr();
   ExprPtrVariant scopeExpr();
+  ExprPtrVariant funcExpr();
+  ExprPtrVariant callExpr();
+  std::vector<ExprPtrVariant> arguments();
 
   void synchronize();
   void advance();

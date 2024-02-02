@@ -28,6 +28,10 @@ Token Scanner::tokenizeOne() {
     if (match('='))
       return makeToken(Token::Type::EQUAL_EQUAL);
     return makeToken(Token::Type::EQUAL);
+  case ',':
+    return makeToken(Token::Type::COMMA);
+  case ':':
+    return makeToken(Token::Type::COLON);
   case ';':
     return makeToken(Token::Type::SEMICOLON);
   case '(':

@@ -30,6 +30,8 @@ private:
   void visitBinaryExpr(const BinaryExprPtr &expr) override;
   void visitPostfixExpr(const PostfixExprPtr &expr) override;
   void visitScopeExpr(const ScopeExprPtr &expr) override;
+  void visitFuncExpr(const FuncExprPtr &expr) override;
+  void visitCallExpr(const CallExprPtr &expr) override;
 
   void visitVarStmt(const VarStmtPtr &stmt) override;
   void visitIfStmt(const IfStmtPtr &stmt) override;
@@ -40,7 +42,11 @@ private:
   void visitBlockStmt(const BlockStmtPtr &stmt) override;
 
   ErrorReporter &eReporter;
-  Evaluator::EnvironmentManager<bool> envManager;
+  struct VarState {
+    bool isInit;
+    enum Type { VAR, FUNCTION } type;
+  };
+  Evaluator::EnvironmentManager<VarState> envManager;
 };
 
 } // namespace prsl::Semantics
