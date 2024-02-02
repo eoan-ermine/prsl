@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['left_5fbrace_419',['LEFT_BRACE',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030a15ef240b5a23e12430b1ce6ab0321910',1,'prsl::Types::Token']]],
-  ['left_5fparen_420',['LEFT_PAREN',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030a8f874dba9c38e5730ba55b9fb1200729',1,'prsl::Types::Token']]],
-  ['less_421',['LESS',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030a1798e8c3621ca53d9e3a80d257306000',1,'prsl::Types::Token']]],
-  ['less_5fequal_422',['LESS_EQUAL',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030a8b4a5cd69b217bf93b054ada7f49abd4',1,'prsl::Types::Token']]]
+  ['ident_458',['IDENT',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030af57e263e90cbbb939b6dc6b8db7992b7',1,'prsl::Types::Token']]],
+  ['if_459',['IF',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030ade6ee2b5d856295add4d5e3631fbfb93',1,'prsl::Types::Token']]],
+  ['input_460',['INPUT',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030aa84cc046d48610b05c21fd3670d0c829',1,'prsl::Types::Token']]]
 ];

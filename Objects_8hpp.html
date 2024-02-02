@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -73,7 +74,9 @@ $(function() {
 <div class="title">Objects.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="NodeTypes_8hpp_source.html">prsl/AST/NodeTypes.hpp</a>&quot;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;variant&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -81,10 +84,16 @@ Include dependency graph for Objects.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Objects_8hpp__incl.png" border="0" usemap="#aprsl_2Evaluator_2Objects_8hpp" alt=""/></div>
 <map name="aprsl_2Evaluator_2Objects_8hpp" id="aprsl_2Evaluator_2Objects_8hpp">
-<area shape="rect" title=" " alt="" coords="33,5,227,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,76,107"/>
-<area shape="rect" title=" " alt="" coords="101,80,159,107"/>
-<area shape="rect" title=" " alt="" coords="184,80,252,107"/>
+<area shape="rect" title=" " alt="" coords="163,5,356,32"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="170,80,349,107"/>
+<area shape="rect" title=" " alt="" coords="9,229,67,256"/>
+<area shape="rect" title=" " alt="" coords="22,155,99,181"/>
+<area shape="rect" title=" " alt="" coords="475,155,543,181"/>
+<area shape="rect" title=" " alt="" coords="424,80,495,107"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="124,155,264,181"/>
+<area shape="rect" title=" " alt="" coords="289,155,363,181"/>
+<area shape="rect" title=" " alt="" coords="388,155,451,181"/>
+<area shape="rect" title=" " alt="" coords="145,229,243,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -102,6 +111,11 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="Objects_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1FuncObj.html">prsl::Evaluator::FuncObj</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceprsl"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl.html">prsl</a></td></tr>
@@ -111,8 +125,10 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ace7d98ebdc414e57342059eb17fea21a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">prsl::Evaluator::PrslObject</a> = std::variant&lt; int, bool, std::nullptr_t &gt;</td></tr>
-<tr class="separator:ace7d98ebdc414e57342059eb17fea21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b003300c4d70b36f30fad4bb5646049"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a8b003300c4d70b36f30fad4bb5646049">prsl::Evaluator::FuncObjPtr</a> = std::shared_ptr&lt; FuncObj &gt;</td></tr>
+<tr class="separator:a8b003300c4d70b36f30fad4bb5646049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b1f11c621905fd0b6da98c8a0deef94"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">prsl::Evaluator::PrslObject</a> = std::variant&lt; int, bool, std::nullptr_t, FuncObjPtr &gt;</td></tr>
+<tr class="separator:a4b1f11c621905fd0b6da98c8a0deef94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

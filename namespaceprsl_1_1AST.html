@@ -76,8 +76,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1select.html">select</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html">ASTVisitor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1LiteralExpr.html">LiteralExpr</a></td></tr>
@@ -97,6 +95,10 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1PostfixExpr.html">PostfixExpr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ScopeExpr.html">ScopeExpr</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1FuncExpr.html">FuncExpr</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1CallExpr.html">CallExpr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1VarStmt.html">VarStmt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,8 +135,12 @@ Typedefs</h2></td></tr>
 <tr class="separator:a1145e1cf3e07a008b1eaa499271453d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24b374db88781e2de34569ef1c6ef5ff"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a> = std::unique_ptr&lt; <a class="el" href="structprsl_1_1AST_1_1ScopeExpr.html">ScopeExpr</a> &gt;</td></tr>
 <tr class="separator:a24b374db88781e2de34569ef1c6ef5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a162cd96ad4aa24b029a88ffab3d4a3c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> = std::variant&lt; <a class="el" href="namespaceprsl_1_1AST.html#a993189ffc230a8d7aa96c174c3802819">LiteralExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a7ba28d1a6fff0c9f2592decfd5f32c21">GroupingExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a8bc575ed455b220113671df8237382cf">VarExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a085626df75b320da3c625c1e251907c6">InputExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a20093c91e9ba631b79ba2b4de67a5fe1">AssignmentExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a25afbff28c9de367484bd559be330954">UnaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#abf292b92fd4f5aa699ac6d2152a0cdc3">BinaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a1145e1cf3e07a008b1eaa499271453d4">PostfixExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a> &gt;</td></tr>
-<tr class="separator:a162cd96ad4aa24b029a88ffab3d4a3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede4014297edd5636292f341d8e68813"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aede4014297edd5636292f341d8e68813">FuncExprPtr</a> = std::unique_ptr&lt; <a class="el" href="structprsl_1_1AST_1_1FuncExpr.html">FuncExpr</a> &gt;</td></tr>
+<tr class="separator:aede4014297edd5636292f341d8e68813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93a8095fe668035385b95969504af088"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a93a8095fe668035385b95969504af088">CallExprPtr</a> = std::unique_ptr&lt; <a class="el" href="structprsl_1_1AST_1_1CallExpr.html">CallExpr</a> &gt;</td></tr>
+<tr class="separator:a93a8095fe668035385b95969504af088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a073380bbb397328399557015c2296832"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> = std::variant&lt; <a class="el" href="namespaceprsl_1_1AST.html#a993189ffc230a8d7aa96c174c3802819">LiteralExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a7ba28d1a6fff0c9f2592decfd5f32c21">GroupingExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a8bc575ed455b220113671df8237382cf">VarExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a085626df75b320da3c625c1e251907c6">InputExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a20093c91e9ba631b79ba2b4de67a5fe1">AssignmentExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a25afbff28c9de367484bd559be330954">UnaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#abf292b92fd4f5aa699ac6d2152a0cdc3">BinaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a1145e1cf3e07a008b1eaa499271453d4">PostfixExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#aede4014297edd5636292f341d8e68813">FuncExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a93a8095fe668035385b95969504af088">CallExprPtr</a> &gt;</td></tr>
+<tr class="separator:a073380bbb397328399557015c2296832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8492e2b54ca750eab858c4e8c5d56e7e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a8492e2b54ca750eab858c4e8c5d56e7e">VarStmtPtr</a> = std::unique_ptr&lt; <a class="el" href="structprsl_1_1AST_1_1VarStmt.html">VarStmt</a> &gt;</td></tr>
 <tr class="separator:a8492e2b54ca750eab858c4e8c5d56e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30b9176dacaed1c37804142c8860baa4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a30b9176dacaed1c37804142c8860baa4">IfStmtPtr</a> = std::unique_ptr&lt; <a class="el" href="structprsl_1_1AST_1_1IfStmt.html">IfStmt</a> &gt;</td></tr>
@@ -154,33 +160,37 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aceeaf7986b09fb817a2547fd28e31f03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aceeaf7986b09fb817a2547fd28e31f03">createLiteralEPV</a> (int literalVal)</td></tr>
+<tr class="memitem:aceeaf7986b09fb817a2547fd28e31f03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aceeaf7986b09fb817a2547fd28e31f03">createLiteralEPV</a> (int literalVal)</td></tr>
 <tr class="separator:aceeaf7986b09fb817a2547fd28e31f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af743b18210f4ad795a1dde8e108ebefd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#af743b18210f4ad795a1dde8e108ebefd">createGroupingEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> expression)</td></tr>
+<tr class="memitem:af743b18210f4ad795a1dde8e108ebefd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#af743b18210f4ad795a1dde8e108ebefd">createGroupingEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> expression)</td></tr>
 <tr class="separator:af743b18210f4ad795a1dde8e108ebefd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a146500f79c3742812497d33b420a9742"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a146500f79c3742812497d33b420a9742">createVarEPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> ident)</td></tr>
+<tr class="memitem:a146500f79c3742812497d33b420a9742"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a146500f79c3742812497d33b420a9742">createVarEPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> ident)</td></tr>
 <tr class="separator:a146500f79c3742812497d33b420a9742"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0aef6349fbcd4a626c33b5562be0d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a9f0aef6349fbcd4a626c33b5562be0d0">createInputEPV</a> ()</td></tr>
+<tr class="memitem:a9f0aef6349fbcd4a626c33b5562be0d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a9f0aef6349fbcd4a626c33b5562be0d0">createInputEPV</a> ()</td></tr>
 <tr class="separator:a9f0aef6349fbcd4a626c33b5562be0d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af453278e169d7aa5fcd9bf29a1ee740a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#af453278e169d7aa5fcd9bf29a1ee740a">createAssignmentEPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> varName, <a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> initializer)</td></tr>
+<tr class="memitem:af453278e169d7aa5fcd9bf29a1ee740a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#af453278e169d7aa5fcd9bf29a1ee740a">createAssignmentEPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> varName, <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> initializer)</td></tr>
 <tr class="separator:af453278e169d7aa5fcd9bf29a1ee740a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f130bea591a9a3eda42f83bcb63b03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ab4f130bea591a9a3eda42f83bcb63b03">createUnaryEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> expression, <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> op)</td></tr>
+<tr class="memitem:ab4f130bea591a9a3eda42f83bcb63b03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ab4f130bea591a9a3eda42f83bcb63b03">createUnaryEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> expression, <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> op)</td></tr>
 <tr class="separator:ab4f130bea591a9a3eda42f83bcb63b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaff0885a24b07185bfa57e3fc2cd76ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aaff0885a24b07185bfa57e3fc2cd76ed">createBinaryEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> lhsExpression, <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> op, <a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> rhsExpression)</td></tr>
+<tr class="memitem:aaff0885a24b07185bfa57e3fc2cd76ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aaff0885a24b07185bfa57e3fc2cd76ed">createBinaryEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> lhsExpression, <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> op, <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> rhsExpression)</td></tr>
 <tr class="separator:aaff0885a24b07185bfa57e3fc2cd76ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb184cd35843433c4704a5830c226845"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aeb184cd35843433c4704a5830c226845">createPostfixEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> expression, <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> op)</td></tr>
+<tr class="memitem:aeb184cd35843433c4704a5830c226845"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aeb184cd35843433c4704a5830c226845">createPostfixEPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> expression, <a class="el" href="classprsl_1_1Types_1_1Token.html">Types::Token</a> op)</td></tr>
 <tr class="separator:aeb184cd35843433c4704a5830c226845"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5f82c0f651d7077311368a953c76dae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ae5f82c0f651d7077311368a953c76dae">createScopeEPV</a> (std::vector&lt; <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &gt; statements)</td></tr>
+<tr class="memitem:ae5f82c0f651d7077311368a953c76dae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ae5f82c0f651d7077311368a953c76dae">createScopeEPV</a> (std::vector&lt; <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &gt; statements)</td></tr>
 <tr class="separator:ae5f82c0f651d7077311368a953c76dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3511e39e00bc06353092a0df14f35fcc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a3511e39e00bc06353092a0df14f35fcc">createVarSPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> varName, <a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> initializer)</td></tr>
+<tr class="memitem:ac0f99c34b92ff45c85ae6700d35acec5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#ac0f99c34b92ff45c85ae6700d35acec5">createFuncEPV</a> (std::optional&lt; <a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> &gt; name, std::vector&lt; <a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> &gt; parameters, <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> body)</td></tr>
+<tr class="separator:ac0f99c34b92ff45c85ae6700d35acec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6f227e603b1f9448634739d8799bde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a1e6f227e603b1f9448634739d8799bde">createCallEPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> ident, std::vector&lt; <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> &gt; arguments)</td></tr>
+<tr class="separator:a1e6f227e603b1f9448634739d8799bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3511e39e00bc06353092a0df14f35fcc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a3511e39e00bc06353092a0df14f35fcc">createVarSPV</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> varName, <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> initializer)</td></tr>
 <tr class="separator:a3511e39e00bc06353092a0df14f35fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a414e84e36601643e4adb5752148e7fad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a414e84e36601643e4adb5752148e7fad">createIfSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> condition, <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> thenBranch, std::optional&lt; <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &gt; elseBranch)</td></tr>
+<tr class="memitem:a414e84e36601643e4adb5752148e7fad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a414e84e36601643e4adb5752148e7fad">createIfSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> condition, <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> thenBranch, std::optional&lt; <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &gt; elseBranch)</td></tr>
 <tr class="separator:a414e84e36601643e4adb5752148e7fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3362b3b42b5a8e0516c0379b005d2d74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a3362b3b42b5a8e0516c0379b005d2d74">createWhileSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> condition, <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> body)</td></tr>
+<tr class="memitem:a3362b3b42b5a8e0516c0379b005d2d74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a3362b3b42b5a8e0516c0379b005d2d74">createWhileSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> condition, <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> body)</td></tr>
 <tr class="separator:a3362b3b42b5a8e0516c0379b005d2d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd0159878ba1f0d8079f605080cde472"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#abd0159878ba1f0d8079f605080cde472">createPrintSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> value)</td></tr>
+<tr class="memitem:abd0159878ba1f0d8079f605080cde472"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#abd0159878ba1f0d8079f605080cde472">createPrintSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> value)</td></tr>
 <tr class="separator:abd0159878ba1f0d8079f605080cde472"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5386d3d04835bea6953ee57a00442033"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a5386d3d04835bea6953ee57a00442033">createExprSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> expression)</td></tr>
+<tr class="memitem:a5386d3d04835bea6953ee57a00442033"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#a5386d3d04835bea6953ee57a00442033">createExprSPV</a> (<a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> expression)</td></tr>
 <tr class="separator:a5386d3d04835bea6953ee57a00442033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6013dc62f033e1c94e210d2a15f862c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1AST.html#aa6013dc62f033e1c94e210d2a15f862c">createFunctionSPV</a> (std::vector&lt; <a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> &gt; params, std::vector&lt; <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &gt; body)</td></tr>
 <tr class="separator:aa6013dc62f033e1c94e210d2a15f862c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,14 +240,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a162cd96ad4aa24b029a88ffab3d4a3c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a162cd96ad4aa24b029a88ffab3d4a3c1">&#9670;&nbsp;</a></span>ExprPtrVariant</h2>
+<a id="a93a8095fe668035385b95969504af088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93a8095fe668035385b95969504af088">&#9670;&nbsp;</a></span>CallExprPtr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">prsl::AST::ExprPtrVariant</a> = typedef std::variant&lt;<a class="el" href="namespaceprsl_1_1AST.html#a993189ffc230a8d7aa96c174c3802819">LiteralExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a7ba28d1a6fff0c9f2592decfd5f32c21">GroupingExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a8bc575ed455b220113671df8237382cf">VarExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a085626df75b320da3c625c1e251907c6">InputExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a20093c91e9ba631b79ba2b4de67a5fe1">AssignmentExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a25afbff28c9de367484bd559be330954">UnaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#abf292b92fd4f5aa699ac6d2152a0cdc3">BinaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a1145e1cf3e07a008b1eaa499271453d4">PostfixExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a>&gt;</td>
+          <td class="memname">using <a class="el" href="namespaceprsl_1_1AST.html#a93a8095fe668035385b95969504af088">prsl::AST::CallExprPtr</a> = typedef std::unique_ptr&lt;<a class="el" href="structprsl_1_1AST_1_1CallExpr.html">CallExpr</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a073380bbb397328399557015c2296832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a073380bbb397328399557015c2296832">&#9670;&nbsp;</a></span>ExprPtrVariant</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">prsl::AST::ExprPtrVariant</a> = typedef std::variant&lt;<a class="el" href="namespaceprsl_1_1AST.html#a993189ffc230a8d7aa96c174c3802819">LiteralExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a7ba28d1a6fff0c9f2592decfd5f32c21">GroupingExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a8bc575ed455b220113671df8237382cf">VarExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a085626df75b320da3c625c1e251907c6">InputExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a20093c91e9ba631b79ba2b4de67a5fe1">AssignmentExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a25afbff28c9de367484bd559be330954">UnaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#abf292b92fd4f5aa699ac6d2152a0cdc3">BinaryExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a1145e1cf3e07a008b1eaa499271453d4">PostfixExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#aede4014297edd5636292f341d8e68813">FuncExprPtr</a>, <a class="el" href="namespaceprsl_1_1AST.html#a93a8095fe668035385b95969504af088">CallExprPtr</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -252,6 +276,20 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespaceprsl_1_1AST.html#af7728d59ded8469f2d90c855ed882351">prsl::AST::ExprStmtPtr</a> = typedef std::unique_ptr&lt;<a class="el" href="structprsl_1_1AST_1_1ExprStmt.html">ExprStmt</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aede4014297edd5636292f341d8e68813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede4014297edd5636292f341d8e68813">&#9670;&nbsp;</a></span>FuncExprPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceprsl_1_1AST.html#aede4014297edd5636292f341d8e68813">prsl::AST::FuncExprPtr</a> = typedef std::unique_ptr&lt;<a class="el" href="structprsl_1_1AST_1_1FuncExpr.html">FuncExpr</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -448,7 +486,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createAssignmentEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createAssignmentEPV </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td>
           <td class="paramname"><em>varName</em>, </td>
@@ -456,7 +494,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>initializer</em>&#160;</td>
         </tr>
         <tr>
@@ -476,9 +514,9 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createBinaryEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createBinaryEPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>lhsExpression</em>, </td>
         </tr>
         <tr>
@@ -490,7 +528,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>rhsExpression</em>&#160;</td>
         </tr>
         <tr>
@@ -521,6 +559,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a1e6f227e603b1f9448634739d8799bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e6f227e603b1f9448634739d8799bde">&#9670;&nbsp;</a></span>createCallEPV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createCallEPV </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td>
+          <td class="paramname"><em>ident</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> &gt;&#160;</td>
+          <td class="paramname"><em>arguments</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5386d3d04835bea6953ee57a00442033"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5386d3d04835bea6953ee57a00442033">&#9670;&nbsp;</a></span>createExprSPV()</h2>
 
@@ -530,9 +596,43 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> prsl::AST::createExprSPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>expression</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0f99c34b92ff45c85ae6700d35acec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0f99c34b92ff45c85ae6700d35acec5">&#9670;&nbsp;</a></span>createFuncEPV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createFuncEPV </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> &gt;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> &gt;&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
+          <td class="paramname"><em>body</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -574,9 +674,9 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createGroupingEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createGroupingEPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>expression</em></td><td>)</td>
           <td></td>
         </tr>
@@ -594,7 +694,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> prsl::AST::createIfSPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>condition</em>, </td>
         </tr>
         <tr>
@@ -626,7 +726,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createInputEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createInputEPV </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -643,7 +743,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createLiteralEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createLiteralEPV </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>literalVal</em></td><td>)</td>
@@ -661,9 +761,9 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createPostfixEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createPostfixEPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>expression</em>, </td>
         </tr>
         <tr>
@@ -691,7 +791,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> prsl::AST::createPrintSPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
@@ -707,7 +807,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createScopeEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createScopeEPV </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &gt;&#160;</td>
           <td class="paramname"><em>statements</em></td><td>)</td>
@@ -725,9 +825,9 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createUnaryEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createUnaryEPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>expression</em>, </td>
         </tr>
         <tr>
@@ -753,7 +853,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a> prsl::AST::createVarEPV </td>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::createVarEPV </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td>
           <td class="paramname"><em>ident</em></td><td>)</td>
@@ -779,7 +879,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>initializer</em>&#160;</td>
         </tr>
         <tr>
@@ -801,7 +901,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> prsl::AST::createWhileSPV </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a162cd96ad4aa24b029a88ffab3d4a3c1">ExprPtrVariant</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
           <td class="paramname"><em>condition</em>, </td>
         </tr>
         <tr>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['body_363',['body',['../structprsl_1_1AST_1_1WhileStmt.html#aea453cccc69e97a17c6d1bf5818e6064',1,'prsl::AST::WhileStmt::body()'],['../structprsl_1_1AST_1_1FunctionStmt.html#aef1c73c342d339fcfbc4e022d83c397c',1,'prsl::AST::FunctionStmt::body()']]]
+  ['arguments_396',['arguments',['../structprsl_1_1AST_1_1CallExpr.html#adc84122f7fa9189111181c4a4125ae00',1,'prsl::AST::CallExpr']]]
 ];

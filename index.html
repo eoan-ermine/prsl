@@ -206,7 +206,6 @@ EBNF</h2>
 <div class="line"> </div>
 <div class="line">&lt;expr&gt; ::=</div>
 <div class="line">  &lt;assignmentExpr&gt;</div>
-<div class="line">  | &lt;scopeExpr&gt;</div>
 <div class="line"> </div>
 <div class="line">&lt;assignmentExpr&gt; ::=</div>
 <div class="line">  &lt;comparisonExpr&gt;</div>
@@ -236,15 +235,23 @@ EBNF</h2>
 <div class="line">  | &quot;-&quot; &lt;postfixExpr&gt;</div>
 <div class="line">    </div>
 <div class="line">&lt;postfixExpr&gt; ::=</div>
-<div class="line">  &lt;primaryExpr&gt;</div>
-<div class="line">  | &lt;primaryExpr&gt; &quot;++&quot;</div>
-<div class="line">  | &lt;primaryExpr&gt; &quot;--&quot;</div>
+<div class="line">  &lt;callExpr&gt;</div>
+<div class="line">  | &lt;callExpr&gt; &quot;++&quot;</div>
+<div class="line">  | &lt;callExpr&gt; &quot;--&quot;</div>
+<div class="line"> </div>
+<div class="line">&lt;callExpr&gt; ::=</div>
+<div class="line">  &lt;primaryExpr&gt; &quot;(&quot; &lt;arguments&gt;? &quot;)&quot;</div>
+<div class="line"> </div>
+<div class="line">&lt;arguments&gt; ::=</div>
+<div class="line">  &lt;assignmentExpr&gt; (&quot;,&quot; &lt;assignmentExpr&gt;)*</div>
 <div class="line"> </div>
 <div class="line">&lt;primaryExpr&gt; ::=</div>
 <div class="line">  &lt;literalExpr&gt;</div>
 <div class="line">  | &lt;groupingExpr&gt;</div>
 <div class="line">  | &lt;varExpr&gt;</div>
 <div class="line">  | &lt;inputExpr&gt;</div>
+<div class="line">  | &lt;funcExpr&gt;</div>
+<div class="line">  | &lt;scopeExpr&gt;</div>
 <div class="line"> </div>
 <div class="line">&lt;literalExpr&gt; ::=</div>
 <div class="line">  &lt;number&gt;</div>
@@ -257,6 +264,9 @@ EBNF</h2>
 <div class="line">    </div>
 <div class="line">&lt;inputExpr&gt; ::=</div>
 <div class="line">  &quot;?&quot;</div>
+<div class="line"> </div>
+<div class="line">&lt;funcExpr&gt; ::=</div>
+<div class="line">  &quot;func(&quot; (&lt;ident&gt; (&quot;,&quot; &lt;ident&gt;)*)? &quot;)&quot; (&quot;:&quot; &lt;ident&gt;)? &lt;scopeExpr&gt;</div>
 <div class="line"> </div>
 <div class="line">&lt;scopeExpr&gt; ::=</div>
 <div class="line">  &quot;{&quot; &lt;program&gt; &quot;}&quot;</div>

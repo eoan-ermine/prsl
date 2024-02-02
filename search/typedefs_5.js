@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ifstmtptr_390',['IfStmtPtr',['../namespaceprsl_1_1AST.html#a30b9176dacaed1c37804142c8860baa4',1,'prsl::AST']]],
-  ['inputexprptr_391',['InputExprPtr',['../namespaceprsl_1_1AST.html#a085626df75b320da3c625c1e251907c6',1,'prsl::AST']]]
+  ['groupingexprptr_428',['GroupingExprPtr',['../namespaceprsl_1_1AST.html#a7ba28d1a6fff0c9f2592decfd5f32c21',1,'prsl::AST']]]
 ];

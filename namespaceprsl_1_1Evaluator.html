@@ -82,32 +82,50 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1Evaluator.html">Evaluator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Evaluator_1_1FuncObj.html">FuncObj</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a501f72f2862a9d93d535db9350c0c98c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a501f72f2862a9d93d535db9350c0c98c">Type</a> = <a class="el" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Types::Token::Type</a></td></tr>
 <tr class="separator:a501f72f2862a9d93d535db9350c0c98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace7d98ebdc414e57342059eb17fea21a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> = std::variant&lt; int, bool, std::nullptr_t &gt;</td></tr>
-<tr class="separator:ace7d98ebdc414e57342059eb17fea21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b003300c4d70b36f30fad4bb5646049"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a8b003300c4d70b36f30fad4bb5646049">FuncObjPtr</a> = std::shared_ptr&lt; <a class="el" href="classprsl_1_1Evaluator_1_1FuncObj.html">FuncObj</a> &gt;</td></tr>
+<tr class="separator:a8b003300c4d70b36f30fad4bb5646049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b1f11c621905fd0b6da98c8a0deef94"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> = std::variant&lt; int, bool, std::nullptr_t, <a class="el" href="namespaceprsl_1_1Evaluator.html#a8b003300c4d70b36f30fad4bb5646049">FuncObjPtr</a> &gt;</td></tr>
+<tr class="separator:a4b1f11c621905fd0b6da98c8a0deef94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6cc4b9fdd51606b1a954c0eb06ae8c69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a6cc4b9fdd51606b1a954c0eb06ae8c69">areEqual</a> (const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;lhs, const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;rhs)</td></tr>
+<tr class="memitem:a6cc4b9fdd51606b1a954c0eb06ae8c69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a6cc4b9fdd51606b1a954c0eb06ae8c69">areEqual</a> (const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;lhs, const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;rhs)</td></tr>
 <tr class="separator:a6cc4b9fdd51606b1a954c0eb06ae8c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e7109270233fa8fc909436ef2ddd9d7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a1e7109270233fa8fc909436ef2ddd9d7">toString</a> (const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;object)</td></tr>
+<tr class="memitem:a1e7109270233fa8fc909436ef2ddd9d7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a1e7109270233fa8fc909436ef2ddd9d7">toString</a> (const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;object)</td></tr>
 <tr class="separator:a1e7109270233fa8fc909436ef2ddd9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69f2e79cbb3887d0a007641ed9666d04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a69f2e79cbb3887d0a007641ed9666d04">isTrue</a> (const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;object)</td></tr>
+<tr class="memitem:a69f2e79cbb3887d0a007641ed9666d04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a69f2e79cbb3887d0a007641ed9666d04">isTrue</a> (const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;object)</td></tr>
 <tr class="separator:a69f2e79cbb3887d0a007641ed9666d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="ace7d98ebdc414e57342059eb17fea21a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace7d98ebdc414e57342059eb17fea21a">&#9670;&nbsp;</a></span>PrslObject</h2>
+<a id="a8b003300c4d70b36f30fad4bb5646049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b003300c4d70b36f30fad4bb5646049">&#9670;&nbsp;</a></span>FuncObjPtr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">prsl::Evaluator::PrslObject</a> = typedef std::variant&lt;int, bool, std::nullptr_t&gt;</td>
+          <td class="memname">using <a class="el" href="namespaceprsl_1_1Evaluator.html#a8b003300c4d70b36f30fad4bb5646049">prsl::Evaluator::FuncObjPtr</a> = typedef std::shared_ptr&lt;<a class="el" href="classprsl_1_1Evaluator_1_1FuncObj.html">FuncObj</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b1f11c621905fd0b6da98c8a0deef94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b1f11c621905fd0b6da98c8a0deef94">&#9670;&nbsp;</a></span>PrslObject</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">prsl::Evaluator::PrslObject</a> = typedef std::variant&lt;int, bool, std::nullptr_t, <a class="el" href="namespaceprsl_1_1Evaluator.html#a8b003300c4d70b36f30fad4bb5646049">FuncObjPtr</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -138,13 +156,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool prsl::Evaluator::areEqual </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;&#160;</td>
           <td class="paramname"><em>lhs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;&#160;</td>
           <td class="paramname"><em>rhs</em>&#160;</td>
         </tr>
         <tr>
@@ -166,7 +184,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool prsl::Evaluator::isTrue </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;&#160;</td>
           <td class="paramname"><em>object</em></td><td>)</td>
           <td></td>
         </tr>
@@ -184,7 +202,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">std::string prsl::Evaluator::toString </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#ace7d98ebdc414e57342059eb17fea21a">PrslObject</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;&#160;</td>
           <td class="paramname"><em>object</em></td><td>)</td>
           <td></td>
         </tr>

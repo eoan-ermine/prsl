@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rhsexpression_374',['rhsExpression',['../structprsl_1_1AST_1_1BinaryExpr.html#a2395dbc8547c604dc025e699fa107397',1,'prsl::AST::BinaryExpr']]]
+  ['parameters_407',['parameters',['../structprsl_1_1AST_1_1FuncExpr.html#a67af90178dcdb6c3f42ad795b7e077c4',1,'prsl::AST::FuncExpr']]],
+  ['params_408',['params',['../structprsl_1_1AST_1_1FunctionStmt.html#a4ce694a529294e9c56fb8e51a16fe160',1,'prsl::AST::FunctionStmt']]]
 ];
