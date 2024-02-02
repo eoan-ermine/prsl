@@ -200,7 +200,7 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
 
 Value *Codegen::visitCallExpr(const CallExprPtr &expr) {
   Function *func = getFunction(expr->ident);
-  if (!func)
+  if (functionsManager.contains(expr->ident.getLexeme()))
     func = functionsManager.at(expr->ident.getLexeme());
 
   if (!func)
@@ -360,7 +360,7 @@ AllocaInst *Codegen::getAllocVar(const Token &ident) {
 }
 
 Function *Codegen::getFunction(const Token &ident) {
-  if (envManager.contains(ident))
+  if (envManager.contains(ident) && isa<Function>(envManager.get(ident)))
     return cast<Function>(envManager.get(ident));
   return nullptr;
 }
