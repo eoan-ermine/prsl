@@ -218,9 +218,9 @@ ExprPtrVariant Parser::unaryExpr() {
 }
 
 // <postfixExpr> ::=
-//   <primaryExpr>
-//   | <primaryExpr> "++"
-//   | <primaryExpr> "--"
+//   <callExpr>
+//   | <callExpr> "++"
+//   | <callExpr> "--"
 ExprPtrVariant Parser::postfixExpr() {
   auto expr = callExpr();
   if (match({Token::Type::PLUS_PLUS, Token::Type::MINUS_MINUS})) {
@@ -250,8 +250,8 @@ ExprPtrVariant Parser::callExpr() {
   return expr;
 }
 
-// arguments ::=
-//   <assignment> ("," <assignment>)*
+// <arguments> ::=
+//   <assignmentExpr> ("," <assignmentExpr>)*
 std::vector<ExprPtrVariant> Parser::arguments() {
   std::vector<ExprPtrVariant> args;
   args.push_back(assignmentExpr());
@@ -337,7 +337,7 @@ ExprPtrVariant Parser::scopeExpr() {
 }
 
 // <funcExpr> ::=
-//   "func(" <identList>? ")" <nameIntro>? "{" <program> "}"
+//   "func(" (<ident> ("," <ident>)*)? ")" (":" <ident>)? <scopeExpr>
 ExprPtrVariant Parser::funcExpr() {
   advance();
   consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after 'func'");
