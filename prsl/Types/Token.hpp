@@ -33,6 +33,9 @@ public:
     WHILE,
     INPUT,
     PRINT,
+    FUNC,
+    COMMA,
+    COLON,
     ERROR,
     EOF_
   };

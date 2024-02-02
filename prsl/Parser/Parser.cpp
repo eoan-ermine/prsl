@@ -133,11 +133,7 @@ StmtPtrVariant Parser::exprStmt() {
 
 // <expr> ::=
 //   <assignmentExpr>
-//   | <scopeExpr>
 ExprPtrVariant Parser::expr() {
-  if (match(Token::Type::LEFT_BRACE)) {
-    return scopeExpr();
-  }
   return assignmentExpr();
 }
 
@@ -226,11 +222,44 @@ ExprPtrVariant Parser::unaryExpr() {
 //   | <primaryExpr> "++"
 //   | <primaryExpr> "--"
 ExprPtrVariant Parser::postfixExpr() {
-  auto expr = primaryExpr();
+  auto expr = callExpr();
   if (match({Token::Type::PLUS_PLUS, Token::Type::MINUS_MINUS})) {
     return createPostfixEPV(std::move(expr), getTokenAdvance());
   }
   return expr;
+}
+
+// <callExpr> ::=
+//   <primaryExpr> "(" <arguments>? ")"
+ExprPtrVariant Parser::callExpr() {
+  auto expr = primaryExpr();
+
+  if (match(Token::Type::LEFT_PAREN)) {
+    if (!std::holds_alternative<AST::VarExprPtr>(expr)) {
+      throw error("Expect variable expression, got something else");
+    }
+    auto ident = std::get<AST::VarExprPtr>(expr)->ident;
+    advance();
+    std::vector<ExprPtrVariant> args;
+    if (!match(Token::Type::RIGHT_PAREN))
+      args = arguments();
+    consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after arguments");
+    expr = createCallEPV(std::move(ident), std::move(args));
+  }
+
+  return expr;
+}
+
+// arguments ::=
+//   <assignment> ("," <assignment>)*
+std::vector<ExprPtrVariant> Parser::arguments() {
+  std::vector<ExprPtrVariant> args;
+  args.push_back(assignmentExpr());
+  while (match(Token::Type::COMMA)) {
+    advance();
+    args.push_back(assignmentExpr());
+  }
+  return args;
 }
 
 // <primaryExpr> ::=
@@ -238,6 +267,8 @@ ExprPtrVariant Parser::postfixExpr() {
 //   | <groupingExpr>
 //   | <varExpr>
 //   | <inputExpr>
+//   | <funcExpr>
+//   | <scopeExpr>
 ExprPtrVariant Parser::primaryExpr() {
   if (match(Token::Type::NUMBER))
     return literalExpr();
@@ -247,6 +278,10 @@ ExprPtrVariant Parser::primaryExpr() {
     return varExpr();
   if (match(Token::Type::INPUT))
     return inputExpr();
+  if (match(Token::Type::FUNC))
+    return funcExpr();
+  if (match(Token::Type::LEFT_BRACE))
+    return scopeExpr();
 
   throw error("Expect expression, got something else");
 }
@@ -299,6 +334,35 @@ ExprPtrVariant Parser::scopeExpr() {
   }
   consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after scope");
   return AST::createScopeEPV(std::move(statements));
+}
+
+// <funcExpr> ::=
+//   "func(" <identList>? ")" <nameIntro>? "{" <program> "}"
+ExprPtrVariant Parser::funcExpr() {
+  advance();
+  consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after 'func'");
+  std::vector<Token> parameters;
+
+  if (match(Token::Type::IDENT)) {
+    parameters.push_back(getTokenAdvance());
+    while (match(Token::Type::COMMA)) {
+      advance();
+      parameters.push_back(getTokenAdvance());
+    }
+  }
+  consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after arguments");
+
+  std::optional<Token> name = std::nullopt;
+  if (match(Token::Type::COLON)) {
+    advance();
+    name = consumeOrError(Token::Type::IDENT, "Expect function name");
+  }
+
+  if (!match(Token::Type::LEFT_BRACE))
+    throw error("Expect '{' before function body");
+  auto body = scopeExpr();
+  return AST::createFuncEPV(std::move(name), std::move(parameters),
+                            std::move(body));
 }
 
 void Parser::synchronize() {

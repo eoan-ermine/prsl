@@ -30,7 +30,7 @@ Value *Codegen::visitGroupingExpr(const GroupingExprPtr &expr) {
 }
 
 Value *Codegen::visitVarExpr(const VarExprPtr &expr) {
-  AllocaInst *V = envManager.get(expr->ident);
+  AllocaInst *V = getAllocVar(expr->ident);
   return builder->CreateLoad(intType, V, expr->ident.getLexeme());
 }
 
@@ -135,7 +135,7 @@ Value *Codegen::visitPostfixExpr(const PostfixExprPtr &expr) {
   Value *obj = visitExpr(expr->expression);
   if (std::holds_alternative<VarExprPtr>(expr->expression)) {
     const auto &varExpr = std::get<VarExprPtr>(expr->expression);
-    postfixExpr(expr->op, obj, envManager.get(varExpr->ident));
+    postfixExpr(expr->op, obj, getAllocVar(varExpr->ident));
   }
   return obj;
 }
@@ -147,19 +147,86 @@ Value *Codegen::visitScopeExpr(const ScopeExprPtr &stmt) {
          stmt->statements | std::views::take(stmt->statements.size() - 1)) {
       visitStmt(stmt);
     }
-    if (stmt->statements.size())
-      if (const auto &back = stmt->statements.back();
-          std::holds_alternative<ExprStmtPtr>(back)) {
+    if (stmt->statements.size()) {
+      const auto &back = stmt->statements.back();
+      if (std::holds_alternative<ExprStmtPtr>(back)) {
         res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+      } else {
+        visitStmt(back);
       }
+    }
   });
   return res;
 }
 
+Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
+  auto *previousBB = builder->GetInsertBlock();
+
+  std::vector<llvm::Type *> argTypes(expr->parameters.size(), intType);
+  FunctionType *ftype = FunctionType::get(intType, argTypes, false);
+  Function *func = Function::Create(
+      ftype, Function::ExternalLinkage,
+      expr->name ? expr->name->getLexeme() : "func", module.get());
+
+  // Create a new basic block to start insertion into.
+  BasicBlock *BB = BasicBlock::Create(*context, "entry", func);
+  builder->SetInsertPoint(BB);
+
+  auto funcEnv = std::make_shared<Evaluator::Environment<Value *>>(nullptr);
+
+  if (expr->name)
+    functionsManager.emplace(expr->name->getLexeme(), func);
+
+  Value *res = nullptr;
+  envManager.withNewEnviron(funcEnv, [&]() {
+    auto argsIt = func->args().begin();
+    auto paramsIt = expr->parameters.begin();
+    for (; argsIt != func->args().end() && paramsIt != expr->parameters.end();
+         argsIt++, paramsIt++) {
+      auto *allocaInst = allocVar(paramsIt->getLexeme());
+      envManager.define(*paramsIt, allocaInst);
+      builder->CreateStore(argsIt, allocaInst);
+    }
+
+    res = visitScopeExpr(std::get<ScopeExprPtr>(expr->body));
+  });
+
+  builder->CreateRet(res);
+  verifyFunction(*func);
+  builder->SetInsertPoint(previousBB);
+
+  return func;
+}
+
+Value *Codegen::visitCallExpr(const CallExprPtr &expr) {
+  Function *func = getFunction(expr->ident);
+  if (!func)
+    func = functionsManager.at(expr->ident.getLexeme());
+
+  if (!func)
+    throw reportRuntimeError(eReporter, expr->ident, "Not a function");
+
+  if (func->arg_size() != expr->arguments.size()) {
+    throw reportRuntimeError(eReporter, expr->ident,
+                             "Wrong number of arguments");
+  }
+
+  std::vector<Value *> args;
+  for (const auto &arg : expr->arguments) {
+    args.push_back(visitExpr(arg));
+  }
+
+  return builder->CreateCall(func, args, "calltmp");
+}
+
 Value *Codegen::visitVarStmt(const VarStmtPtr &stmt) {
   Value *value = visitExpr(stmt->initializer);
-  AllocaInst *varInst = getOrCreateAllocVar(stmt->varName);
-  builder->CreateStore(value, varInst);
+  if (isa<Function>(value)) {
+    envManager.define(stmt->varName, value);
+  } else {
+    AllocaInst *varInst = getOrCreateAllocVar(stmt->varName);
+    builder->CreateStore(value, varInst);
+  }
   return value;
 };
 
@@ -286,9 +353,21 @@ AllocaInst *Codegen::allocVar(std::string_view name) {
   return inst;
 }
 
+AllocaInst *Codegen::getAllocVar(const Token &ident) {
+  if (envManager.contains(ident))
+    return cast<AllocaInst>(envManager.get(ident));
+  return nullptr;
+}
+
+Function *Codegen::getFunction(const Token &ident) {
+  if (envManager.contains(ident))
+    return cast<Function>(envManager.get(ident));
+  return nullptr;
+}
+
 AllocaInst *Codegen::getOrCreateAllocVar(const Token &variable) {
-  if (envManager.contains(variable))
-    return envManager.get(variable);
+  if (auto res = getAllocVar(variable))
+    return res;
   auto inst = allocVar(variable.getLexeme());
   envManager.define(variable, inst);
   return inst;

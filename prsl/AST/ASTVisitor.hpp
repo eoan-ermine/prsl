@@ -36,6 +36,8 @@ public:
       [&](const BinaryExprPtr &expr) { return visitBinaryExpr(expr); },
       [&](const PostfixExprPtr &expr) { return visitPostfixExpr(expr); },
       [&](const ScopeExprPtr &expr) { return visitScopeExpr(expr); },
+      [&](const FuncExprPtr &expr) { return visitFuncExpr(expr); },
+      [&](const CallExprPtr &expr) { return visitCallExpr(expr); }
     }, expr);
   }
   StmtVisitRes visitStmt(const StmtPtrVariant &stmt) {
@@ -61,6 +63,8 @@ protected:
   virtual ExprVisitRes visitBinaryExpr(const BinaryExprPtr &expr) = 0;
   virtual ExprVisitRes visitPostfixExpr(const PostfixExprPtr &expr) = 0;
   virtual ExprVisitRes visitScopeExpr(const ScopeExprPtr &expr) = 0;
+  virtual ExprVisitRes visitFuncExpr(const FuncExprPtr &expr) = 0;
+  virtual ExprVisitRes visitCallExpr(const CallExprPtr &expr) = 0;
 
   virtual StmtVisitRes visitVarStmt(const VarStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitIfStmt(const IfStmtPtr &stmt) = 0;

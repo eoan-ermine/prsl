@@ -26,6 +26,10 @@ struct PostfixExpr;
 
 struct ScopeExpr;
 
+struct FuncExpr;
+
+struct CallExpr;
+
 using LiteralExprPtr = std::unique_ptr<LiteralExpr>;
 
 using GroupingExprPtr = std::unique_ptr<GroupingExpr>;
@@ -44,10 +48,14 @@ using PostfixExprPtr = std::unique_ptr<PostfixExpr>;
 
 using ScopeExprPtr = std::unique_ptr<ScopeExpr>;
 
+using FuncExprPtr = std::unique_ptr<FuncExpr>;
+
+using CallExprPtr = std::unique_ptr<CallExpr>;
+
 using ExprPtrVariant =
     std::variant<LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr,
                  AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr, PostfixExprPtr,
-                 ScopeExprPtr>;
+                 ScopeExprPtr, FuncExprPtr, CallExprPtr>;
 
 struct VarStmt;
 
@@ -133,6 +141,20 @@ struct ScopeExpr final {
   explicit ScopeExpr(std::vector<StmtPtrVariant> statements);
 };
 
+struct FuncExpr final {
+  std::optional<Token> name;
+  std::vector<Token> parameters;
+  ExprPtrVariant body;
+  FuncExpr(std::optional<Token> name, std::vector<Token> parameters,
+           ExprPtrVariant body);
+};
+
+struct CallExpr final {
+  Token ident;
+  std::vector<ExprPtrVariant> arguments;
+  explicit CallExpr(Token ident, std::vector<ExprPtrVariant> arguments);
+};
+
 struct VarStmt final {
   Token varName;
   ExprPtrVariant initializer;
@@ -194,6 +216,12 @@ ExprPtrVariant createBinaryEPV(ExprPtrVariant lhsExpression, Types::Token op,
 ExprPtrVariant createPostfixEPV(ExprPtrVariant expression, Types::Token op);
 
 ExprPtrVariant createScopeEPV(std::vector<StmtPtrVariant> statements);
+
+ExprPtrVariant createFuncEPV(std::optional<Token> name,
+                             std::vector<Token> parameters,
+                             ExprPtrVariant body);
+
+ExprPtrVariant createCallEPV(Token ident, std::vector<ExprPtrVariant> arguments);
 
 StmtPtrVariant createVarSPV(Token varName, ExprPtrVariant initializer);
 

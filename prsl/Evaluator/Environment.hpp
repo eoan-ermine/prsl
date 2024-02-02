@@ -28,6 +28,27 @@ public:
   explicit Environment(EnvironmentPtr parentEnv)
       : parentEnv(std::move(parentEnv)) {}
 
+  void assign(const Types::Token &token, VarValue object) {
+    assign(hasher(token.getLexeme()), std::move(object));
+  }
+
+  void defineOrAssign(const Types::Token &token, VarValue object) {
+    defineOrAssign(hasher(token.getLexeme()), std::move(object));
+  }
+
+  VarValue get(const Types::Token &token) {
+    return get(hasher(token.getLexeme()));
+  }
+
+  bool contains(const Types::Token &token) {
+    return contains(hasher(token.getLexeme()));
+  }
+
+  EnvironmentPtr getParentEnv() { return parentEnv; }
+
+  bool isGlobal() { return parentEnv == nullptr; }
+
+private:
   void assign(size_t varNameHash, VarValue object) {
     auto iter = objects.find(varNameHash);
     if (iter != objects.end()) {
@@ -68,17 +89,16 @@ public:
     return res;
   }
 
-  EnvironmentPtr getParentEnv() { return parentEnv; }
-
-  bool isGlobal() { return parentEnv == nullptr; }
-
 private:
   std::unordered_map<size_t, VarValue> objects;
   EnvironmentPtr parentEnv = nullptr;
+  std::hash<std::string_view> hasher;
 };
 
 template <typename VarValue> class EnvironmentManager {
 public:
+  using EnvType = Environment<VarValue>;
+
   explicit EnvironmentManager(ErrorReporter &eReporter)
       : eReporter(eReporter),
         curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
@@ -90,26 +110,31 @@ public:
     discardEnvsTill(environToRestore);
   }
 
+  template <typename F>
+  void withNewEnviron(std::shared_ptr<Environment<VarValue>> environ,
+                      F &&action) {
+    auto environToRestore = curEnv;
+    curEnv = std::move(environ);
+    action();
+    curEnv = std::move(environToRestore);
+  }
+
   void assign(const Types::Token &token, VarValue object) {
     try {
-      curEnv->assign(hasher(token.getLexeme()), std::move(object));
+      curEnv->assign(token, std::move(object));
     } catch (const UndefVarAccess &e) {
       throw Errors::reportRuntimeError(eReporter, token,
                                        "Attempt to access an undef variable");
     }
   }
 
-  void define(std::string_view str, VarValue object) {
-    curEnv->defineOrAssign(hasher(str), std::move(object));
-  }
-
   void define(const Types::Token &token, VarValue object) {
-    curEnv->defineOrAssign(hasher(token.getLexeme()), std::move(object));
+    curEnv->defineOrAssign(token, std::move(object));
   }
 
   VarValue get(const Types::Token &token) {
     try {
-      return curEnv->get(hasher(token.getLexeme()));
+      return curEnv->get(token);
     } catch (const UndefVarAccess &e) {
       throw Errors::reportRuntimeError(eReporter, token,
                                        "Attempt to access an undef variable");
@@ -119,9 +144,7 @@ public:
     }
   }
 
-  bool contains(const Types::Token &token) {
-    return curEnv->contains(hasher(token.getLexeme()));
-  }
+  bool contains(const Types::Token &token) { return curEnv->contains(token); }
 
 private:
   void createNewEnv() {
@@ -137,7 +160,6 @@ private:
 private:
   ErrorReporter &eReporter;
   Environment<VarValue>::EnvironmentPtr curEnv;
-  std::hash<std::string_view> hasher;
 };
 
 }; // namespace prsl::Evaluator

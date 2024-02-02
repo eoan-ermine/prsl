@@ -1,0 +1,11 @@
+// RUN: %edir/prsl --codegen %s --output-file=pass_6.ll
+// RUN: clang++ -Wno-override-module pass_6.ll -o pass_6
+// RUN: %S/pass_6 | filecheck %s --match-full-lines
+// RUN: %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: 3
+// CHECK-NEXT: -2
+
+sum = func(a, b) { a + b; }
+print sum(1, 2);
+sub = func(a, b) { a - b; }
+print sub(1, 3);

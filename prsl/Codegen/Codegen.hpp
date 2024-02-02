@@ -45,6 +45,8 @@ private:
   Value *visitBinaryExpr(const BinaryExprPtr &expr) override;
   Value *visitPostfixExpr(const PostfixExprPtr &expr) override;
   Value *visitScopeExpr(const ScopeExprPtr &stmt) override;
+  Value *visitFuncExpr(const FuncExprPtr &expr) override;
+  Value *visitCallExpr(const CallExprPtr &expr) override;
 
   Value *visitVarStmt(const VarStmtPtr &stmt) override;
   Value *visitIfStmt(const IfStmtPtr &stmt) override;
@@ -57,12 +59,15 @@ private:
   Value *postfixExpr(const Token &op, Value *obj, Value *res);
   AllocaInst *allocVar(std::string_view name);
   AllocaInst *getOrCreateAllocVar(const Token &variable);
+  AllocaInst *getAllocVar(const Token &ident);
+  Function *getFunction(const Token &ident);
 
   ErrorReporter &eReporter;
   std::unique_ptr<LLVMContext> context;
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;
-  Evaluator::EnvironmentManager<AllocaInst *> envManager;
+  Evaluator::EnvironmentManager<Value*> envManager;
+  std::unordered_map<std::string_view, Function*> functionsManager;
   llvm::Type *intType;
 };
 
