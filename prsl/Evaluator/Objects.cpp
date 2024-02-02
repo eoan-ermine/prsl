@@ -1,5 +1,7 @@
 #include "Objects.hpp"
 
+#include "prsl/Utils/Utils.hpp"
+
 namespace prsl::Evaluator {
 
 FuncObj::FuncObj(const AST::FuncExprPtr &declaration)
@@ -10,39 +12,34 @@ size_t FuncObj::paramsCount() const { return declaration->parameters.size(); }
 const AST::FuncExprPtr &FuncObj::getDeclaration() const { return declaration; }
 
 bool areEqual(const PrslObject &lhs, const PrslObject &rhs) {
-  if (lhs.index() == rhs.index()) {
-    switch (lhs.index()) {
-    case 0:
-      return std::get<int>(lhs) == std::get<int>(rhs);
-    case 1:
-      return std::get<bool>(lhs) == std::get<int>(rhs);
-    case 2:
-      return true;
-    }
-  }
-  return false;
+  return std::visit<bool>(
+      Utils::select{
+          [](const int &lhs, const int &rhs) { return lhs == rhs; },
+          [](const bool &lhs, const bool &rhs) { return lhs == rhs; },
+          [](const std::nullptr_t &, const std::nullptr_t &) { return true; },
+          [](const auto &, const auto &) { return false; },
+      },
+      lhs, rhs);
 }
 
 std::string toString(const PrslObject &object) {
-  switch (object.index()) {
-  case 0:
-    return std::to_string(std::get<int>(object));
-  case 1:
-    return std::get<bool>(object) == true ? "true" : "false";
-  case 2:
-    return "nil";
-  }
-  return "";
+  return std::visit<std::string>(
+      Utils::select{
+          [](const int &val) { return std::to_string(val); },
+          [](const bool &val) { return val ? "1" : "0"; },
+          [](const std::nullptr_t &) { return "nil"; },
+          [](const auto &) { return ""; },
+      },
+      object);
 }
 
 bool isTrue(const PrslObject &object) {
-  switch (object.index()) {
-  case 0:
-    return std::get<int>(object) != 0;
-  case 1:
-    return std::get<bool>(object) == true;
-  }
-  return false;
+  return std::visit<bool>(Utils::select{
+                              [](const int &val) { return val != 0; },
+                              [](const bool &val) { return val == true; },
+                              [](const auto &) { return false; },
+                          },
+                          object);
 }
 
 } // namespace prsl::Evaluator
