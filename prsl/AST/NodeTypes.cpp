@@ -102,7 +102,8 @@ ExprPtrVariant createFuncEPV(std::optional<Token> name,
                                     std::move(body));
 }
 
-ExprPtrVariant createCallEPV(Token ident, std::vector<ExprPtrVariant> arguments) {
+ExprPtrVariant createCallEPV(Token ident,
+                             std::vector<ExprPtrVariant> arguments) {
   return std::make_unique<CallExpr>(std::move(ident), std::move(arguments));
 }
 

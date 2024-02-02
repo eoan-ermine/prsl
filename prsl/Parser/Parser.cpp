@@ -133,9 +133,7 @@ StmtPtrVariant Parser::exprStmt() {
 
 // <expr> ::=
 //   <assignmentExpr>
-ExprPtrVariant Parser::expr() {
-  return assignmentExpr();
-}
+ExprPtrVariant Parser::expr() { return assignmentExpr(); }
 
 // <assignmentExpr> ::=
 //   <comparisonExpr>

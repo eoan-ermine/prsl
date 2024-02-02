@@ -66,8 +66,8 @@ private:
   std::unique_ptr<LLVMContext> context;
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;
-  Evaluator::EnvironmentManager<Value*> envManager;
-  std::unordered_map<std::string_view, Function*> functionsManager;
+  Evaluator::EnvironmentManager<Value *> envManager;
+  std::unordered_map<std::string_view, Function *> functionsManager;
   llvm::Type *intType;
 };
 

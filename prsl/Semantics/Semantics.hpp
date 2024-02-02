@@ -44,10 +44,7 @@ private:
   ErrorReporter &eReporter;
   struct VarState {
     bool isInit;
-    enum Type {
-      VAR,
-      FUNCTION
-    } type;
+    enum Type { VAR, FUNCTION } type;
   };
   Evaluator::EnvironmentManager<VarState> envManager;
 };

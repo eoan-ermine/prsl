@@ -221,7 +221,8 @@ ExprPtrVariant createFuncEPV(std::optional<Token> name,
                              std::vector<Token> parameters,
                              ExprPtrVariant body);
 
-ExprPtrVariant createCallEPV(Token ident, std::vector<ExprPtrVariant> arguments);
+ExprPtrVariant createCallEPV(Token ident,
+                             std::vector<ExprPtrVariant> arguments);
 
 StmtPtrVariant createVarSPV(Token varName, ExprPtrVariant initializer);
 

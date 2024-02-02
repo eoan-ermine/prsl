@@ -33,7 +33,7 @@ void Semantics::visitAssignmentExpr(const AssignmentExprPtr &expr) {
   if (!envManager.contains(expr->varName))
     envManager.define(expr->varName, {false, VarState::Type::VAR});
   visitExpr(expr->initializer);
-  envManager.assign(expr->varName, {true, VarState::Type::VAR });
+  envManager.assign(expr->varName, {true, VarState::Type::VAR});
 }
 
 void Semantics::visitUnaryExpr(const UnaryExprPtr &expr) {
@@ -65,12 +65,12 @@ void Semantics::visitScopeExpr(const ScopeExprPtr &stmt) {
 void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
   auto funcEnv = std::make_shared<decltype(envManager)::EnvType>(nullptr);
   if (expr->name)
-    envManager.define(*expr->name, { true, VarState::Type::FUNCTION });
+    envManager.define(*expr->name, {true, VarState::Type::FUNCTION});
   envManager.withNewEnviron(funcEnv, [&]() {
     if (expr->name)
-      envManager.define(*expr->name, { true, VarState::Type::FUNCTION });
+      envManager.define(*expr->name, {true, VarState::Type::FUNCTION});
     for (const auto &token : expr->parameters) {
-      envManager.define(token, { true, VarState::Type::VAR });
+      envManager.define(token, {true, VarState::Type::VAR});
     }
     visitScopeExpr(std::get<ScopeExprPtr>(expr->body));
   });
