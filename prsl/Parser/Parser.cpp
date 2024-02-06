@@ -1,4 +1,5 @@
 #include "Parser.hpp"
+#include "prsl/AST/NodeTypes.hpp"
 
 #include <charconv>
 #include <optional>
@@ -69,6 +70,8 @@ StmtPtrVariant Parser::stmt() {
     return whileStmt();
   if (match(Token::Type::PRINT))
     return printStmt();
+  if (match(Token::Type::RETURN))
+    return returnStmt();
   return exprStmt();
 }
 
@@ -120,6 +123,18 @@ StmtPtrVariant Parser::printStmt() {
   ExprPtrVariant value = expr();
   consumeOrError(Token::Type::SEMICOLON, "Expect ';' after print statement");
   return AST::createPrintSPV(std::move(value));
+}
+
+// <returnStmt> ::=
+//   "return" <expr> ";"
+StmtPtrVariant Parser::returnStmt() {
+  auto token = getTokenAdvance();
+  ExprPtrVariant value = expr();
+  consumeOrError(Token::Type::SEMICOLON, "Expect ';' after return statement");
+  if (currentFunction) {
+    currentFunction->retExpr = std::move(value);
+  }
+  return AST::createReturnSPV(token);
 }
 
 // <printStmt> ::=
@@ -358,9 +373,12 @@ ExprPtrVariant Parser::funcExpr() {
 
   if (!match(Token::Type::LEFT_BRACE))
     throw error("Expect '{' before function body");
-  auto body = scopeExpr();
-  return AST::createFuncEPV(std::move(name), std::move(parameters),
-                            std::move(body));
+  currentFunction = std::get<std::unique_ptr<AST::FuncExpr>>(
+      AST::createFuncEPV(std::move(name), std::move(parameters)));
+  currentFunction->body = scopeExpr();
+  auto func = std::move(currentFunction);
+  currentFunction = nullptr;
+  return std::move(func);
 }
 
 void Parser::synchronize() {

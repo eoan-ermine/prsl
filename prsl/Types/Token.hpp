@@ -36,6 +36,7 @@ public:
     FUNC,
     COMMA,
     COLON,
+    RETURN,
     ERROR,
     EOF_
   };

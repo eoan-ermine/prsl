@@ -41,6 +41,7 @@ private:
   void visitExprStmt(const ExprStmtPtr &stmt) override;
   void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
   void visitBlockStmt(const BlockStmtPtr &stmt) override;
+  void visitReturnStmt(const ReturnStmtPtr &stmt) override;
 
   int getInt(const Token &token, const PrslObject &obj);
 

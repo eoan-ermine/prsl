@@ -33,6 +33,7 @@ private:
   StmtPtrVariant whileStmt();
   StmtPtrVariant printStmt();
   StmtPtrVariant exprStmt();
+  StmtPtrVariant returnStmt();
 
   ExprPtrVariant expr();
   ExprPtrVariant assignmentExpr();
@@ -71,6 +72,7 @@ private:
   const std::vector<Token> &tokens;
   std::vector<Token>::const_iterator currentIter;
   prsl::Errors::ErrorReporter &eReporter;
+  std::unique_ptr<AST::FuncExpr> currentFunction = nullptr;
 };
 
 } // namespace prsl::Parser

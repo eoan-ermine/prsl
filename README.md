@@ -151,6 +151,9 @@ clang source.ll -o source
 <printStmt> ::=
   "print" <expr> ";"
 
+<returnStmt> ::=
+  "return" <expr> ";"
+
 <expr> ::=
   <assignmentExpr>
 

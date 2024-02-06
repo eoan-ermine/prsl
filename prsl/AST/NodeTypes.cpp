@@ -28,10 +28,8 @@ PostfixExpr::PostfixExpr(ExprPtrVariant expression, Types::Token op)
 ScopeExpr::ScopeExpr(std::vector<StmtPtrVariant> statements)
     : statements(std::move(statements)) {}
 
-FuncExpr::FuncExpr(std::optional<Token> name, std::vector<Token> parameters,
-                   ExprPtrVariant body)
-    : name(std::move(name)), parameters(std::move(parameters)),
-      body(std::move(body)) {}
+FuncExpr::FuncExpr(std::optional<Token> name, std::vector<Token> parameters)
+    : name(std::move(name)), parameters(std::move(parameters)) {}
 
 CallExpr::CallExpr(Token ident, std::vector<ExprPtrVariant> arguments)
     : ident(std::move(ident)), arguments(std::move(arguments)) {}
@@ -58,6 +56,8 @@ FunctionStmt::FunctionStmt(std::vector<Token> params,
 
 BlockStmt::BlockStmt(std::vector<StmtPtrVariant> statements)
     : statements(std::move(statements)) {}
+
+ReturnStmt::ReturnStmt(Token token) : token(std::move(token)) {}
 
 ExprPtrVariant createLiteralEPV(int literalVal) {
   return std::make_unique<LiteralExpr>(literalVal);
@@ -96,10 +96,8 @@ ExprPtrVariant createScopeEPV(std::vector<StmtPtrVariant> statements) {
 }
 
 ExprPtrVariant createFuncEPV(std::optional<Token> name,
-                             std::vector<Token> parameters,
-                             ExprPtrVariant body) {
-  return std::make_unique<FuncExpr>(std::move(name), std::move(parameters),
-                                    std::move(body));
+                             std::vector<Token> parameters) {
+  return std::make_unique<FuncExpr>(std::move(name), std::move(parameters));
 }
 
 ExprPtrVariant createCallEPV(Token ident,
@@ -136,6 +134,10 @@ StmtPtrVariant createFunctionSPV(std::vector<Token> params,
 
 StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements) {
   return std::make_unique<BlockStmt>(std::move(statements));
+}
+
+StmtPtrVariant createReturnSPV(Token token) {
+  return std::make_unique<ReturnStmt>(std::move(token));
 }
 
 } // namespace prsl::AST
