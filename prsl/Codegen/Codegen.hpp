@@ -62,6 +62,7 @@ private:
   AllocaInst *getOrCreateAllocVar(const Token &variable);
   AllocaInst *getAllocVar(const Token &ident);
   Function *getFunction(const Token &ident);
+  Value *evaluateScope(const ScopeExprPtr &stmt);
 
   ErrorReporter &eReporter;
   std::unique_ptr<LLVMContext> context;

@@ -127,22 +127,26 @@ PrslObject Evaluator::visitPostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
-PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
+PrslObject Evaluator::evaluateScope(const ScopeExprPtr &stmt) {
   PrslObject res{0};
-  envManager.withNewEnviron([&] {
-    for (const auto &stmt :
-         stmt->statements | std::views::take(stmt->statements.size() - 1)) {
-      visitStmt(stmt);
+  for (const auto &stmt :
+       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+    visitStmt(stmt);
+  }
+  if (stmt->statements.size()) {
+    const auto &back = stmt->statements.back();
+    if (std::holds_alternative<ExprStmtPtr>(back)) {
+      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+    } else {
+      visitStmt(back);
     }
-    if (stmt->statements.size()) {
-      const auto &back = stmt->statements.back();
-      if (std::holds_alternative<ExprStmtPtr>(back)) {
-        res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
-      } else {
-        visitStmt(back);
-      }
-    }
-  });
+  }
+  return res;
+}
+
+PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
+  PrslObject res;
+  envManager.withNewEnviron([&] { res = evaluateScope(stmt); });
   return res;
 }
 
@@ -191,8 +195,9 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
     for (; paramIt != params.end() && argIt != args.end(); ++paramIt, ++argIt) {
       envManager.define(*paramIt, *argIt);
     }
+
     auto scopeRes =
-        visitScopeExpr(std::get<ScopeExprPtr>(func->getDeclaration()->body));
+        evaluateScope(std::get<ScopeExprPtr>(func->getDeclaration()->body));
     if (func->getDeclaration()->retExpr) {
       res = visitExpr(*func->getDeclaration()->retExpr);
     } else {

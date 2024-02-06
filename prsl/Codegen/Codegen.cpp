@@ -140,22 +140,26 @@ Value *Codegen::visitPostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
-Value *Codegen::visitScopeExpr(const ScopeExprPtr &stmt) {
+Value *Codegen::evaluateScope(const ScopeExprPtr &stmt) {
   Value *res = ConstantInt::get(intType, 0);
-  envManager.withNewEnviron([&] {
-    for (const auto &stmt :
-         stmt->statements | std::views::take(stmt->statements.size() - 1)) {
-      visitStmt(stmt);
+  for (const auto &stmt :
+       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+    visitStmt(stmt);
+  }
+  if (stmt->statements.size()) {
+    const auto &back = stmt->statements.back();
+    if (std::holds_alternative<ExprStmtPtr>(back)) {
+      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
+    } else {
+      visitStmt(back);
     }
-    if (stmt->statements.size()) {
-      const auto &back = stmt->statements.back();
-      if (std::holds_alternative<ExprStmtPtr>(back)) {
-        res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
-      } else {
-        visitStmt(back);
-      }
-    }
-  });
+  }
+  return res;
+}
+
+Value *Codegen::visitScopeExpr(const ScopeExprPtr &stmt) {
+  Value *res;
+  envManager.withNewEnviron([&] { res = evaluateScope(stmt); });
   return res;
 }
 
@@ -188,7 +192,7 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
       builder->CreateStore(argsIt, allocaInst);
     }
 
-    auto scopeRes = visitScopeExpr(std::get<ScopeExprPtr>(expr->body));
+    auto scopeRes = evaluateScope(std::get<ScopeExprPtr>(expr->body));
     if (expr->retExpr) {
       res = visitExpr(*expr->retExpr);
     } else {
