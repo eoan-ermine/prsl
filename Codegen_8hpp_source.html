@@ -133,17 +133,18 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  AllocaInst *getOrCreateAllocVar(<span class="keyword">const</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> &amp;variable);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  AllocaInst *getAllocVar(<span class="keyword">const</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> &amp;ident);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  Function *getFunction(<span class="keyword">const</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> &amp;ident);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  std::unique_ptr&lt;LLVMContext&gt; context;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  std::unique_ptr&lt;IRBuilder&lt;&gt;&gt; builder;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  std::unique_ptr&lt;Module&gt; module;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">Evaluator::EnvironmentManager&lt;Value *&gt;</a> envManager;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  std::unordered_map&lt;std::string_view, Function *&gt; functionsManager;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <a class="code" href="namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0">llvm::Type</a> *intType;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace prsl::Codegen</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  Value *evaluateScope(<span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a> &amp;stmt);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  std::unique_ptr&lt;LLVMContext&gt; context;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  std::unique_ptr&lt;IRBuilder&lt;&gt;&gt; builder;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  std::unique_ptr&lt;Module&gt; module;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">Evaluator::EnvironmentManager&lt;Value *&gt;</a> envManager;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  std::unordered_map&lt;std::string_view, Function *&gt; functionsManager;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <a class="code" href="namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0">llvm::Type</a> *intType;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace prsl::Codegen</span></div>
 <div class="ttc" id="aASTVisitor_8hpp_html"><div class="ttname"><a href="ASTVisitor_8hpp.html">ASTVisitor.hpp</a></div></div>
 <div class="ttc" id="aEnvironment_8hpp_html"><div class="ttname"><a href="Environment_8hpp.html">Environment.hpp</a></div></div>
 <div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>

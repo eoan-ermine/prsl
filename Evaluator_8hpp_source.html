@@ -115,14 +115,15 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> visitReturnStmt(<span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1AST.html#ab77140a8ceb6bd4b4692ad92219d1c97">ReturnStmtPtr</a> &amp;stmt) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">int</span> getInt(<span class="keyword">const</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> &amp;token, <span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> &amp;obj);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">EnvironmentManager&lt;PrslObject&gt;</a> envManager;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  std::unordered_map&lt;std::string_view, PrslObject&gt; functionsManager;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace prsl::Evaluator</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="namespaceprsl_1_1Evaluator.html#a4b1f11c621905fd0b6da98c8a0deef94">PrslObject</a> evaluateScope(<span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a> &amp;expr);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="classprsl_1_1Evaluator_1_1EnvironmentManager.html">EnvironmentManager&lt;PrslObject&gt;</a> envManager;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::unordered_map&lt;std::string_view, PrslObject&gt; functionsManager;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace prsl::Evaluator</span></div>
 <div class="ttc" id="aASTVisitor_8hpp_html"><div class="ttname"><a href="ASTVisitor_8hpp.html">ASTVisitor.hpp</a></div></div>
 <div class="ttc" id="aEnvironment_8hpp_html"><div class="ttname"><a href="Environment_8hpp.html">Environment.hpp</a></div></div>
 <div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
