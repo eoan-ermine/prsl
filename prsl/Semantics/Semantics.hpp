@@ -5,6 +5,8 @@
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Evaluator/Environment.hpp"
 #include "prsl/Types/Token.hpp"
+#include <string_view>
+#include <unordered_map>
 
 namespace prsl::Semantics {
 
@@ -47,6 +49,7 @@ private:
     enum Type { VAR, FUNCTION } type;
   };
   Evaluator::EnvironmentManager<VarState> envManager;
+  std::unordered_map<std::string_view, bool> functionsManager;
 };
 
 } // namespace prsl::Semantics
