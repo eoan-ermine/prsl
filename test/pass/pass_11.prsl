@@ -6,7 +6,7 @@
 
 foo1 = func(x) : f1
 {
-    x + 3;
+    return x + 3;
 };
 
 foo2 = func(x) : f2

@@ -191,7 +191,13 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
     for (; paramIt != params.end() && argIt != args.end(); ++paramIt, ++argIt) {
       envManager.define(*paramIt, *argIt);
     }
-    res = visitScopeExpr(std::get<ScopeExprPtr>(func->getDeclaration()->body));
+    auto scopeRes =
+        visitScopeExpr(std::get<ScopeExprPtr>(func->getDeclaration()->body));
+    if (func->getDeclaration()->retExpr) {
+      res = visitExpr(*func->getDeclaration()->retExpr);
+    } else {
+      res = std::move(scopeRes);
+    }
   });
 
   return res;
@@ -235,5 +241,7 @@ void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
     }
   });
 }
+
+void Evaluator::visitReturnStmt(const ReturnStmtPtr &stmt) {}
 
 } // namespace prsl::Evaluator

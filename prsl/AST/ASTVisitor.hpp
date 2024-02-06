@@ -32,6 +32,7 @@ public:
       [&](const ExprStmtPtr &stmt) { return visitExprStmt(stmt); },
       [&](const FunctionStmtPtr &stmt) { return visitFunctionStmt(stmt); },
       [&](const BlockStmtPtr &stmt) { return visitBlockStmt(stmt); },
+      [&](const ReturnStmtPtr &stmt) { return visitReturnStmt(stmt); }
     }, stmt);
   }
   virtual bool dump(std::string_view) = 0;
@@ -56,6 +57,7 @@ protected:
   virtual StmtVisitRes visitExprStmt(const ExprStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitFunctionStmt(const FunctionStmtPtr &stmt) = 0;
   virtual StmtVisitRes visitBlockStmt(const BlockStmtPtr &stmt) = 0;
+  virtual StmtVisitRes visitReturnStmt(const ReturnStmtPtr &stmt) = 0;
 };
 
 } // namespace prsl::AST

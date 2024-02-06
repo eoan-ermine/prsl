@@ -71,7 +71,9 @@ void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
     for (const auto &token : expr->parameters) {
       envManager.define(token, {true, VarState::Type::VAR});
     }
+    inFunction = true;
     visitScopeExpr(std::get<ScopeExprPtr>(expr->body));
+    inFunction = false;
   });
 }
 
@@ -125,6 +127,13 @@ void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
       visitStmt(stmt);
     }
   });
+}
+
+void Semantics::visitReturnStmt(const ReturnStmtPtr &stmt) {
+  if (!inFunction) {
+    throw reportRuntimeError(eReporter, stmt->token,
+                             "Can't return from top-level code");
+  }
 }
 
 } // namespace prsl::Semantics

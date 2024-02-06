@@ -1,0 +1,7 @@
+// RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
+// RUN: (%edir/prsl %s 2>&1) | filecheck %s
+// CHECK: [Line 6] Error: at ';': Expect expression, got something else
+
+a = func() {
+    return;
+};

@@ -188,7 +188,12 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
       builder->CreateStore(argsIt, allocaInst);
     }
 
-    res = visitScopeExpr(std::get<ScopeExprPtr>(expr->body));
+    auto scopeRes = visitScopeExpr(std::get<ScopeExprPtr>(expr->body));
+    if (expr->retExpr) {
+      res = visitExpr(*expr->retExpr);
+    } else {
+      res = std::move(scopeRes);
+    }
   });
 
   builder->CreateRet(res);
@@ -342,6 +347,8 @@ Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
   });
   return nullptr;
 }
+
+Value *Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) { return nullptr; }
 
 AllocaInst *Codegen::allocVar(std::string_view name) {
   BasicBlock *insertBB = builder->GetInsertBlock();

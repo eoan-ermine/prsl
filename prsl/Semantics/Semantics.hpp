@@ -42,6 +42,7 @@ private:
   void visitExprStmt(const ExprStmtPtr &stmt) override;
   void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
   void visitBlockStmt(const BlockStmtPtr &stmt) override;
+  void visitReturnStmt(const ReturnStmtPtr &stmt) override;
 
   ErrorReporter &eReporter;
   struct VarState {
@@ -50,6 +51,7 @@ private:
   };
   Evaluator::EnvironmentManager<VarState> envManager;
   std::unordered_map<std::string_view, bool> functionsManager;
+  bool inFunction = false;
 };
 
 } // namespace prsl::Semantics

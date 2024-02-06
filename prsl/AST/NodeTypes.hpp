@@ -71,6 +71,8 @@ struct FunctionStmt;
 
 struct BlockStmt;
 
+struct ReturnStmt;
+
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
 using IfStmtPtr = std::unique_ptr<IfStmt>;
@@ -85,9 +87,11 @@ using FunctionStmtPtr = std::unique_ptr<FunctionStmt>;
 
 using BlockStmtPtr = std::unique_ptr<BlockStmt>;
 
+using ReturnStmtPtr = std::unique_ptr<ReturnStmt>;
+
 using StmtPtrVariant =
     std::variant<VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr,
-                 FunctionStmtPtr, BlockStmtPtr>;
+                 FunctionStmtPtr, BlockStmtPtr, ReturnStmtPtr>;
 
 using prsl::Types::Token;
 
@@ -145,8 +149,8 @@ struct FuncExpr final {
   std::optional<Token> name;
   std::vector<Token> parameters;
   ExprPtrVariant body;
-  FuncExpr(std::optional<Token> name, std::vector<Token> parameters,
-           ExprPtrVariant body);
+  std::optional<ExprPtrVariant> retExpr;
+  FuncExpr(std::optional<Token> name, std::vector<Token> parameters);
 };
 
 struct CallExpr final {
@@ -198,6 +202,11 @@ struct BlockStmt final {
   explicit BlockStmt(std::vector<StmtPtrVariant> statements);
 };
 
+struct ReturnStmt final {
+  Token token;
+  explicit ReturnStmt(Token token);
+};
+
 ExprPtrVariant createLiteralEPV(int literalVal);
 
 ExprPtrVariant createGroupingEPV(ExprPtrVariant expression);
@@ -218,8 +227,7 @@ ExprPtrVariant createPostfixEPV(ExprPtrVariant expression, Types::Token op);
 ExprPtrVariant createScopeEPV(std::vector<StmtPtrVariant> statements);
 
 ExprPtrVariant createFuncEPV(std::optional<Token> name,
-                             std::vector<Token> parameters,
-                             ExprPtrVariant body);
+                             std::vector<Token> parameters);
 
 ExprPtrVariant createCallEPV(Token ident,
                              std::vector<ExprPtrVariant> arguments);
@@ -239,5 +247,7 @@ StmtPtrVariant createFunctionSPV(std::vector<Token> params,
                                  std::vector<StmtPtrVariant> body);
 
 StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements);
+
+StmtPtrVariant createReturnSPV(Token token);
 
 } // namespace prsl::AST
