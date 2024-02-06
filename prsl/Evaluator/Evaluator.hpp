@@ -44,6 +44,7 @@ private:
   void visitReturnStmt(const ReturnStmtPtr &stmt) override;
 
   int getInt(const Token &token, const PrslObject &obj);
+  PrslObject evaluateScope(const ScopeExprPtr &expr);
 
 private:
   ErrorReporter &eReporter;
