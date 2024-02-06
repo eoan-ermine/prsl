@@ -64,11 +64,10 @@ void Semantics::visitScopeExpr(const ScopeExprPtr &stmt) {
 
 void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
   auto funcEnv = std::make_shared<decltype(envManager)::EnvType>(nullptr);
-  if (expr->name)
-    envManager.define(*expr->name, {true, VarState::Type::FUNCTION});
+  if (expr->name) {
+    functionsManager[expr->name->getLexeme()] = true;
+  }
   envManager.withNewEnviron(funcEnv, [&]() {
-    if (expr->name)
-      envManager.define(*expr->name, {true, VarState::Type::FUNCTION});
     for (const auto &token : expr->parameters) {
       envManager.define(token, {true, VarState::Type::VAR});
     }
@@ -77,7 +76,8 @@ void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
 }
 
 void Semantics::visitCallExpr(const CallExprPtr &expr) {
-  if (!envManager.contains(expr->ident))
+  if (!functionsManager.contains(expr->ident.getLexeme()) &&
+      !envManager.contains(expr->ident))
     throw reportRuntimeError(eReporter, expr->ident,
                              "Attempt to access an undef function");
   for (const auto &argument : expr->arguments) {
