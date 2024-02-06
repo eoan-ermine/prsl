@@ -76,7 +76,8 @@ void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
 }
 
 void Semantics::visitCallExpr(const CallExprPtr &expr) {
-  if (!functionsManager.contains(expr->ident.getLexeme()) && !envManager.contains(expr->ident))
+  if (!functionsManager.contains(expr->ident.getLexeme()) &&
+      !envManager.contains(expr->ident))
     throw reportRuntimeError(eReporter, expr->ident,
                              "Attempt to access an undef function");
   for (const auto &argument : expr->arguments) {
