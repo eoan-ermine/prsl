@@ -1,0 +1,14 @@
+// RUN: %edir/prsl --codegen %s --output-file=pass_12.ll
+// RUN: clang++ -Wno-override-module pass_12.ll -o pass_12
+// RUN: %S/pass_12 | filecheck %s --match-full-lines
+// RUN: %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: 89
+
+fibonacci = func(x) : fib {
+    res = 1;
+    if (x > 1)
+    res = fib(x - 1) + fib(x - 2);
+    return res;
+}
+
+print fibonacci(10);
