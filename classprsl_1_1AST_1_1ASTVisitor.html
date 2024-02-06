@@ -89,7 +89,7 @@ Inheritance diagram for prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5e7a115ddb58953d63d58ca76f0cfd9b"><td class="memItemLeft" align="right" valign="top">ExprVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b">visitExpr</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> &amp;expr)</td></tr>
 <tr class="separator:a5e7a115ddb58953d63d58ca76f0cfd9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d5c218842af0aee3106f4c66d06d17"><td class="memItemLeft" align="right" valign="top">StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17">visitStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &amp;stmt)</td></tr>
+<tr class="memitem:ab1d5c218842af0aee3106f4c66d06d17"><td class="memItemLeft" align="right" valign="top">StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17">visitStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> &amp;stmt)</td></tr>
 <tr class="separator:ab1d5c218842af0aee3106f4c66d06d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05008e5be58483cce90f3083762872a1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a05008e5be58483cce90f3083762872a1">dump</a> (std::string_view)=0</td></tr>
 <tr class="separator:a05008e5be58483cce90f3083762872a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +132,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a8d6d5075da9ecf15f0b6eb8febd1d80e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9072644894650933777333f6586e0703"><td class="memItemLeft" align="right" valign="top">virtual StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a9072644894650933777333f6586e0703">visitBlockStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a8f2940d692053ab6dcc4ec74dcb7478f">BlockStmtPtr</a> &amp;stmt)=0</td></tr>
 <tr class="separator:a9072644894650933777333f6586e0703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe092c28e196624c64affcc166f7a783"><td class="memItemLeft" align="right" valign="top">virtual StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#afe092c28e196624c64affcc166f7a783">visitReturnStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#ab77140a8ceb6bd4b4692ad92219d1c97">ReturnStmtPtr</a> &amp;stmt)=0</td></tr>
+<tr class="separator:afe092c28e196624c64affcc166f7a783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a05008e5be58483cce90f3083762872a1"></a>
@@ -692,6 +694,43 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="afe092c28e196624c64affcc166f7a783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe092c28e196624c64affcc166f7a783">&#9670;&nbsp;</a></span>visitReturnStmt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual StmtVisitRes <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html">prsl::AST::ASTVisitor</a>&lt; ExprVisitRes, StmtVisitRes &gt;::visitReturnStmt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1AST.html#ab77140a8ceb6bd4b4692ad92219d1c97">ReturnStmtPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph" alt=""/></div>
+<map name="aclassprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph">
+<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a37a277470fcba84f560fa3623a37ff82"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37a277470fcba84f560fa3623a37ff82">&#9670;&nbsp;</a></span>visitScopeExpr()</h2>
 
@@ -743,7 +782,7 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
         <tr>
           <td class="memname">StmtVisitRes <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html">prsl::AST::ASTVisitor</a>&lt; ExprVisitRes, StmtVisitRes &gt;::visitStmt </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1AST.html#af585aa37ccb3b74b9a6fa4c4b281357e">StmtPtrVariant</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> &amp;&#160;</td>
           <td class="paramname"><em>stmt</em></td><td>)</td>
           <td></td>
         </tr>
@@ -759,14 +798,15 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph">
-<area shape="rect" title=" " alt="" coords="5,201,159,243"/>
+<area shape="rect" title=" " alt="" coords="5,235,159,276"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a9072644894650933777333f6586e0703" title=" " alt="" coords="207,5,360,47"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ae6012de4c3cbbb482f2e48741b947890" title=" " alt="" coords="207,71,360,112"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a8d6d5075da9ecf15f0b6eb8febd1d80e" title=" " alt="" coords="207,136,360,177"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a18c28dc5cdc0be8f59a2dc420447a5d3" title=" " alt="" coords="207,201,360,243"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ac87c687e49f0ee9eee591cd0d41be0b0" title=" " alt="" coords="207,267,360,308"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b" title=" " alt="" coords="207,332,360,373"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872" title=" " alt="" coords="207,397,360,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#afe092c28e196624c64affcc166f7a783" title=" " alt="" coords="207,332,360,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b" title=" " alt="" coords="207,397,360,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872" title=" " alt="" coords="207,463,360,504"/>
 </map>
 </div>
 

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type_437',['Type',['../namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0',1,'prsl::Codegen::Type()'],['../namespaceprsl_1_1Evaluator.html#a501f72f2862a9d93d535db9350c0c98c',1,'prsl::Evaluator::Type()'],['../namespaceprsl_1_1Semantics.html#a5f2b016e9c3c280526e5e136c22f667c',1,'prsl::Semantics::Type()']]]
+  ['scopeexprptr_450',['ScopeExprPtr',['../namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff',1,'prsl::AST']]],
+  ['stmtptrvariant_451',['StmtPtrVariant',['../namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4',1,'prsl::AST']]]
 ];
