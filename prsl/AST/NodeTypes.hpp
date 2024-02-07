@@ -146,11 +146,13 @@ struct ScopeExpr final {
 };
 
 struct FuncExpr final {
+  // For rerurning errors
+  Token token;
   std::optional<Token> name;
   std::vector<Token> parameters;
   ExprPtrVariant body;
   std::optional<ExprPtrVariant> retExpr;
-  FuncExpr(std::optional<Token> name, std::vector<Token> parameters);
+  FuncExpr(Token token, std::optional<Token> name, std::vector<Token> parameters);
 };
 
 struct CallExpr final {
@@ -226,7 +228,7 @@ ExprPtrVariant createPostfixEPV(ExprPtrVariant expression, Types::Token op);
 
 ExprPtrVariant createScopeEPV(std::vector<StmtPtrVariant> statements);
 
-ExprPtrVariant createFuncEPV(std::optional<Token> name,
+ExprPtrVariant createFuncEPV(Token token, std::optional<Token> name,
                              std::vector<Token> parameters);
 
 ExprPtrVariant createCallEPV(Token ident,

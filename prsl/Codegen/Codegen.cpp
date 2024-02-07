@@ -200,6 +200,9 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
     }
   });
 
+  if (!res->getType()->isIntegerTy()) {
+    throw reportRuntimeError(eReporter, expr->token, "Wrong return value");
+  }
   builder->CreateRet(res);
   verifyFunction(*func);
   builder->SetInsertPoint(previousBB);

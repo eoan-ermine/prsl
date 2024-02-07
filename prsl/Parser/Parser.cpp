@@ -352,7 +352,7 @@ ExprPtrVariant Parser::scopeExpr() {
 // <funcExpr> ::=
 //   "func(" (<ident> ("," <ident>)*)? ")" (":" <ident>)? <scopeExpr>
 ExprPtrVariant Parser::funcExpr() {
-  advance();
+  auto token = getTokenAdvance();
   consumeOrError(Token::Type::LEFT_PAREN, "Expect '(' after 'func'");
   std::vector<Token> parameters;
 
@@ -375,7 +375,7 @@ ExprPtrVariant Parser::funcExpr() {
     throw error("Expect '{' before function body");
   auto previousFunction = std::move(currentFunction);
   currentFunction = std::get<std::unique_ptr<AST::FuncExpr>>(
-      AST::createFuncEPV(std::move(name), std::move(parameters)));
+      AST::createFuncEPV(std::move(token), std::move(name), std::move(parameters)));
   currentFunction->body = scopeExpr();
   auto func = std::move(currentFunction);
   currentFunction = std::move(previousFunction);

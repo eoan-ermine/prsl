@@ -162,8 +162,9 @@ PrslObject Evaluator::visitFuncExpr(const FuncExprPtr &expr) {
 
 PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
   PrslObject res{0};
-
   PrslObject obj = nullptr;
+
+  // Initialize obj, it can be in functionsManager or envManager
   if (functionsManager.contains(expr->ident.getLexeme())) {
     obj = functionsManager[expr->ident.getLexeme()];
   }
@@ -175,6 +176,8 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
   }
 
   auto func = std::get<FuncObjPtr>(obj);
+
+  // Check parameters count
   if (size_t paramsCount = func->paramsCount(),
       argsCount = expr->arguments.size();
       paramsCount != argsCount) {
@@ -182,6 +185,7 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
                              "Wrong number of arguments");
   }
 
+  // Evaluate arguments
   std::vector<PrslObject> args;
   for (const auto &arg : expr->arguments) {
     args.push_back(visitExpr(arg));
@@ -202,6 +206,10 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
       res = visitExpr(*func->getDeclaration()->retExpr);
     } else {
       res = std::move(scopeRes);
+    }
+
+    if (!std::holds_alternative<int>(res)) {
+      throw reportRuntimeError(eReporter, func->getDeclaration()->token, "Wrong return value");
     }
   });
 
