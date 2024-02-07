@@ -373,11 +373,12 @@ ExprPtrVariant Parser::funcExpr() {
 
   if (!match(Token::Type::LEFT_BRACE))
     throw error("Expect '{' before function body");
+  auto previousFunction = std::move(currentFunction);
   currentFunction = std::get<std::unique_ptr<AST::FuncExpr>>(
       AST::createFuncEPV(std::move(name), std::move(parameters)));
   currentFunction->body = scopeExpr();
   auto func = std::move(currentFunction);
-  currentFunction = nullptr;
+  currentFunction = std::move(previousFunction);
   return std::move(func);
 }
 
