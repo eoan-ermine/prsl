@@ -1,10 +1,13 @@
 #include "Evaluator.hpp"
 
+#include "prsl/AST/TreeWalkerVisitor.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
 #include <iostream>
 #include <memory>
 #include <ranges>
 #include <string>
+#include <string_view>
+#include <unordered_map>
 #include <variant>
 
 namespace prsl::Evaluator {
@@ -152,6 +155,19 @@ PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
 
 PrslObject Evaluator::visitFuncExpr(const FuncExprPtr &expr) {
   auto obj = PrslObject{std::make_shared<FuncObj>(expr)};
+
+  class FunctionsResolver : public TreeWalkerVisitor {
+  public:
+    FunctionsResolver(std::unordered_map<std::string_view, PrslObject> &functionsManager) : functionsManager(functionsManager) { }
+    bool dump(std::string_view) override { return false; }
+    void visitFuncExpr(const FuncExprPtr &expr) override {
+        functionsManager.emplace(expr->name->getLexeme(), PrslObject{std::make_shared<FuncObj>(expr)});
+    }
+  private:
+    std::unordered_map<std::string_view, PrslObject> &functionsManager;
+  };
+  FunctionsResolver funcResolver(functionsManager);
+  funcResolver.visitExpr(expr->body);
 
   if (expr->name) {
     functionsManager.emplace(expr->name->getLexeme(), obj);
