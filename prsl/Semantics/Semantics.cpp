@@ -31,15 +31,13 @@ void Semantics::visitAssignmentExpr(const AssignmentExprPtr &expr) {
 void Semantics::visitPostfixExpr(const PostfixExprPtr &expr) {
   const auto &expression = expr->expression;
   if (!(std::holds_alternative<VarExprPtr>(expression) ||
-      std::holds_alternative<AssignmentExprPtr>(expression)))
-        throw reportRuntimeError(eReporter, expr->op, "Illegal postfix expression");
+        std::holds_alternative<AssignmentExprPtr>(expression)))
+    throw reportRuntimeError(eReporter, expr->op, "Illegal postfix expression");
   TreeWalkerVisitor::visitPostfixExpr(expr);
 }
 
 void Semantics::visitScopeExpr(const ScopeExprPtr &stmt) {
-  envManager.withNewEnviron([&]() {
-    TreeWalkerVisitor::visitScopeExpr(stmt);
-  });
+  envManager.withNewEnviron([&]() { TreeWalkerVisitor::visitScopeExpr(stmt); });
 }
 
 void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
@@ -74,9 +72,7 @@ void Semantics::visitVarStmt(const VarStmtPtr &stmt) {
 }
 
 void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
-  envManager.withNewEnviron([&]() {
-    TreeWalkerVisitor::visitBlockStmt(stmt);
-  });
+  envManager.withNewEnviron([&]() { TreeWalkerVisitor::visitBlockStmt(stmt); });
 }
 
 void Semantics::visitReturnStmt(const ReturnStmtPtr &stmt) {

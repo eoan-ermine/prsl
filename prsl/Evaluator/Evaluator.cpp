@@ -158,11 +158,15 @@ PrslObject Evaluator::visitFuncExpr(const FuncExprPtr &expr) {
 
   class FunctionsResolver : public TreeWalkerVisitor {
   public:
-    FunctionsResolver(std::unordered_map<std::string_view, PrslObject> &functionsManager) : functionsManager(functionsManager) { }
+    FunctionsResolver(
+        std::unordered_map<std::string_view, PrslObject> &functionsManager)
+        : functionsManager(functionsManager) {}
     bool dump(std::string_view) override { return false; }
     void visitFuncExpr(const FuncExprPtr &expr) override {
-        functionsManager.emplace(expr->name->getLexeme(), PrslObject{std::make_shared<FuncObj>(expr)});
+      functionsManager.emplace(expr->name->getLexeme(),
+                               PrslObject{std::make_shared<FuncObj>(expr)});
     }
+
   private:
     std::unordered_map<std::string_view, PrslObject> &functionsManager;
   };
@@ -225,7 +229,8 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
     }
 
     if (!std::holds_alternative<int>(res)) {
-      throw reportRuntimeError(eReporter, func->getDeclaration()->token, "Wrong return value");
+      throw reportRuntimeError(eReporter, func->getDeclaration()->token,
+                               "Wrong return value");
     }
   });
 

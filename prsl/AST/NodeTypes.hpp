@@ -152,7 +152,8 @@ struct FuncExpr final {
   std::vector<Token> parameters;
   ExprPtrVariant body;
   std::optional<ExprPtrVariant> retExpr;
-  FuncExpr(Token token, std::optional<Token> name, std::vector<Token> parameters);
+  FuncExpr(Token token, std::optional<Token> name,
+           std::vector<Token> parameters);
 };
 
 struct CallExpr final {
