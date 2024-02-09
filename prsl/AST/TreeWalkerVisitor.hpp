@@ -1,7 +1,6 @@
 #pragma once
 
 #include "prsl/AST/ASTVisitor.hpp"
-#include <ranges>
 
 namespace prsl {
 
@@ -37,17 +36,8 @@ public:
   }
 
   virtual void visitScopeExpr(const ScopeExprPtr &expr) override {
-    for (const auto &stmt :
-         expr->statements | std::views::take(expr->statements.size() - 1)) {
+    for (const auto &stmt : expr->statements) {
       visitStmt(stmt);
-    }
-    if (expr->statements.size()) {
-      const auto &back = expr->statements.back();
-      if (std::holds_alternative<ExprStmtPtr>(back)) {
-        visitExpr(std::get<ExprStmtPtr>(back)->expression);
-      } else {
-        visitStmt(back);
-      }
     }
   }
 

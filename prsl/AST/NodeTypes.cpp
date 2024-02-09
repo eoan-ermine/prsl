@@ -59,7 +59,9 @@ FunctionStmt::FunctionStmt(std::vector<Token> params,
 BlockStmt::BlockStmt(std::vector<StmtPtrVariant> statements)
     : statements(std::move(statements)) {}
 
-ReturnStmt::ReturnStmt(Token token) : token(std::move(token)) {}
+ReturnStmt::ReturnStmt(Token token, ExprPtrVariant retValue, bool isFunction)
+    : retToken(std::move(token)), retValue(std::move(retValue)),
+      isFunction(isFunction) {}
 
 ExprPtrVariant createLiteralEPV(int literalVal) {
   return std::make_unique<LiteralExpr>(literalVal);
@@ -139,8 +141,10 @@ StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements) {
   return std::make_unique<BlockStmt>(std::move(statements));
 }
 
-StmtPtrVariant createReturnSPV(Token token) {
-  return std::make_unique<ReturnStmt>(std::move(token));
+StmtPtrVariant createReturnSPV(Token token, ExprPtrVariant retValue,
+                               bool isFunction) {
+  return std::make_unique<ReturnStmt>(std::move(token), std::move(retValue),
+                                      isFunction);
 }
 
 } // namespace prsl::AST

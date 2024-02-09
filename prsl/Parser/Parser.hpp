@@ -72,7 +72,7 @@ private:
   const std::vector<Token> &tokens;
   std::vector<Token>::const_iterator currentIter;
   prsl::Errors::ErrorReporter &eReporter;
-  std::unique_ptr<AST::FuncExpr> currentFunction = nullptr;
+  bool isFunction{false};
 };
 
 } // namespace prsl::Parser

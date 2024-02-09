@@ -6,6 +6,7 @@
 #include "prsl/Evaluator/Environment.hpp"
 #include "prsl/Evaluator/Objects.hpp"
 #include "prsl/Types/Token.hpp"
+#include <stack>
 
 namespace prsl::Evaluator {
 
@@ -50,6 +51,7 @@ private:
   ErrorReporter &eReporter;
   EnvironmentManager<PrslObject> envManager;
   std::unordered_map<std::string_view, PrslObject> functionsManager;
+  std::stack<PrslObject> returnStack;
 };
 
 } // namespace prsl::Evaluator

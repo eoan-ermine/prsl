@@ -131,10 +131,7 @@ StmtPtrVariant Parser::returnStmt() {
   auto token = getTokenAdvance();
   ExprPtrVariant value = expr();
   consumeOrError(Token::Type::SEMICOLON, "Expect ';' after return statement");
-  if (currentFunction) {
-    currentFunction->retExpr = std::move(value);
-  }
-  return AST::createReturnSPV(token);
+  return AST::createReturnSPV(token, std::move(value), true);
 }
 
 // <printStmt> ::=
@@ -345,6 +342,24 @@ ExprPtrVariant Parser::scopeExpr() {
   while (!match(Token::Type::RIGHT_BRACE) && !isEOF()) {
     statements.push_back(decl());
   }
+
+  if (statements.size() &&
+      std::holds_alternative<AST::ExprStmtPtr>(statements.back())) {
+    if (std::holds_alternative<AST::FuncExprPtr>(
+            std::get<AST::ExprStmtPtr>(statements.back())->expression)) {
+      throw error("Can not return a function from the function");
+    }
+
+    auto expr =
+        std::move(std::get<AST::ExprStmtPtr>(statements.back())->expression);
+    statements.back() = AST::createReturnSPV(
+        Token{Token::Type::RETURN, "return", -1}, std::move(expr), isFunction);
+  } else {
+    statements.push_back(
+        AST::createReturnSPV(Token{Token::Type::RETURN, "return", -1},
+                             AST::createLiteralEPV(0), isFunction));
+  }
+
   consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after scope");
   return AST::createScopeEPV(std::move(statements));
 }
@@ -373,12 +388,13 @@ ExprPtrVariant Parser::funcExpr() {
 
   if (!match(Token::Type::LEFT_BRACE))
     throw error("Expect '{' before function body");
-  auto previousFunction = std::move(currentFunction);
-  currentFunction = std::get<std::unique_ptr<AST::FuncExpr>>(AST::createFuncEPV(
+
+  bool previousIsFunction = isFunction;
+  isFunction = true;
+  auto func = std::get<std::unique_ptr<AST::FuncExpr>>(AST::createFuncEPV(
       std::move(token), std::move(name), std::move(parameters)));
-  currentFunction->body = scopeExpr();
-  auto func = std::move(currentFunction);
-  currentFunction = std::move(previousFunction);
+  func->body = scopeExpr();
+  isFunction = previousIsFunction;
   return std::move(func);
 }
 

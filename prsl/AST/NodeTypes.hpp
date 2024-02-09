@@ -206,8 +206,10 @@ struct BlockStmt final {
 };
 
 struct ReturnStmt final {
-  Token token;
-  explicit ReturnStmt(Token token);
+  Token retToken;
+  ExprPtrVariant retValue;
+  bool isFunction;
+  explicit ReturnStmt(Token token, ExprPtrVariant retValue, bool isFunction);
 };
 
 ExprPtrVariant createLiteralEPV(int literalVal);
@@ -251,6 +253,7 @@ StmtPtrVariant createFunctionSPV(std::vector<Token> params,
 
 StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements);
 
-StmtPtrVariant createReturnSPV(Token token);
+StmtPtrVariant createReturnSPV(Token token, ExprPtrVariant retValue,
+                               bool isFunction);
 
 } // namespace prsl::AST

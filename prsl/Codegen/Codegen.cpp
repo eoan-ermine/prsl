@@ -1,6 +1,6 @@
 #include "Codegen.hpp"
 
-#include <ranges>
+#include <variant>
 
 namespace prsl::Codegen {
 
@@ -141,20 +141,19 @@ Value *Codegen::visitPostfixExpr(const PostfixExprPtr &expr) {
 }
 
 Value *Codegen::evaluateScope(const ScopeExprPtr &stmt) {
-  Value *res = ConstantInt::get(intType, 0);
-  for (const auto &stmt :
-       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+  for (const auto &stmt : stmt->statements) {
     visitStmt(stmt);
-  }
-  if (stmt->statements.size()) {
-    const auto &back = stmt->statements.back();
-    if (std::holds_alternative<ExprStmtPtr>(back)) {
-      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
-    } else {
-      visitStmt(back);
+    if (std::holds_alternative<ReturnStmtPtr>(stmt)) {
+      const auto &returnStmt = std::get<ReturnStmtPtr>(stmt);
+      auto returnValue = std::move(returnStack.top());
+      returnStack.pop();
+      if (returnStmt->isFunction) {
+        builder->CreateRet(returnValue);
+      }
+      return returnValue;
     }
   }
-  return res;
+  prsl::Utils::unreachable();
 }
 
 Value *Codegen::visitScopeExpr(const ScopeExprPtr &stmt) {
@@ -193,20 +192,10 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
     }
 
     auto scopeRes = evaluateScope(std::get<ScopeExprPtr>(expr->body));
-    if (expr->retExpr) {
-      res = visitExpr(*expr->retExpr);
-    } else {
-      res = std::move(scopeRes);
-    }
   });
 
-  if (!res->getType()->isIntegerTy()) {
-    throw reportRuntimeError(eReporter, expr->token, "Wrong return value");
-  }
-  builder->CreateRet(res);
   verifyFunction(*func);
   builder->SetInsertPoint(previousBB);
-
   return func;
 }
 
@@ -355,7 +344,10 @@ Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
   return nullptr;
 }
 
-Value *Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) { return nullptr; }
+Value *Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) {
+  returnStack.push(visitExpr(stmt->retValue));
+  return nullptr;
+}
 
 AllocaInst *Codegen::allocVar(std::string_view name) {
   BasicBlock *insertBB = builder->GetInsertBlock();

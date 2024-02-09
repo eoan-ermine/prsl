@@ -49,9 +49,10 @@ void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
     for (const auto &token : expr->parameters) {
       envManager.define(token, {true, VarState::Type::VAR});
     }
+    bool previousInFunction = inFunction;
     inFunction = true;
     TreeWalkerVisitor::visitFuncExpr(expr);
-    inFunction = false;
+    inFunction = previousInFunction;
   });
 }
 
@@ -76,11 +77,12 @@ void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
 }
 
 void Semantics::visitReturnStmt(const ReturnStmtPtr &stmt) {
-  if (!inFunction) {
-    throw reportRuntimeError(eReporter, stmt->token,
+  if (!inFunction && stmt->isFunction) {
+    throw reportRuntimeError(eReporter, stmt->retToken,
                              "Can't return from top-level code");
   }
   TreeWalkerVisitor::visitReturnStmt(stmt);
+  visitExpr(stmt->retValue);
 }
 
 } // namespace prsl::Semantics

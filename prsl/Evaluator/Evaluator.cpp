@@ -2,6 +2,7 @@
 
 #include "prsl/AST/TreeWalkerVisitor.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
+#include "prsl/Utils/Utils.hpp"
 #include <iostream>
 #include <memory>
 #include <ranges>
@@ -131,20 +132,16 @@ PrslObject Evaluator::visitPostfixExpr(const PostfixExprPtr &expr) {
 }
 
 PrslObject Evaluator::evaluateScope(const ScopeExprPtr &stmt) {
-  PrslObject res{0};
-  for (const auto &stmt :
-       stmt->statements | std::views::take(stmt->statements.size() - 1)) {
+  for (const auto &stmt : stmt->statements) {
     visitStmt(stmt);
-  }
-  if (stmt->statements.size()) {
-    const auto &back = stmt->statements.back();
-    if (std::holds_alternative<ExprStmtPtr>(back)) {
-      res = visitExpr(std::get<ExprStmtPtr>(back)->expression);
-    } else {
-      visitStmt(back);
+    if (std::holds_alternative<ReturnStmtPtr>(stmt)) {
+      const auto &returnStmt = std::get<ReturnStmtPtr>(stmt);
+      auto returnValue = std::move(returnStack.top());
+      returnStack.pop();
+      return returnValue;
     }
   }
-  return res;
+  prsl::Utils::unreachable();
 }
 
 PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
@@ -181,7 +178,6 @@ PrslObject Evaluator::visitFuncExpr(const FuncExprPtr &expr) {
 }
 
 PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
-  PrslObject res{0};
   PrslObject obj = nullptr;
 
   // Initialize obj, it can be in functionsManager or envManager
@@ -212,6 +208,7 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
   }
 
   auto funcEnv = std::make_shared<Environment<PrslObject>>(nullptr);
+  PrslObject res{nullptr};
   envManager.withNewEnviron(funcEnv, [&] {
     const auto &params = func->getDeclaration()->parameters;
     auto paramIt = params.begin();
@@ -222,16 +219,7 @@ PrslObject Evaluator::visitCallExpr(const CallExprPtr &expr) {
 
     auto scopeRes =
         evaluateScope(std::get<ScopeExprPtr>(func->getDeclaration()->body));
-    if (func->getDeclaration()->retExpr) {
-      res = visitExpr(*func->getDeclaration()->retExpr);
-    } else {
-      res = std::move(scopeRes);
-    }
-
-    if (!std::holds_alternative<int>(res)) {
-      throw reportRuntimeError(eReporter, func->getDeclaration()->token,
-                               "Wrong return value");
-    }
+    res = std::move(scopeRes);
   });
 
   return res;
@@ -276,6 +264,8 @@ void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
   });
 }
 
-void Evaluator::visitReturnStmt(const ReturnStmtPtr &stmt) {}
+void Evaluator::visitReturnStmt(const ReturnStmtPtr &stmt) {
+  returnStack.push(visitExpr(stmt->retValue));
+}
 
 } // namespace prsl::Evaluator
