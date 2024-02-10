@@ -162,7 +162,7 @@ $(function() {
 
 <h3><a id="index_f"></a>- f -</h3><ul>
 <li>FuncExpr()
-: <a class="el" href="structprsl_1_1AST_1_1FuncExpr.html#a82b4122a8da141aae97295762a596ecc">prsl::AST::FuncExpr</a>
+: <a class="el" href="structprsl_1_1AST_1_1FuncExpr.html#a2daaaadaf2cc921c1ee99637c6fd7e5c">prsl::AST::FuncExpr</a>
 </li>
 <li>FuncObj()
 : <a class="el" href="classprsl_1_1Evaluator_1_1FuncObj.html#a32e46e5351a23ee58a4713f0d912bf52">prsl::Evaluator::FuncObj</a>
@@ -220,6 +220,9 @@ $(function() {
 <li>isError()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#a4b6c31b001164031a3788232b4b6bd6b">prsl::Types::Token</a>
 </li>
+<li>isFunction
+: <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a195f15982ddd22097ccf9ffc9318825c">prsl::AST::ReturnStmt</a>
+</li>
 <li>isGlobal()
 : <a class="el" href="classprsl_1_1Evaluator_1_1Environment.html#abd208878abaa030a519eadf1918728c0">prsl::Evaluator::Environment&lt; VarValue &gt;</a>
 </li>
@@ -242,6 +245,9 @@ $(function() {
 <h3><a id="index_n"></a>- n -</h3><ul>
 <li>name
 : <a class="el" href="structprsl_1_1AST_1_1FuncExpr.html#aff18f3ca063f10ee221bb8eb9d90a220">prsl::AST::FuncExpr</a>
+</li>
+<li>NullStmt()
+: <a class="el" href="structprsl_1_1AST_1_1NullStmt.html#a02a0e66854b2c0642111f3180572a7d1">prsl::AST::NullStmt</a>
 </li>
 </ul>
 
@@ -287,8 +293,14 @@ $(function() {
 <li>retExpr
 : <a class="el" href="structprsl_1_1AST_1_1FuncExpr.html#a41fbdaae6972e99b78c50cd43dc07517">prsl::AST::FuncExpr</a>
 </li>
+<li>retToken
+: <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a23432bfe306e8a496db06b0629bdb65e">prsl::AST::ReturnStmt</a>
+</li>
 <li>ReturnStmt()
-: <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a738be030bda0eb2bec16dd3fc3357ee1">prsl::AST::ReturnStmt</a>
+: <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#ab00c81e88a22933ea5d89f6beea20c97">prsl::AST::ReturnStmt</a>
+</li>
+<li>retValue
+: <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a9445e89433651318566874109fcc095d">prsl::AST::ReturnStmt</a>
 </li>
 <li>rhsExpression
 : <a class="el" href="structprsl_1_1AST_1_1BinaryExpr.html#a2395dbc8547c604dc025e699fa107397">prsl::AST::BinaryExpr</a>
@@ -321,7 +333,7 @@ $(function() {
 : <a class="el" href="structprsl_1_1AST_1_1IfStmt.html#ae16329044d0013d0f9a88369f9d55256">prsl::AST::IfStmt</a>
 </li>
 <li>token
-: <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#aa56b54ed4d486ab29922f28bc82ff5dc">prsl::AST::ReturnStmt</a>
+: <a class="el" href="structprsl_1_1AST_1_1FuncExpr.html#a573d2e24862531ca4300932aafae0035">prsl::AST::FuncExpr</a>
 </li>
 <li>Token()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#aad88807d7365650199a218bbfea9bff6">prsl::Types::Token</a>
@@ -364,66 +376,89 @@ $(function() {
 </li>
 <li>visitAssignmentExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a4cb4efdb37932e99ed1a87cb34a488ff">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitBinaryExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a00da82a869e777a63a0d7eb7a75f44ec">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitBlockStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a9072644894650933777333f6586e0703">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitCallExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#aee8e096a481d59d78de08c46b84f3d44">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
 </li>
 <li>visitExprStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ae6012de4c3cbbb482f2e48741b947890">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitFuncExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a1dccd6dd56a6efe8609ee3d7374e0a19">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitFunctionStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a8d6d5075da9ecf15f0b6eb8febd1d80e">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitGroupingExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a4bf4c9ff3b532a997193130ac3fb592a">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitIfStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a18c28dc5cdc0be8f59a2dc420447a5d3">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitInputExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a634521910de8c5bd80299a1da9718581">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab299ccccb8d47bfdd3801979d2a50e54">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitLiteralExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a43a5bc7ac0f518d95f8f763d4b9ba15e">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a90bf9195e583679d30db36ca3a66a1c2">prsl::AST::TreeWalkerVisitor</a>
+</li>
+<li>visitNullStmt()
+: <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab79e4d21fc86f8ee560806b65b70c4d0">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab644682231efc4b8a44f1f515d6a75d1">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitPostfixExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a8adc5cb8113d4a4259d8f6b307379bca">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitPrintStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ac87c687e49f0ee9eee591cd0d41be0b0">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitReturnStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#afe092c28e196624c64affcc166f7a783">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitScopeExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a37a277470fcba84f560fa3623a37ff82">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
 </li>
 <li>visitUnaryExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a21e197c5e8442ec13c94ce1141bf43a3">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitVarExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a79941b63301edfa4c25022618f28b2ff">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a511d2909e7c508e11db06a499f60276d">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitVarStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9">prsl::AST::TreeWalkerVisitor</a>
 </li>
 <li>visitWhileStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024">prsl::AST::TreeWalkerVisitor</a>
 </li>
 </ul>
 

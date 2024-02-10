@@ -81,7 +81,8 @@ Inheritance diagram for prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor__inherit__graph.png" border="0" usemap="#aprsl_1_1AST_1_1ASTVisitor_3_01ExprVisitRes_00_01StmtVisitRes_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="aprsl_1_1AST_1_1ASTVisitor_3_01ExprVisitRes_00_01StmtVisitRes_01_4_inherit__map" id="aprsl_1_1AST_1_1ASTVisitor_3_01ExprVisitRes_00_01StmtVisitRes_01_4_inherit__map">
 <area shape="rect" title=" " alt="" coords="5,5,232,47"/>
-<area shape="rect" href="classprsl_1_1Semantics_1_1Semantics.html" title=" " alt="" coords="9,95,229,121"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html" title=" " alt="" coords="8,95,229,121"/>
+<area shape="rect" href="classprsl_1_1Semantics_1_1Semantics.html" title=" " alt="" coords="19,169,218,196"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -89,7 +90,7 @@ Inheritance diagram for prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5e7a115ddb58953d63d58ca76f0cfd9b"><td class="memItemLeft" align="right" valign="top">ExprVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b">visitExpr</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> &amp;expr)</td></tr>
 <tr class="separator:a5e7a115ddb58953d63d58ca76f0cfd9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d5c218842af0aee3106f4c66d06d17"><td class="memItemLeft" align="right" valign="top">StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17">visitStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> &amp;stmt)</td></tr>
+<tr class="memitem:ab1d5c218842af0aee3106f4c66d06d17"><td class="memItemLeft" align="right" valign="top">StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17">visitStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> &amp;stmt)</td></tr>
 <tr class="separator:ab1d5c218842af0aee3106f4c66d06d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05008e5be58483cce90f3083762872a1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a05008e5be58483cce90f3083762872a1">dump</a> (std::string_view)=0</td></tr>
 <tr class="separator:a05008e5be58483cce90f3083762872a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +135,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a9072644894650933777333f6586e0703"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe092c28e196624c64affcc166f7a783"><td class="memItemLeft" align="right" valign="top">virtual StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#afe092c28e196624c64affcc166f7a783">visitReturnStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#ab77140a8ceb6bd4b4692ad92219d1c97">ReturnStmtPtr</a> &amp;stmt)=0</td></tr>
 <tr class="separator:afe092c28e196624c64affcc166f7a783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab79e4d21fc86f8ee560806b65b70c4d0"><td class="memItemLeft" align="right" valign="top">virtual StmtVisitRes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#ab79e4d21fc86f8ee560806b65b70c4d0">visitNullStmt</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a1df9d0dc1a31af78ebd0981cf092f1b5">NullStmtPtr</a> &amp;stmt)=0</td></tr>
+<tr class="separator:ab79e4d21fc86f8ee560806b65b70c4d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a05008e5be58483cce90f3083762872a1"></a>
@@ -191,13 +194,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a4cb4efdb37932e99ed1a87cb34a488ff_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a4cb4efdb37932e99ed1a87cb34a488ff_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a4cb4efdb37932e99ed1a87cb34a488ff_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a4cb4efdb37932e99ed1a87cb34a488ff_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,371,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,617,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -228,13 +245,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a00da82a869e777a63a0d7eb7a75f44ec_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a00da82a869e777a63a0d7eb7a75f44ec_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a00da82a869e777a63a0d7eb7a75f44ec_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a00da82a869e777a63a0d7eb7a75f44ec_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -265,13 +296,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a9072644894650933777333f6586e0703_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a9072644894650933777333f6586e0703_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a9072644894650933777333f6586e0703_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a9072644894650933777333f6586e0703_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -302,13 +341,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_aee8e096a481d59d78de08c46b84f3d44_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_aee8e096a481d59d78de08c46b84f3d44_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_aee8e096a481d59d78de08c46b84f3d44_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_aee8e096a481d59d78de08c46b84f3d44_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -358,6 +411,26 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a79941b63301edfa4c25022618f28b2ff" title=" " alt="" coords="212,659,365,700"/>
 </map>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a5e7a115ddb58953d63d58ca76f0cfd9b_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a5e7a115ddb58953d63d58ca76f0cfd9b_icgraph" alt=""/></div>
+<map name="aclassprsl_1_1AST_1_1ASTVisitor_a5e7a115ddb58953d63d58ca76f0cfd9b_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a5e7a115ddb58953d63d58ca76f0cfd9b_icgraph">
+<area shape="rect" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -386,13 +459,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_ae6012de4c3cbbb482f2e48741b947890_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_ae6012de4c3cbbb482f2e48741b947890_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_ae6012de4c3cbbb482f2e48741b947890_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_ae6012de4c3cbbb482f2e48741b947890_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -423,13 +504,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a1dccd6dd56a6efe8609ee3d7374e0a19_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a1dccd6dd56a6efe8609ee3d7374e0a19_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a1dccd6dd56a6efe8609ee3d7374e0a19_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a1dccd6dd56a6efe8609ee3d7374e0a19_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -460,13 +555,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a8d6d5075da9ecf15f0b6eb8febd1d80e_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a8d6d5075da9ecf15f0b6eb8febd1d80e_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a8d6d5075da9ecf15f0b6eb8febd1d80e_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a8d6d5075da9ecf15f0b6eb8febd1d80e_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -497,13 +600,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a4bf4c9ff3b532a997193130ac3fb592a_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a4bf4c9ff3b532a997193130ac3fb592a_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a4bf4c9ff3b532a997193130ac3fb592a_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a4bf4c9ff3b532a997193130ac3fb592a_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -534,13 +651,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a18c28dc5cdc0be8f59a2dc420447a5d3_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a18c28dc5cdc0be8f59a2dc420447a5d3_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a18c28dc5cdc0be8f59a2dc420447a5d3_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a18c28dc5cdc0be8f59a2dc420447a5d3_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -571,13 +696,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab299ccccb8d47bfdd3801979d2a50e54">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a634521910de8c5bd80299a1da9718581_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a634521910de8c5bd80299a1da9718581_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a634521910de8c5bd80299a1da9718581_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a634521910de8c5bd80299a1da9718581_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -608,13 +747,72 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a90bf9195e583679d30db36ca3a66a1c2">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a43a5bc7ac0f518d95f8f763d4b9ba15e_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a43a5bc7ac0f518d95f8f763d4b9ba15e_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a43a5bc7ac0f518d95f8f763d4b9ba15e_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a43a5bc7ac0f518d95f8f763d4b9ba15e_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ab79e4d21fc86f8ee560806b65b70c4d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab79e4d21fc86f8ee560806b65b70c4d0">&#9670;&nbsp;</a></span>visitNullStmt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual StmtVisitRes <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html">prsl::AST::ASTVisitor</a>&lt; ExprVisitRes, StmtVisitRes &gt;::visitNullStmt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1AST.html#a1df9d0dc1a31af78ebd0981cf092f1b5">NullStmtPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab644682231efc4b8a44f1f515d6a75d1">prsl::AST::TreeWalkerVisitor</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_ab79e4d21fc86f8ee560806b65b70c4d0_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_ab79e4d21fc86f8ee560806b65b70c4d0_icgraph" alt=""/></div>
+<map name="aclassprsl_1_1AST_1_1ASTVisitor_ab79e4d21fc86f8ee560806b65b70c4d0_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_ab79e4d21fc86f8ee560806b65b70c4d0_icgraph">
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -645,13 +843,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a8adc5cb8113d4a4259d8f6b307379bca_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a8adc5cb8113d4a4259d8f6b307379bca_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a8adc5cb8113d4a4259d8f6b307379bca_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a8adc5cb8113d4a4259d8f6b307379bca_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -682,13 +894,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_ac87c687e49f0ee9eee591cd0d41be0b0_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_ac87c687e49f0ee9eee591cd0d41be0b0_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_ac87c687e49f0ee9eee591cd0d41be0b0_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_ac87c687e49f0ee9eee591cd0d41be0b0_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -719,13 +939,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_afe092c28e196624c64affcc166f7a783_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -756,13 +984,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a37a277470fcba84f560fa3623a37ff82_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a37a277470fcba84f560fa3623a37ff82_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a37a277470fcba84f560fa3623a37ff82_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a37a277470fcba84f560fa3623a37ff82_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -782,7 +1024,7 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
         <tr>
           <td class="memname">StmtVisitRes <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html">prsl::AST::ASTVisitor</a>&lt; ExprVisitRes, StmtVisitRes &gt;::visitStmt </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> &amp;&#160;</td>
           <td class="paramname"><em>stmt</em></td><td>)</td>
           <td></td>
         </tr>
@@ -798,15 +1040,30 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_cgraph">
-<area shape="rect" title=" " alt="" coords="5,235,159,276"/>
+<area shape="rect" title=" " alt="" coords="5,267,159,308"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a9072644894650933777333f6586e0703" title=" " alt="" coords="207,5,360,47"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ae6012de4c3cbbb482f2e48741b947890" title=" " alt="" coords="207,71,360,112"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a8d6d5075da9ecf15f0b6eb8febd1d80e" title=" " alt="" coords="207,136,360,177"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a18c28dc5cdc0be8f59a2dc420447a5d3" title=" " alt="" coords="207,201,360,243"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ac87c687e49f0ee9eee591cd0d41be0b0" title=" " alt="" coords="207,267,360,308"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#afe092c28e196624c64affcc166f7a783" title=" " alt="" coords="207,332,360,373"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b" title=" " alt="" coords="207,397,360,439"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872" title=" " alt="" coords="207,463,360,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab79e4d21fc86f8ee560806b65b70c4d0" title=" " alt="" coords="207,267,360,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ac87c687e49f0ee9eee591cd0d41be0b0" title=" " alt="" coords="207,332,360,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#afe092c28e196624c64affcc166f7a783" title=" " alt="" coords="207,397,360,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a0723ccc0aac22c976d3703ef97b2435b" title=" " alt="" coords="207,463,360,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a38ee9dba607b924151dbe77f4d424872" title=" " alt="" coords="207,528,360,569"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_icgraph" alt=""/></div>
+<map name="aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_ab1d5c218842af0aee3106f4c66d06d17_icgraph">
+<area shape="rect" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -837,13 +1094,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a21e197c5e8442ec13c94ce1141bf43a3_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a21e197c5e8442ec13c94ce1141bf43a3_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a21e197c5e8442ec13c94ce1141bf43a3_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a21e197c5e8442ec13c94ce1141bf43a3_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -874,13 +1145,27 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a511d2909e7c508e11db06a499f60276d">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a79941b63301edfa4c25022618f28b2ff_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a79941b63301edfa4c25022618f28b2ff_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a79941b63301edfa4c25022618f28b2ff_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a79941b63301edfa4c25022618f28b2ff_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="453,365,607,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,365,405,407"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ac0a5113f5ab74764311ef369f24c7887" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a97a26e563a37aece10d0559c0b89f3b1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a6777d108448d6c1e1e11fe737ec98810" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aeb8f2ae08c791e7617482e0e2ebb9ddc" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a02ab5cad7ba77acb75a3a652e300cdd5" title=" " alt="" coords="5,267,204,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="5,332,204,373"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ad5c5591d518888655c5278f7152987ec" title=" " alt="" coords="5,397,204,439"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#affe260bf420e861fc04d6a3e3757877a" title=" " alt="" coords="5,463,204,504"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a585da94ae981f604eb963c5c1a0d85e7" title=" " alt="" coords="5,528,204,569"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#ab97f582843689f20085f561091b7120e" title=" " alt="" coords="5,593,204,635"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9" title=" " alt="" coords="5,659,204,700"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="5,724,204,765"/>
 </map>
 </div>
 
@@ -911,13 +1196,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a757402c2983a201e4fe9b5c7961dcfc9">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a0723ccc0aac22c976d3703ef97b2435b_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a0723ccc0aac22c976d3703ef97b2435b_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a0723ccc0aac22c976d3703ef97b2435b_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a0723ccc0aac22c976d3703ef97b2435b_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 
@@ -948,13 +1241,21 @@ template&lt;typename ExprVisitRes  = void, typename StmtVisitRes  = void&gt; </d
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024">prsl::AST::TreeWalkerVisitor</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1AST_1_1ASTVisitor_a38ee9dba607b924151dbe77f4d424872_icgraph.png" border="0" usemap="#aclassprsl_1_1AST_1_1ASTVisitor_a38ee9dba607b924151dbe77f4d424872_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1AST_1_1ASTVisitor_a38ee9dba607b924151dbe77f4d424872_icgraph" id="aclassprsl_1_1AST_1_1ASTVisitor_a38ee9dba607b924151dbe77f4d424872_icgraph">
-<area shape="rect" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" title=" " alt="" coords="700,136,853,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#ab1d5c218842af0aee3106f4c66d06d17" title=" " alt="" coords="499,136,652,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
+<area shape="rect" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
 </map>
 </div>
 

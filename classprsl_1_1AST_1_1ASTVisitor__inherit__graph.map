@@ -1,4 +1,5 @@
 <map id="prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;" name="prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;">
 <area shape="rect" id="node1" title=" " alt="" coords="5,5,232,47"/>
-<area shape="rect" id="node2" href="$classprsl_1_1Semantics_1_1Semantics.html" title=" " alt="" coords="9,95,229,121"/>
+<area shape="rect" id="node2" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html" title=" " alt="" coords="8,95,229,121"/>
+<area shape="rect" id="node3" href="$classprsl_1_1Semantics_1_1Semantics.html" title=" " alt="" coords="19,169,218,196"/>
 </map>

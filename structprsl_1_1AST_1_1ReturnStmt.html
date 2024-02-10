@@ -87,17 +87,21 @@ Collaboration diagram for prsl::AST::ReturnStmt:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a738be030bda0eb2bec16dd3fc3357ee1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a738be030bda0eb2bec16dd3fc3357ee1">ReturnStmt</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#aa56b54ed4d486ab29922f28bc82ff5dc">token</a>)</td></tr>
-<tr class="separator:a738be030bda0eb2bec16dd3fc3357ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab00c81e88a22933ea5d89f6beea20c97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#ab00c81e88a22933ea5d89f6beea20c97">ReturnStmt</a> (<a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> token, <a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a9445e89433651318566874109fcc095d">retValue</a>, bool <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a195f15982ddd22097ccf9ffc9318825c">isFunction</a>)</td></tr>
+<tr class="separator:ab00c81e88a22933ea5d89f6beea20c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa56b54ed4d486ab29922f28bc82ff5dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#aa56b54ed4d486ab29922f28bc82ff5dc">token</a></td></tr>
-<tr class="separator:aa56b54ed4d486ab29922f28bc82ff5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23432bfe306e8a496db06b0629bdb65e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a23432bfe306e8a496db06b0629bdb65e">retToken</a></td></tr>
+<tr class="separator:a23432bfe306e8a496db06b0629bdb65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9445e89433651318566874109fcc095d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a9445e89433651318566874109fcc095d">retValue</a></td></tr>
+<tr class="separator:a9445e89433651318566874109fcc095d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195f15982ddd22097ccf9ffc9318825c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#a195f15982ddd22097ccf9ffc9318825c">isFunction</a></td></tr>
+<tr class="separator:a195f15982ddd22097ccf9ffc9318825c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a738be030bda0eb2bec16dd3fc3357ee1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a738be030bda0eb2bec16dd3fc3357ee1">&#9670;&nbsp;</a></span>ReturnStmt()</h2>
+<a id="ab00c81e88a22933ea5d89f6beea20c97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab00c81e88a22933ea5d89f6beea20c97">&#9670;&nbsp;</a></span>ReturnStmt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -109,8 +113,24 @@ Public Attributes</h2></td></tr>
           <td class="memname">prsl::AST::ReturnStmt::ReturnStmt </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td>
-          <td class="paramname"><em>token</em></td><td>)</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a>&#160;</td>
+          <td class="paramname"><em>retValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isFunction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -123,14 +143,42 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa56b54ed4d486ab29922f28bc82ff5dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa56b54ed4d486ab29922f28bc82ff5dc">&#9670;&nbsp;</a></span>token</h2>
+<a id="a195f15982ddd22097ccf9ffc9318825c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a195f15982ddd22097ccf9ffc9318825c">&#9670;&nbsp;</a></span>isFunction</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> prsl::AST::ReturnStmt::token</td>
+          <td class="memname">bool prsl::AST::ReturnStmt::isFunction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23432bfe306e8a496db06b0629bdb65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23432bfe306e8a496db06b0629bdb65e">&#9670;&nbsp;</a></span>retToken</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> prsl::AST::ReturnStmt::retToken</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9445e89433651318566874109fcc095d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9445e89433651318566874109fcc095d">&#9670;&nbsp;</a></span>retValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> prsl::AST::ReturnStmt::retValue</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['varexpr_269',['VarExpr',['../structprsl_1_1AST_1_1VarExpr.html',1,'prsl::AST']]],
-  ['varstmt_270',['VarStmt',['../structprsl_1_1AST_1_1VarStmt.html',1,'prsl::AST']]]
+  ['unaryexpr_280',['UnaryExpr',['../structprsl_1_1AST_1_1UnaryExpr.html',1,'prsl::AST']]]
 ];

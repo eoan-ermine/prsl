@@ -82,7 +82,7 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a>;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">AST::ExprPtrVariant</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">AST::StmtPtrVariant</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">AST::StmtPtrVariant</a>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classprsl_1_1Parser_1_1Parser.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Parser_1_1Parser.html">Parser</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
@@ -91,62 +91,63 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classprsl_1_1Parser_1_1Parser_1_1ParseError.html">   21</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classprsl_1_1Parser_1_1Parser_1_1ParseError.html">ParseError</a> : <span class="keyword">public</span> std::exception {};</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> <a class="code" href="classprsl_1_1Parser_1_1Parser.html#a029fa7a517352c146f1e3d1fdfa8ab62">parse</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> <a class="code" href="classprsl_1_1Parser_1_1Parser.html#a029fa7a517352c146f1e3d1fdfa8ab62">parse</a>();</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> program();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> program();</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> decl();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> varDecl();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> stmt();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> ifStmt();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> blockStmt();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> whileStmt();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> printStmt();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> exprStmt();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">StmtPtrVariant</a> returnStmt();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> expr();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> assignmentExpr();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> comparisonExpr();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> additionExpr();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> multiplicationExpr();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> unaryExpr();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> postfixExpr();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> primaryExpr();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> literalExpr();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> groupingExpr();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> varExpr();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> inputExpr();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> scopeExpr();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> funcExpr();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> callExpr();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  std::vector&lt;ExprPtrVariant&gt; arguments();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> synchronize();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> advance();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> getTokenAdvance();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> consumeOrError(<a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> tType, std::string_view errorMessage);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt; <a class="code" href="classprsl_1_1Parser_1_1Parser_1_1ParseError.html">ParseError</a> error(Args &amp;&amp;...args) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;token = peek();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    eReporter.<a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html#ae4c9ad6f0b4c69cf6294428fd655667d">setError</a>(token.getLine(), <span class="stringliteral">&quot;at &#39;&quot;</span>, token.toString(),</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                       <span class="stringliteral">&quot;&#39;: &quot;</span>, std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classprsl_1_1Parser_1_1Parser_1_1ParseError.html">ParseError</a>{};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  [[nodiscard]] <a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> getCurrentTokenType() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> isEOF() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> match(<a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> type);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> match(std::initializer_list&lt;Token::Type&gt; types);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> matchNext(<a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> type);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  [[nodiscard]] Token peek() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keyword">const</span> std::vector&lt;Token&gt; &amp;tokens;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  std::vector&lt;Token&gt;::const_iterator currentIter;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a> &amp;eReporter;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  std::unique_ptr&lt;AST::FuncExpr&gt; currentFunction = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace prsl::Parser</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> decl();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> varDecl();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> stmt();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> ifStmt();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> blockStmt();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> whileStmt();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> printStmt();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> exprStmt();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> returnStmt();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">StmtPtrVariant</a> nullStmt();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> expr();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> assignmentExpr();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> comparisonExpr();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> additionExpr();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> multiplicationExpr();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> unaryExpr();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> postfixExpr();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> primaryExpr();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> literalExpr();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> groupingExpr();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> varExpr();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> inputExpr();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> scopeExpr();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> funcExpr();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">ExprPtrVariant</a> callExpr();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  std::vector&lt;ExprPtrVariant&gt; arguments();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> synchronize();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> advance();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> getTokenAdvance();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> consumeOrError(<a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> tType, std::string_view errorMessage);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt; <a class="code" href="classprsl_1_1Parser_1_1Parser_1_1ParseError.html">ParseError</a> error(Args &amp;&amp;...args) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;token = peek();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    eReporter.<a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html#ae4c9ad6f0b4c69cf6294428fd655667d">setError</a>(token.getLine(), <span class="stringliteral">&quot;at &#39;&quot;</span>, token.toString(),</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                       <span class="stringliteral">&quot;&#39;: &quot;</span>, std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classprsl_1_1Parser_1_1Parser_1_1ParseError.html">ParseError</a>{};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  [[nodiscard]] <a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> getCurrentTokenType() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> isEOF() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> match(<a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> type);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> match(std::initializer_list&lt;Token::Type&gt; types);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  [[nodiscard]] <span class="keywordtype">bool</span> matchNext(<a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Token::Type</a> type);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  [[nodiscard]] Token peek() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">const</span> std::vector&lt;Token&gt; &amp;tokens;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  std::vector&lt;Token&gt;::const_iterator currentIter;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a> &amp;eReporter;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">bool</span> isFunction{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace prsl::Parser</span></div>
 <div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
 <div class="ttc" id="aNodeTypes_8hpp_html"><div class="ttname"><a href="NodeTypes_8hpp.html">NodeTypes.hpp</a></div></div>
 <div class="ttc" id="aclassprsl_1_1Errors_1_1ErrorReporter_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.hpp:11</div></div>
@@ -158,7 +159,7 @@ $(function() {
 <div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:8</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1Token_html_a94719ecf049862452cf96ee503cd2030"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">prsl::Types::Token::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> Token.hpp:10</div></div>
 <div class="ttc" id="anamespaceprsl_1_1AST_html_a073380bbb397328399557015c2296832"><div class="ttname"><a href="namespaceprsl_1_1AST.html#a073380bbb397328399557015c2296832">prsl::AST::ExprPtrVariant</a></div><div class="ttdeci">std::variant&lt; LiteralExprPtr, GroupingExprPtr, VarExprPtr, InputExprPtr, AssignmentExprPtr, UnaryExprPtr, BinaryExprPtr, PostfixExprPtr, ScopeExprPtr, FuncExprPtr, CallExprPtr &gt; ExprPtrVariant</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:58</div></div>
-<div class="ttc" id="anamespaceprsl_1_1AST_html_a24364dae1949880ed2623e20a96edfc4"><div class="ttname"><a href="namespaceprsl_1_1AST.html#a24364dae1949880ed2623e20a96edfc4">prsl::AST::StmtPtrVariant</a></div><div class="ttdeci">std::variant&lt; VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr, BlockStmtPtr, ReturnStmtPtr &gt; StmtPtrVariant</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:94</div></div>
+<div class="ttc" id="anamespaceprsl_1_1AST_html_a899912730376f8af0b8b5bef708b6c6f"><div class="ttname"><a href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">prsl::AST::StmtPtrVariant</a></div><div class="ttdeci">std::variant&lt; VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr, BlockStmtPtr, ReturnStmtPtr, NullStmtPtr &gt; StmtPtrVariant</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:98</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Parser_html"><div class="ttname"><a href="namespaceprsl_1_1Parser.html">prsl::Parser</a></div><div class="ttdef"><b>Definition:</b> Parser.cpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

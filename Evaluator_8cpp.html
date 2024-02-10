@@ -72,39 +72,42 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="Evaluator_8hpp_source.html">Evaluator.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TreeWalkerVisitor_8hpp_source.html">prsl/AST/TreeWalkerVisitor.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RuntimeError_8hpp_source.html">prsl/Debug/RuntimeError.hpp</a>&quot;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;ranges&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;variant&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Evaluator.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Evaluator_8cpp__incl.png" border="0" usemap="#aprsl_2Evaluator_2Evaluator_8cpp" alt=""/></div>
 <map name="aprsl_2Evaluator_2Evaluator_8cpp" id="aprsl_2Evaluator_2Evaluator_8cpp">
-<area shape="rect" title=" " alt="" coords="1261,5,1465,32"/>
-<area shape="rect" href="Evaluator_8hpp.html" title=" " alt="" coords="869,80,979,107"/>
-<area shape="rect" title=" " alt="" coords="267,379,325,405"/>
-<area shape="rect" title=" " alt="" coords="877,304,955,331"/>
-<area shape="rect" title=" " alt="" coords="1129,304,1197,331"/>
-<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="145,229,354,256"/>
-<area shape="rect" title=" " alt="" coords="1451,80,1531,107"/>
-<area shape="rect" title=" " alt="" coords="1555,80,1621,107"/>
-<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="1096,155,1269,181"/>
-<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="928,229,1107,256"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="522,304,662,331"/>
-<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="48,304,259,331"/>
-<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="429,155,656,181"/>
-<area shape="rect" href="Objects_8hpp.html" title=" " alt="" coords="827,155,1021,181"/>
-<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="1182,229,1325,256"/>
-<area shape="rect" title=" " alt="" coords="979,304,1053,331"/>
-<area shape="rect" title=" " alt="" coords="862,379,925,405"/>
-<area shape="rect" title=" " alt="" coords="543,379,641,405"/>
-<area shape="rect" title=" " alt="" coords="116,379,191,405"/>
-<area shape="rect" title=" " alt="" coords="681,229,751,256"/>
-<area shape="rect" title=" " alt="" coords="339,304,426,331"/>
-<area shape="rect" title=" " alt="" coords="430,229,554,256"/>
+<area shape="rect" title=" " alt="" coords="1151,5,1355,32"/>
+<area shape="rect" href="Evaluator_8hpp.html" title=" " alt="" coords="549,80,659,107"/>
+<area shape="rect" title=" " alt="" coords="999,379,1057,405"/>
+<area shape="rect" title=" " alt="" coords="1255,379,1353,405"/>
+<area shape="rect" title=" " alt="" coords="520,304,597,331"/>
+<area shape="rect" title=" " alt="" coords="182,304,250,331"/>
+<area shape="rect" title=" " alt="" coords="1193,229,1317,256"/>
+<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="907,229,1117,256"/>
+<area shape="rect" href="TreeWalkerVisitor_8hpp.html" title=" " alt="" coords="231,80,449,107"/>
+<area shape="rect" title=" " alt="" coords="1493,80,1573,107"/>
+<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="132,155,305,181"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="253,229,432,256"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="1078,304,1218,331"/>
+<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="668,304,879,331"/>
+<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="781,155,1008,181"/>
+<area shape="rect" href="Objects_8hpp.html" title=" " alt="" coords="462,155,655,181"/>
+<area shape="rect" title=" " alt="" coords="381,155,438,181"/>
+<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="35,229,178,256"/>
+<area shape="rect" title=" " alt="" coords="357,304,432,331"/>
+<area shape="rect" title=" " alt="" coords="471,379,534,405"/>
+<area shape="rect" title=" " alt="" coords="736,379,811,405"/>
+<area shape="rect" title=" " alt="" coords="609,229,679,256"/>
+<area shape="rect" title=" " alt="" coords="903,304,990,331"/>
 </map>
 </div>
 </div><table class="memberdecls">
