@@ -364,6 +364,8 @@ Value *Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) {
   return nullptr;
 }
 
+Value *Codegen::visitNullStmt(const NullStmtPtr &stmt) { return nullptr; }
+
 AllocaInst *Codegen::allocVar(std::string_view name) {
   BasicBlock *insertBB = builder->GetInsertBlock();
   Function *func = insertBB->getParent();

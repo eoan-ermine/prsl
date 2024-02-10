@@ -87,7 +87,11 @@ public:
     }
   }
 
-  virtual void visitReturnStmt(const ReturnStmtPtr &stmt) override {}
+  virtual void visitReturnStmt(const ReturnStmtPtr &stmt) override {
+    visitExpr(stmt->retValue);
+  }
+
+  virtual void visitNullStmt(const NullStmtPtr &stmt) override {}
 };
 
 } // namespace AST

@@ -137,6 +137,8 @@ clang source.ll -o source
   | <blockStmt>
   | <whileStmt>
   | <printStmt>
+  | <returnStmt>
+  | <nullStmt>
 
 <ifStmt> ::=
   "if(" <expr> ")" <stmt>
@@ -153,6 +155,9 @@ clang source.ll -o source
 
 <returnStmt> ::=
   "return" <expr> ";"
+
+<nullStmt> ::=
+  ";"
 
 <expr> ::=
   <assignmentExpr>

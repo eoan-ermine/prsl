@@ -43,6 +43,7 @@ private:
   void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
   void visitBlockStmt(const BlockStmtPtr &stmt) override;
   void visitReturnStmt(const ReturnStmtPtr &stmt) override;
+  void visitNullStmt(const NullStmtPtr &stmt) override;
 
   int getInt(const Token &token, const PrslObject &obj);
   PrslObject evaluateScope(const ScopeExprPtr &scope);

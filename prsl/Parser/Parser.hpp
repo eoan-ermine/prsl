@@ -34,6 +34,7 @@ private:
   StmtPtrVariant printStmt();
   StmtPtrVariant exprStmt();
   StmtPtrVariant returnStmt();
+  StmtPtrVariant nullStmt();
 
   ExprPtrVariant expr();
   ExprPtrVariant assignmentExpr();

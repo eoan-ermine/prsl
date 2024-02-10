@@ -61,6 +61,8 @@ StmtPtrVariant Parser::varDecl() {
 //   | <blockStmt>
 //   | <whileStmt>
 //   | <printStmt>
+//   | <returnStmt>
+//   | <nullStmt>
 StmtPtrVariant Parser::stmt() {
   if (match(Token::Type::IF))
     return ifStmt();
@@ -72,6 +74,8 @@ StmtPtrVariant Parser::stmt() {
     return printStmt();
   if (match(Token::Type::RETURN))
     return returnStmt();
+  if (match(Token::Type::SEMICOLON))
+    return nullStmt();
   return exprStmt();
 }
 
@@ -141,6 +145,13 @@ StmtPtrVariant Parser::exprStmt() {
   consumeOrError(Token::Type::SEMICOLON,
                  "Expect ';' after expression statement");
   return AST::createExprSPV(std::move(expression));
+}
+
+// <nullStmt> ::=
+//   ";"
+StmtPtrVariant Parser::nullStmt() {
+  advance();
+  return AST::createNullSPV();
 }
 
 // <expr> ::=

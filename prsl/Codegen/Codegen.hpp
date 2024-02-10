@@ -56,6 +56,7 @@ private:
   Value *visitFunctionStmt(const FunctionStmtPtr &stmt) override;
   Value *visitBlockStmt(const BlockStmtPtr &stmt) override;
   Value *visitReturnStmt(const ReturnStmtPtr &stmt) override;
+  Value *visitNullStmt(const NullStmtPtr &stmt) override;
 
   Value *postfixExpr(const Token &op, Value *obj, Value *res);
   AllocaInst *allocVar(std::string_view name);

@@ -1,0 +1,17 @@
+// RUN: %edir/prsl --codegen %s --output-file=pass_16.ll
+// RUN: clang++ -Wno-override-module pass_16.ll -o pass_16
+// RUN: echo "5" | %S/pass_16 | filecheck %s --match-full-lines
+// RUN: echo "5" | %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: 5
+// CHECK-NEXT: 4
+
+a={?;}
+{
+if (a>0)
+{
+print {a--;};
+}
+};
+;
+;
+print a;

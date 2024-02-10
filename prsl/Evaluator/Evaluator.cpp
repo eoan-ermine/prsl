@@ -265,4 +265,6 @@ void Evaluator::visitReturnStmt(const ReturnStmtPtr &stmt) {
   returnStack.push(visitExpr(stmt->retValue));
 }
 
+void Evaluator::visitNullStmt(const NullStmtPtr &stmt) { return; }
+
 } // namespace prsl::Evaluator

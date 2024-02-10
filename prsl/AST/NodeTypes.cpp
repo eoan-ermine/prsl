@@ -63,6 +63,8 @@ ReturnStmt::ReturnStmt(Token token, ExprPtrVariant retValue, bool isFunction)
     : retToken(std::move(token)), retValue(std::move(retValue)),
       isFunction(isFunction) {}
 
+NullStmt::NullStmt() {}
+
 ExprPtrVariant createLiteralEPV(int literalVal) {
   return std::make_unique<LiteralExpr>(literalVal);
 }
@@ -146,5 +148,7 @@ StmtPtrVariant createReturnSPV(Token token, ExprPtrVariant retValue,
   return std::make_unique<ReturnStmt>(std::move(token), std::move(retValue),
                                       isFunction);
 }
+
+StmtPtrVariant createNullSPV() { return std::make_unique<NullStmt>(); }
 
 } // namespace prsl::AST

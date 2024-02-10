@@ -73,6 +73,8 @@ struct BlockStmt;
 
 struct ReturnStmt;
 
+struct NullStmt;
+
 using VarStmtPtr = std::unique_ptr<VarStmt>;
 
 using IfStmtPtr = std::unique_ptr<IfStmt>;
@@ -89,9 +91,11 @@ using BlockStmtPtr = std::unique_ptr<BlockStmt>;
 
 using ReturnStmtPtr = std::unique_ptr<ReturnStmt>;
 
+using NullStmtPtr = std::unique_ptr<NullStmt>;
+
 using StmtPtrVariant =
     std::variant<VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr,
-                 FunctionStmtPtr, BlockStmtPtr, ReturnStmtPtr>;
+                 FunctionStmtPtr, BlockStmtPtr, ReturnStmtPtr, NullStmtPtr>;
 
 using prsl::Types::Token;
 
@@ -212,6 +216,10 @@ struct ReturnStmt final {
   explicit ReturnStmt(Token token, ExprPtrVariant retValue, bool isFunction);
 };
 
+struct NullStmt final {
+  explicit NullStmt();
+};
+
 ExprPtrVariant createLiteralEPV(int literalVal);
 
 ExprPtrVariant createGroupingEPV(ExprPtrVariant expression);
@@ -255,5 +263,7 @@ StmtPtrVariant createBlockSPV(std::vector<StmtPtrVariant> statements);
 
 StmtPtrVariant createReturnSPV(Token token, ExprPtrVariant retValue,
                                bool isFunction);
+
+StmtPtrVariant createNullSPV();
 
 } // namespace prsl::AST
