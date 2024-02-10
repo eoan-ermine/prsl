@@ -144,13 +144,9 @@ Value *Codegen::visitPostfixExpr(const PostfixExprPtr &expr) {
 Value *Codegen::evaluateScope(const ScopeExprPtr &stmt) {
   for (const auto &stmt : stmt->statements) {
     visitStmt(stmt);
-    if (std::holds_alternative<ReturnStmtPtr>(stmt)) {
-      const auto &returnStmt = std::get<ReturnStmtPtr>(stmt);
-      auto returnValue = std::move(returnStack.top());
+    if (returnStack.size()) {
+      auto [returnValue, isFunction] = std::move(returnStack.top());
       returnStack.pop();
-      if (returnStmt->isFunction) {
-        builder->CreateRet(returnValue);
-      }
       return returnValue;
     }
   }
@@ -254,14 +250,24 @@ Value *Codegen::visitIfStmt(const IfStmtPtr &stmt) {
 
   builder->SetInsertPoint(thenBB);
   visitStmt(stmt->thenBranch);
-  builder->CreateBr(mergeBB);
+  if (returnStack.size()) {
+    returnStack.pop();
+  } else {
+    builder->CreateBr(mergeBB);
+  }
+
   thenBB = builder->GetInsertBlock();
 
   if (stmt->elseBranch) {
     function->insert(function->end(), elseBB);
     builder->SetInsertPoint(elseBB);
     visitStmt(*stmt->elseBranch);
-    builder->CreateBr(mergeBB);
+    if (returnStack.size()) {
+      returnStack.pop();
+    } else {
+      builder->CreateBr(mergeBB);
+    }
+
     elseBB = builder->GetInsertBlock();
   }
 
@@ -287,7 +293,11 @@ Value *Codegen::visitWhileStmt(const WhileStmtPtr &stmt) {
 
   builder->SetInsertPoint(loopBB);
   visitStmt(stmt->body);
-  builder->CreateBr(conditionBB);
+  if (returnStack.size()) {
+    returnStack.pop();
+  } else {
+    builder->CreateBr(conditionBB);
+  }
 
   builder->SetInsertPoint(afterBB);
   return nullptr;
@@ -338,14 +348,19 @@ Value *Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 
 Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
   envManager.withNewEnviron([&] {
-    evaluateScope(std::get<ScopeExprPtr>(
-        AST::createScopeEPV(std::move(stmt->statements))));
+    for (const auto &stmt : stmt->statements) {
+      visitStmt(stmt);
+    }
   });
   return nullptr;
 }
 
 Value *Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) {
-  returnStack.push(visitExpr(stmt->retValue));
+  auto returnValue = visitExpr(stmt->retValue);
+  if (stmt->isFunction) {
+    builder->CreateRet(returnValue);
+  }
+  returnStack.push({returnValue, stmt->isFunction});
   return nullptr;
 }
 

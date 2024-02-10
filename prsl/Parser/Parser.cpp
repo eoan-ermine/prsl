@@ -339,8 +339,13 @@ ExprPtrVariant Parser::inputExpr() {
 ExprPtrVariant Parser::scopeExpr() {
   advance();
   std::vector<StmtPtrVariant> statements;
+  bool hasReturn{false};
   while (!match(Token::Type::RIGHT_BRACE) && !isEOF()) {
-    statements.push_back(decl());
+    auto declaration = decl();
+    if (!hasReturn && std::holds_alternative<AST::ReturnStmtPtr>(declaration)) {
+      hasReturn = true;
+    }
+    statements.push_back(std::move(declaration));
   }
 
   if (statements.size() &&
@@ -354,7 +359,7 @@ ExprPtrVariant Parser::scopeExpr() {
         std::move(std::get<AST::ExprStmtPtr>(statements.back())->expression);
     statements.back() = AST::createReturnSPV(
         Token{Token::Type::RETURN, "return", -1}, std::move(expr), isFunction);
-  } else {
+  } else if (!hasReturn) {
     statements.push_back(
         AST::createReturnSPV(Token{Token::Type::RETURN, "return", -1},
                              AST::createLiteralEPV(0), isFunction));

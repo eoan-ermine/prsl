@@ -71,7 +71,11 @@ private:
   Evaluator::EnvironmentManager<Value *> envManager;
   std::unordered_map<std::string_view, Function *> functionsManager;
   llvm::Type *intType;
-  std::stack<Value *> returnStack;
+  struct RetVal {
+    Value *value;
+    bool isFunction;
+  };
+  std::stack<RetVal> returnStack;
 };
 
 } // namespace prsl::Codegen

@@ -255,9 +255,9 @@ void Evaluator::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 
 void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
   envManager.withNewEnviron([&] {
-      for (const auto &stmt : stmt->statements) {
-        visitStmt(stmt);
-      }
+    for (const auto &stmt : stmt->statements) {
+      visitStmt(stmt);
+    }
   });
 }
 
