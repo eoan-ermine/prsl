@@ -1,4 +1,5 @@
 #include "Codegen.hpp"
+#include "prsl/AST/NodeTypes.hpp"
 
 #include <variant>
 
@@ -153,7 +154,7 @@ Value *Codegen::evaluateScope(const ScopeExprPtr &stmt) {
       return returnValue;
     }
   }
-  prsl::Utils::unreachable();
+  return nullptr;
 }
 
 Value *Codegen::visitScopeExpr(const ScopeExprPtr &stmt) {
@@ -337,9 +338,8 @@ Value *Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 
 Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
   envManager.withNewEnviron([&] {
-    for (const auto &stmt : stmt->statements) {
-      visitStmt(stmt);
-    }
+    evaluateScope(std::get<ScopeExprPtr>(
+        AST::createScopeEPV(std::move(stmt->statements))));
   });
   return nullptr;
 }

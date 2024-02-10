@@ -2,10 +2,8 @@
 
 #include "prsl/AST/TreeWalkerVisitor.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
-#include "prsl/Utils/Utils.hpp"
 #include <iostream>
 #include <memory>
-#include <ranges>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -131,22 +129,21 @@ PrslObject Evaluator::visitPostfixExpr(const PostfixExprPtr &expr) {
   return obj;
 }
 
-PrslObject Evaluator::evaluateScope(const ScopeExprPtr &stmt) {
-  for (const auto &stmt : stmt->statements) {
+PrslObject Evaluator::evaluateScope(const ScopeExprPtr &scope) {
+  for (const auto &stmt : scope->statements) {
     visitStmt(stmt);
-    if (std::holds_alternative<ReturnStmtPtr>(stmt)) {
-      const auto &returnStmt = std::get<ReturnStmtPtr>(stmt);
+    if (returnStack.size()) {
       auto returnValue = std::move(returnStack.top());
       returnStack.pop();
       return returnValue;
     }
   }
-  prsl::Utils::unreachable();
+  return PrslObject{nullptr};
 }
 
-PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &stmt) {
+PrslObject Evaluator::visitScopeExpr(const ScopeExprPtr &expr) {
   PrslObject res;
-  envManager.withNewEnviron([&] { res = evaluateScope(stmt); });
+  envManager.withNewEnviron([&] { res = evaluateScope(expr); });
   return res;
 }
 
@@ -258,9 +255,9 @@ void Evaluator::visitFunctionStmt(const FunctionStmtPtr &stmt) {
 
 void Evaluator::visitBlockStmt(const BlockStmtPtr &stmt) {
   envManager.withNewEnviron([&] {
-    for (const auto &stmt : stmt->statements) {
-      visitStmt(stmt);
-    }
+      for (const auto &stmt : stmt->statements) {
+        visitStmt(stmt);
+      }
   });
 }
 
