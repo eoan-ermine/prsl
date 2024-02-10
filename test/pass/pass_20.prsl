@@ -1,0 +1,37 @@
+// RUN: %edir/prsl --codegen %s --output-file=pass_20.ll
+// RUN: clang++ -Wno-override-module pass_20.ll -o pass_20
+// RUN: echo "41 7" | %S/pass_20 | filecheck %s --match-full-lines
+// RUN: echo "41 7" | %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: 12
+// CHECK-NEXT: 12
+// CHECK-NEXT: 118
+// CHECK-NEXT: 1
+
+x = ?;
+
+fo = func(x, y, z) : function
+{
+	if (x > y)
+	{
+        x = x - 1;
+		while (x != y) {
+			z = z + y;
+            x = x - 1;
+        }
+        x = x - 1;
+	}
+	else
+	{
+		return 12;
+	}
+	
+	print function(0, 0, 12);
+	z;
+};
+
+y = ?;
+
+if (fo(x, 3, 7) != { print function(x + 0, 10 - y, y); })
+{
+    print 1;
+}
