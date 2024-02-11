@@ -7,7 +7,7 @@
 #include <string>
 #include <variant>
 
-namespace prsl::Evaluator {
+namespace prsl::Interpreter {
 
 class FuncObj;
 
@@ -15,19 +15,19 @@ using FuncObjPtr = std::shared_ptr<FuncObj>;
 
 using PrslObject = std::variant<int, bool, std::nullptr_t, FuncObjPtr>;
 
-bool areEqual(const PrslObject &lhs, const PrslObject &rhs);
+bool areEqual(const PrslObject &lhs, const PrslObject &rhs) noexcept;
 std::string toString(const PrslObject &object);
-bool isTrue(const PrslObject &object);
+bool isTrue(const PrslObject &object) noexcept;
 
 class FuncObj {
 public:
-  explicit FuncObj(const AST::FuncExprPtr &declaration);
+  explicit FuncObj(const AST::FuncExprPtr &declaration) noexcept;
 
-  [[nodiscard]] size_t paramsCount() const;
-  [[nodiscard]] const AST::FuncExprPtr &getDeclaration() const;
+  [[nodiscard]] size_t paramsCount() const noexcept;
+  [[nodiscard]] const AST::FuncExprPtr &getDeclaration() const noexcept;
 
 private:
   const AST::FuncExprPtr &declaration;
 };
 
-} // namespace prsl::Evaluator
+} // namespace prsl::Interpreter

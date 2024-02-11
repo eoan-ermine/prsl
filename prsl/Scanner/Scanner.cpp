@@ -1,4 +1,4 @@
-#include "Scanner.hpp"
+#include "prsl/Scanner/Scanner.hpp"
 
 namespace prsl::Scanner {
 

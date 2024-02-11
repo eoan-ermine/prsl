@@ -1,18 +1,18 @@
-#include "ErrorReporter.hpp"
+#include "prsl/Debug/ErrorReporter.hpp"
 
 #include <iostream>
 
 namespace prsl::Errors {
 
-PrslStatus ErrorReporter::getStatus() { return status; }
+PrslStatus ErrorReporter::getStatus() const noexcept { return status; }
 
-void ErrorReporter::printToErr() {
+void ErrorReporter::printToErr() const noexcept {
   for (auto &s : errorMessages) {
     std::cerr << s << std::endl;
   }
 }
 
-void ErrorReporter::clearErrors() {
+void ErrorReporter::clearErrors() noexcept {
   errorMessages.clear();
   status = PrslStatus::OK;
 }

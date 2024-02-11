@@ -134,24 +134,28 @@ clang source.ll -o source
 
 <stmt> ::=
   <ifStmt>
-  | <blockStmt>
   | <whileStmt>
   | <printStmt>
+  | <exprStmt>
+  | <blockStmt>
   | <returnStmt>
   | <nullStmt>
 
 <ifStmt> ::=
   "if(" <expr> ")" <stmt>
   | "if(" <expr> ")" <stmt> "else" <stmt>
-
-<blockStmt> ::=
-  "{" <program> "}"
  
 <whileStmt> ::=
   "while(" <expr> ")" <stmt>
 
 <printStmt> ::=
   "print" <expr> ";"
+
+<exprStmt> ::=
+  <expr> ";"
+
+<blockStmt> ::=
+  "{" <program> "}"
 
 <returnStmt> ::=
   "return" <expr> ";"

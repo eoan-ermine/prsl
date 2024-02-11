@@ -11,7 +11,7 @@ set(sources
     prsl/AST/NodeTypes.cpp
     prsl/Codegen/Codegen.cpp
     prsl/Debug/ErrorReporter.cpp prsl/Debug/RuntimeError.cpp
-    prsl/Evaluator/Evaluator.cpp prsl/Evaluator/Objects.cpp
+    prsl/Interpreter/Interpreter.cpp prsl/Interpreter/Objects.cpp
     prsl/Parser/Parser.cpp
     prsl/Scanner/Scanner.cpp
     prsl/Semantics/Semantics.cpp
@@ -21,11 +21,11 @@ set(headers
     prsl/AST/NodeTypes.hpp
     prsl/Codegen/Codegen.hpp
     prsl/Debug/ErrorReporter.hpp prsl/Debug/RuntimeError.hpp
-    prsl/Evaluator/Environment.hpp prsl/Evaluator/Evaluator.hpp prsl/Evaluator/Objects.hpp
+    prsl/Interpreter/Interpreter.hpp prsl/Interpreter/Objects.hpp
     prsl/Parser/Parser.hpp
     prsl/Scanner/Scanner.hpp
     prsl/Semantics/Semantics.hpp
-    prsl/Types/Token.hpp
+    prsl/Types/Environment.hpp prsl/Types/Token.hpp
 )
 
 

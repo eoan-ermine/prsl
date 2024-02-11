@@ -10,11 +10,12 @@ enum struct PrslStatus { OK, ERROR };
 
 class ErrorReporter {
 public:
-  PrslStatus getStatus();
+  PrslStatus getStatus() const noexcept;
 
-  void printToErr();
-  void clearErrors();
-  template <typename... Args> void setError(int line, Args &&...params) {
+  void printToErr() const noexcept;
+  void clearErrors() noexcept;
+  template <typename... Args>
+  constexpr void setError(int line, Args &&...params) {
     std::ostringstream ss;
     ((ss << std::forward<Args>(params)), ...);
     errorMessages.emplace_back("[Line " + std::to_string(line) +

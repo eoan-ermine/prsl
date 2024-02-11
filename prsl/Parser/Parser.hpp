@@ -2,6 +2,7 @@
 
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
+
 #include <initializer_list>
 #include <string_view>
 #include <vector>
@@ -29,10 +30,10 @@ private:
   StmtPtrVariant varDecl();
   StmtPtrVariant stmt();
   StmtPtrVariant ifStmt();
-  StmtPtrVariant blockStmt();
   StmtPtrVariant whileStmt();
   StmtPtrVariant printStmt();
   StmtPtrVariant exprStmt();
+  StmtPtrVariant blockStmt();
   StmtPtrVariant returnStmt();
   StmtPtrVariant nullStmt();
 
@@ -54,8 +55,8 @@ private:
   std::vector<ExprPtrVariant> arguments();
 
   void synchronize();
-  void advance();
-  Token getTokenAdvance();
+  void advance() noexcept;
+  Token getTokenAdvance() noexcept;
   Token consumeOrError(Token::Type tType, std::string_view errorMessage);
   template <typename... Args> ParseError error(Args &&...args) {
     const auto &token = peek();
@@ -63,12 +64,13 @@ private:
                        "': ", std::forward<Args>(args)...);
     return ParseError{};
   }
-  [[nodiscard]] Token::Type getCurrentTokenType() const;
-  [[nodiscard]] bool isEOF() const;
-  [[nodiscard]] bool match(Token::Type type);
-  [[nodiscard]] bool match(std::initializer_list<Token::Type> types);
-  [[nodiscard]] bool matchNext(Token::Type type);
-  [[nodiscard]] Token peek() const;
+  [[nodiscard]] Token::Type getCurrentTokenType() const noexcept;
+  [[nodiscard]] bool isEOF() const noexcept;
+  [[nodiscard]] bool match(Token::Type type) const noexcept;
+  [[nodiscard]] bool
+  match(std::initializer_list<Token::Type> types) const noexcept;
+  [[nodiscard]] bool matchNext(Token::Type type) noexcept;
+  [[nodiscard]] Token peek() const noexcept;
 
   const std::vector<Token> &tokens;
   std::vector<Token>::const_iterator currentIter;

@@ -2,9 +2,7 @@
 
 #include "prsl/AST/ASTVisitor.hpp"
 
-namespace prsl {
-
-namespace AST {
+namespace prsl::AST {
 
 class TreeWalkerVisitor : public prsl::AST::ASTVisitor<> {
 public:
@@ -95,5 +93,3 @@ public:
 };
 
 } // namespace AST
-
-} // namespace prsl

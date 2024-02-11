@@ -1,9 +1,7 @@
-#include "Parser.hpp"
+#include "prsl/Parser/Parser.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 
 #include <charconv>
-#include <optional>
-#include <variant>
 
 namespace prsl::Parser {
 
@@ -58,9 +56,10 @@ StmtPtrVariant Parser::varDecl() {
 
 // <stmt> ::=
 //   <ifStmt>
-//   | <blockStmt>
 //   | <whileStmt>
 //   | <printStmt>
+//   | <exprStmt>
+//   | <blockStmt>
 //   | <returnStmt>
 //   | <nullStmt>
 StmtPtrVariant Parser::stmt() {
@@ -122,6 +121,8 @@ StmtPtrVariant Parser::whileStmt() {
   return AST::createWhileSPV(std::move(condition), stmt());
 }
 
+// <printStmt> ::=
+//   "print" <expr> ";"
 StmtPtrVariant Parser::printStmt() {
   advance();
   ExprPtrVariant value = expr();
@@ -138,8 +139,8 @@ StmtPtrVariant Parser::returnStmt() {
   return AST::createReturnSPV(token, std::move(value), true);
 }
 
-// <printStmt> ::=
-//   "print" <expr> ";"
+// <exprStmt> ::=
+//   <expr> ";"
 StmtPtrVariant Parser::exprStmt() {
   auto expression = expr();
   consumeOrError(Token::Type::SEMICOLON,
@@ -430,11 +431,11 @@ void Parser::synchronize() {
   }
 }
 
-void Parser::advance() {
+void Parser::advance() noexcept {
   if (!isEOF())
     ++currentIter;
 }
-Token Parser::getTokenAdvance() {
+Token Parser::getTokenAdvance() noexcept {
   Token token = peek();
   advance();
   return token;
@@ -444,19 +445,20 @@ Token Parser::consumeOrError(Token::Type tType, std::string_view errorMessage) {
     return getTokenAdvance();
   throw error(errorMessage, ", got: ", peek().toString());
 }
-[[nodiscard]] Token::Type Parser::getCurrentTokenType() const {
+[[nodiscard]] Token::Type Parser::getCurrentTokenType() const noexcept {
   return currentIter->getType();
 }
-[[nodiscard]] bool Parser::isEOF() const {
+[[nodiscard]] bool Parser::isEOF() const noexcept {
   return peek().getType() == Token::Type::EOF_;
 }
-[[nodiscard]] bool Parser::match(Token::Type type) {
+[[nodiscard]] bool Parser::match(Token::Type type) const noexcept {
   if (type == getCurrentTokenType()) {
     return true;
   }
   return false;
 }
-[[nodiscard]] bool Parser::match(std::initializer_list<Token::Type> types) {
+[[nodiscard]] bool
+Parser::match(std::initializer_list<Token::Type> types) const noexcept {
   auto currentType = getCurrentTokenType();
   for (auto type : types) {
     if (type == currentType)
@@ -464,12 +466,12 @@ Token Parser::consumeOrError(Token::Type tType, std::string_view errorMessage) {
   }
   return false;
 }
-[[nodiscard]] bool Parser::matchNext(Token::Type type) {
+[[nodiscard]] bool Parser::matchNext(Token::Type type) noexcept {
   advance();
   bool res = match(type);
   --currentIter;
   return res;
 }
-[[nodiscard]] Token Parser::peek() const { return *currentIter; };
+[[nodiscard]] Token Parser::peek() const noexcept { return *currentIter; };
 
 } // namespace prsl::Parser

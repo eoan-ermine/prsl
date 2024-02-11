@@ -1,7 +1,11 @@
-#include "Codegen.hpp"
+#include "prsl/Codegen/Codegen.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 
-#include <variant>
+#include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/Verifier.h"
+#include <llvm/IR/CallingConv.h>
+#include <llvm/IR/Instructions.h>
+#include <llvm/Support/FileSystem.h>
 
 namespace prsl::Codegen {
 
@@ -11,7 +15,7 @@ Codegen::Codegen(ErrorReporter &eReporter)
       builder(std::make_unique<IRBuilder<>>(*context)),
       envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {}
 
-bool Codegen::dump(std::string_view filename) {
+bool Codegen::dump(std::string_view filename) const {
   std::error_code ec;
   auto fileStream =
       llvm::raw_fd_ostream(filename, ec, llvm::sys::fs::OpenFlags::OF_None);
@@ -172,10 +176,10 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
   BasicBlock *BB = BasicBlock::Create(*context, "entry", func);
   builder->SetInsertPoint(BB);
 
-  auto funcEnv = std::make_shared<Evaluator::Environment<Value *>>(nullptr);
+  auto funcEnv = std::make_shared<Types::Environment<Value *>>(nullptr);
 
   if (expr->name)
-    functionsManager.emplace(expr->name->getLexeme(), func);
+    functionsManager.set(expr->name->getLexeme(), func);
 
   Value *res = nullptr;
   envManager.withNewEnviron(funcEnv, [&]() {
@@ -199,7 +203,7 @@ Value *Codegen::visitFuncExpr(const FuncExprPtr &expr) {
 Value *Codegen::visitCallExpr(const CallExprPtr &expr) {
   Function *func = getFunction(expr->ident);
   if (functionsManager.contains(expr->ident.getLexeme()))
-    func = functionsManager.at(expr->ident.getLexeme());
+    func = functionsManager.get(expr->ident.getLexeme());
 
   if (!func)
     throw reportRuntimeError(eReporter, expr->ident, "Not a function");

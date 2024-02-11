@@ -1,10 +1,10 @@
 #pragma once
 
+#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Types/Token.hpp"
+
 #include <exception>
 #include <string>
-
-#include "../Types/Token.hpp"
-#include "ErrorReporter.hpp"
 
 namespace prsl::Errors {
 
@@ -12,5 +12,5 @@ class RuntimeError : std::exception {};
 
 RuntimeError reportRuntimeError(ErrorReporter &eReporter,
                                 const prsl::Types::Token &token,
-                                const std::string &message);
+                                const std::string &message) noexcept;
 } // namespace prsl::Errors

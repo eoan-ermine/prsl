@@ -8,7 +8,7 @@ namespace prsl::AST {
 template <typename ExprVisitRes = void, typename StmtVisitRes = void>
 class ASTVisitor {
 public:
-  ExprVisitRes visitExpr(const ExprPtrVariant &expr) {
+  constexpr ExprVisitRes visitExpr(const ExprPtrVariant &expr) {
     return std::visit<ExprVisitRes>(Utils::select{
       [&](const LiteralExprPtr &expr) { return visitLiteralExpr(expr); },
       [&](const GroupingExprPtr &expr) { return visitGroupingExpr(expr); },
@@ -23,7 +23,7 @@ public:
       [&](const CallExprPtr &expr) { return visitCallExpr(expr); }
     }, expr);
   }
-  StmtVisitRes visitStmt(const StmtPtrVariant &stmt) {
+  constexpr StmtVisitRes visitStmt(const StmtPtrVariant &stmt) {
     return std::visit<StmtVisitRes>(Utils::select{
       [&](const VarStmtPtr &stmt) { return visitVarStmt(stmt); },
       [&](const IfStmtPtr &stmt) { return visitIfStmt(stmt); },
@@ -36,7 +36,7 @@ public:
       [&](const NullStmtPtr &stmt) { return visitNullStmt(stmt); }
     }, stmt);
   }
-  virtual bool dump(std::string_view) = 0;
+  virtual bool dump(std::string_view) const = 0;
 
 protected:
   virtual ExprVisitRes visitLiteralExpr(const LiteralExprPtr &expr) = 0;

@@ -3,12 +3,14 @@
 #include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Evaluator/Environment.hpp"
-#include "prsl/Evaluator/Objects.hpp"
+#include "prsl/Interpreter/Objects.hpp"
+#include "prsl/Types/Environment.hpp"
+#include "prsl/Types/FunctionsManager.hpp"
 #include "prsl/Types/Token.hpp"
+
 #include <stack>
 
-namespace prsl::Evaluator {
+namespace prsl::Interpreter {
 
 using namespace AST;
 
@@ -17,10 +19,10 @@ using Errors::ErrorReporter;
 using Types::Token;
 using Type = Types::Token::Type;
 
-class Evaluator : public ASTVisitor<PrslObject> {
+class Interpreter : public ASTVisitor<PrslObject> {
 public:
-  explicit Evaluator(ErrorReporter &eReporter);
-  bool dump(std::string_view) override;
+  explicit Interpreter(ErrorReporter &eReporter);
+  bool dump(std::string_view) const override;
 
 private:
   PrslObject visitLiteralExpr(const LiteralExprPtr &expr) override;
@@ -45,14 +47,14 @@ private:
   void visitReturnStmt(const ReturnStmtPtr &stmt) override;
   void visitNullStmt(const NullStmtPtr &stmt) override;
 
-  int getInt(const Token &token, const PrslObject &obj);
+  int getInt(const Token &token, const PrslObject &obj) const;
   PrslObject evaluateScope(const ScopeExprPtr &scope);
 
 private:
   ErrorReporter &eReporter;
-  EnvironmentManager<PrslObject> envManager;
-  std::unordered_map<std::string_view, PrslObject> functionsManager;
+  Types::EnvironmentManager<PrslObject> envManager;
+  Types::FunctionsManager<PrslObject> functionsManager;
   std::stack<PrslObject> returnStack;
 };
 
-} // namespace prsl::Evaluator
+} // namespace prsl::Interpreter

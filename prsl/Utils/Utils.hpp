@@ -1,8 +1,6 @@
 #pragma once
 
-namespace prsl {
-
-namespace Utils {
+namespace prsl::Utils {
 
 // Не все компиляторы еще поддерживают стандартный unreachable,
 // Так что пусть будет такой
@@ -22,5 +20,3 @@ template <class... Ts> struct select : Ts... {
 };
 
 } // namespace Utils
-
-} // namespace prsl

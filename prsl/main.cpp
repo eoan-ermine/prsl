@@ -1,15 +1,14 @@
-#include <iostream>
-
 #include "prsl/Codegen/Codegen.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Evaluator/Evaluator.hpp"
+#include "prsl/Interpreter/Interpreter.hpp"
 #include "prsl/Parser/Parser.hpp"
 #include "prsl/Scanner/Scanner.hpp"
 #include "prsl/Semantics/Semantics.hpp"
-#include <fstream>
 
 #include <boost/program_options.hpp>
-#include <string_view>
+
+#include <fstream>
+#include <iostream>
 
 enum class InputMode { REPL, FILE };
 
@@ -135,8 +134,8 @@ int main(int argc, char *argv[]) try {
     execute<prsl::Codegen::Codegen>(inputFile, inputMode, executionMode,
                                     outputFile);
   } else {
-    execute<prsl::Evaluator::Evaluator>(inputFile, inputMode, executionMode,
-                                        outputFile);
+    execute<prsl::Interpreter::Interpreter>(inputFile, inputMode, executionMode,
+                                            outputFile);
   }
 } catch (const std::exception &e) {
   std::cout << "prsl: error: " << e.what() << '\n';

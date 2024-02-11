@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <string>
 #include <string_view>
 
@@ -12,25 +13,25 @@ public:
     COMMA,
     ELSE,
     EOF_,
-    EQUAL,
     EQUAL_EQUAL,
+    EQUAL,
     ERROR,
     FUNC,
-    GREATER,
     GREATER_EQUAL,
+    GREATER,
     IDENT,
     IF,
     INPUT,
     LEFT_BRACE,
     LEFT_PAREN,
-    LESS,
     LESS_EQUAL,
-    MINUS,
+    LESS,
     MINUS_MINUS,
+    MINUS,
     NOT_EQUAL,
     NUMBER,
-    PLUS,
     PLUS_PLUS,
+    PLUS,
     PRINT,
     RETURN,
     RIGHT_BRACE,
@@ -52,7 +53,7 @@ public:
    *
    * @throws None
    */
-  Token(Type type, std::string_view str, int line) noexcept
+  constexpr Token(Type type, std::string_view str, int line) noexcept
       : type(type), lexeme(str), line(line) {}
 
   /**
@@ -62,7 +63,7 @@ public:
    *
    * @throws None
    */
-  bool isError() const noexcept { return type == Type::ERROR; }
+  constexpr bool isError() const noexcept { return type == Type::ERROR; }
 
   /**
    * Get the type of the token.
@@ -71,7 +72,7 @@ public:
    *
    * @throws None
    */
-  Type getType() const noexcept { return type; }
+  constexpr Type getType() const noexcept { return type; }
 
   /**
    * Get the lexeme of the token.
@@ -80,7 +81,7 @@ public:
    *
    * @throws None
    */
-  std::string_view getLexeme() const noexcept { return lexeme; }
+  constexpr std::string_view getLexeme() const noexcept { return lexeme; }
 
   /**
    * Get the line number where the token appears.
@@ -89,17 +90,25 @@ public:
    *
    * @throws None
    */
-  int getLine() const noexcept { return line; }
+  constexpr int getLine() const noexcept { return line; }
 
   /**
    * Converts the token to a string.
    *
    * @return the string representation of the token
    */
-  std::string toString() const {
+  constexpr std::string toString() const {
     if (type == Token::Type::EOF_)
       return "EOF";
     return {lexeme.data(), lexeme.size()};
+  }
+
+  constexpr auto operator==(const Token &rhs) const noexcept {
+    return lexeme == rhs.lexeme;
+  }
+
+  constexpr auto operator<=>(const Token &rhs) const noexcept {
+    return lexeme <=> rhs.lexeme;
   }
 
 private:
@@ -109,3 +118,9 @@ private:
 };
 
 } // namespace prsl::Types
+
+template <> struct std::hash<prsl::Types::Token> {
+  std::size_t operator()(const prsl::Types::Token &token) const noexcept {
+    return std::hash<std::string_view>()(token.getLexeme());
+  }
+};

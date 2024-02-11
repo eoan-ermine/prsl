@@ -3,21 +3,17 @@
 #include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Evaluator/Environment.hpp"
+#include "prsl/Types/Environment.hpp"
+#include "prsl/Types/FunctionsManager.hpp"
 #include "prsl/Types/Token.hpp"
 
-#include "llvm/IR/BasicBlock.h"
-#include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
-#include "llvm/IR/Verifier.h"
-#include <llvm/IR/CallingConv.h>
-#include <llvm/IR/Instructions.h>
-#include <llvm/Support/FileSystem.h>
-#include <memory>
+
+#include <stack>
 
 namespace prsl::Codegen {
 
@@ -33,7 +29,7 @@ using Type = Types::Token::Type;
 class Codegen : public ASTVisitor<Value *, Value *> {
 public:
   explicit Codegen(ErrorReporter &eReporter);
-  bool dump(std::string_view filename) override;
+  bool dump(std::string_view filename) const override;
 
 private:
   Value *visitLiteralExpr(const LiteralExprPtr &expr) override;
@@ -69,8 +65,8 @@ private:
   std::unique_ptr<LLVMContext> context;
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;
-  Evaluator::EnvironmentManager<Value *> envManager;
-  std::unordered_map<std::string_view, Function *> functionsManager;
+  Types::EnvironmentManager<Value *> envManager;
+  Types::FunctionsManager<Function *> functionsManager;
   llvm::Type *intType;
   struct RetVal {
     Value *value;

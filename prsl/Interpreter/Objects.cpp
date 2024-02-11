@@ -1,17 +1,20 @@
-#include "Objects.hpp"
-
+#include "prsl/Interpreter/Objects.hpp"
 #include "prsl/Utils/Utils.hpp"
 
-namespace prsl::Evaluator {
+namespace prsl::Interpreter {
 
-FuncObj::FuncObj(const AST::FuncExprPtr &declaration)
+FuncObj::FuncObj(const AST::FuncExprPtr &declaration) noexcept
     : declaration(declaration) {}
 
-size_t FuncObj::paramsCount() const { return declaration->parameters.size(); }
+size_t FuncObj::paramsCount() const noexcept {
+  return declaration->parameters.size();
+}
 
-const AST::FuncExprPtr &FuncObj::getDeclaration() const { return declaration; }
+const AST::FuncExprPtr &FuncObj::getDeclaration() const noexcept {
+  return declaration;
+}
 
-bool areEqual(const PrslObject &lhs, const PrslObject &rhs) {
+bool areEqual(const PrslObject &lhs, const PrslObject &rhs) noexcept {
   return std::visit<bool>(
       Utils::select{
           [](const int &lhs, const int &rhs) { return lhs == rhs; },
@@ -33,7 +36,7 @@ std::string toString(const PrslObject &object) {
       object);
 }
 
-bool isTrue(const PrslObject &object) {
+bool isTrue(const PrslObject &object) noexcept {
   return std::visit<bool>(Utils::select{
                               [](const int &val) { return val != 0; },
                               [](const bool &val) { return val == true; },
@@ -42,4 +45,4 @@ bool isTrue(const PrslObject &object) {
                           object);
 }
 
-} // namespace prsl::Evaluator
+} // namespace prsl::Interpreter

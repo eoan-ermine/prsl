@@ -1,15 +1,14 @@
 #pragma once
 
-#include <cstddef>
-#include <exception>
-#include <memory>
-#include <unordered_map>
-
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
 #include "prsl/Types/Token.hpp"
 
-namespace prsl::Evaluator {
+#include <exception>
+#include <memory>
+#include <unordered_map>
+
+namespace prsl::Types {
 
 using prsl::Errors::ErrorReporter;
 
@@ -29,70 +28,53 @@ public:
       : parentEnv(std::move(parentEnv)) {}
 
   void assign(const Types::Token &token, VarValue object) {
-    assign(hasher(token.getLexeme()), std::move(object));
+    if (objects.contains(token)) {
+      objects.insert_or_assign(token, std::move(object));
+      return;
+    }
+    if (parentEnv != nullptr) {
+      return parentEnv->assign(token, std::move(object));
+    }
+
+    throw UndefVarAccess{};
   }
 
   void defineOrAssign(const Types::Token &token, VarValue object) {
-    defineOrAssign(hasher(token.getLexeme()), std::move(object));
-  }
-
-  VarValue get(const Types::Token &token) {
-    return get(hasher(token.getLexeme()));
-  }
-
-  bool contains(const Types::Token &token) {
-    return contains(hasher(token.getLexeme()));
-  }
-
-  EnvironmentPtr getParentEnv() { return parentEnv; }
-
-  bool isGlobal() { return parentEnv == nullptr; }
-
-private:
-  void assign(size_t varNameHash, VarValue object) {
-    auto iter = objects.find(varNameHash);
-    if (iter != objects.end()) {
-      objects.insert_or_assign(varNameHash, object);
+    if (!contains(token)) {
+      objects.insert_or_assign(token, std::move(object));
       return;
     }
 
-    if (parentEnv != nullptr)
-      return parentEnv->assign(varNameHash, std::move(object));
+    assign(token, std::move(object));
+  }
+
+  VarValue get(const Types::Token &token) const {
+    if (objects.contains(token)) {
+      return objects.at(token);
+    }
+    if (parentEnv != nullptr) {
+      return parentEnv->get(token);
+    }
 
     throw UndefVarAccess{};
   }
 
-  void defineOrAssign(size_t varNameHash, VarValue object) {
-    if (!contains(varNameHash)) {
-      objects.insert_or_assign(varNameHash, object);
-      return;
-    }
-    assign(varNameHash, object);
-  }
-
-  VarValue get(size_t varNameHash) {
-    auto it = objects.find(varNameHash);
-    if (it != objects.end()) {
-      return it->second;
+  bool contains(const Types::Token &token) const noexcept {
+    auto res = objects.contains(token);
+    if (!res && parentEnv != nullptr) {
+      return parentEnv->contains(token);
     }
 
-    if (parentEnv != nullptr)
-      return parentEnv->get(varNameHash);
-
-    throw UndefVarAccess{};
-  }
-
-  bool contains(size_t varNameHash) {
-    auto res = objects.contains(varNameHash);
-    if (!res && parentEnv != nullptr)
-      return parentEnv->contains(varNameHash);
     return res;
   }
 
+  EnvironmentPtr getParentEnv() const noexcept { return parentEnv; }
+
+  bool isGlobal() const noexcept { return parentEnv == nullptr; }
+
 private:
-  std::unordered_map<size_t, VarValue> objects;
+  std::unordered_map<Token, VarValue> objects;
   EnvironmentPtr parentEnv = nullptr;
-  std::hash<std::string_view> hasher;
 };
 
 template <typename VarValue> class EnvironmentManager {
@@ -132,7 +114,7 @@ public:
     curEnv->defineOrAssign(token, std::move(object));
   }
 
-  VarValue get(const Types::Token &token) {
+  VarValue get(const Types::Token &token) const {
     try {
       return curEnv->get(token);
     } catch (const UndefVarAccess &e) {
@@ -144,7 +126,9 @@ public:
     }
   }
 
-  bool contains(const Types::Token &token) { return curEnv->contains(token); }
+  bool contains(const Types::Token &token) const noexcept {
+    return curEnv->contains(token);
+  }
 
 private:
   void createNewEnv() {
@@ -152,9 +136,10 @@ private:
   }
 
   void discardEnvsTill(
-      const Environment<VarValue>::EnvironmentPtr &environToRestore) {
-    while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get())
+      const Environment<VarValue>::EnvironmentPtr &environToRestore) noexcept {
+    while (!curEnv->isGlobal() && curEnv.get() != environToRestore.get()) {
       curEnv = curEnv->getParentEnv();
+    }
   }
 
 private:
@@ -162,4 +147,4 @@ private:
   Environment<VarValue>::EnvironmentPtr curEnv;
 };
 
-}; // namespace prsl::Evaluator
+}; // namespace prsl::Types
