@@ -71,33 +71,29 @@ $(function() {
 <div class="contents">
 <a href="Utils_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl.html">prsl</a> {</div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespaceprsl_1_1Utils.html">    3</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl_1_1Utils.html">prsl::Utils</a> {</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="namespaceprsl_1_1Utils.html">    5</a></span>&#160;<span class="keyword">namespace </span>Utils {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// Не все компиляторы еще поддерживают стандартный unreachable,</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// Так что пусть будет такой</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="namespaceprsl_1_1Utils.html#a4baf96e43cfe051569952d8bf5a27503">    9</a></span>&#160;[[noreturn]] <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceprsl_1_1Utils.html#a4baf96e43cfe051569952d8bf5a27503">unreachable</a>() {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="comment">// Uses compiler specific extensions if possible.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="comment">// Even if no extension is used, undefined behavior is still raised by</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="comment">// an empty function body and the noreturn attribute.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; !defined(__clang__) </span><span class="comment">// MSVC</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">__assume</span>(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#else </span><span class="comment">// GCC, Clang</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  __builtin_unreachable();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structprsl_1_1Utils_1_1select.html">   20</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span>... Ts&gt; <span class="keyword">struct </span><a class="code" href="structprsl_1_1Utils_1_1select.html">select</a> : Ts... {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">using</span> Ts::operator()...;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace Utils</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace prsl</span></div>
-<div class="ttc" id="anamespaceprsl_1_1Utils_html_a4baf96e43cfe051569952d8bf5a27503"><div class="ttname"><a href="namespaceprsl_1_1Utils.html#a4baf96e43cfe051569952d8bf5a27503">prsl::Utils::unreachable</a></div><div class="ttdeci">void unreachable()</div><div class="ttdef"><b>Definition:</b> Utils.hpp:9</div></div>
-<div class="ttc" id="anamespaceprsl_html"><div class="ttname"><a href="namespaceprsl.html">prsl</a></div><div class="ttdef"><b>Definition:</b> ASTVisitor.hpp:6</div></div>
-<div class="ttc" id="astructprsl_1_1Utils_1_1select_html"><div class="ttname"><a href="structprsl_1_1Utils_1_1select.html">prsl::Utils::select</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:20</div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// Не все компиляторы еще поддерживают стандартный unreachable,</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Так что пусть будет такой</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespaceprsl_1_1Utils.html#a4baf96e43cfe051569952d8bf5a27503">    7</a></span>&#160;[[noreturn]] <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceprsl_1_1Utils.html#a4baf96e43cfe051569952d8bf5a27503">unreachable</a>() {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="comment">// Uses compiler specific extensions if possible.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="comment">// Even if no extension is used, undefined behavior is still raised by</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="comment">// an empty function body and the noreturn attribute.</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; !defined(__clang__) </span><span class="comment">// MSVC</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">__assume</span>(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#else </span><span class="comment">// GCC, Clang</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  __builtin_unreachable();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structprsl_1_1Utils_1_1select.html">   18</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span>... Ts&gt; <span class="keyword">struct </span><a class="code" href="structprsl_1_1Utils_1_1select.html">select</a> : Ts... {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">using</span> Ts::operator()...;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace Utils</span></div>
+<div class="ttc" id="anamespaceprsl_1_1Utils_html"><div class="ttname"><a href="namespaceprsl_1_1Utils.html">prsl::Utils</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:3</div></div>
+<div class="ttc" id="anamespaceprsl_1_1Utils_html_a4baf96e43cfe051569952d8bf5a27503"><div class="ttname"><a href="namespaceprsl_1_1Utils.html#a4baf96e43cfe051569952d8bf5a27503">prsl::Utils::unreachable</a></div><div class="ttdeci">void unreachable()</div><div class="ttdef"><b>Definition:</b> Utils.hpp:7</div></div>
+<div class="ttc" id="astructprsl_1_1Utils_1_1select_html"><div class="ttname"><a href="structprsl_1_1Utils_1_1select.html">prsl::Utils::select</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

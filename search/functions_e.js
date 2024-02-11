@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['token_392',['Token',['../classprsl_1_1Types_1_1Token.html#aad88807d7365650199a218bbfea9bff6',1,'prsl::Types::Token']]],
-  ['tokenize_393',['tokenize',['../classprsl_1_1Scanner_1_1Scanner.html#a037306cb4ba0c2aee0905fe2bbe7c3b8',1,'prsl::Scanner::Scanner']]],
-  ['tokenizeone_394',['tokenizeOne',['../classprsl_1_1Scanner_1_1Scanner.html#afc33f9fbb9091c8f3c777d6323e39121',1,'prsl::Scanner::Scanner']]],
-  ['tostring_395',['toString',['../classprsl_1_1Types_1_1Token.html#a4d62901aca1fd637ceb30ccf344b53cb',1,'prsl::Types::Token::toString()'],['../namespaceprsl_1_1Evaluator.html#a1e7109270233fa8fc909436ef2ddd9d7',1,'prsl::Evaluator::toString()']]]
+  ['scanner_407',['Scanner',['../classprsl_1_1Scanner_1_1Scanner.html#ada718fb93c54941cc8f5c49fbceddfb4',1,'prsl::Scanner::Scanner']]],
+  ['scopeexpr_408',['ScopeExpr',['../structprsl_1_1AST_1_1ScopeExpr.html#a0175a0f7d91a5eb2f41dfcc1f9dbce3f',1,'prsl::AST::ScopeExpr']]],
+  ['semantics_409',['Semantics',['../classprsl_1_1Semantics_1_1Semantics.html#a45e12dadcfe5da7a4144029b2a18edfd',1,'prsl::Semantics::Semantics']]],
+  ['set_410',['set',['../classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda',1,'prsl::Types::FunctionsManager']]],
+  ['seterror_411',['setError',['../classprsl_1_1Errors_1_1ErrorReporter.html#a094132e92f671c6eea3c6e610b6b2578',1,'prsl::Errors::ErrorReporter']]]
 ];

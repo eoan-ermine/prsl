@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['callexpr_14',['CallExpr',['../structprsl_1_1AST_1_1CallExpr.html#ac4f60798653c659dbd97d2ca38367ea1',1,'prsl::AST::CallExpr::CallExpr()'],['../structprsl_1_1AST_1_1CallExpr.html',1,'prsl::AST::CallExpr']]],
+  ['callexpr_14',['CallExpr',['../structprsl_1_1AST_1_1CallExpr.html#a42dda283ac25289e015259d3a39db183',1,'prsl::AST::CallExpr::CallExpr()'],['../structprsl_1_1AST_1_1CallExpr.html',1,'prsl::AST::CallExpr']]],
   ['callexprptr_15',['CallExprPtr',['../namespaceprsl_1_1AST.html#a93a8095fe668035385b95969504af088',1,'prsl::AST']]],
   ['checkexecution_16',['checkExecution',['../main_8cpp.html#a6b18d3517854cbfceeac4cbb5581215e',1,'main.cpp']]],
-  ['clearerrors_17',['clearErrors',['../classprsl_1_1Errors_1_1ErrorReporter.html#ae3116e838a5077b32938f4154a892f27',1,'prsl::Errors::ErrorReporter']]],
+  ['clearerrors_17',['clearErrors',['../classprsl_1_1Errors_1_1ErrorReporter.html#a6c0a056cffe1637f7b278eb7933df906',1,'prsl::Errors::ErrorReporter']]],
   ['codegen_18',['Codegen',['../classprsl_1_1Codegen_1_1Codegen.html#a0d5bfd923a9437240d1842bfc6dc09fc',1,'prsl::Codegen::Codegen::Codegen()'],['../classprsl_1_1Codegen_1_1Codegen.html',1,'prsl::Codegen::Codegen']]],
   ['codegen_2ecpp_19',['Codegen.cpp',['../Codegen_8cpp.html',1,'']]],
   ['codegen_2ehpp_20',['Codegen.hpp',['../Codegen_8hpp.html',1,'']]],
@@ -11,7 +11,7 @@ var searchData=
   ['comma_22',['COMMA',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030a4d9b3e9fc12849d060371eb65154c751',1,'prsl::Types::Token']]],
   ['condition_23',['condition',['../structprsl_1_1AST_1_1IfStmt.html#a4f4d2877ee4efd3083845ff232fab86e',1,'prsl::AST::IfStmt::condition()'],['../structprsl_1_1AST_1_1WhileStmt.html#a4b470a645abfdb8bc392ed09c16777ee',1,'prsl::AST::WhileStmt::condition()']]],
   ['conflicting_5foptions_24',['conflicting_options',['../main_8cpp.html#aa6a64ccd9c6b7bf07a05a27d0298e0be',1,'main.cpp']]],
-  ['contains_25',['contains',['../classprsl_1_1Evaluator_1_1Environment.html#a26b37c3e27f88dd324e09e875c024a08',1,'prsl::Evaluator::Environment::contains()'],['../classprsl_1_1Evaluator_1_1EnvironmentManager.html#aac7fab89915c6c531f7232224018ea39',1,'prsl::Evaluator::EnvironmentManager::contains()']]],
+  ['contains_25',['contains',['../classprsl_1_1Types_1_1Environment.html#ae1d5e21c834c2a9b969878e42519cb70',1,'prsl::Types::Environment::contains()'],['../classprsl_1_1Types_1_1EnvironmentManager.html#a9e86b4e6eb33f33069c44a294dd37d7a',1,'prsl::Types::EnvironmentManager::contains()'],['../classprsl_1_1Types_1_1FunctionsManager.html#ab1e598894942201f9fee385bdfa5a678',1,'prsl::Types::FunctionsManager::contains()']]],
   ['createassignmentepv_26',['createAssignmentEPV',['../namespaceprsl_1_1AST.html#af453278e169d7aa5fcd9bf29a1ee740a',1,'prsl::AST']]],
   ['createbinaryepv_27',['createBinaryEPV',['../namespaceprsl_1_1AST.html#aaff0885a24b07185bfa57e3fc2cd76ed',1,'prsl::AST']]],
   ['createblockspv_28',['createBlockSPV',['../namespaceprsl_1_1AST.html#ab44243b63201a8aa5ccfeadedd375fe1',1,'prsl::AST']]],

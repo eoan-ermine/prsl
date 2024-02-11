@@ -67,8 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">Semantics.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -76,34 +75,33 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="NodeTypes_8hpp_source.html">prsl/AST/NodeTypes.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TreeWalkerVisitor_8hpp_source.html">prsl/AST/TreeWalkerVisitor.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrorReporter_8hpp_source.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Evaluator/Environment.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Token_8hpp_source.html">prsl/Types/Token.hpp</a>&quot;</code><br />
-<code>#include &lt;string_view&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Types/Environment.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="FunctionsManager_8hpp_source.html">prsl/Types/FunctionsManager.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Semantics.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Semantics_8hpp__incl.png" border="0" usemap="#aprsl_2Semantics_2Semantics_8hpp" alt=""/></div>
 <map name="aprsl_2Semantics_2Semantics_8hpp" id="aprsl_2Semantics_2Semantics_8hpp">
-<area shape="rect" title=" " alt="" coords="423,5,641,32"/>
-<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="47,229,225,256"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="610,304,750,331"/>
-<area shape="rect" title=" " alt="" coords="949,379,1046,405"/>
-<area shape="rect" href="TreeWalkerVisitor_8hpp.html" title=" " alt="" coords="219,80,437,107"/>
-<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="375,304,585,331"/>
-<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="616,155,843,181"/>
-<area shape="rect" title=" " alt="" coords="1051,229,1175,256"/>
-<area shape="rect" title=" " alt="" coords="269,304,347,331"/>
-<area shape="rect" title=" " alt="" coords="5,304,80,331"/>
-<area shape="rect" title=" " alt="" coords="105,304,173,331"/>
-<area shape="rect" title=" " alt="" coords="275,379,338,405"/>
-<area shape="rect" title=" " alt="" coords="651,379,709,405"/>
-<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="235,155,408,181"/>
-<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="250,229,393,256"/>
-<area shape="rect" title=" " alt="" coords="443,379,517,405"/>
-<area shape="rect" title=" " alt="" coords="905,229,975,256"/>
-<area shape="rect" title=" " alt="" coords="899,304,986,331"/>
-<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="671,229,881,256"/>
+<area shape="rect" title=" " alt="" coords="346,5,565,32"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="21,229,199,256"/>
+<area shape="rect" href="TreeWalkerVisitor_8hpp.html" title=" " alt="" coords="193,80,411,107"/>
+<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="350,304,561,331"/>
+<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="547,155,750,181"/>
+<area shape="rect" href="FunctionsManager_8hpp.html" title=" " alt="" coords="823,155,1061,181"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="636,304,792,331"/>
+<area shape="rect" title=" " alt="" coords="249,304,326,331"/>
+<area shape="rect" title=" " alt="" coords="149,304,223,331"/>
+<area shape="rect" title=" " alt="" coords="5,304,73,331"/>
+<area shape="rect" title=" " alt="" coords="205,379,268,405"/>
+<area shape="rect" title=" " alt="" coords="671,379,757,405"/>
+<area shape="rect" title=" " alt="" coords="887,379,984,405"/>
+<area shape="rect" title=" " alt="" coords="569,379,627,405"/>
+<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="209,155,382,181"/>
+<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="224,229,367,256"/>
+<area shape="rect" title=" " alt="" coords="418,379,493,405"/>
+<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="544,229,753,256"/>
+<area shape="rect" title=" " alt="" coords="816,304,903,331"/>
+<area shape="rect" title=" " alt="" coords="880,229,1004,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -130,11 +128,6 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceprsl_1_1Semantics"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Semantics.html">prsl::Semantics</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a5f2b016e9c3c280526e5e136c22f667c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Semantics.html#a5f2b016e9c3c280526e5e136c22f667c">prsl::Semantics::Type</a> = Types::Token::Type</td></tr>
-<tr class="separator:a5f2b016e9c3c280526e5e136c22f667c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

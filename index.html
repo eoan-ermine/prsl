@@ -187,9 +187,10 @@ EBNF</h2>
 <div class="line"> </div>
 <div class="line">&lt;stmt&gt; ::=</div>
 <div class="line">  &lt;ifStmt&gt;</div>
-<div class="line">  | &lt;blockStmt&gt;</div>
 <div class="line">  | &lt;whileStmt&gt;</div>
 <div class="line">  | &lt;printStmt&gt;</div>
+<div class="line">  | &lt;exprStmt&gt;</div>
+<div class="line">  | &lt;blockStmt&gt;</div>
 <div class="line">  | &lt;returnStmt&gt;</div>
 <div class="line">  | &lt;nullStmt&gt;</div>
 <div class="line"> </div>
@@ -197,14 +198,17 @@ EBNF</h2>
 <div class="line">  &quot;if(&quot; &lt;expr&gt; &quot;)&quot; &lt;stmt&gt;</div>
 <div class="line">  | &quot;if(&quot; &lt;expr&gt; &quot;)&quot; &lt;stmt&gt; &quot;else&quot; &lt;stmt&gt;</div>
 <div class="line"> </div>
-<div class="line">&lt;blockStmt&gt; ::=</div>
-<div class="line">  &quot;{&quot; &lt;program&gt; &quot;}&quot;</div>
-<div class="line"> </div>
 <div class="line">&lt;whileStmt&gt; ::=</div>
 <div class="line">  &quot;while(&quot; &lt;expr&gt; &quot;)&quot; &lt;stmt&gt;</div>
 <div class="line"> </div>
 <div class="line">&lt;printStmt&gt; ::=</div>
 <div class="line">  &quot;print&quot; &lt;expr&gt; &quot;;&quot;</div>
+<div class="line"> </div>
+<div class="line">&lt;exprStmt&gt; ::=</div>
+<div class="line">  &lt;expr&gt; &quot;;&quot;</div>
+<div class="line"> </div>
+<div class="line">&lt;blockStmt&gt; ::=</div>
+<div class="line">  &quot;{&quot; &lt;program&gt; &quot;}&quot;</div>
 <div class="line"> </div>
 <div class="line">&lt;returnStmt&gt; ::=</div>
 <div class="line">  &quot;return&quot; &lt;expr&gt; &quot;;&quot;</div>

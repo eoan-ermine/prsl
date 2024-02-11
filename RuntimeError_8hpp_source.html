@@ -71,26 +71,27 @@ $(function() {
 <div class="contents">
 <a href="RuntimeError_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ErrorReporter_8hpp.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Token_8hpp.html">prsl/Types/Token.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../Types/Token.hpp&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl_1_1Errors.html">prsl::Errors</a> {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classprsl_1_1Errors_1_1RuntimeError.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a> : std::exception {};</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a> <a class="code" href="namespaceprsl_1_1Errors.html#a1eadb921bfcf787ef05c5b986a9cfac1">reportRuntimeError</a>(<a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a> <a class="code" href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">reportRuntimeError</a>(<a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter,</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                <span class="keyword">const</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;token,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                <span class="keyword">const</span> std::string &amp;message);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                <span class="keyword">const</span> std::string &amp;message) noexcept;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace prsl::Errors</span></div>
 <div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
+<div class="ttc" id="aToken_8hpp_html"><div class="ttname"><a href="Token_8hpp.html">Token.hpp</a></div></div>
 <div class="ttc" id="aclassprsl_1_1Errors_1_1ErrorReporter_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.hpp:11</div></div>
 <div class="ttc" id="aclassprsl_1_1Errors_1_1RuntimeError_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1RuntimeError.html">prsl::Errors::RuntimeError</a></div><div class="ttdef"><b>Definition:</b> RuntimeError.hpp:11</div></div>
-<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:8</div></div>
+<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:9</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Errors_html"><div class="ttname"><a href="namespaceprsl_1_1Errors.html">prsl::Errors</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.cpp:5</div></div>
-<div class="ttc" id="anamespaceprsl_1_1Errors_html_a1eadb921bfcf787ef05c5b986a9cfac1"><div class="ttname"><a href="namespaceprsl_1_1Errors.html#a1eadb921bfcf787ef05c5b986a9cfac1">prsl::Errors::reportRuntimeError</a></div><div class="ttdeci">RuntimeError reportRuntimeError(ErrorReporter &amp;eReporter, const prsl::Types::Token &amp;token, const std::string &amp;message)</div><div class="ttdef"><b>Definition:</b> RuntimeError.cpp:5</div></div>
+<div class="ttc" id="anamespaceprsl_1_1Errors_html_aadb63e5f0168e301f2c7496076102fe2"><div class="ttname"><a href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">prsl::Errors::reportRuntimeError</a></div><div class="ttdeci">RuntimeError reportRuntimeError(ErrorReporter &amp;eReporter, const prsl::Types::Token &amp;token, const std::string &amp;message) noexcept</div><div class="ttdef"><b>Definition:</b> RuntimeError.cpp:5</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

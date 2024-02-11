@@ -1,10 +1,11 @@
 <map id="prsl/Debug/RuntimeError.hpp" name="prsl/Debug/RuntimeError.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="135,5,344,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,92,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="265,155,323,181"/>
-<area shape="rect" id="node4" href="$Token_8hpp.html" title=" " alt="" coords="116,80,256,107"/>
-<area shape="rect" id="node6" href="$ErrorReporter_8hpp.html" title=" " alt="" coords="331,80,467,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="137,155,235,181"/>
-<area shape="rect" id="node7" title=" " alt="" coords="354,155,429,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="453,155,516,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="206,5,415,32"/>
+<area shape="rect" id="node2" href="$ErrorReporter_8hpp.html" title=" " alt="" coords="5,80,216,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="224,155,283,181"/>
+<area shape="rect" id="node6" href="$Token_8hpp.html" title=" " alt="" coords="291,80,447,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="471,80,558,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="9,155,84,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="109,155,171,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="317,155,403,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="427,155,525,181"/>
 </map>

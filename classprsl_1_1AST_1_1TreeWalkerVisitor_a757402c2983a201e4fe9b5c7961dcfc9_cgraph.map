@@ -1,6 +1,6 @@
 <map id="prsl::AST::TreeWalkerVisitor::visitVarStmt" name="prsl::AST::TreeWalkerVisitor::visitVarStmt">
 <area shape="rect" id="node1" title=" " alt="" coords="5,332,204,373"/>
-<area shape="rect" id="node2" href="$classprsl_1_1AST_1_1ASTVisitor.html#a5e7a115ddb58953d63d58ca76f0cfd9b" title=" " alt="" coords="252,332,405,373"/>
+<area shape="rect" id="node2" href="$classprsl_1_1AST_1_1ASTVisitor.html#a1ee234c0ee764f711bf3a96263fc9871" title=" " alt="" coords="252,332,405,373"/>
 <area shape="rect" id="node3" href="$classprsl_1_1AST_1_1ASTVisitor.html#a4cb4efdb37932e99ed1a87cb34a488ff" title=" " alt="" coords="453,5,617,47"/>
 <area shape="rect" id="node4" href="$classprsl_1_1AST_1_1ASTVisitor.html#a00da82a869e777a63a0d7eb7a75f44ec" title=" " alt="" coords="459,71,612,112"/>
 <area shape="rect" id="node5" href="$classprsl_1_1AST_1_1ASTVisitor.html#aee8e096a481d59d78de08c46b84f3d44" title=" " alt="" coords="459,136,612,177"/>

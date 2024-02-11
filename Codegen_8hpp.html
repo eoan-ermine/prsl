@@ -76,54 +76,45 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="ASTVisitor_8hpp_source.html">prsl/AST/ASTVisitor.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NodeTypes_8hpp_source.html">prsl/AST/NodeTypes.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrorReporter_8hpp_source.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Evaluator/Environment.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Types/Environment.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="FunctionsManager_8hpp_source.html">prsl/Types/FunctionsManager.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Token_8hpp_source.html">prsl/Types/Token.hpp</a>&quot;</code><br />
-<code>#include &quot;llvm/IR/BasicBlock.h&quot;</code><br />
-<code>#include &quot;llvm/IR/DerivedTypes.h&quot;</code><br />
 <code>#include &quot;llvm/IR/Function.h&quot;</code><br />
 <code>#include &quot;llvm/IR/IRBuilder.h&quot;</code><br />
 <code>#include &quot;llvm/IR/LLVMContext.h&quot;</code><br />
 <code>#include &quot;llvm/IR/Module.h&quot;</code><br />
 <code>#include &quot;llvm/IR/Type.h&quot;</code><br />
-<code>#include &quot;llvm/IR/Verifier.h&quot;</code><br />
-<code>#include &lt;llvm/IR/CallingConv.h&gt;</code><br />
-<code>#include &lt;llvm/IR/Instructions.h&gt;</code><br />
-<code>#include &lt;llvm/Support/FileSystem.h&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;stack&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Codegen.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Codegen_8hpp__incl.png" border="0" usemap="#aprsl_2Codegen_2Codegen_8hpp" alt=""/></div>
 <map name="aprsl_2Codegen_2Codegen_8hpp" id="aprsl_2Codegen_2Codegen_8hpp">
-<area shape="rect" title=" " alt="" coords="1362,5,1558,32"/>
-<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="179,80,352,107"/>
-<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="5,155,184,181"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="462,229,602,256"/>
-<area shape="rect" title=" " alt="" coords="351,229,428,256"/>
-<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="833,229,1044,256"/>
-<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="713,80,940,107"/>
-<area shape="rect" title=" " alt="" coords="1015,80,1169,107"/>
-<area shape="rect" title=" " alt="" coords="1194,80,1366,107"/>
-<area shape="rect" title=" " alt="" coords="1391,80,1529,107"/>
-<area shape="rect" title=" " alt="" coords="1554,80,1697,107"/>
-<area shape="rect" title=" " alt="" coords="1721,80,1890,107"/>
-<area shape="rect" title=" " alt="" coords="1914,80,2046,107"/>
-<area shape="rect" title=" " alt="" coords="2071,80,2185,107"/>
-<area shape="rect" title=" " alt="" coords="2210,80,2339,107"/>
-<area shape="rect" title=" " alt="" coords="2363,80,2525,107"/>
-<area shape="rect" title=" " alt="" coords="2549,80,2709,107"/>
-<area shape="rect" title=" " alt="" coords="2734,80,2927,107"/>
-<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="209,155,351,181"/>
-<area shape="rect" title=" " alt="" coords="9,229,84,256"/>
-<area shape="rect" title=" " alt="" coords="109,229,177,256"/>
-<area shape="rect" title=" " alt="" coords="586,304,649,331"/>
-<area shape="rect" title=" " alt="" coords="673,304,732,331"/>
-<area shape="rect" title=" " alt="" coords="465,304,562,331"/>
-<area shape="rect" title=" " alt="" coords="901,304,976,331"/>
-<area shape="rect" title=" " alt="" coords="865,155,935,181"/>
-<area shape="rect" title=" " alt="" coords="722,229,809,256"/>
-<area shape="rect" title=" " alt="" coords="1011,155,1135,181"/>
-<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="579,155,789,181"/>
+<area shape="rect" title=" " alt="" coords="1000,5,1196,32"/>
+<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="203,80,377,107"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="15,155,194,181"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="675,229,831,256"/>
+<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="389,229,599,256"/>
+<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="597,80,799,107"/>
+<area shape="rect" href="FunctionsManager_8hpp.html" title=" " alt="" coords="874,80,1111,107"/>
+<area shape="rect" title=" " alt="" coords="1135,80,1274,107"/>
+<area shape="rect" title=" " alt="" coords="1299,80,1441,107"/>
+<area shape="rect" title=" " alt="" coords="1465,80,1635,107"/>
+<area shape="rect" title=" " alt="" coords="1659,80,1791,107"/>
+<area shape="rect" title=" " alt="" coords="1815,80,1930,107"/>
+<area shape="rect" title=" " alt="" coords="1955,80,2012,107"/>
+<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="219,155,361,181"/>
+<area shape="rect" title=" " alt="" coords="274,229,351,256"/>
+<area shape="rect" title=" " alt="" coords="149,229,223,256"/>
+<area shape="rect" title=" " alt="" coords="5,229,73,256"/>
+<area shape="rect" title=" " alt="" coords="225,304,288,331"/>
+<area shape="rect" title=" " alt="" coords="709,304,796,331"/>
+<area shape="rect" title=" " alt="" coords="925,304,1023,331"/>
+<area shape="rect" title=" " alt="" coords="607,304,666,331"/>
+<area shape="rect" title=" " alt="" coords="457,304,531,331"/>
+<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="539,155,748,181"/>
+<area shape="rect" title=" " alt="" coords="855,229,941,256"/>
+<area shape="rect" title=" " alt="" coords="925,155,1049,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">

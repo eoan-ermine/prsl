@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>prsl: prsl/Evaluator/Objects.cpp File Reference</title>
+<title>prsl: prsl/Interpreter/Objects.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5a43f1695889f7317406ca1d529cb5db.html">prsl</a></li><li class="navelem"><a class="el" href="dir_4958012c0875a7cbc7cf0370a05532dd.html">Evaluator</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5a43f1695889f7317406ca1d529cb5db.html">prsl</a></li><li class="navelem"><a class="el" href="dir_bab8f18b91ab6468a3f02ddab3314874.html">Interpreter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,25 +72,26 @@ $(function() {
 <div class="title">Objects.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="Objects_8hpp_source.html">Objects.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="Objects_8hpp_source.html">prsl/Interpreter/Objects.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Utils_8hpp_source.html">prsl/Utils/Utils.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Objects.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="Objects_8cpp__incl.png" border="0" usemap="#aprsl_2Evaluator_2Objects_8cpp" alt=""/></div>
-<map name="aprsl_2Evaluator_2Objects_8cpp" id="aprsl_2Evaluator_2Objects_8cpp">
-<area shape="rect" title=" " alt="" coords="235,5,427,32"/>
-<area shape="rect" href="Objects_8hpp.html" title=" " alt="" coords="210,80,309,107"/>
-<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="333,80,476,107"/>
-<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="170,155,349,181"/>
-<area shape="rect" title=" " alt="" coords="9,304,67,331"/>
+<div class="center"><img src="Objects_8cpp__incl.png" border="0" usemap="#aprsl_2Interpreter_2Objects_8cpp" alt=""/></div>
+<map name="aprsl_2Interpreter_2Objects_8cpp" id="aprsl_2Interpreter_2Objects_8cpp">
+<area shape="rect" title=" " alt="" coords="269,5,468,32"/>
+<area shape="rect" href="Objects_8hpp.html" title=" " alt="" coords="171,80,371,107"/>
+<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="395,80,537,107"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="182,155,361,181"/>
+<area shape="rect" title=" " alt="" coords="13,304,71,331"/>
 <area shape="rect" title=" " alt="" coords="22,229,99,256"/>
-<area shape="rect" title=" " alt="" coords="475,229,543,256"/>
-<area shape="rect" title=" " alt="" coords="424,155,495,181"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="124,229,264,256"/>
-<area shape="rect" title=" " alt="" coords="289,229,363,256"/>
-<area shape="rect" title=" " alt="" coords="388,229,451,256"/>
-<area shape="rect" title=" " alt="" coords="145,304,243,331"/>
+<area shape="rect" title=" " alt="" coords="491,229,559,256"/>
+<area shape="rect" title=" " alt="" coords="436,155,507,181"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="124,229,280,256"/>
+<area shape="rect" title=" " alt="" coords="305,229,379,256"/>
+<area shape="rect" title=" " alt="" coords="404,229,467,256"/>
+<area shape="rect" title=" " alt="" coords="245,304,332,331"/>
+<area shape="rect" title=" " alt="" coords="124,304,221,331"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -98,17 +99,17 @@ Include dependency graph for Objects.cpp:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceprsl"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl.html">prsl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceprsl_1_1Evaluator"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html">prsl::Evaluator</a></td></tr>
+<tr class="memitem:namespaceprsl_1_1Interpreter"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Interpreter.html">prsl::Interpreter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6cc4b9fdd51606b1a954c0eb06ae8c69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a6cc4b9fdd51606b1a954c0eb06ae8c69">prsl::Evaluator::areEqual</a> (const PrslObject &amp;lhs, const PrslObject &amp;rhs)</td></tr>
-<tr class="separator:a6cc4b9fdd51606b1a954c0eb06ae8c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e7109270233fa8fc909436ef2ddd9d7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a1e7109270233fa8fc909436ef2ddd9d7">prsl::Evaluator::toString</a> (const PrslObject &amp;object)</td></tr>
-<tr class="separator:a1e7109270233fa8fc909436ef2ddd9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69f2e79cbb3887d0a007641ed9666d04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Evaluator.html#a69f2e79cbb3887d0a007641ed9666d04">prsl::Evaluator::isTrue</a> (const PrslObject &amp;object)</td></tr>
-<tr class="separator:a69f2e79cbb3887d0a007641ed9666d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad85b9cfba9d0c14510b0a291a6d15afd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Interpreter.html#ad85b9cfba9d0c14510b0a291a6d15afd">prsl::Interpreter::areEqual</a> (const PrslObject &amp;lhs, const PrslObject &amp;rhs) noexcept</td></tr>
+<tr class="separator:ad85b9cfba9d0c14510b0a291a6d15afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b0f1de5eec48e7c36c885940425733a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Interpreter.html#a2b0f1de5eec48e7c36c885940425733a">prsl::Interpreter::toString</a> (const PrslObject &amp;object)</td></tr>
+<tr class="separator:a2b0f1de5eec48e7c36c885940425733a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa16b6d2e4374152bb44d7795d670b98f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Interpreter.html#aa16b6d2e4374152bb44d7795d670b98f">prsl::Interpreter::isTrue</a> (const PrslObject &amp;object) noexcept</td></tr>
+<tr class="separator:aa16b6d2e4374152bb44d7795d670b98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['define_46',['define',['../classprsl_1_1Evaluator_1_1EnvironmentManager.html#a67f6252d28e2c1309d2ba7caa8ab68bf',1,'prsl::Evaluator::EnvironmentManager']]],
-  ['defineorassign_47',['defineOrAssign',['../classprsl_1_1Evaluator_1_1Environment.html#a7b1136ba21938dda99b0a8b0b65cbe7a',1,'prsl::Evaluator::Environment']]],
-  ['dump_48',['dump',['../classprsl_1_1AST_1_1ASTVisitor.html#a05008e5be58483cce90f3083762872a1',1,'prsl::AST::ASTVisitor::dump()'],['../classprsl_1_1Codegen_1_1Codegen.html#a13f8b5504ca062f1afca9bf1cf3abb5b',1,'prsl::Codegen::Codegen::dump()'],['../classprsl_1_1Evaluator_1_1Evaluator.html#ad99fca3655bc046c72d2923c15068be0',1,'prsl::Evaluator::Evaluator::dump()'],['../classprsl_1_1Semantics_1_1Semantics.html#a5918561dee155b0ae71010aacb3cceeb',1,'prsl::Semantics::Semantics::dump()']]]
+  ['define_46',['define',['../classprsl_1_1Types_1_1EnvironmentManager.html#a9e2791c6a34dcfb84d120f2b380479e0',1,'prsl::Types::EnvironmentManager']]],
+  ['defineorassign_47',['defineOrAssign',['../classprsl_1_1Types_1_1Environment.html#a97e9c8b211e76d161a52b46b28464f68',1,'prsl::Types::Environment']]],
+  ['dump_48',['dump',['../classprsl_1_1AST_1_1ASTVisitor.html#a4a87682e387bd62a64d61556b46a2e22',1,'prsl::AST::ASTVisitor::dump()'],['../classprsl_1_1Codegen_1_1Codegen.html#abf47ddf856407c3e8898e613d8bfef99',1,'prsl::Codegen::Codegen::dump()'],['../classprsl_1_1Interpreter_1_1Interpreter.html#aa55fb95ac4669a99205244cf4c07318a',1,'prsl::Interpreter::Interpreter::dump()'],['../classprsl_1_1Semantics_1_1Semantics.html#a1d690eeb481c3282cd6a56a8cd4e53c2',1,'prsl::Semantics::Semantics::dump()']]]
 ];
