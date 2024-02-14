@@ -88,11 +88,15 @@ if (NOT DISABLE_BUILDING_EXECUTABLE)
     install(TARGETS ${PROJECT_NAME})
 endif()
 
-add_custom_target(check-all
-    COMMAND lit -v -D edir=${CMAKE_CURRENT_BINARY_DIR} ../test
-    DEPENDS ${PROJECT_NAME}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
+find_program(CLANG_BINARY clang)
+if(CLANG_BINARY)
+    message(STATUS "Clang path: ${CLANG_BINARY}")
+    add_custom_target(check-all
+        COMMAND lit -v -D edir=${CMAKE_CURRENT_BINARY_DIR} -D clang=${CLANG_BINARY} ../test
+        DEPENDS ${PROJECT_NAME}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+endif()
 
 add_clang_format_target()
 add_docs_target()
