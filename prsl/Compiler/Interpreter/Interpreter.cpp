@@ -1,15 +1,18 @@
-#include "prsl/Interpreter/Interpreter.hpp"
+#include "prsl/Compiler/Interpreter/Interpreter.hpp"
 #include "prsl/AST/TreeWalkerVisitor.hpp"
+#include "prsl/Compiler/CompilerFlags.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
 
 #include <iostream>
 
 namespace prsl::Interpreter {
 
-Interpreter::Interpreter(ErrorReporter &eReporter)
-    : eReporter(eReporter), envManager(eReporter) {}
+Interpreter::Interpreter(Compiler::CompilerFlags *flags, ErrorReporter &eReporter)
+    : flags(flags), eReporter(eReporter), envManager(eReporter) {}
 
-bool Interpreter::dump(std::string_view) const { return false; }
+bool Interpreter::dump(const std::filesystem::path &path) const {
+  return false;
+}
 
 int Interpreter::getInt(const Token &token, const PrslObject &obj) const {
   if (!std::holds_alternative<int>(obj))
@@ -149,7 +152,7 @@ PrslObject Interpreter::visitFuncExpr(const FuncExprPtr &expr) {
   public:
     FunctionsResolver(Types::FunctionsManager<PrslObject> &functionsManager)
         : functionsManager(functionsManager) {}
-    bool dump(std::string_view) const override { return false; }
+    bool dump(const std::filesystem::path &path) const { return false; }
     void visitFuncExpr(const FuncExprPtr &expr) override {
       functionsManager.set(expr->name->getLexeme(),
                            PrslObject{std::make_shared<FuncObj>(expr)});

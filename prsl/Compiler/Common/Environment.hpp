@@ -2,7 +2,7 @@
 
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
-#include "prsl/Types/Token.hpp"
+#include "prsl/Parser/Token.hpp"
 
 #include <exception>
 #include <memory>

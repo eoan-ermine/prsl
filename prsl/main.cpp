@@ -1,82 +1,11 @@
-#include "prsl/Codegen/Codegen.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Interpreter/Interpreter.hpp"
-#include "prsl/Parser/Parser.hpp"
-#include "prsl/Scanner/Scanner.hpp"
-#include "prsl/Semantics/Semantics.hpp"
+#include "prsl/Compiler/Compiler.hpp"
+#include "prsl/Compiler/CompilerFlags.hpp"
+#include <config.hpp>
 
 #include <boost/program_options.hpp>
-
-#include <fstream>
 #include <iostream>
 
-enum class InputMode { REPL, FILE };
-
-enum class ExecutionMode { PARSE, EXECUTE };
-
-template <typename T>
-auto checkExecution(T &executor, const prsl::AST::StmtPtrVariant &stmt,
-                    prsl::Errors::ErrorReporter &eReporter) {
-  try {
-    executor.visitStmt(stmt);
-  } catch (const prsl::Errors::RuntimeError &e) {
-    eReporter.printToErr();
-  }
-  return eReporter.getStatus() == prsl::Errors::PrslStatus::OK;
-}
-
-auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
-  prsl::Scanner::Scanner scanner(source);
-  auto tokens = scanner.tokenize();
-  prsl::Parser::Parser parser(tokens, eReporter);
-  return parser.parse();
-}
-
-auto resolve(prsl::Errors::ErrorReporter &eReporter,
-             const prsl::AST::StmtPtrVariant &stmt) {
-  prsl::Semantics::Semantics resolver(eReporter);
-  return checkExecution(resolver, stmt, eReporter);
-}
-
-template <typename T>
-auto execute(std::string_view inputFilename, InputMode inputMode,
-             ExecutionMode executionMode, std::string_view outputFilename) {
-  prsl::Errors::ErrorReporter eReporter;
-  T executor(eReporter);
-
-  auto executeStmts = [&](std::string_view source) {
-    auto stmt = parse(source, eReporter);
-    if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
-      eReporter.printToErr();
-      return false;
-    }
-
-    if (auto res = resolve(eReporter, stmt); !res)
-      return res;
-
-    if (executionMode == ExecutionMode::PARSE)
-      return true;
-
-    return checkExecution(executor, stmt, eReporter);
-    ;
-  };
-
-  if (inputMode == InputMode::FILE) {
-    std::ifstream file{inputFilename.data()};
-    std::ostringstream sstr;
-    sstr << file.rdbuf();
-    auto source = sstr.str();
-    if (executeStmts(source))
-      executor.dump(outputFilename);
-  } else {
-    std::string line;
-    while (std::getline(std::cin, line)) {
-      executeStmts(line);
-    }
-    executor.dump(outputFilename);
-  }
-}
-
+namespace fs = std::filesystem;
 namespace po = boost::program_options;
 
 void conflicting_options(const po::variables_map &vm, const char *opt1,
@@ -87,57 +16,130 @@ void conflicting_options(const po::variables_map &vm, const char *opt1,
                            "' and '" + opt2 + "'.");
 }
 
-int main(int argc, char *argv[]) try {
-  po::options_description desc("Usage: prsl [INPUT-FILE] ...");
+int main(int argc, char *argv[]) {
+  auto flags = std::make_unique<prsl::Compiler::CompilerFlags>();
+  auto compiler = std::make_unique<prsl::Compiler::Compiler>(flags.get());
+
+  po::options_description visible("OPTIONS");
+  po::options_description hidden("HIDDEN");
+
   // clang-format off
-  desc.add_options()
+  visible.add_options()
     ("help", "produce help message")
+    ("version", "Print version information")
     ("parse", "run the parser & semantics stage")
     ("codegen", "produce LLVM IR for given code")
     ("interpret", "interpret given code (default)")
-    ("input-file", po::value<std::string>(), "Input file")
-    ("output-file", po::value<std::string>()->default_value(std::string{"output"}), "Output file")
+    (",O", po::value<int>()->value_name("<level>"), "Optimization level. [O0, O1, O2, O3]")
+    ("filetype", po::value<std::string>()->value_name("<type>"), "Set type of output file. [asm, bc, obj, ll]")
+    ("reloc", po::value<std::string>()->value_name("<model>"), "Set relocation model. [default, static, pic]")
+    ("target", po::value<std::string>()->value_name("<triple>"), "Target triple for cross compilation.")
+    (",o", po::value<std::string>()->value_name("<filename>")->default_value("output"), "Name of the output file")
   ;
+  hidden.add_options()
+    ("inputs", po::value<std::string>());
   // clang-format on
 
   po::positional_options_description desc_pos;
-  desc_pos.add("input-file", 1);
+  desc_pos.add("inputs", 1);
+  po::options_description all;
+  all.add(visible).add(hidden);
 
   po::variables_map vm;
-  auto options = po::command_line_parser(argc, argv)
-                     .options(desc)
-                     .positional(desc_pos)
-                     .run();
-  po::store(options, vm);
-  po::notify(vm);
-
-  if (vm.count("help")) {
-    std::cout << desc << '\n';
-    return EXIT_SUCCESS;
+  try {
+    po::store(po::command_line_parser(argc, argv)
+                  .options(all)
+                  .positional(desc_pos)
+                  .run(),
+              vm);
+  } catch (po::error &e) {
+    std::cout << "prsl: error: " << e.what() << '\n';
+    return EXIT_FAILURE;
   }
+  po::notify(vm);
 
   conflicting_options(vm, "parse", "interpret");
   conflicting_options(vm, "parse", "codegen");
   conflicting_options(vm, "codegen", "interpret");
 
-  std::string inputFile;
-  InputMode inputMode =
-      vm.count("input-file") ? InputMode::FILE : InputMode::REPL;
-  inputFile =
-      inputMode == InputMode::FILE ? vm["input-file"].as<std::string>() : "";
-  auto outputFile = vm["output-file"].as<std::string>();
+  if (vm.count("help")) {
+    std::cout << "OVERVIEW: " << PROJECT_NAME << " LLVM compiler\n"
+              << std::endl;
+    std::cout << "USAGE: " << PROJECT_NAME << " [options] file\n" << std::endl;
+    std::cout << visible << std::endl;
+    return EXIT_SUCCESS;
+  } else if (vm.count("version")) {
+    std::cout << PROJECT_NAME << " version " << PROJECT_VERSION << std::endl;
+    std::cout << "Includes: ";
+    std::cout << "Boost " << BOOST_VERSION / 100000 << "."
+              << BOOST_VERSION / 100 % 1000 << "." << BOOST_VERSION % 100
+              << ", ";
+    std::cout << "LLVM " << LLVM_VERSION << std::endl;
 
-  ExecutionMode executionMode =
-      vm.count("parse") ? ExecutionMode::PARSE : ExecutionMode::EXECUTE;
+    return EXIT_SUCCESS;
+  } else if (vm.count("inputs")) {
+    if (vm.count("-O")) {
+      int level = vm["-O"].as<int>();
+      switch (level) {
+      case 0:
+        flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O0);
+        break;
+      case 1:
+        flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O1);
+        break;
+      case 2:
+        flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O2);
+        break;
+      case 3:
+        flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O3);
+        break;
+      default:
+        std::cout << "prsl: error: " << "unknown optimization level" << '\n';
+        return EXIT_FAILURE;
+      }
+    }
+    if (vm.count("filetype")) {
+      auto type = vm["filetype"].as<std::string>();
+      if (type == "asm") {
+        flags->setFileType(prsl::Compiler::OutputFileType::AsmFile);
+      } else if (type == "bc") {
+        flags->setFileType(prsl::Compiler::OutputFileType::BitCodeFile);
+      } else if (type == "ll") {
+        flags->setFileType(prsl::Compiler::OutputFileType::LLVMIRFile);
+      } else if (type == "obj") {
+        flags->setFileType(prsl::Compiler::OutputFileType::ObjectFile);
+      } else {
+        std::cout << "prsl: error: " << "unknown file type" << '\n';
+        return EXIT_FAILURE;
+      }
+    }
+    if (vm.count("reloc")) {
+      auto model = vm["reloc"].as<std::string>();
+      if (model == "pic") {
+        flags->setRelocationModel(prsl::Compiler::RelocationModel::PIC);
+      } else if (model == "static") {
+        flags->setRelocationModel(prsl::Compiler::RelocationModel::STATIC);
+      } else {
+        flags->setRelocationModel(prsl::Compiler::RelocationModel::DEFAULT);
+      }
+    }
+    if (vm.count("target")) {
+      flags->setTargetTriple(vm["target"].as<std::string>());
+    }
+    if (vm.count("-o")) {
+      flags->setOutputFile(vm["-o"].as<std::string>());
+    }
 
-  if (vm.count("codegen")) {
-    execute<prsl::Codegen::Codegen>(inputFile, inputMode, executionMode,
-                                    outputFile);
+    auto path = fs::path(vm["inputs"].as<std::string>());
+    flags->setExecutionMode(
+        vm.count("parse")
+            ? prsl::Compiler::ExecutionMode::PARSE
+            : (vm.count("codegen") ? prsl::Compiler::ExecutionMode::COMPILE
+                                   : prsl::Compiler::ExecutionMode::INTERPRET));
+
+    compiler->run(path);
   } else {
-    execute<prsl::Interpreter::Interpreter>(inputFile, inputMode, executionMode,
-                                            outputFile);
+    std::cout << "prsl: error: " << "no input file" << '\n';
+    return EXIT_FAILURE;
   }
-} catch (const std::exception &e) {
-  std::cout << "prsl: error: " << e.what() << '\n';
-  return EXIT_FAILURE;
 }

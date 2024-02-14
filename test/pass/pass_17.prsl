@@ -1,4 +1,4 @@
-// RUN: %edir/prsl --codegen %s --output-file=pass_17.ll
+// RUN: %edir/prsl --codegen %s -o pass_17.ll
 // RUN: clang++ -Wno-override-module pass_17.ll -o pass_17
 // RUN: echo "1 2 3 4 5" | %S/pass_17 | filecheck %s --match-full-lines
 // RUN: echo "1 2 3 4 5" | %edir/prsl %s | filecheck %s --match-full-lines

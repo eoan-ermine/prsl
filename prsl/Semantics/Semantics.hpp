@@ -3,8 +3,10 @@
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/AST/TreeWalkerVisitor.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Types/Environment.hpp"
-#include "prsl/Types/FunctionsManager.hpp"
+#include "prsl/Compiler/Common/Environment.hpp"
+#include "prsl/Compiler/Common/FunctionsManager.hpp"
+
+#include <filesystem>
 
 namespace prsl::Semantics {
 
@@ -13,7 +15,7 @@ using namespace AST;
 class Semantics : public TreeWalkerVisitor {
 public:
   explicit Semantics(Errors::ErrorReporter &eReporter);
-  bool dump(std::string_view filename) const override;
+  bool dump(const std::filesystem::path &path) const;
 
 private:
   void visitVarExpr(const VarExprPtr &expr) override;

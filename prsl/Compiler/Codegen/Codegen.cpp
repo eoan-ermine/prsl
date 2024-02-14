@@ -1,24 +1,82 @@
-#include "prsl/Codegen/Codegen.hpp"
+#include "prsl/Compiler/Codegen/Codegen.hpp"
 #include "prsl/AST/NodeTypes.hpp"
+#include "prsl/Compiler/CompilerFlags.hpp"
 
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Verifier.h"
 #include <llvm/IR/CallingConv.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/Support/FileSystem.h>
+#include <llvm/MC/TargetRegistry.h>
+#include <llvm/Target/TargetMachine.h>
+#include <llvm/TargetParser/Host.h>
+#include <llvm/Support/TargetSelect.h>
 
 namespace prsl::Codegen {
 
-Codegen::Codegen(ErrorReporter &eReporter)
-    : eReporter(eReporter), context(std::make_unique<LLVMContext>()),
-      module(std::make_unique<Module>("Prsl", *context)),
+Codegen::Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter)
+    : flags(flags), eReporter(eReporter),
+      context(std::make_unique<LLVMContext>()),
+      module(std::make_unique<Module>("prsl", *context)),
       builder(std::make_unique<IRBuilder<>>(*context)),
-      envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {}
+      envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
+  InitializeAllTargetInfos();
+  InitializeAllTargets();
+  InitializeAllTargetMCs();
+  InitializeAllAsmParsers();
+  InitializeAllAsmPrinters();
+  targetMachine = nullptr;
 
-bool Codegen::dump(std::string_view filename) const {
+  type = flags->getFileType();
+  switch (flags->getOptimizationLevel()) {
+  case Compiler::OptimizationLevel::O1:
+    optLevel = llvm::OptimizationLevel::O1;
+    break;
+  case Compiler::OptimizationLevel::O2:
+    optLevel = llvm::OptimizationLevel::O2;
+    break;
+  case Compiler::OptimizationLevel::O3:
+    optLevel = llvm::OptimizationLevel::O3;
+    break;
+  default:
+    optLevel = llvm::OptimizationLevel::O0;
+  }
+
+  std::string triple = flags->getTragetTriple();
+  if (triple.empty()) {
+    triple = sys::getDefaultTargetTriple();
+  }
+
+  std::string error;
+  auto target = TargetRegistry::lookupTarget(triple, error);
+  // TODO: Handle error
+  if (target) {
+    std::string cpu = "generic";
+    std::string features;
+    TargetOptions opt;
+    auto model = std::optional<Reloc::Model>();
+    switch (flags->getRelocationModel()) {
+      case Compiler::RelocationModel::STATIC:
+        model = Reloc::Static;
+        break;
+      case Compiler::RelocationModel::PIC:
+        model = Reloc::Model::PIC_;
+        break;
+      case Compiler::RelocationModel::DEFAULT:
+      default:
+        break;
+    }
+    targetMachine = target->createTargetMachine(triple, cpu, features, opt, model);
+  }
+
+  module->setDataLayout(targetMachine->createDataLayout());
+  module->setTargetTriple(targetMachine->getTargetTriple().getTriple());
+}
+
+bool Codegen::dump(const std::filesystem::path &path) const {
   std::error_code ec;
-  auto fileStream =
-      llvm::raw_fd_ostream(filename, ec, llvm::sys::fs::OpenFlags::OF_None);
+  auto fileStream = llvm::raw_fd_ostream(path.string(), ec,
+                                         llvm::sys::fs::OpenFlags::OF_None);
   if (ec)
     return false;
 

@@ -3,11 +3,13 @@
 #include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Interpreter/Objects.hpp"
-#include "prsl/Types/Environment.hpp"
-#include "prsl/Types/FunctionsManager.hpp"
-#include "prsl/Types/Token.hpp"
+#include "prsl/Compiler/Interpreter/Objects.hpp"
+#include "prsl/Compiler/Common/Environment.hpp"
+#include "prsl/Compiler/Common/FunctionsManager.hpp"
+#include "prsl/Parser/Token.hpp"
+#include "prsl/Compiler/CompilerFlags.hpp"
 
+#include <filesystem>
 #include <stack>
 
 namespace prsl::Interpreter {
@@ -21,8 +23,8 @@ using Type = Types::Token::Type;
 
 class Interpreter : public ASTVisitor<PrslObject> {
 public:
-  explicit Interpreter(ErrorReporter &eReporter);
-  bool dump(std::string_view) const override;
+  explicit Interpreter(Compiler::CompilerFlags *flags, ErrorReporter &eReporter);
+  bool dump(const std::filesystem::path &path) const;
 
 private:
   PrslObject visitLiteralExpr(const LiteralExprPtr &expr) override;
@@ -51,6 +53,7 @@ private:
   PrslObject evaluateScope(const ScopeExprPtr &scope);
 
 private:
+  Compiler::CompilerFlags *flags;
   ErrorReporter &eReporter;
   Types::EnvironmentManager<PrslObject> envManager;
   Types::FunctionsManager<PrslObject> functionsManager;

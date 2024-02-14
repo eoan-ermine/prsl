@@ -36,8 +36,7 @@ public:
       [&](const NullStmtPtr &stmt) { return visitNullStmt(stmt); }
     }, stmt);
   }
-  virtual bool dump(std::string_view) const = 0;
-
+  
 protected:
   virtual ExprVisitRes visitLiteralExpr(const LiteralExprPtr &expr) = 0;
   virtual ExprVisitRes visitGroupingExpr(const GroupingExprPtr &expr) = 0;

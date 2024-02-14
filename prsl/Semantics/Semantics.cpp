@@ -6,7 +6,7 @@ namespace prsl::Semantics {
 Semantics::Semantics(Errors::ErrorReporter &eReporter)
     : eReporter(eReporter), envManager(eReporter) {}
 
-bool Semantics::dump(std::string_view filename) const { return false; }
+bool Semantics::dump(const std::filesystem::path &path) const { return false; }
 
 void Semantics::visitVarExpr(const VarExprPtr &expr) {
   if (!envManager.contains(expr->ident))

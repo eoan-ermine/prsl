@@ -1,4 +1,4 @@
-#include "prsl/Interpreter/Objects.hpp"
+#include "prsl/Compiler/Interpreter/Objects.hpp"
 #include "prsl/Utils/Utils.hpp"
 
 namespace prsl::Interpreter {

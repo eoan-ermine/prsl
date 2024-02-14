@@ -3,16 +3,20 @@
 #include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Types/Environment.hpp"
-#include "prsl/Types/FunctionsManager.hpp"
-#include "prsl/Types/Token.hpp"
+#include "prsl/Compiler/Common/Environment.hpp"
+#include "prsl/Compiler/Common/FunctionsManager.hpp"
+#include "prsl/Parser/Token.hpp"
+#include "prsl/Compiler/CompilerFlags.hpp"
 
 #include "llvm/IR/Function.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
+#include <llvm/Passes/PassBuilder.h>
+#include <llvm/Target/TargetMachine.h>
 
+#include <filesystem>
 #include <stack>
 
 namespace prsl::Codegen {
@@ -28,8 +32,8 @@ using Type = Types::Token::Type;
 
 class Codegen : public ASTVisitor<Value *, Value *> {
 public:
-  explicit Codegen(ErrorReporter &eReporter);
-  bool dump(std::string_view filename) const override;
+  explicit Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter);
+  bool dump(const std::filesystem::path &path) const;
 
 private:
   Value *visitLiteralExpr(const LiteralExprPtr &expr) override;
@@ -60,6 +64,12 @@ private:
   AllocaInst *getAllocVar(const Token &ident);
   Function *getFunction(const Token &ident);
   Value *evaluateScope(const ScopeExprPtr &stmt);
+
+  Compiler::CompilerFlags *flags{nullptr};
+  Compiler::OutputFileType type;
+  llvm::PassBuilder passBuilder;
+  llvm::OptimizationLevel optLevel;
+  llvm::TargetMachine *targetMachine{nullptr};
 
   ErrorReporter &eReporter;
   std::unique_ptr<LLVMContext> context;

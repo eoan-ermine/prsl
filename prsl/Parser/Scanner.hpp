@@ -1,6 +1,6 @@
 #pragma once
 
-#include "prsl/Types/Token.hpp"
+#include "prsl/Parser/Token.hpp"
 
 #include <string_view>
 #include <unordered_map>
