@@ -24,6 +24,11 @@ jobs:
           sudo apt install libboost-program-options-dev clang-18
           sudo ln -sf /usr/bin/clang++-18 /usr/bin/clang++
 
+      - name: Setup GCC
+        uses: pkgxdev/setup@v1
+        with:
+          +: gcc@13
+
       - name: Install dependencies (pip)
         run: |
           sudo pip3 install lit
