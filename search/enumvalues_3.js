@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['greater_511',['GREATER',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030ae7e72355289e404b762d4cf88824d23b',1,'prsl::Types::Token']]],
-  ['greater_5fequal_512',['GREATER_EQUAL',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030a87e6b203bf40967d37a33f9a4438561a',1,'prsl::Types::Token']]]
+  ['default_568',['DEFAULT',['../namespaceprsl_1_1Compiler.html#af7a562f243aa0991be714ea80c1ad264a5b39c8b553c821e7cddc6da64b5bd2ee',1,'prsl::Compiler']]]
 ];

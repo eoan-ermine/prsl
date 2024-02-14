@@ -1,5 +1,5 @@
-<map id="prsl/Interpreter/Interpreter.hpp" name="prsl/Interpreter/Interpreter.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="100,5,319,32"/>
-<area shape="rect" id="node2" href="$Interpreter_8cpp.html" title=" " alt="" coords="5,80,224,107"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="249,80,359,107"/>
+<map id="prsl/Compiler/Interpreter/Interpreter.hpp" name="prsl/Compiler/Interpreter/Interpreter.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="120,5,303,47"/>
+<area shape="rect" id="node2" href="$Compiler_8cpp.html" title=" " alt="" coords="5,102,204,129"/>
+<area shape="rect" id="node3" href="$Interpreter_8cpp.html" title=" " alt="" coords="228,95,411,136"/>
 </map>

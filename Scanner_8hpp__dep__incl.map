@@ -1,5 +1,5 @@
-<map id="prsl/Scanner/Scanner.hpp" name="prsl/Scanner/Scanner.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="53,5,239,32"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="5,80,116,107"/>
-<area shape="rect" id="node3" href="$Scanner_8cpp.html" title=" " alt="" coords="141,80,325,107"/>
+<map id="prsl/Parser/Scanner.hpp" name="prsl/Parser/Scanner.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="122,5,295,32"/>
+<area shape="rect" id="node2" href="$Compiler_8cpp.html" title=" " alt="" coords="5,80,204,107"/>
+<area shape="rect" id="node3" href="$Scanner_8cpp.html" title=" " alt="" coords="228,80,400,107"/>
 </map>

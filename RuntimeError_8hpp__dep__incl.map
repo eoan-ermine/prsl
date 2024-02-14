@@ -1,12 +1,12 @@
 <map id="prsl/Debug/RuntimeError.hpp" name="prsl/Debug/RuntimeError.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="219,5,429,32"/>
-<area shape="rect" id="node2" href="$RuntimeError_8cpp.html" title=" " alt="" coords="5,80,213,107"/>
-<area shape="rect" id="node3" href="$Interpreter_8cpp.html" title=" " alt="" coords="213,229,432,256"/>
-<area shape="rect" id="node4" href="$Semantics_8cpp.html" title=" " alt="" coords="821,229,1038,256"/>
-<area shape="rect" id="node5" href="$Environment_8hpp.html" title=" " alt="" coords="412,80,615,107"/>
-<area shape="rect" id="node6" href="$Codegen_8hpp.html" title=" " alt="" coords="531,155,727,181"/>
-<area shape="rect" id="node9" href="$Interpreter_8hpp.html" title=" " alt="" coords="288,155,507,181"/>
-<area shape="rect" id="node10" href="$Semantics_8hpp.html" title=" " alt="" coords="752,155,971,181"/>
-<area shape="rect" id="node7" href="$Codegen_8cpp.html" title=" " alt="" coords="463,229,657,256"/>
-<area shape="rect" id="node8" href="$main_8cpp.html" title=" " alt="" coords="682,229,793,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="583,5,793,32"/>
+<area shape="rect" id="node2" href="$Environment_8hpp.html" title=" " alt="" coords="342,80,514,121"/>
+<area shape="rect" id="node5" href="$Compiler_8cpp.html" title=" " alt="" coords="201,266,399,293"/>
+<area shape="rect" id="node7" href="$Interpreter_8cpp.html" title=" " alt="" coords="423,259,606,300"/>
+<area shape="rect" id="node9" href="$Semantics_8cpp.html" title=" " alt="" coords="630,266,847,293"/>
+<area shape="rect" id="node10" href="$RuntimeError_8cpp.html" title=" " alt="" coords="776,87,984,114"/>
+<area shape="rect" id="node3" href="$Codegen_8hpp.html" title=" " alt="" coords="29,169,200,211"/>
+<area shape="rect" id="node6" href="$Interpreter_8hpp.html" title=" " alt="" coords="225,169,407,211"/>
+<area shape="rect" id="node8" href="$Semantics_8hpp.html" title=" " alt="" coords="432,177,651,203"/>
+<area shape="rect" id="node4" href="$Codegen_8cpp.html" title=" " alt="" coords="5,259,176,300"/>
 </map>

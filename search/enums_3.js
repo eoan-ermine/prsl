@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type_500',['Type',['../classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030',1,'prsl::Types::Token']]]
+  ['relocationmodel_561',['RelocationModel',['../namespaceprsl_1_1Compiler.html#af7a562f243aa0991be714ea80c1ad264',1,'prsl::Compiler']]]
 ];

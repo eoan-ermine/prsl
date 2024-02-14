@@ -1,10 +1,12 @@
 <map id="prsl::AST::ASTVisitor::visitNullStmt" name="prsl::AST::ASTVisitor::visitNullStmt">
-<area shape="rect" id="node1" title=" " alt="" coords="700,136,853,177"/>
-<area shape="rect" id="node2" href="$classprsl_1_1AST_1_1ASTVisitor.html#aff2dc5f0626867bf3557d51c2ea15989" title=" " alt="" coords="499,136,652,177"/>
-<area shape="rect" id="node3" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="252,5,451,47"/>
-<area shape="rect" id="node4" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="252,71,451,112"/>
-<area shape="rect" id="node5" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="252,136,451,177"/>
-<area shape="rect" id="node6" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="252,201,451,243"/>
-<area shape="rect" id="node8" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="252,267,451,308"/>
-<area shape="rect" id="node7" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="5,201,204,243"/>
+<area shape="rect" id="node1" title=" " alt="" coords="711,155,864,197"/>
+<area shape="rect" id="node2" href="$classprsl_1_1AST_1_1ASTVisitor.html#aff2dc5f0626867bf3557d51c2ea15989" title=" " alt="" coords="509,155,663,197"/>
+<area shape="rect" id="node3" href="$namespaceprsl_1_1Compiler.html#a8a4f65f9d91a6484addbf70906078077" title=" " alt="" coords="277,5,447,32"/>
+<area shape="rect" id="node5" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a5e311e5e58259ca720f73a64889a089d" title=" " alt="" coords="263,57,461,98"/>
+<area shape="rect" id="node6" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#aba4dae10263c335b62b63ab68d7b132c" title=" " alt="" coords="263,122,461,163"/>
+<area shape="rect" id="node7" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a3d53ec988720e5112fccd6b6adf4f32b" title=" " alt="" coords="263,187,461,229"/>
+<area shape="rect" id="node8" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2ae73c04b1e00f6c15726598ba494c52" title=" " alt="" coords="263,253,461,294"/>
+<area shape="rect" id="node10" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#a2a1948888c445e219eecbd4ed81fe024" title=" " alt="" coords="263,318,461,359"/>
+<area shape="rect" id="node4" href="$classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c" title=" " alt="" coords="5,5,215,32"/>
+<area shape="rect" id="node9" href="$classprsl_1_1AST_1_1TreeWalkerVisitor.html#acc3b95909fce721d53c00f15b1e2cadb" title=" " alt="" coords="11,253,209,294"/>
 </map>

@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">prsl
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
   </td>
  </tr>
@@ -92,12 +93,21 @@ $(function() {
 : <a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html#a6c0a056cffe1637f7b278eb7933df906">prsl::Errors::ErrorReporter</a>
 </li>
 <li>Codegen()
-: <a class="el" href="classprsl_1_1Codegen_1_1Codegen.html#a0d5bfd923a9437240d1842bfc6dc09fc">prsl::Codegen::Codegen</a>
+: <a class="el" href="classprsl_1_1Codegen_1_1Codegen.html#af7663345de1e09eab8f07674625663aa">prsl::Codegen::Codegen</a>
+</li>
+<li>Compiler()
+: <a class="el" href="classprsl_1_1Compiler_1_1Compiler.html#a91c8db7d20017ade9e6db300042daf18">prsl::Compiler::Compiler</a>
+</li>
+<li>CompilerFlags()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a6766b8d0b7c1d2f43fdabaf5c791e3e2">prsl::Compiler::CompilerFlags</a>
 </li>
 <li>contains()
 : <a class="el" href="classprsl_1_1Types_1_1Environment.html#ae1d5e21c834c2a9b969878e42519cb70">prsl::Types::Environment&lt; VarValue &gt;</a>
 , <a class="el" href="classprsl_1_1Types_1_1EnvironmentManager.html#a9e86b4e6eb33f33069c44a294dd37d7a">prsl::Types::EnvironmentManager&lt; VarValue &gt;</a>
 , <a class="el" href="classprsl_1_1Types_1_1FunctionsManager.html#ab1e598894942201f9fee385bdfa5a678">prsl::Types::FunctionsManager&lt; T &gt;</a>
+</li>
+<li>Create()
+: <a class="el" href="classprsl_1_1Compiler_1_1Executor.html#aefa426972ff0608cfe65226c7d915375">prsl::Compiler::Executor</a>
 </li>
 </ul>
 
@@ -110,10 +120,10 @@ $(function() {
 : <a class="el" href="classprsl_1_1Types_1_1Environment.html#a97e9c8b211e76d161a52b46b28464f68">prsl::Types::Environment&lt; VarValue &gt;</a>
 </li>
 <li>dump()
-: <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a4a87682e387bd62a64d61556b46a2e22">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
-, <a class="el" href="classprsl_1_1Codegen_1_1Codegen.html#abf47ddf856407c3e8898e613d8bfef99">prsl::Codegen::Codegen</a>
-, <a class="el" href="classprsl_1_1Interpreter_1_1Interpreter.html#aa55fb95ac4669a99205244cf4c07318a">prsl::Interpreter::Interpreter</a>
-, <a class="el" href="classprsl_1_1Semantics_1_1Semantics.html#a1d690eeb481c3282cd6a56a8cd4e53c2">prsl::Semantics::Semantics</a>
+: <a class="el" href="classprsl_1_1Codegen_1_1Codegen.html#ad5360b7be86fffe0f180a3e67b9ce43d">prsl::Codegen::Codegen</a>
+, <a class="el" href="classprsl_1_1Compiler_1_1Executor.html#ad1e80174934cf5dfec030c3e21af0695">prsl::Compiler::Executor</a>
+, <a class="el" href="classprsl_1_1Interpreter_1_1Interpreter.html#a0ce0de4012407c1088846ce22cd70159">prsl::Interpreter::Interpreter</a>
+, <a class="el" href="classprsl_1_1Semantics_1_1Semantics.html#ae6160ab1d26d54fa1b0725e39099173e">prsl::Semantics::Semantics</a>
 </li>
 </ul>
 
@@ -124,6 +134,9 @@ $(function() {
 </li>
 <li>EnvironmentManager()
 : <a class="el" href="classprsl_1_1Types_1_1EnvironmentManager.html#ac1fb4a6f73834e97f93f2bcf7b02ec98">prsl::Types::EnvironmentManager&lt; VarValue &gt;</a>
+</li>
+<li>Executor()
+: <a class="el" href="classprsl_1_1Compiler_1_1Executor.html#a5a8a4285cff613009e1bae316fc3923e">prsl::Compiler::Executor</a>
 </li>
 <li>ExprStmt()
 : <a class="el" href="structprsl_1_1AST_1_1ExprStmt.html#abf4c38ce4b821572ae3019274fcd10bf">prsl::AST::ExprStmt</a>
@@ -153,17 +166,35 @@ $(function() {
 <li>getDeclaration()
 : <a class="el" href="classprsl_1_1Interpreter_1_1FuncObj.html#afa4b5d2feed7e2f9f15908c8a60d77bf">prsl::Interpreter::FuncObj</a>
 </li>
+<li>getExecutionMode()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a05d7f748210d5414f8e46aee21fde764">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>getFileType()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#ab398e031a66441118bd08e698b9385a8">prsl::Compiler::CompilerFlags</a>
+</li>
 <li>getLexeme()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#ab22c10f16cc17747c643ffde02e53ac3">prsl::Types::Token</a>
 </li>
 <li>getLine()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#a9311d6327f117a1f9c98e84491a6b1e1">prsl::Types::Token</a>
 </li>
+<li>getOptimizationLevel()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#ad967a9368afa08093ffe9b34afeb53cb">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>getOutputFile()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a2d8ad87fa415cabb6885d1a6c5f8832e">prsl::Compiler::CompilerFlags</a>
+</li>
 <li>getParentEnv()
 : <a class="el" href="classprsl_1_1Types_1_1Environment.html#a99aa510f042692b86a8bb45529ddb09d">prsl::Types::Environment&lt; VarValue &gt;</a>
 </li>
+<li>getRelocationModel()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a0f0a3e9a1834d81fb080d993da6b79d9">prsl::Compiler::CompilerFlags</a>
+</li>
 <li>getStatus()
 : <a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html#a1cd36e89cb61e794e5b70d98ee3c1bf9">prsl::Errors::ErrorReporter</a>
+</li>
+<li>getTragetTriple()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a94fed4a68d606751783206b1fa9c195b">prsl::Compiler::CompilerFlags</a>
 </li>
 <li>getType()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#a314c3d09410af60972eee7fc7e66fc38">prsl::Types::Token</a>
@@ -182,7 +213,7 @@ $(function() {
 : <a class="el" href="structprsl_1_1AST_1_1InputExpr.html#aa466313ec7c943f6d1d15cd358297aad">prsl::AST::InputExpr</a>
 </li>
 <li>Interpreter()
-: <a class="el" href="classprsl_1_1Interpreter_1_1Interpreter.html#a5e7b65f4d29bb96db3170f9c77a6faca">prsl::Interpreter::Interpreter</a>
+: <a class="el" href="classprsl_1_1Interpreter_1_1Interpreter.html#afe52741d3159d61a5eef9b1cbf5abc07">prsl::Interpreter::Interpreter</a>
 </li>
 <li>isError()
 : <a class="el" href="classprsl_1_1Types_1_1Token.html#acbc7e3862647d03d6b57756126a6511d">prsl::Types::Token</a>
@@ -246,6 +277,9 @@ $(function() {
 <li>ReturnStmt()
 : <a class="el" href="structprsl_1_1AST_1_1ReturnStmt.html#aabbaf8e242c1f72f0d49d6ce6a489252">prsl::AST::ReturnStmt</a>
 </li>
+<li>run()
+: <a class="el" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c">prsl::Compiler::Compiler</a>
+</li>
 </ul>
 
 
@@ -264,6 +298,24 @@ $(function() {
 </li>
 <li>setError()
 : <a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html#a094132e92f671c6eea3c6e610b6b2578">prsl::Errors::ErrorReporter</a>
+</li>
+<li>setExecutionMode()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#aacc07ef7f59b0ad3b35989ef8fbdd252">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>setFileType()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a207a5de5d812037a5abac3591840c230">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>setOptimizationLevel()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#ac2c9805034e401607118752d0f043c8b">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>setOutputFile()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#adc9388dfb3fa1ba38952d42463eb2ae4">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>setRelocationModel()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a5a89c46527ca3bb41470b4d21dd85d7c">prsl::Compiler::CompilerFlags</a>
+</li>
+<li>setTargetTriple()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a7eec73219ff3643f24f16e23bc65760b">prsl::Compiler::CompilerFlags</a>
 </li>
 </ul>
 
@@ -367,6 +419,7 @@ $(function() {
 </li>
 <li>visitStmt()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#aff2dc5f0626867bf3557d51c2ea15989">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
+, <a class="el" href="classprsl_1_1Compiler_1_1Executor.html#a74d166dbf1e9d0ee455ba122b91d9038">prsl::Compiler::Executor</a>
 </li>
 <li>visitUnaryExpr()
 : <a class="el" href="classprsl_1_1AST_1_1ASTVisitor.html#a21e197c5e8442ec13c94ce1141bf43a3">prsl::AST::ASTVisitor&lt; ExprVisitRes, StmtVisitRes &gt;</a>
@@ -393,6 +446,16 @@ $(function() {
 </li>
 <li>withNewEnviron()
 : <a class="el" href="classprsl_1_1Types_1_1EnvironmentManager.html#af053c3603164c76bb91ad5542da34722">prsl::Types::EnvironmentManager&lt; VarValue &gt;</a>
+</li>
+</ul>
+
+
+<h3><a id="index__7E"></a>- ~ -</h3><ul>
+<li>~Compiler()
+: <a class="el" href="classprsl_1_1Compiler_1_1Compiler.html#ac6689680c1f39cc61ce4f1645eeaa289">prsl::Compiler::Compiler</a>
+</li>
+<li>~CompilerFlags()
+: <a class="el" href="classprsl_1_1Compiler_1_1CompilerFlags.html#a59251bb140c245c696c7ec5b413dd912">prsl::Compiler::CompilerFlags</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>prsl: prsl/Types/Environment.hpp File Reference</title>
+<title>prsl: prsl/Compiler/Common/Environment.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">prsl
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
   </td>
  </tr>
@@ -61,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5a43f1695889f7317406ca1d529cb5db.html">prsl</a></li><li class="navelem"><a class="el" href="dir_1feb21ba5b02c8aea672af7e365d2f3e.html">Types</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5a43f1695889f7317406ca1d529cb5db.html">prsl</a></li><li class="navelem"><a class="el" href="dir_31337ff8f24a6f41c68ea995ccd57b5f.html">Compiler</a></li><li class="navelem"><a class="el" href="dir_43f3645bf0dfe0a7e3242eef2674fbce.html">Common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,42 +75,42 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ErrorReporter_8hpp_source.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RuntimeError_8hpp_source.html">prsl/Debug/RuntimeError.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Token_8hpp_source.html">prsl/Types/Token.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Token_8hpp_source.html">prsl/Parser/Token.hpp</a>&quot;</code><br />
 <code>#include &lt;exception&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Environment.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="Environment_8hpp__incl.png" border="0" usemap="#aprsl_2Types_2Environment_8hpp" alt=""/></div>
-<map name="aprsl_2Types_2Environment_8hpp" id="aprsl_2Types_2Environment_8hpp">
-<area shape="rect" title=" " alt="" coords="320,5,523,32"/>
-<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="5,155,216,181"/>
-<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="149,80,358,107"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="291,155,447,181"/>
-<area shape="rect" title=" " alt="" coords="471,155,558,181"/>
-<area shape="rect" title=" " alt="" coords="484,80,561,107"/>
-<area shape="rect" title=" " alt="" coords="586,80,710,107"/>
-<area shape="rect" title=" " alt="" coords="100,229,175,256"/>
-<area shape="rect" title=" " alt="" coords="224,229,283,256"/>
-<area shape="rect" title=" " alt="" coords="13,229,75,256"/>
-<area shape="rect" title=" " alt="" coords="435,229,522,256"/>
-<area shape="rect" title=" " alt="" coords="314,229,411,256"/>
+<div class="center"><img src="Environment_8hpp__incl.png" border="0" usemap="#aprsl_2Compiler_2Common_2Environment_8hpp" alt=""/></div>
+<map name="aprsl_2Compiler_2Common_2Environment_8hpp" id="aprsl_2Compiler_2Common_2Environment_8hpp">
+<area shape="rect" title=" " alt="" coords="335,5,507,47"/>
+<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="5,169,216,196"/>
+<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="149,95,358,121"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="291,169,450,196"/>
+<area shape="rect" title=" " alt="" coords="474,169,561,196"/>
+<area shape="rect" title=" " alt="" coords="484,95,561,121"/>
+<area shape="rect" title=" " alt="" coords="586,95,710,121"/>
+<area shape="rect" title=" " alt="" coords="100,244,175,271"/>
+<area shape="rect" title=" " alt="" coords="224,244,283,271"/>
+<area shape="rect" title=" " alt="" coords="13,244,75,271"/>
+<area shape="rect" title=" " alt="" coords="437,244,523,271"/>
+<area shape="rect" title=" " alt="" coords="315,244,413,271"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="Environment_8hpp__dep__incl.png" border="0" usemap="#aprsl_2Types_2Environment_8hppdep" alt=""/></div>
-<map name="aprsl_2Types_2Environment_8hppdep" id="aprsl_2Types_2Environment_8hppdep">
-<area shape="rect" title=" " alt="" coords="300,5,503,32"/>
-<area shape="rect" href="Codegen_8hpp.html" title=" " alt="" coords="71,80,267,107"/>
-<area shape="rect" href="Interpreter_8hpp.html" title=" " alt="" coords="292,80,511,107"/>
-<area shape="rect" href="Semantics_8hpp.html" title=" " alt="" coords="535,80,753,107"/>
-<area shape="rect" href="Codegen_8cpp.html" title=" " alt="" coords="5,155,200,181"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="225,155,335,181"/>
-<area shape="rect" href="Interpreter_8cpp.html" title=" " alt="" coords="360,155,579,181"/>
-<area shape="rect" href="Semantics_8cpp.html" title=" " alt="" coords="603,155,821,181"/>
+<div class="center"><img src="Environment_8hpp__dep__incl.png" border="0" usemap="#aprsl_2Compiler_2Common_2Environment_8hppdep" alt=""/></div>
+<map name="aprsl_2Compiler_2Common_2Environment_8hppdep" id="aprsl_2Compiler_2Common_2Environment_8hppdep">
+<area shape="rect" title=" " alt="" coords="314,5,486,47"/>
+<area shape="rect" href="Codegen_8hpp.html" title=" " alt="" coords="113,95,284,136"/>
+<area shape="rect" href="Interpreter_8hpp.html" title=" " alt="" coords="309,95,491,136"/>
+<area shape="rect" href="Semantics_8hpp.html" title=" " alt="" coords="516,102,735,129"/>
+<area shape="rect" href="Codegen_8cpp.html" title=" " alt="" coords="5,184,176,225"/>
+<area shape="rect" href="Compiler_8cpp.html" title=" " alt="" coords="201,191,399,218"/>
+<area shape="rect" href="Interpreter_8cpp.html" title=" " alt="" coords="423,184,606,225"/>
+<area shape="rect" href="Semantics_8cpp.html" title=" " alt="" coords="630,191,847,218"/>
 </map>
 </div>
 </div>

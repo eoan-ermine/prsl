@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>prsl: prsl/Codegen/Codegen.hpp File Reference</title>
+<title>prsl: prsl/Compiler/Codegen/Codegen.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">prsl
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
   </td>
  </tr>
@@ -61,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5a43f1695889f7317406ca1d529cb5db.html">prsl</a></li><li class="navelem"><a class="el" href="dir_01ce6e39cc82d28ade0350695c0f2841.html">Codegen</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5a43f1695889f7317406ca1d529cb5db.html">prsl</a></li><li class="navelem"><a class="el" href="dir_31337ff8f24a6f41c68ea995ccd57b5f.html">Compiler</a></li><li class="navelem"><a class="el" href="dir_bde0985f25661620c5d2fbd49e780421.html">Codegen</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -76,55 +77,63 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="ASTVisitor_8hpp_source.html">prsl/AST/ASTVisitor.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NodeTypes_8hpp_source.html">prsl/AST/NodeTypes.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrorReporter_8hpp_source.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Types/Environment.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="FunctionsManager_8hpp_source.html">prsl/Types/FunctionsManager.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Token_8hpp_source.html">prsl/Types/Token.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Compiler/Common/Environment.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="FunctionsManager_8hpp_source.html">prsl/Compiler/Common/FunctionsManager.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Token_8hpp_source.html">prsl/Parser/Token.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CompilerFlags_8hpp_source.html">prsl/Compiler/CompilerFlags.hpp</a>&quot;</code><br />
 <code>#include &quot;llvm/IR/Function.h&quot;</code><br />
 <code>#include &quot;llvm/IR/IRBuilder.h&quot;</code><br />
 <code>#include &quot;llvm/IR/LLVMContext.h&quot;</code><br />
 <code>#include &quot;llvm/IR/Module.h&quot;</code><br />
 <code>#include &quot;llvm/IR/Type.h&quot;</code><br />
+<code>#include &lt;llvm/Passes/PassBuilder.h&gt;</code><br />
+<code>#include &lt;llvm/Target/TargetMachine.h&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;stack&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Codegen.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="Codegen_8hpp__incl.png" border="0" usemap="#aprsl_2Codegen_2Codegen_8hpp" alt=""/></div>
-<map name="aprsl_2Codegen_2Codegen_8hpp" id="aprsl_2Codegen_2Codegen_8hpp">
-<area shape="rect" title=" " alt="" coords="1000,5,1196,32"/>
-<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="203,80,377,107"/>
-<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="15,155,194,181"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="675,229,831,256"/>
-<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="389,229,599,256"/>
-<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="597,80,799,107"/>
-<area shape="rect" href="FunctionsManager_8hpp.html" title=" " alt="" coords="874,80,1111,107"/>
-<area shape="rect" title=" " alt="" coords="1135,80,1274,107"/>
-<area shape="rect" title=" " alt="" coords="1299,80,1441,107"/>
-<area shape="rect" title=" " alt="" coords="1465,80,1635,107"/>
-<area shape="rect" title=" " alt="" coords="1659,80,1791,107"/>
-<area shape="rect" title=" " alt="" coords="1815,80,1930,107"/>
-<area shape="rect" title=" " alt="" coords="1955,80,2012,107"/>
-<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="219,155,361,181"/>
-<area shape="rect" title=" " alt="" coords="274,229,351,256"/>
-<area shape="rect" title=" " alt="" coords="149,229,223,256"/>
-<area shape="rect" title=" " alt="" coords="5,229,73,256"/>
-<area shape="rect" title=" " alt="" coords="225,304,288,331"/>
-<area shape="rect" title=" " alt="" coords="709,304,796,331"/>
-<area shape="rect" title=" " alt="" coords="607,304,666,331"/>
-<area shape="rect" title=" " alt="" coords="925,304,1023,331"/>
-<area shape="rect" title=" " alt="" coords="457,304,531,331"/>
-<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="539,155,748,181"/>
-<area shape="rect" title=" " alt="" coords="855,229,941,256"/>
-<area shape="rect" title=" " alt="" coords="925,155,1049,181"/>
+<div class="center"><img src="Codegen_8hpp__incl.png" border="0" usemap="#aprsl_2Compiler_2Codegen_2Codegen_8hpp" alt=""/></div>
+<map name="aprsl_2Compiler_2Codegen_2Codegen_8hpp" id="aprsl_2Compiler_2Codegen_2Codegen_8hpp">
+<area shape="rect" title=" " alt="" coords="1017,5,1188,47"/>
+<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="179,102,352,129"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="5,184,184,211"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="586,259,745,285"/>
+<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="351,259,561,285"/>
+<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="506,95,678,136"/>
+<area shape="rect" href="FunctionsManager_8hpp.html" title=" " alt="" coords="754,95,926,136"/>
+<area shape="rect" href="CompilerFlags_8hpp.html" title=" " alt="" coords="915,184,1149,211"/>
+<area shape="rect" title=" " alt="" coords="951,102,1089,129"/>
+<area shape="rect" title=" " alt="" coords="1114,102,1257,129"/>
+<area shape="rect" title=" " alt="" coords="1281,102,1450,129"/>
+<area shape="rect" title=" " alt="" coords="1474,102,1606,129"/>
+<area shape="rect" title=" " alt="" coords="1631,102,1745,129"/>
+<area shape="rect" title=" " alt="" coords="1769,102,1959,129"/>
+<area shape="rect" title=" " alt="" coords="1983,102,2190,129"/>
+<area shape="rect" title=" " alt="" coords="2215,102,2305,129"/>
+<area shape="rect" title=" " alt="" coords="2330,102,2387,129"/>
+<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="209,184,351,211"/>
+<area shape="rect" title=" " alt="" coords="249,259,327,285"/>
+<area shape="rect" title=" " alt="" coords="57,259,132,285"/>
+<area shape="rect" title=" " alt="" coords="157,259,225,285"/>
+<area shape="rect" title=" " alt="" coords="161,333,223,360"/>
+<area shape="rect" title=" " alt="" coords="622,333,709,360"/>
+<area shape="rect" title=" " alt="" coords="743,333,801,360"/>
+<area shape="rect" title=" " alt="" coords="1055,333,1153,360"/>
+<area shape="rect" title=" " alt="" coords="419,333,493,360"/>
+<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="630,184,839,211"/>
+<area shape="rect" title=" " alt="" coords="827,259,914,285"/>
+<area shape="rect" title=" " alt="" coords="1173,184,1297,211"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="Codegen_8hpp__dep__incl.png" border="0" usemap="#aprsl_2Codegen_2Codegen_8hppdep" alt=""/></div>
-<map name="aprsl_2Codegen_2Codegen_8hppdep" id="aprsl_2Codegen_2Codegen_8hppdep">
-<area shape="rect" title=" " alt="" coords="93,5,289,32"/>
-<area shape="rect" href="Codegen_8cpp.html" title=" " alt="" coords="5,80,200,107"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="225,80,335,107"/>
+<div class="center"><img src="Codegen_8hpp__dep__incl.png" border="0" usemap="#aprsl_2Compiler_2Codegen_2Codegen_8hppdep" alt=""/></div>
+<map name="aprsl_2Compiler_2Codegen_2Codegen_8hppdep" id="aprsl_2Compiler_2Codegen_2Codegen_8hppdep">
+<area shape="rect" title=" " alt="" coords="109,5,280,47"/>
+<area shape="rect" href="Codegen_8cpp.html" title=" " alt="" coords="5,95,176,136"/>
+<area shape="rect" href="Compiler_8cpp.html" title=" " alt="" coords="201,102,399,129"/>
 </map>
 </div>
 </div>

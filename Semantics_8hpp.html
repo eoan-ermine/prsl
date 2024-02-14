@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">prsl
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
   </td>
  </tr>
@@ -75,33 +76,35 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="NodeTypes_8hpp_source.html">prsl/AST/NodeTypes.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TreeWalkerVisitor_8hpp_source.html">prsl/AST/TreeWalkerVisitor.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrorReporter_8hpp_source.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Types/Environment.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="FunctionsManager_8hpp_source.html">prsl/Types/FunctionsManager.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Environment_8hpp_source.html">prsl/Compiler/Common/Environment.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="FunctionsManager_8hpp_source.html">prsl/Compiler/Common/FunctionsManager.hpp</a>&quot;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Semantics.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Semantics_8hpp__incl.png" border="0" usemap="#aprsl_2Semantics_2Semantics_8hpp" alt=""/></div>
 <map name="aprsl_2Semantics_2Semantics_8hpp" id="aprsl_2Semantics_2Semantics_8hpp">
-<area shape="rect" title=" " alt="" coords="321,5,540,32"/>
-<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="47,229,225,256"/>
-<area shape="rect" href="TreeWalkerVisitor_8hpp.html" title=" " alt="" coords="175,80,393,107"/>
-<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="359,304,569,331"/>
-<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="573,155,776,181"/>
-<area shape="rect" href="FunctionsManager_8hpp.html" title=" " alt="" coords="849,155,1087,181"/>
-<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="645,304,801,331"/>
-<area shape="rect" title=" " alt="" coords="256,304,333,331"/>
-<area shape="rect" title=" " alt="" coords="5,304,80,331"/>
-<area shape="rect" title=" " alt="" coords="105,304,173,331"/>
-<area shape="rect" title=" " alt="" coords="262,379,325,405"/>
-<area shape="rect" title=" " alt="" coords="679,379,766,405"/>
-<area shape="rect" title=" " alt="" coords="577,379,636,405"/>
-<area shape="rect" title=" " alt="" coords="905,379,1002,405"/>
-<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="197,155,371,181"/>
-<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="250,229,393,256"/>
-<area shape="rect" title=" " alt="" coords="427,379,501,405"/>
-<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="570,229,779,256"/>
-<area shape="rect" title=" " alt="" coords="825,304,911,331"/>
-<area shape="rect" title=" " alt="" coords="906,229,1030,256"/>
+<area shape="rect" title=" " alt="" coords="348,5,567,32"/>
+<area shape="rect" href="NodeTypes_8hpp.html" title=" " alt="" coords="48,244,227,271"/>
+<area shape="rect" href="TreeWalkerVisitor_8hpp.html" title=" " alt="" coords="176,80,395,107"/>
+<area shape="rect" href="ErrorReporter_8hpp.html" title=" " alt="" coords="357,319,568,345"/>
+<area shape="rect" href="Environment_8hpp.html" title=" " alt="" coords="590,155,762,196"/>
+<area shape="rect" href="FunctionsManager_8hpp.html" title=" " alt="" coords="883,155,1055,196"/>
+<area shape="rect" title=" " alt="" coords="571,80,661,107"/>
+<area shape="rect" href="Token_8hpp.html" title=" " alt="" coords="643,319,802,345"/>
+<area shape="rect" title=" " alt="" coords="255,319,332,345"/>
+<area shape="rect" title=" " alt="" coords="5,319,80,345"/>
+<area shape="rect" title=" " alt="" coords="105,319,173,345"/>
+<area shape="rect" title=" " alt="" coords="261,393,323,420"/>
+<area shape="rect" title=" " alt="" coords="679,393,766,420"/>
+<area shape="rect" title=" " alt="" coords="576,393,635,420"/>
+<area shape="rect" title=" " alt="" coords="905,393,1002,420"/>
+<area shape="rect" href="ASTVisitor_8hpp.html" title=" " alt="" coords="199,162,372,189"/>
+<area shape="rect" href="Utils_8hpp.html" title=" " alt="" coords="251,244,394,271"/>
+<area shape="rect" title=" " alt="" coords="425,393,500,420"/>
+<area shape="rect" href="RuntimeError_8hpp.html" title=" " alt="" coords="571,244,781,271"/>
+<area shape="rect" title=" " alt="" coords="826,319,913,345"/>
+<area shape="rect" title=" " alt="" coords="907,244,1031,271"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -109,9 +112,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="Semantics_8hpp__dep__incl.png" border="0" usemap="#aprsl_2Semantics_2Semantics_8hppdep" alt=""/></div>
 <map name="aprsl_2Semantics_2Semantics_8hppdep" id="aprsl_2Semantics_2Semantics_8hppdep">
-<area shape="rect" title=" " alt="" coords="45,5,263,32"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="5,80,116,107"/>
-<area shape="rect" href="Semantics_8cpp.html" title=" " alt="" coords="140,80,357,107"/>
+<area shape="rect" title=" " alt="" coords="111,5,330,32"/>
+<area shape="rect" href="Compiler_8cpp.html" title=" " alt="" coords="5,80,204,107"/>
+<area shape="rect" href="Semantics_8cpp.html" title=" " alt="" coords="228,80,445,107"/>
 </map>
 </div>
 </div>
