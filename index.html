@@ -77,7 +77,7 @@ Dependencies</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LLVM   </td><td class="markdownTableBodyNone">&gt;=17   </td></tr>
 </table>
-<p><b>Development dependencies</b>:</p>
+<p><b>Development dependencies</b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">Version    </th></tr>
@@ -88,6 +88,11 @@ Dependencies</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">clang-format   </td><td class="markdownTableBodyNone">&gt;= 17   </td></tr>
 </table>
+<p><b>SAST Tools</b></p>
+<ol type="1">
+<li><a href="https://pvs-studio.ru/ru/pvs-studio/?utm_source=website&amp;utm_medium=github&amp;utm_campaign=open_source">PVS-Studio</a> - static analyzer for C, C++, C#, and Java code.</li>
+<li><a href="https://cppcheck.sourceforge.io/">Cppcheck</a> — statis analysis tool for C/C++ code.</li>
+</ol>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Installation</h2>
 <h3><a class="anchor" id="autotoc_md3"></a>
@@ -102,6 +107,8 @@ Ubuntu</h3>
 <div class="fragment"><div class="line">pip install lit</div>
 <div class="line">pip install filecheck</div>
 <div class="line">sudo apt install clang-format</div>
+<div class="line">sudo apt install cppcheck</div>
+<div class="line"># For installation of PVS-Studio see PVS-Studio docs: https://pvs-studio.com/en/docs/manual/0039/#ID3ABD56C167</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
 Arch</h3>
 <div class="fragment"><div class="line">sudo pacman -S llvm</div>
@@ -110,6 +117,8 @@ Arch</h3>
 <div class="fragment"><div class="line">pip install lit</div>
 <div class="line">pip install filecheck</div>
 <div class="line">sudo pacman -S clang # For clang-format</div>
+<div class="line">sudo pacman -S cppcheck</div>
+<div class="line"># For installation of PVS-Studio see PVS-Studio docs: https://pvs-studio.com/en/docs/manual/0039/#ID3ABD56C167</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Getting the Source Code and Building prsl</h1>
 <ol type="1">
