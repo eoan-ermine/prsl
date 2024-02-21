@@ -4,6 +4,7 @@ project(prsl VERSION 0.0.1)
 include(cmake/ClangFormat.cmake)
 include(cmake/Cppcheck.cmake)
 include(cmake/Doxygen.cmake)
+include(cmake/PVS-Studio.cmake)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -101,4 +102,5 @@ endif()
 
 add_clang_format_target()
 add_cppcheck_target()
+add_pvs_studio_target()
 add_docs_target()
