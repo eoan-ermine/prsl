@@ -2,7 +2,7 @@ name: Linux (clang)
 
 on:
   workflow_run:
-    workflows: ["Cppcheck"]
+    workflows: ["PVS-Studio analyze changes"]
   types:
     - completed
 
