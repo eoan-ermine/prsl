@@ -460,11 +460,8 @@ Token Parser::consumeOrError(Token::Type tType, std::string_view errorMessage) {
 [[nodiscard]] bool
 Parser::match(std::initializer_list<Token::Type> types) const noexcept {
   auto currentType = getCurrentTokenType();
-  for (auto type : types) {
-    if (type == currentType)
-      return true;
-  }
-  return false;
+  return std::any_of(types.begin(), types.end(),
+                     [currentType](const auto &x) { return x == currentType; });
 }
 [[nodiscard]] bool Parser::matchNext(Token::Type type) noexcept {
   advance();

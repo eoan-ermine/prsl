@@ -2,12 +2,12 @@
 
 #include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Compiler/Interpreter/Objects.hpp"
 #include "prsl/Compiler/Common/Environment.hpp"
 #include "prsl/Compiler/Common/FunctionsManager.hpp"
-#include "prsl/Parser/Token.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
+#include "prsl/Compiler/Interpreter/Objects.hpp"
+#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Parser/Token.hpp"
 
 #include <filesystem>
 #include <stack>
@@ -23,7 +23,8 @@ using Type = Types::Token::Type;
 
 class Interpreter : public ASTVisitor<PrslObject> {
 public:
-  explicit Interpreter(Compiler::CompilerFlags *flags, ErrorReporter &eReporter);
+  explicit Interpreter(Compiler::CompilerFlags *flags,
+                       ErrorReporter &eReporter);
   bool dump(const std::filesystem::path &path) const;
 
 private:

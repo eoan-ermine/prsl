@@ -1,9 +1,9 @@
 #include "prsl/Compiler/Compiler.hpp"
 #include "prsl/Compiler/Codegen/Codegen.hpp"
 #include "prsl/Compiler/Executor.hpp"
+#include "prsl/Compiler/Interpreter/Interpreter.hpp"
 #include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Debug/RuntimeError.hpp"
-#include "prsl/Compiler/Interpreter/Interpreter.hpp"
 #include "prsl/Parser/Parser.hpp"
 #include "prsl/Parser/Scanner.hpp"
 #include "prsl/Semantics/Semantics.hpp"
@@ -39,10 +39,11 @@ void Compiler::run(const fs::path &file) {
 
   std::unique_ptr<Executor> executor;
   if (executionMode == ExecutionMode::COMPILE) {
-    executor = std::move(Executor::Create<prsl::Codegen::Codegen>(flags, eReporter));
-  } else if (executionMode == ExecutionMode::INTERPRET) {
     executor =
-        std::move(Executor::Create<prsl::Interpreter::Interpreter>(flags, eReporter));
+        std::move(Executor::Create<prsl::Codegen::Codegen>(flags, eReporter));
+  } else if (executionMode == ExecutionMode::INTERPRET) {
+    executor = std::move(
+        Executor::Create<prsl::Interpreter::Interpreter>(flags, eReporter));
   }
 
   try {
@@ -61,7 +62,7 @@ void Compiler::run(const fs::path &file) {
       executor->visitStmt(stmt);
       executor->dump(outputPath);
     }
-  } catch (prsl::Errors::RuntimeError &e) {
+  } catch (const prsl::Errors::RuntimeError &e) {
   }
 
   if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {

@@ -2,9 +2,9 @@
 
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/AST/TreeWalkerVisitor.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Compiler/Common/Environment.hpp"
 #include "prsl/Compiler/Common/FunctionsManager.hpp"
+#include "prsl/Debug/ErrorReporter.hpp"
 
 #include <filesystem>
 

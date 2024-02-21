@@ -2,11 +2,11 @@
 
 #include "prsl/AST/ASTVisitor.hpp"
 #include "prsl/AST/NodeTypes.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
 #include "prsl/Compiler/Common/Environment.hpp"
 #include "prsl/Compiler/Common/FunctionsManager.hpp"
-#include "prsl/Parser/Token.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
+#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Parser/Token.hpp"
 
 #include "llvm/IR/Function.h"
 #include "llvm/IR/IRBuilder.h"

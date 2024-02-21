@@ -92,4 +92,4 @@ public:
   virtual void visitNullStmt(const NullStmtPtr &stmt) override {}
 };
 
-} // namespace AST
+} // namespace prsl::AST

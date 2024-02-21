@@ -12,7 +12,9 @@ public:
     return functionsManager.contains(name);
   }
 
-  constexpr const T &get(std::string_view k) const noexcept { return functionsManager.at(k); }
+  constexpr const T &get(std::string_view k) const noexcept {
+    return functionsManager.at(k);
+  }
 
   constexpr void set(std::string_view k, T v) {
     functionsManager[k] = std::move(v);

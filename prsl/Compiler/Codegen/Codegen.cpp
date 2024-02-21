@@ -6,11 +6,11 @@
 #include "llvm/IR/Verifier.h"
 #include <llvm/IR/CallingConv.h>
 #include <llvm/IR/Instructions.h>
-#include <llvm/Support/FileSystem.h>
 #include <llvm/MC/TargetRegistry.h>
+#include <llvm/Support/FileSystem.h>
+#include <llvm/Support/TargetSelect.h>
 #include <llvm/Target/TargetMachine.h>
 #include <llvm/TargetParser/Host.h>
-#include <llvm/Support/TargetSelect.h>
 
 namespace prsl::Codegen {
 
@@ -56,17 +56,18 @@ Codegen::Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter)
     TargetOptions opt;
     auto model = std::optional<Reloc::Model>();
     switch (flags->getRelocationModel()) {
-      case Compiler::RelocationModel::STATIC:
-        model = Reloc::Static;
-        break;
-      case Compiler::RelocationModel::PIC:
-        model = Reloc::Model::PIC_;
-        break;
-      case Compiler::RelocationModel::DEFAULT:
-      default:
-        break;
+    case Compiler::RelocationModel::STATIC:
+      model = Reloc::Static;
+      break;
+    case Compiler::RelocationModel::PIC:
+      model = Reloc::Model::PIC_;
+      break;
+    case Compiler::RelocationModel::DEFAULT:
+    default:
+      break;
     }
-    targetMachine = target->createTargetMachine(triple, cpu, features, opt, model);
+    targetMachine =
+        target->createTargetMachine(triple, cpu, features, opt, model);
   }
 
   module->setDataLayout(targetMachine->createDataLayout());
@@ -115,8 +116,7 @@ Value *Codegen::visitInputExpr(const InputExprPtr &expr) {
   call_params.push_back(str);
   call_params.push_back(temp_var);
 
-  CallInst *call =
-      llvm::CallInst::Create(func_scanf, call_params, "calltmp", insertBB);
+  llvm::CallInst::Create(func_scanf, call_params, "calltmp", insertBB);
   return builder->CreateLoad(intType, temp_var, "inputres");
 }
 
@@ -329,8 +329,6 @@ Value *Codegen::visitIfStmt(const IfStmtPtr &stmt) {
     } else {
       builder->CreateBr(mergeBB);
     }
-
-    elseBB = builder->GetInsertBlock();
   }
 
   function->insert(function->end(), mergeBB);

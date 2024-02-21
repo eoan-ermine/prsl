@@ -7,7 +7,8 @@
 
 namespace prsl::Interpreter {
 
-Interpreter::Interpreter(Compiler::CompilerFlags *flags, ErrorReporter &eReporter)
+Interpreter::Interpreter(Compiler::CompilerFlags *flags,
+                         ErrorReporter &eReporter)
     : flags(flags), eReporter(eReporter), envManager(eReporter) {}
 
 bool Interpreter::dump(const std::filesystem::path &path) const {
@@ -150,7 +151,8 @@ PrslObject Interpreter::visitFuncExpr(const FuncExprPtr &expr) {
 
   class FunctionsResolver : public TreeWalkerVisitor {
   public:
-    FunctionsResolver(Types::FunctionsManager<PrslObject> &functionsManager)
+    explicit FunctionsResolver(
+        Types::FunctionsManager<PrslObject> &functionsManager)
         : functionsManager(functionsManager) {}
     bool dump(const std::filesystem::path &path) const { return false; }
     void visitFuncExpr(const FuncExprPtr &expr) override {

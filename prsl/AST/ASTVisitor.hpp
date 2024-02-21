@@ -9,34 +9,42 @@ template <typename ExprVisitRes = void, typename StmtVisitRes = void>
 class ASTVisitor {
 public:
   constexpr ExprVisitRes visitExpr(const ExprPtrVariant &expr) {
-    return std::visit<ExprVisitRes>(Utils::select{
-      [&](const LiteralExprPtr &expr) { return visitLiteralExpr(expr); },
-      [&](const GroupingExprPtr &expr) { return visitGroupingExpr(expr); },
-      [&](const VarExprPtr &expr) { return visitVarExpr(expr); },
-      [&](const InputExprPtr &expr) { return visitInputExpr(expr); },
-      [&](const AssignmentExprPtr &expr) { return visitAssignmentExpr(expr); },
-      [&](const UnaryExprPtr &expr) { return visitUnaryExpr(expr); },
-      [&](const BinaryExprPtr &expr) { return visitBinaryExpr(expr); },
-      [&](const PostfixExprPtr &expr) { return visitPostfixExpr(expr); },
-      [&](const ScopeExprPtr &expr) { return visitScopeExpr(expr); },
-      [&](const FuncExprPtr &expr) { return visitFuncExpr(expr); },
-      [&](const CallExprPtr &expr) { return visitCallExpr(expr); }
-    }, expr);
+    return std::visit<ExprVisitRes>(
+        Utils::select{
+            [&](const LiteralExprPtr &expr) { return visitLiteralExpr(expr); },
+            [&](const GroupingExprPtr &expr) {
+              return visitGroupingExpr(expr);
+            },
+            [&](const VarExprPtr &expr) { return visitVarExpr(expr); },
+            [&](const InputExprPtr &expr) { return visitInputExpr(expr); },
+            [&](const AssignmentExprPtr &expr) {
+              return visitAssignmentExpr(expr);
+            },
+            [&](const UnaryExprPtr &expr) { return visitUnaryExpr(expr); },
+            [&](const BinaryExprPtr &expr) { return visitBinaryExpr(expr); },
+            [&](const PostfixExprPtr &expr) { return visitPostfixExpr(expr); },
+            [&](const ScopeExprPtr &expr) { return visitScopeExpr(expr); },
+            [&](const FuncExprPtr &expr) { return visitFuncExpr(expr); },
+            [&](const CallExprPtr &expr) { return visitCallExpr(expr); }},
+        expr);
   }
   constexpr StmtVisitRes visitStmt(const StmtPtrVariant &stmt) {
-    return std::visit<StmtVisitRes>(Utils::select{
-      [&](const VarStmtPtr &stmt) { return visitVarStmt(stmt); },
-      [&](const IfStmtPtr &stmt) { return visitIfStmt(stmt); },
-      [&](const WhileStmtPtr &stmt) { return visitWhileStmt(stmt); },
-      [&](const PrintStmtPtr &stmt) { return visitPrintStmt(stmt); },
-      [&](const ExprStmtPtr &stmt) { return visitExprStmt(stmt); },
-      [&](const FunctionStmtPtr &stmt) { return visitFunctionStmt(stmt); },
-      [&](const BlockStmtPtr &stmt) { return visitBlockStmt(stmt); },
-      [&](const ReturnStmtPtr &stmt) { return visitReturnStmt(stmt); },
-      [&](const NullStmtPtr &stmt) { return visitNullStmt(stmt); }
-    }, stmt);
+    return std::visit<StmtVisitRes>(
+        Utils::select{
+            [&](const VarStmtPtr &stmt) { return visitVarStmt(stmt); },
+            [&](const IfStmtPtr &stmt) { return visitIfStmt(stmt); },
+            [&](const WhileStmtPtr &stmt) { return visitWhileStmt(stmt); },
+            [&](const PrintStmtPtr &stmt) { return visitPrintStmt(stmt); },
+            [&](const ExprStmtPtr &stmt) { return visitExprStmt(stmt); },
+            [&](const FunctionStmtPtr &stmt) {
+              return visitFunctionStmt(stmt);
+            },
+            [&](const BlockStmtPtr &stmt) { return visitBlockStmt(stmt); },
+            [&](const ReturnStmtPtr &stmt) { return visitReturnStmt(stmt); },
+            [&](const NullStmtPtr &stmt) { return visitNullStmt(stmt); }},
+        stmt);
   }
-  
+
 protected:
   virtual ExprVisitRes visitLiteralExpr(const LiteralExprPtr &expr) = 0;
   virtual ExprVisitRes visitGroupingExpr(const GroupingExprPtr &expr) = 0;

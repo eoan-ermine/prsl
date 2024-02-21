@@ -8,8 +8,10 @@ namespace prsl::Compiler {
 class Executor {
 public:
   template <typename T>
-  static std::unique_ptr<Executor> Create(CompilerFlags *flags, Errors::ErrorReporter &eReporter) {
-    return std::make_unique<Executor>(std::make_unique<holder<T>>(flags, eReporter));
+  static std::unique_ptr<Executor> Create(CompilerFlags *flags,
+                                          Errors::ErrorReporter &eReporter) {
+    return std::make_unique<Executor>(
+        std::make_unique<holder<T>>(flags, eReporter));
   }
 
   template <typename T>

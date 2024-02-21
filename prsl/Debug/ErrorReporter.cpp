@@ -7,7 +7,7 @@ namespace prsl::Errors {
 PrslStatus ErrorReporter::getStatus() const noexcept { return status; }
 
 void ErrorReporter::printToErr() const noexcept {
-  for (auto &s : errorMessages) {
+  for (const auto &s : errorMessages) {
     std::cerr << s << std::endl;
   }
 }
