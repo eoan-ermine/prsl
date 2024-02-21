@@ -1,7 +1,7 @@
 #pragma once
 
-#include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Debug/RuntimeError.hpp"
+#include "prsl/Debug/Logger.hpp"
+#include "prsl/Debug/Errors.hpp"
 #include "prsl/Parser/Token.hpp"
 
 #include <exception>
@@ -10,7 +10,7 @@
 
 namespace prsl::Types {
 
-using prsl::Errors::ErrorReporter;
+using prsl::Errors::Logger;
 
 namespace {
 
@@ -81,8 +81,8 @@ template <typename VarValue> class EnvironmentManager {
 public:
   using EnvType = Environment<VarValue>;
 
-  explicit EnvironmentManager(ErrorReporter &eReporter)
-      : eReporter(eReporter),
+  explicit EnvironmentManager(Logger &logger)
+      : logger(logger),
         curEnv(std::make_shared<Environment<VarValue>>(nullptr)) {}
 
   template <typename F> void withNewEnviron(F &&action) {
@@ -105,7 +105,7 @@ public:
     try {
       curEnv->assign(token, std::move(object));
     } catch (const UndefVarAccess &e) {
-      throw Errors::reportRuntimeError(eReporter, token,
+      throw Errors::reportRuntimeError(logger, token,
                                        "Attempt to access an undef variable");
     }
   }
@@ -118,10 +118,10 @@ public:
     try {
       return curEnv->get(token);
     } catch (const UndefVarAccess &e) {
-      throw Errors::reportRuntimeError(eReporter, token,
+      throw Errors::reportRuntimeError(logger, token,
                                        "Attempt to access an undef variable");
     } catch (const UninitVarAccess &e) {
-      throw Errors::reportRuntimeError(eReporter, token,
+      throw Errors::reportRuntimeError(logger, token,
                                        "Attempt to access an uninit variable");
     }
   }
@@ -143,7 +143,7 @@ private:
   }
 
 private:
-  ErrorReporter &eReporter;
+  Logger &logger;
   Environment<VarValue>::EnvironmentPtr curEnv;
 };
 

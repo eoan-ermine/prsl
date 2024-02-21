@@ -17,6 +17,7 @@ void conflicting_options(const po::variables_map &vm, const char *opt1,
 }
 
 int main(int argc, char *argv[]) {
+  prsl::Errors::Logger logger;
   po::options_description visible("OPTIONS");
   po::options_description hidden("HIDDEN");
 
@@ -50,7 +51,7 @@ int main(int argc, char *argv[]) {
                   .run(),
               vm);
   } catch (po::error &e) {
-    std::cout << "prsl: error: " << e.what() << '\n';
+    logger.error(-1, e.what());
     return EXIT_FAILURE;
   }
   po::notify(vm);
@@ -93,7 +94,7 @@ int main(int argc, char *argv[]) {
         flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O3);
         break;
       default:
-        std::cout << "prsl: error: " << "unknown optimization level" << '\n';
+        logger.error(-1, "unknown optimization level");
         return EXIT_FAILURE;
       }
     }
@@ -108,7 +109,7 @@ int main(int argc, char *argv[]) {
       } else if (type == "obj") {
         flags->setFileType(prsl::Compiler::OutputFileType::ObjectFile);
       } else {
-        std::cout << "prsl: error: " << "unknown file type" << '\n';
+        logger.error(-1, "unknown file type");
         return EXIT_FAILURE;
       }
     }
@@ -136,10 +137,10 @@ int main(int argc, char *argv[]) {
             : (vm.count("codegen") ? prsl::Compiler::ExecutionMode::COMPILE
                                    : prsl::Compiler::ExecutionMode::INTERPRET));
 
-    auto compiler = std::make_unique<prsl::Compiler::Compiler>(flags.get());
+    auto compiler = std::make_unique<prsl::Compiler::Compiler>(logger, flags.get());
     compiler->run(path);
   } else {
-    std::cout << "prsl: error: " << "no input file" << '\n';
+    logger.error(-1, "no input file");
     return EXIT_FAILURE;
   }
 }

@@ -4,7 +4,7 @@
 #include "prsl/AST/TreeWalkerVisitor.hpp"
 #include "prsl/Compiler/Common/Environment.hpp"
 #include "prsl/Compiler/Common/FunctionsManager.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Debug/Logger.hpp"
 
 #include <filesystem>
 
@@ -14,7 +14,7 @@ using namespace AST;
 
 class Semantics : public TreeWalkerVisitor {
 public:
-  explicit Semantics(Errors::ErrorReporter &eReporter);
+  explicit Semantics(Errors::Logger &logger);
   bool dump(const std::filesystem::path &path) const;
 
 private:
@@ -30,7 +30,7 @@ private:
   void visitReturnStmt(const ReturnStmtPtr &stmt) override;
 
 private:
-  Errors::ErrorReporter &eReporter;
+  Errors::Logger &logger;
   Types::EnvironmentManager<bool> envManager;
   Types::FunctionsManager<bool> functionsManager;
   bool inFunction = false;

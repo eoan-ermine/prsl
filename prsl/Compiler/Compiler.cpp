@@ -2,8 +2,8 @@
 #include "prsl/Compiler/Codegen/Codegen.hpp"
 #include "prsl/Compiler/Executor.hpp"
 #include "prsl/Compiler/Interpreter/Interpreter.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
-#include "prsl/Debug/RuntimeError.hpp"
+#include "prsl/Debug/Logger.hpp"
+#include "prsl/Debug/Errors.hpp"
 #include "prsl/Parser/Parser.hpp"
 #include "prsl/Parser/Scanner.hpp"
 #include "prsl/Semantics/Semantics.hpp"
@@ -14,16 +14,16 @@
 
 namespace prsl::Compiler {
 
-auto parse(std::string_view source, prsl::Errors::ErrorReporter &eReporter) {
+auto parse(std::string_view source, prsl::Errors::Logger &logger) {
   prsl::Scanner::Scanner scanner(source);
   auto tokens = scanner.tokenize();
-  prsl::Parser::Parser parser(tokens, eReporter);
+  prsl::Parser::Parser parser(tokens, logger);
   return parser.parse();
 }
 
 auto resolve(const prsl::AST::StmtPtrVariant &stmt,
-             prsl::Errors::ErrorReporter &eReporter) {
-  prsl::Semantics::Semantics resolver(eReporter);
+             prsl::Errors::Logger &logger) {
+  prsl::Semantics::Semantics resolver(logger);
   resolver.visitStmt(stmt);
 }
 
@@ -31,7 +31,6 @@ void Compiler::run(const fs::path &file) {
   auto inputPath = fs::absolute(file);
   auto executionMode = flags->getExecutionMode();
 
-  prsl::Errors::ErrorReporter eReporter;
   std::ifstream fstream{inputPath};
   std::ostringstream sstr;
   sstr << fstream.rdbuf();
@@ -40,21 +39,19 @@ void Compiler::run(const fs::path &file) {
   std::unique_ptr<Executor> executor;
   if (executionMode == ExecutionMode::COMPILE) {
     executor =
-        std::move(Executor::Create<prsl::Codegen::Codegen>(flags, eReporter));
+        std::move(Executor::Create<prsl::Codegen::Codegen>(flags, logger));
   } else if (executionMode == ExecutionMode::INTERPRET) {
     executor = std::move(
-        Executor::Create<prsl::Interpreter::Interpreter>(flags, eReporter));
+        Executor::Create<prsl::Interpreter::Interpreter>(flags, logger));
   }
 
   try {
-    auto stmt = parse(source, eReporter);
-    if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
-      eReporter.printToErr();
+    auto stmt = parse(source, logger);
+    if (logger.getErrorCount()) {
       return;
     }
-    resolve(stmt, eReporter);
-    if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
-      eReporter.printToErr();
+    resolve(stmt, logger);
+    if (logger.getErrorCount()) {
       return;
     }
 
@@ -64,11 +61,7 @@ void Compiler::run(const fs::path &file) {
       executor->dump(outputPath);
     }
   } catch (const prsl::Errors::RuntimeError &e) {
-    std::cerr << "Runtime error: " << e.what() << std::endl;
-  }
-
-  if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {
-    eReporter.printToErr();
+    std::ignore = e;
   }
 }
 

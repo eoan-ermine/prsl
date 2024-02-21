@@ -1,7 +1,8 @@
 #pragma once
 
 #include "prsl/AST/NodeTypes.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Debug/Errors.hpp"
+#include "prsl/Debug/Logger.hpp"
 
 #include <initializer_list>
 #include <string_view>
@@ -17,9 +18,7 @@ using AST::StmtPtrVariant;
 class Parser {
 public:
   explicit Parser(const std::vector<Token> &tokens,
-                  Errors::ErrorReporter &eReporter);
-
-  class ParseError : public std::exception {};
+                  Errors::Logger &logger);
 
   StmtPtrVariant parse();
 
@@ -58,11 +57,8 @@ private:
   void advance() noexcept;
   Token getTokenAdvance() noexcept;
   Token consumeOrError(Token::Type tType, std::string_view errorMessage);
-  template <typename... Args> ParseError error(Args &&...args) {
-    const auto &token = peek();
-    eReporter.setError(token.getLine(), "at '", token.toString(),
-                       "': ", std::forward<Args>(args)...);
-    return ParseError{};
+  Errors::ParseError error(const std::string &msg) {
+    return Errors::reportParseError(logger, peek(), msg);
   }
   [[nodiscard]] Token::Type getCurrentTokenType() const noexcept;
   [[nodiscard]] bool isEOF() const noexcept;
@@ -74,7 +70,7 @@ private:
 
   const std::vector<Token> &tokens;
   std::vector<Token>::const_iterator currentIter;
-  prsl::Errors::ErrorReporter &eReporter;
+  prsl::Errors::Logger &logger;
   bool isFunction{false};
 };
 

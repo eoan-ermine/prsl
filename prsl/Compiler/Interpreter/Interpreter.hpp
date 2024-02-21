@@ -6,7 +6,7 @@
 #include "prsl/Compiler/Common/FunctionsManager.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
 #include "prsl/Compiler/Interpreter/Objects.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Debug/Logger.hpp"
 #include "prsl/Parser/Token.hpp"
 
 #include <filesystem>
@@ -16,7 +16,7 @@ namespace prsl::Interpreter {
 
 using namespace AST;
 
-using Errors::ErrorReporter;
+using Errors::Logger;
 
 using Types::Token;
 using Type = Types::Token::Type;
@@ -24,7 +24,7 @@ using Type = Types::Token::Type;
 class Interpreter : public ASTVisitor<PrslObject> {
 public:
   explicit Interpreter(Compiler::CompilerFlags *flags,
-                       ErrorReporter &eReporter);
+                       Logger &logger);
   bool dump(const std::filesystem::path &path) const;
 
 private:
@@ -55,7 +55,7 @@ private:
 
 private:
   Compiler::CompilerFlags *flags;
-  ErrorReporter &eReporter;
+  Logger &logger;
   Types::EnvironmentManager<PrslObject> envManager;
   Types::FunctionsManager<PrslObject> functionsManager;
   std::stack<PrslObject> returnStack;

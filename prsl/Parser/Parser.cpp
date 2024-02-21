@@ -11,8 +11,8 @@ using AST::ExprPtrVariant;
 using AST::StmtPtrVariant;
 
 Parser::Parser(const std::vector<Token> &tokens,
-               Errors::ErrorReporter &eReporter)
-    : tokens(tokens), eReporter(eReporter) {
+               Errors::Logger &logger)
+    : tokens(tokens), logger(logger) {
   this->currentIter = this->tokens.begin();
 }
 
@@ -26,7 +26,7 @@ StmtPtrVariant Parser::program() {
     while (!isEOF()) {
       statements.emplace_back(decl());
     }
-  } catch (const ParseError &e) {
+  } catch (const Errors::ParseError &e) {
     synchronize();
   }
   return createFunctionSPV({}, std::move(statements));
@@ -443,7 +443,7 @@ Token Parser::getTokenAdvance() noexcept {
 Token Parser::consumeOrError(Token::Type tType, std::string_view errorMessage) {
   if (getCurrentTokenType() == tType)
     return getTokenAdvance();
-  throw error(errorMessage, ", got: ", peek().toString());
+  throw error(std::string(errorMessage) + ", got: " + peek().toString());
 }
 [[nodiscard]] Token::Type Parser::getCurrentTokenType() const noexcept {
   return currentIter->getType();

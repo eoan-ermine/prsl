@@ -1,15 +1,15 @@
 #include "prsl/Compiler/Interpreter/Interpreter.hpp"
 #include "prsl/AST/TreeWalkerVisitor.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
-#include "prsl/Debug/RuntimeError.hpp"
+#include "prsl/Debug/Errors.hpp"
 
 #include <iostream>
 
 namespace prsl::Interpreter {
 
 Interpreter::Interpreter(Compiler::CompilerFlags *flags,
-                         ErrorReporter &eReporter)
-    : flags(flags), eReporter(eReporter), envManager(eReporter) {}
+                         Logger &logger)
+    : flags(flags), logger(logger), envManager(logger) {}
 
 bool Interpreter::dump(const std::filesystem::path &path) const {
   return false;
@@ -18,7 +18,7 @@ bool Interpreter::dump(const std::filesystem::path &path) const {
 int Interpreter::getInt(const Token &token, const PrslObject &obj) const {
   if (!std::holds_alternative<int>(obj))
     throw Errors::reportRuntimeError(
-        eReporter, token,
+        logger, token,
         "Attempt to perform arithmetic operation on non-numeric literal " +
             toString(obj));
   return std::get<int>(obj);
@@ -58,7 +58,7 @@ PrslObject Interpreter::visitUnaryExpr(const UnaryExprPtr &expr) {
   }
 
   throw Errors::reportRuntimeError(
-      eReporter, expr->op,
+      logger, expr->op,
       "Illegal unary expression: " + expr->op.toString() + toString(obj));
 }
 
@@ -76,7 +76,7 @@ PrslObject Interpreter::visitBinaryExpr(const BinaryExprPtr &expr) {
   case Token::Type::SLASH: {
     int denominator = getInt(expr->op, rhs);
     if (denominator == 0)
-      throw Errors::reportRuntimeError(eReporter, expr->op, "Division by zero");
+      throw Errors::reportRuntimeError(logger, expr->op, "Division by zero");
     return getInt(expr->op, lhs) / getInt(expr->op, rhs);
   }
   case Token::Type::NOT_EQUAL:
@@ -95,12 +95,12 @@ PrslObject Interpreter::visitBinaryExpr(const BinaryExprPtr &expr) {
     break;
   }
 
-  throw reportRuntimeError(eReporter, expr->op,
+  throw reportRuntimeError(logger, expr->op,
                            "Illegal operator in expression: " + toString(lhs) +
                                expr->op.toString() + toString(rhs));
 }
 
-static PrslObject postfixExpr(ErrorReporter &eReporter, const Token &op,
+static PrslObject postfixExpr(Logger &logger, const Token &op,
                               const PrslObject &obj) {
   if (std::holds_alternative<int>(obj)) {
     int val = std::get<int>(obj);
@@ -114,7 +114,7 @@ static PrslObject postfixExpr(ErrorReporter &eReporter, const Token &op,
     }
   }
 
-  throw reportRuntimeError(eReporter, op,
+  throw reportRuntimeError(logger, op,
                            "Illegal operator in expression: " + op.toString() +
                                toString(obj));
 }
@@ -123,7 +123,7 @@ PrslObject Interpreter::visitPostfixExpr(const PostfixExprPtr &expr) {
   PrslObject obj = visitExpr(expr->expression);
   if (std::holds_alternative<VarExprPtr>(expr->expression)) {
     envManager.assign(std::get<VarExprPtr>(expr->expression)->ident,
-                      postfixExpr(eReporter, expr->op, obj));
+                      postfixExpr(logger, expr->op, obj));
   }
   return obj;
 }
@@ -184,7 +184,7 @@ PrslObject Interpreter::visitCallExpr(const CallExprPtr &expr) {
       envManager.contains(expr->ident)) {
     obj = envManager.get(expr->ident);
     if (!std::holds_alternative<FuncObjPtr>(obj))
-      throw reportRuntimeError(eReporter, expr->ident, "Not a function");
+      throw reportRuntimeError(logger, expr->ident, "Not a function");
   }
 
   auto func = std::get<FuncObjPtr>(obj);
@@ -193,7 +193,7 @@ PrslObject Interpreter::visitCallExpr(const CallExprPtr &expr) {
   if (size_t paramsCount = func->paramsCount(),
       argsCount = expr->arguments.size();
       paramsCount != argsCount) {
-    throw reportRuntimeError(eReporter, expr->ident,
+    throw reportRuntimeError(logger, expr->ident,
                              "Wrong number of arguments");
   }
 

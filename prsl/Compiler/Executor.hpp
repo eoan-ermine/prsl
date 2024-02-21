@@ -1,6 +1,6 @@
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Debug/Logger.hpp"
 #include <filesystem>
 
 namespace prsl::Compiler {
@@ -9,9 +9,9 @@ class Executor {
 public:
   template <typename T>
   static std::unique_ptr<Executor> Create(CompilerFlags *flags,
-                                          Errors::ErrorReporter &eReporter) {
+                                          Errors::Logger &logger) {
     return std::make_unique<Executor>(
-        std::make_unique<holder<T>>(flags, eReporter));
+        std::make_unique<holder<T>>(flags, logger));
   }
 
   template <typename T>
@@ -31,8 +31,8 @@ private:
   template <typename T> struct holder : base_holder {
     T executor;
 
-    holder(CompilerFlags *flags, Errors::ErrorReporter &eReporter)
-        : executor(flags, eReporter) {}
+    holder(CompilerFlags *flags, Errors::Logger &logger)
+        : executor(flags, logger) {}
 
     void visitStmt(const AST::StmtPtrVariant &stmt) override {
       executor.visitStmt(stmt);

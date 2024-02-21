@@ -5,7 +5,7 @@
 #include "prsl/Compiler/Common/Environment.hpp"
 #include "prsl/Compiler/Common/FunctionsManager.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
-#include "prsl/Debug/ErrorReporter.hpp"
+#include "prsl/Debug/Logger.hpp"
 #include "prsl/Parser/Token.hpp"
 
 #include "llvm/IR/Function.h"
@@ -25,14 +25,14 @@ using namespace llvm;
 
 using namespace AST;
 
-using Errors::ErrorReporter;
+using Errors::Logger;
 
 using Types::Token;
 using Type = Types::Token::Type;
 
 class Codegen : public ASTVisitor<Value *> {
 public:
-  explicit Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter);
+  explicit Codegen(Compiler::CompilerFlags *flags, Logger &logger);
   bool dump(const std::filesystem::path &path) const;
 
 private:
@@ -71,7 +71,7 @@ private:
   llvm::OptimizationLevel optLevel;
   llvm::TargetMachine *targetMachine{nullptr};
 
-  ErrorReporter &eReporter;
+  Logger &logger;
   std::unique_ptr<LLVMContext> context;
   std::unique_ptr<IRBuilder<>> builder;
   std::unique_ptr<Module> module;

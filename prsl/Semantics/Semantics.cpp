@@ -1,19 +1,19 @@
 #include "prsl/Semantics/Semantics.hpp"
-#include "prsl/Debug/RuntimeError.hpp"
+#include "prsl/Debug/Errors.hpp"
 
 namespace prsl::Semantics {
 
-Semantics::Semantics(Errors::ErrorReporter &eReporter)
-    : eReporter(eReporter), envManager(eReporter) {}
+Semantics::Semantics(Errors::Logger &logger)
+    : logger(logger), envManager(logger) {}
 
 bool Semantics::dump(const std::filesystem::path &path) const { return false; }
 
 void Semantics::visitVarExpr(const VarExprPtr &expr) {
   if (!envManager.contains(expr->ident))
-    throw reportRuntimeError(eReporter, expr->ident,
+    throw reportRuntimeError(logger, expr->ident,
                              "Attempt to access an undef variable");
   if (envManager.get(expr->ident) == false) {
-    throw reportRuntimeError(eReporter, expr->ident,
+    throw reportRuntimeError(logger, expr->ident,
                              "Can't read variable in its own initializer");
   }
 }
@@ -29,7 +29,7 @@ void Semantics::visitPostfixExpr(const PostfixExprPtr &expr) {
   const auto &expression = expr->expression;
   if (!(std::holds_alternative<VarExprPtr>(expression) ||
         std::holds_alternative<AssignmentExprPtr>(expression)))
-    throw reportRuntimeError(eReporter, expr->op, "Illegal postfix expression");
+    throw reportRuntimeError(logger, expr->op, "Illegal postfix expression");
   TreeWalkerVisitor::visitPostfixExpr(expr);
 }
 
@@ -56,7 +56,7 @@ void Semantics::visitFuncExpr(const FuncExprPtr &expr) {
 void Semantics::visitCallExpr(const CallExprPtr &expr) {
   if (!functionsManager.contains(expr->ident.getLexeme()) &&
       !envManager.contains(expr->ident))
-    throw reportRuntimeError(eReporter, expr->ident,
+    throw reportRuntimeError(logger, expr->ident,
                              "Attempt to access an undef function");
   TreeWalkerVisitor::visitCallExpr(expr);
 }
@@ -75,7 +75,7 @@ void Semantics::visitBlockStmt(const BlockStmtPtr &stmt) {
 
 void Semantics::visitReturnStmt(const ReturnStmtPtr &stmt) {
   if (!inFunction && stmt->isFunction) {
-    throw reportRuntimeError(eReporter, stmt->retToken,
+    throw reportRuntimeError(logger, stmt->retToken,
                              "Can't return from top-level code");
   }
   TreeWalkerVisitor::visitReturnStmt(stmt);

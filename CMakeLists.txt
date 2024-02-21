@@ -27,8 +27,8 @@ set(COMPILER_SOURCES
 )
 
 set(DEBUG_SOURCES
-    prsl/Debug/ErrorReporter.cpp prsl/Debug/ErrorReporter.hpp
-    prsl/Debug/RuntimeError.cpp prsl/Debug/RuntimeError.hpp
+    prsl/Debug/Logger.cpp prsl/Debug/Logger.hpp
+    prsl/Debug/Errors.cpp prsl/Debug/Errors.hpp
 )
 
 set(PARSER_SOURCES

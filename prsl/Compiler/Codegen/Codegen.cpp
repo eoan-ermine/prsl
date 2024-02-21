@@ -14,12 +14,12 @@
 
 namespace prsl::Codegen {
 
-Codegen::Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter)
-    : flags(flags), eReporter(eReporter),
+Codegen::Codegen(Compiler::CompilerFlags *flags, Logger &logger)
+    : flags(flags), logger(logger),
       context(std::make_unique<LLVMContext>()),
       module(std::make_unique<Module>("prsl", *context)),
       builder(std::make_unique<IRBuilder<>>(*context)),
-      envManager(this->eReporter), intType(llvm::Type::getInt32Ty(*context)) {
+      envManager(this->logger), intType(llvm::Type::getInt32Ty(*context)) {
   InitializeAllTargetInfos();
   InitializeAllTargets();
   InitializeAllTargetMCs();
@@ -137,7 +137,7 @@ Value *Codegen::visitUnaryExpr(const UnaryExprPtr &expr) {
     break;
   }
 
-  throw Errors::reportRuntimeError(eReporter, expr->op,
+  throw Errors::reportRuntimeError(logger, expr->op,
                                    "Illegal unary expression");
 }
 
@@ -172,7 +172,7 @@ Value *Codegen::visitBinaryExpr(const BinaryExprPtr &expr) {
     break;
   }
 
-  throw reportRuntimeError(eReporter, expr->op,
+  throw reportRuntimeError(logger, expr->op,
                            "Illegal operator in expression");
 }
 
@@ -188,7 +188,7 @@ Value *Codegen::postfixExpr(const Token &op, Value *obj, Value *res) {
     value = builder->CreateSub(obj, constOne, "dectmp");
     break;
   default:
-    throw reportRuntimeError(eReporter, op, "Illegal operator in expression");
+    throw reportRuntimeError(logger, op, "Illegal operator in expression");
   }
 
   return builder->CreateStore(value, res);
@@ -264,10 +264,10 @@ Value *Codegen::visitCallExpr(const CallExprPtr &expr) {
     func = functionsManager.get(expr->ident.getLexeme());
 
   if (!func)
-    throw reportRuntimeError(eReporter, expr->ident, "Not a function");
+    throw reportRuntimeError(logger, expr->ident, "Not a function");
 
   if (func->arg_size() != expr->arguments.size()) {
-    throw reportRuntimeError(eReporter, expr->ident,
+    throw reportRuntimeError(logger, expr->ident,
                              "Wrong number of arguments");
   }
 
