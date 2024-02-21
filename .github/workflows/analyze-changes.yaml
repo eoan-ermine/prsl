@@ -43,7 +43,7 @@ jobs:
       - name: Get list of changed source files
         run: |
           echo "$(git diff --name-only \
-            ${{ github.event.before }}..${{ github.event.after }})" \
+            ${{ github.event.before }} ${{ github.sha }})" \
             > source-files.txt
           cat source-files.txt
 
