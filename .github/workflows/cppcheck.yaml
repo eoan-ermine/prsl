@@ -1,0 +1,25 @@
+name: Cppcheck
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cppcheck:
+    name: "Run cppcheck"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup
+        run: sudo apt-get install cppcheck
+
+      - name: Configure
+        run: cmake -S . -DDISABLE_BUILDING_EXECUTABLE=1 -B building_cppcheck
+
+      - name: Check with cppcheck
+        run: cmake --build building_cppcheck --target cppcheck
