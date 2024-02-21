@@ -200,7 +200,7 @@ PrslObject Interpreter::visitCallExpr(const CallExprPtr &expr) {
   // Evaluate arguments
   std::vector<PrslObject> args;
   for (const auto &arg : expr->arguments) {
-    args.push_back(visitExpr(arg));
+    args.emplace_back(visitExpr(arg));
   }
 
   auto funcEnv = std::make_shared<Types::Environment<PrslObject>>(nullptr);
@@ -243,7 +243,7 @@ void Interpreter::visitPrintStmt(const PrintStmtPtr &stmt) {
 }
 
 void Interpreter::visitExprStmt(const ExprStmtPtr &stmt) {
-  visitExpr(stmt->expression);
+  std::ignore = visitExpr(stmt->expression); // We don't need the result
 }
 
 void Interpreter::visitFunctionStmt(const FunctionStmtPtr &stmt) {

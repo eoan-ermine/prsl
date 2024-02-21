@@ -8,9 +8,9 @@ Scanner::Scanner(std::string_view source)
 std::vector<Token> Scanner::tokenize() {
   std::vector<Token> tokens;
   while (!isEOL()) {
-    tokens.push_back(tokenizeOne());
+    tokens.emplace_back(tokenizeOne());
   }
-  tokens.push_back({Token::Type::EOF_, "", line});
+  tokens.emplace_back(Token::Type::EOF_, "", line);
   return tokens;
 }
 

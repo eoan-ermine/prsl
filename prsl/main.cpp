@@ -17,9 +17,6 @@ void conflicting_options(const po::variables_map &vm, const char *opt1,
 }
 
 int main(int argc, char *argv[]) {
-  auto flags = std::make_unique<prsl::Compiler::CompilerFlags>();
-  auto compiler = std::make_unique<prsl::Compiler::Compiler>(flags.get());
-
   po::options_description visible("OPTIONS");
   po::options_description hidden("HIDDEN");
 
@@ -78,6 +75,8 @@ int main(int argc, char *argv[]) {
 
     return EXIT_SUCCESS;
   } else if (vm.count("inputs")) {
+    auto flags = std::make_unique<prsl::Compiler::CompilerFlags>();
+
     if (vm.count("-O")) {
       int level = vm["-O"].as<int>();
       switch (level) {
@@ -99,7 +98,7 @@ int main(int argc, char *argv[]) {
       }
     }
     if (vm.count("filetype")) {
-      auto type = vm["filetype"].as<std::string>();
+      const auto &type = vm["filetype"].as<std::string>();
       if (type == "asm") {
         flags->setFileType(prsl::Compiler::OutputFileType::AsmFile);
       } else if (type == "bc") {
@@ -114,7 +113,7 @@ int main(int argc, char *argv[]) {
       }
     }
     if (vm.count("reloc")) {
-      auto model = vm["reloc"].as<std::string>();
+      const auto &model = vm["reloc"].as<std::string>();
       if (model == "pic") {
         flags->setRelocationModel(prsl::Compiler::RelocationModel::PIC);
       } else if (model == "static") {
@@ -137,6 +136,7 @@ int main(int argc, char *argv[]) {
             : (vm.count("codegen") ? prsl::Compiler::ExecutionMode::COMPILE
                                    : prsl::Compiler::ExecutionMode::INTERPRET));
 
+    auto compiler = std::make_unique<prsl::Compiler::Compiler>(flags.get());
     compiler->run(path);
   } else {
     std::cout << "prsl: error: " << "no input file" << '\n';

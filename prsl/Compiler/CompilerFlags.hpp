@@ -16,7 +16,7 @@ class CompilerFlags {
 public:
   CompilerFlags()
       : type(OutputFileType::ObjectFile), level(OptimizationLevel::O0),
-        model(RelocationModel::DEFAULT){};
+        model(RelocationModel::DEFAULT), executionMode(ExecutionMode::PARSE){};
   ~CompilerFlags() = default;
 
   void setOutputFile(std::string file);

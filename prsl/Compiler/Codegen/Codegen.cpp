@@ -68,10 +68,10 @@ Codegen::Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter)
     }
     targetMachine =
         target->createTargetMachine(triple, cpu, features, opt, model);
-  }
 
-  module->setDataLayout(targetMachine->createDataLayout());
-  module->setTargetTriple(targetMachine->getTargetTriple().getTriple());
+    module->setDataLayout(targetMachine->createDataLayout());
+    module->setTargetTriple(targetMachine->getTargetTriple().getTriple());
+  }
 }
 
 bool Codegen::dump(const std::filesystem::path &path) const {
@@ -386,7 +386,7 @@ Value *Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
 }
 
 Value *Codegen::visitExprStmt(const ExprStmtPtr &stmt) {
-  visitExpr(stmt->expression);
+  auto _ = visitExpr(stmt->expression); // We don't need the result
   return nullptr;
 }
 

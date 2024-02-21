@@ -112,9 +112,9 @@ public:
   }
 
 private:
-  Type type;
   std::string_view lexeme;
   int line;
+  Type type;
 };
 
 } // namespace prsl::Types

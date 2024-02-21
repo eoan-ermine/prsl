@@ -104,7 +104,7 @@ StmtPtrVariant Parser::blockStmt() {
   advance();
   std::vector<StmtPtrVariant> statements;
   while (!match(Token::Type::RIGHT_BRACE) && !isEOF()) {
-    statements.push_back(decl());
+    statements.emplace_back(decl());
   }
   consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after block");
   return AST::createBlockSPV(std::move(statements));
@@ -276,10 +276,10 @@ ExprPtrVariant Parser::callExpr() {
 //   <assignmentExpr> ("," <assignmentExpr>)*
 std::vector<ExprPtrVariant> Parser::arguments() {
   std::vector<ExprPtrVariant> args;
-  args.push_back(assignmentExpr());
+  args.emplace_back(assignmentExpr());
   while (match(Token::Type::COMMA)) {
     advance();
-    args.push_back(assignmentExpr());
+    args.emplace_back(assignmentExpr());
   }
   return args;
 }
@@ -372,7 +372,7 @@ ExprPtrVariant Parser::scopeExpr() {
     statements.back() = AST::createReturnSPV(
         Token{Token::Type::RETURN, "return", -1}, std::move(expr), isFunction);
   } else if (!hasReturn) {
-    statements.push_back(
+    statements.emplace_back(
         AST::createReturnSPV(Token{Token::Type::RETURN, "return", -1},
                              AST::createLiteralEPV(0), isFunction));
   }
@@ -389,10 +389,10 @@ ExprPtrVariant Parser::funcExpr() {
   std::vector<Token> parameters;
 
   if (match(Token::Type::IDENT)) {
-    parameters.push_back(getTokenAdvance());
+    parameters.emplace_back(getTokenAdvance());
     while (match(Token::Type::COMMA)) {
       advance();
-      parameters.push_back(getTokenAdvance());
+      parameters.emplace_back(getTokenAdvance());
     }
   }
   consumeOrError(Token::Type::RIGHT_PAREN, "Expect ')' after arguments");

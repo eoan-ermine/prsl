@@ -10,6 +10,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 
 namespace prsl::Compiler {
 
@@ -28,7 +29,6 @@ auto resolve(const prsl::AST::StmtPtrVariant &stmt,
 
 void Compiler::run(const fs::path &file) {
   auto inputPath = fs::absolute(file);
-  auto outputPath = fs::absolute(flags->getOutputFile());
   auto executionMode = flags->getExecutionMode();
 
   prsl::Errors::ErrorReporter eReporter;
@@ -59,10 +59,12 @@ void Compiler::run(const fs::path &file) {
     }
 
     if (executionMode != ExecutionMode::PARSE) {
+      auto outputPath = fs::absolute(flags->getOutputFile());
       executor->visitStmt(stmt);
       executor->dump(outputPath);
     }
   } catch (const prsl::Errors::RuntimeError &e) {
+    std::cerr << "Runtime error: " << e.what() << std::endl;
   }
 
   if (eReporter.getStatus() != prsl::Errors::PrslStatus::OK) {

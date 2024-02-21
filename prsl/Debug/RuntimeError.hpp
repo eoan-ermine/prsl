@@ -8,7 +8,7 @@
 
 namespace prsl::Errors {
 
-class RuntimeError : std::exception {};
+class RuntimeError : public std::exception {};
 
 RuntimeError reportRuntimeError(ErrorReporter &eReporter,
                                 const prsl::Types::Token &token,

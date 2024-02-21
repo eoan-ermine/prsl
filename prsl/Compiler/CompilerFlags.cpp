@@ -2,12 +2,14 @@
 
 namespace prsl::Compiler {
 
-void CompilerFlags::setOutputFile(std::string file) { this->outFile = file; }
+void CompilerFlags::setOutputFile(std::string file) {
+  this->outFile = std::move(file);
+}
 
 std::string CompilerFlags::getOutputFile() const { return outFile; }
 
 void CompilerFlags::setTargetTriple(std::string target) {
-  this->target = target;
+  this->target = std::move(target);
 }
 
 std::string CompilerFlags::getTragetTriple() const { return target; }
