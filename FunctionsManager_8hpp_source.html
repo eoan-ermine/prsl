@@ -84,20 +84,22 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> functionsManager.contains(<a class="code" href="namespacelit.html#ac8984ff1d09b2d4f07f2ba56484afe31">name</a>);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  }</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1FunctionsManager.html#a66c7d2b334b257d8d69331e424242bf9">   15</a></span>&#160;  constexpr <span class="keyword">const</span> T &amp;<a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html#a66c7d2b334b257d8d69331e424242bf9">get</a>(std::string_view k) <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> functionsManager.at(k); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda">   17</a></span>&#160;  constexpr <span class="keywordtype">void</span> <a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda">set</a>(std::string_view k, T v) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    functionsManager[k] = std::move(v);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  std::unordered_map&lt;std::string_view, T&gt; functionsManager;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace prsl::Types</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1FunctionsManager.html#a66c7d2b334b257d8d69331e424242bf9">   15</a></span>&#160;  constexpr <span class="keyword">const</span> T &amp;<a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html#a66c7d2b334b257d8d69331e424242bf9">get</a>(std::string_view k) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> functionsManager.at(k);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda">   19</a></span>&#160;  constexpr <span class="keywordtype">void</span> <a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda">set</a>(std::string_view k, T v) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    functionsManager[k] = std::move(v);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  std::unordered_map&lt;std::string_view, T&gt; functionsManager;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace prsl::Types</span></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html">prsl::Types::FunctionsManager</a></div><div class="ttdef"><b>Definition:</b> FunctionsManager.hpp:8</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html_a66c7d2b334b257d8d69331e424242bf9"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html#a66c7d2b334b257d8d69331e424242bf9">prsl::Types::FunctionsManager::get</a></div><div class="ttdeci">constexpr const T &amp; get(std::string_view k) const noexcept</div><div class="ttdef"><b>Definition:</b> FunctionsManager.hpp:15</div></div>
-<div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html_a96a73ebef71d4564de1005652bc16dda"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda">prsl::Types::FunctionsManager::set</a></div><div class="ttdeci">constexpr void set(std::string_view k, T v)</div><div class="ttdef"><b>Definition:</b> FunctionsManager.hpp:17</div></div>
+<div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html_a96a73ebef71d4564de1005652bc16dda"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html#a96a73ebef71d4564de1005652bc16dda">prsl::Types::FunctionsManager::set</a></div><div class="ttdeci">constexpr void set(std::string_view k, T v)</div><div class="ttdef"><b>Definition:</b> FunctionsManager.hpp:19</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html_ab1e598894942201f9fee385bdfa5a678"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html#ab1e598894942201f9fee385bdfa5a678">prsl::Types::FunctionsManager::contains</a></div><div class="ttdeci">constexpr bool contains(std::string_view name) const noexcept</div><div class="ttdef"><b>Definition:</b> FunctionsManager.hpp:11</div></div>
 <div class="ttc" id="anamespacelit_html_ac8984ff1d09b2d4f07f2ba56484afe31"><div class="ttname"><a href="namespacelit.html#ac8984ff1d09b2d4f07f2ba56484afe31">lit.name</a></div><div class="ttdeci">name</div><div class="ttdef"><b>Definition:</b> lit.cfg.py:4</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Types_html"><div class="ttname"><a href="namespaceprsl_1_1Types.html">prsl::Types</a></div><div class="ttdef"><b>Definition:</b> Environment.hpp:11</div></div>

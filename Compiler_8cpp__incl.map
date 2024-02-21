@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$Compiler_8hpp.html" title=" " alt="" coords="415,162,614,189"/>
 <area shape="rect" id="node5" title=" " alt="" coords="195,251,285,278"/>
 <area shape="rect" id="node6" href="$Codegen_8hpp.html" title=" " alt="" coords="1572,155,1743,196"/>
-<area shape="rect" id="node17" href="$ErrorReporter_8hpp.html" title=" " alt="" coords="407,408,617,435"/>
+<area shape="rect" id="node18" href="$ErrorReporter_8hpp.html" title=" " alt="" coords="407,408,617,435"/>
 <area shape="rect" id="node20" href="$RuntimeError_8hpp.html" title=" " alt="" coords="550,333,759,360"/>
 <area shape="rect" id="node32" href="$Executor_8hpp.html" title=" " alt="" coords="94,162,290,189"/>
 <area shape="rect" id="node33" href="$Interpreter_8hpp.html" title=" " alt="" coords="1047,155,1230,196"/>
@@ -16,7 +16,7 @@
 <area shape="rect" id="node7" href="$ASTVisitor_8hpp.html" title=" " alt="" coords="1308,251,1481,278"/>
 <area shape="rect" id="node8" href="$NodeTypes_8hpp.html" title=" " alt="" coords="1184,333,1363,360"/>
 <area shape="rect" id="node9" href="$Token_8hpp.html" title=" " alt="" coords="1378,408,1537,435"/>
-<area shape="rect" id="node19" href="$Environment_8hpp.html" title=" " alt="" coords="670,244,842,285"/>
+<area shape="rect" id="node17" href="$Environment_8hpp.html" title=" " alt="" coords="670,244,842,285"/>
 <area shape="rect" id="node23" href="$FunctionsManager_8hpp.html" title=" " alt="" coords="1557,244,1729,285"/>
 <area shape="rect" id="node24" title=" " alt="" coords="2596,251,2735,278"/>
 <area shape="rect" id="node25" title=" " alt="" coords="2759,251,2902,278"/>
@@ -33,9 +33,9 @@
 <area shape="rect" id="node15" title=" " alt="" coords="2367,483,2430,509"/>
 <area shape="rect" id="node10" title=" " alt="" coords="1414,483,1501,509"/>
 <area shape="rect" id="node11" title=" " alt="" coords="3066,483,3163,509"/>
-<area shape="rect" id="node18" title=" " alt="" coords="475,483,549,509"/>
 <area shape="rect" id="node21" title=" " alt="" coords="709,408,795,435"/>
 <area shape="rect" id="node22" title=" " alt="" coords="1605,333,1729,360"/>
+<area shape="rect" id="node19" title=" " alt="" coords="475,483,549,509"/>
 <area shape="rect" id="node34" href="$Objects_8hpp.html" title=" " alt="" coords="866,244,1049,285"/>
 <area shape="rect" id="node35" title=" " alt="" coords="987,333,1058,360"/>
 <area shape="rect" id="node37" title=" " alt="" coords="2950,333,3061,360"/>
