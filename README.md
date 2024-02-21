@@ -9,13 +9,18 @@ ParaCL language interpreter & transpiler (to LLVM IR)
 | Boost.ProgramOptions | >=1.74  |
 | LLVM                 | >=17    |
 
-**Development dependencies**:
+**Development dependencies**
 
 | Package      | Version  |
 | ------------ | -------- |
 | lit          | >=17     |
 | filecheck    | >=0.0.24 |
 | clang-format | >= 17    |
+
+**SAST Tools**
+
+1. [PVS-Studio](https://pvs-studio.ru/ru/pvs-studio/?utm_source=website&utm_medium=github&utm_campaign=open_source) - static analyzer for C, C++, C#, and Java code.
+2. [Cppcheck](https://cppcheck.sourceforge.io/) — statis analysis tool for C/C++ code.
 
 ### Installation
 
@@ -36,6 +41,8 @@ sudo ./llvm.sh 17
 pip install lit
 pip install filecheck
 sudo apt install clang-format
+sudo apt install cppcheck
+# For installation of PVS-Studio see PVS-Studio docs: https://pvs-studio.com/en/docs/manual/0039/#ID3ABD56C167
 ```
 
 #### Arch
@@ -51,6 +58,9 @@ sudo pacman -S boost
 pip install lit
 pip install filecheck
 sudo pacman -S clang # For clang-format
+sudo pacman -S cppcheck
+# For installation of PVS-Studio see PVS-Studio docs: https://pvs-studio.com/en/docs/manual/0039/#ID3ABD56C167
+
 ```
 
 ## Getting the Source Code and Building prsl
