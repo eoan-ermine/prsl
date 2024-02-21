@@ -279,7 +279,7 @@ Value *Codegen::visitCallExpr(const CallExprPtr &expr) {
   return builder->CreateCall(func, args, "calltmp");
 }
 
-Value *Codegen::visitVarStmt(const VarStmtPtr &stmt) {
+void Codegen::visitVarStmt(const VarStmtPtr &stmt) {
   Value *value = visitExpr(stmt->initializer);
   if (isa<Function>(value)) {
     envManager.define(stmt->varName, value);
@@ -287,10 +287,9 @@ Value *Codegen::visitVarStmt(const VarStmtPtr &stmt) {
     AllocaInst *varInst = getOrCreateAllocVar(stmt->varName);
     builder->CreateStore(value, varInst);
   }
-  return value;
 };
 
-Value *Codegen::visitIfStmt(const IfStmtPtr &stmt) {
+void Codegen::visitIfStmt(const IfStmtPtr &stmt) {
   Value *conditionV = visitExpr(stmt->condition);
   conditionV = builder->CreateICmpNE(
       conditionV, ConstantInt::get(llvm::Type::getInt1Ty(*context), 0),
@@ -333,10 +332,9 @@ Value *Codegen::visitIfStmt(const IfStmtPtr &stmt) {
 
   function->insert(function->end(), mergeBB);
   builder->SetInsertPoint(mergeBB);
-  return nullptr;
 }
 
-Value *Codegen::visitWhileStmt(const WhileStmtPtr &stmt) {
+void Codegen::visitWhileStmt(const WhileStmtPtr &stmt) {
   Function *function = builder->GetInsertBlock()->getParent();
 
   BasicBlock *conditionBB = BasicBlock::Create(*context, "condition", function);
@@ -360,10 +358,9 @@ Value *Codegen::visitWhileStmt(const WhileStmtPtr &stmt) {
   }
 
   builder->SetInsertPoint(afterBB);
-  return nullptr;
 }
 
-Value *Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
+void Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
   Value *val = visitExpr(stmt->value);
   BasicBlock *insertBB = builder->GetInsertBlock();
   Function *func_printf = module->getFunction("printf");
@@ -381,16 +378,13 @@ Value *Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
   call_params.push_back(str);
   call_params.push_back(val);
   CallInst::Create(func_printf, call_params, "calltmp", insertBB);
-
-  return val;
 }
 
-Value *Codegen::visitExprStmt(const ExprStmtPtr &stmt) {
-  auto _ = visitExpr(stmt->expression); // We don't need the result
-  return nullptr;
+void Codegen::visitExprStmt(const ExprStmtPtr &stmt) {
+  std::ignore = visitExpr(stmt->expression); // We don't need the result
 }
 
-Value *Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
+void Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
   FunctionType *FT = FunctionType::get(llvm::Type::getInt32Ty(*context),
                                        std::vector<llvm::Type *>{}, false);
   Function *F =
@@ -403,28 +397,25 @@ Value *Codegen::visitFunctionStmt(const FunctionStmtPtr &stmt) {
   }
 
   builder->CreateRet(ConstantInt::get(intType, 0));
-  return F;
 }
 
-Value *Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
+void Codegen::visitBlockStmt(const BlockStmtPtr &stmt) {
   envManager.withNewEnviron([&] {
     for (const auto &stmt : stmt->statements) {
       visitStmt(stmt);
     }
   });
-  return nullptr;
 }
 
-Value *Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) {
+void Codegen::visitReturnStmt(const ReturnStmtPtr &stmt) {
   auto returnValue = visitExpr(stmt->retValue);
   if (stmt->isFunction) {
     builder->CreateRet(returnValue);
   }
   returnStack.push({returnValue, stmt->isFunction});
-  return nullptr;
 }
 
-Value *Codegen::visitNullStmt(const NullStmtPtr &stmt) { return nullptr; }
+void Codegen::visitNullStmt(const NullStmtPtr &stmt) {}
 
 AllocaInst *Codegen::allocVar(std::string_view name) {
   BasicBlock *insertBB = builder->GetInsertBlock();

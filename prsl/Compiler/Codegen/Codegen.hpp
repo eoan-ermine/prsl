@@ -30,7 +30,7 @@ using Errors::ErrorReporter;
 using Types::Token;
 using Type = Types::Token::Type;
 
-class Codegen : public ASTVisitor<Value *, Value *> {
+class Codegen : public ASTVisitor<Value *> {
 public:
   explicit Codegen(Compiler::CompilerFlags *flags, ErrorReporter &eReporter);
   bool dump(const std::filesystem::path &path) const;
@@ -48,15 +48,15 @@ private:
   Value *visitFuncExpr(const FuncExprPtr &expr) override;
   Value *visitCallExpr(const CallExprPtr &expr) override;
 
-  Value *visitVarStmt(const VarStmtPtr &stmt) override;
-  Value *visitIfStmt(const IfStmtPtr &stmt) override;
-  Value *visitWhileStmt(const WhileStmtPtr &stmt) override;
-  Value *visitPrintStmt(const PrintStmtPtr &stmt) override;
-  Value *visitExprStmt(const ExprStmtPtr &stmt) override;
-  Value *visitFunctionStmt(const FunctionStmtPtr &stmt) override;
-  Value *visitBlockStmt(const BlockStmtPtr &stmt) override;
-  Value *visitReturnStmt(const ReturnStmtPtr &stmt) override;
-  Value *visitNullStmt(const NullStmtPtr &stmt) override;
+  void visitVarStmt(const VarStmtPtr &stmt) override;
+  void visitIfStmt(const IfStmtPtr &stmt) override;
+  void visitWhileStmt(const WhileStmtPtr &stmt) override;
+  void visitPrintStmt(const PrintStmtPtr &stmt) override;
+  void visitExprStmt(const ExprStmtPtr &stmt) override;
+  void visitFunctionStmt(const FunctionStmtPtr &stmt) override;
+  void visitBlockStmt(const BlockStmtPtr &stmt) override;
+  void visitReturnStmt(const ReturnStmtPtr &stmt) override;
+  void visitNullStmt(const NullStmtPtr &stmt) override;
 
   Value *postfixExpr(const Token &op, Value *obj, Value *res);
   AllocaInst *allocVar(std::string_view name);
