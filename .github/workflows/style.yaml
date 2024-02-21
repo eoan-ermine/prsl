@@ -4,9 +4,15 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "**.cpp"
+      - "**.hpp"
   pull_request:
     branches:
       - master
+    paths:
+      - "**.cpp"
+      - "**.hpp"
 
 jobs:
   check-format:
