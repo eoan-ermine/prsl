@@ -1,0 +1,57 @@
+---
+name: PVS-Studio analysis
+on: workflow_dispatch
+jobs:
+  build-analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup
+        run: |
+          sudo apt update
+          sudo apt-get install build-essential automake autoconf autoconf-archive texinfo libtool-bin yasm ninja-build ccache
+      
+      - name: Setup LLVM
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 18
+
+      - name: Setup dependencies (apt)
+        run: |
+          sudo apt install libboost-program-options-dev
+          sudo ln -sf /usr/bin/clang++-18 /usr/bin/clang++
+
+      - name: Install tools
+        run: |
+          wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
+            | sudo apt-key add -
+          sudo wget -O /etc/apt/sources.list.d/viva64.list \
+            https://files.pvs-studio.com/etc/viva64.list
+          sudo apt update
+          sudo apt install pvs-studio
+          pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+
+      - name: Build
+        run: |
+          cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On -B build .
+          cmake --build build -j 16
+        env:
+          CC: clang-18
+          CXX: clang++-18
+
+      - name: Analyze
+        run: |
+          pvs-studio-analyzer analyze -f build/compile_commands.json -j 16
+
+      - name: Convert report
+        run: |
+          plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
+
+      - name: Publish report
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: pvs-report.sarif
+          category: PVS-Studio
