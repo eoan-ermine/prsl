@@ -3,8 +3,8 @@ name: Linux (clang)
 on:
   workflow_run:
     workflows: ["PVS-Studio analyze changes"]
-  types:
-    - completed
+    types:
+      - completed
 
 jobs:
   build:

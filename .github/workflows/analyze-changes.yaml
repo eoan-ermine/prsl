@@ -3,8 +3,8 @@ name: PVS-Studio analyze changes
 on:
   workflow_run:
     workflows: ["Cppcheck"]
-  types:
-    - completed
+    types:
+      - completed
 
 jobs:
   analyze-changes:
