@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 6] Error: a: Not a function
+// CHECK: fail_10.prsl:6:1: error: at 'a': Not a function
 
 a = 10;
 a(5);

@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 10] Error: a: Attempt to access an undef variable
+// CHECK: fail_9.prsl:10:5: error: at 'a': Attempt to access an undef variable
 
 a = 10;
 f1 = func(a) {

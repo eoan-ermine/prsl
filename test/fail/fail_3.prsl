@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 13] Error: at 'EOF': Expect '}' after block, got: EOF
+// CHECK: fail_3.prsl: error: at 'EOF': Expect '}' after block, got: EOF
 
 fact = 1;
 n = 2;

@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 6] Error: f: Wrong number of arguments
+// CHECK: fail_11.prsl:6:1: error: at 'f': Wrong number of arguments
 
 f = func(a, b) { }
 f(10);

@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 13] Error: at '*': Expect expression, got something else
+// CHECK: fail_8.prsl:13:1: error: at '*': Expect expression, got something else
 
 var = 1;
 var++;

@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 10] Error: at 'else': Expect expression, got something else
+// CHECK: fail_7.prsl:10:1: error: at 'else': Expect expression, got something else
 
 n = 5;
 

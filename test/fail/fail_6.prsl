@@ -1,6 +1,6 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 10] Error: --: Illegal postfix expression
+// CHECK: fail_6.prsl:10:12: error: at '--': Illegal postfix expression
 
 a = 2;
 

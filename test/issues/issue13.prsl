@@ -1,5 +1,5 @@
 // RUN: (%edir/prsl --codegen %s 2>&1) | filecheck %s
 // RUN: (%edir/prsl %s 2>&1) | filecheck %s
-// CHECK: [Line 5] Error: a: Attempt to access an undef variable
+// CHECK: issue13.prsl:5:14: error: at 'a': Attempt to access an undef variable
 
 { { a = 5; } a; }
