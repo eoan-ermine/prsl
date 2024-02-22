@@ -3,6 +3,6 @@
 // CHECK: [Line 7] Error: at '}': Can not return a function from the function
 
 x = func() {
-	func() { };
+    func() { };
 };
 x();

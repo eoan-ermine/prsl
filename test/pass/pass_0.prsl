@@ -9,8 +9,8 @@ fact = 1;
 
 while (n > 0)
 {
-	fact = fact * n;
-	n--;
+    fact = fact * n;
+    n--;
 }
 
 print fact;

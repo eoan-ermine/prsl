@@ -12,19 +12,19 @@
 a = 1;
 b = 10;
 {
-	a = 2;
-	if (a > 1)
-	{
-		a = 3;
+    a = 2;
+    if (a > 1)
+    {
+        a = 3;
 
-			while (a > 0)
-			{
-				a--;
-				print b--;
-			}
-		print a;
-	}
-	print a;
+            while (a > 0)
+            {
+                a--;
+                print b--;
+            }
+        print a;
+    }
+    print a;
 };
 
 print a;

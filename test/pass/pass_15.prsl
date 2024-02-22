@@ -9,23 +9,23 @@
 
 foo = func(x1) : f
 {
-	if (x1 == 0)
-	{
-		return 0;
-	}
-	bar = func(x2) : b
-	{
-		z = 10;
-		z + x2;
-		if (x2 > 10)
-		{
-			y = 10;
-		}
-		print x2;
-	};
-	
-	z = f(0) + 5;
-	bar(0);
+    if (x1 == 0)
+    {
+        return 0;
+    }
+    bar = func(x2) : b
+    {
+        z = 10;
+        z + x2;
+        if (x2 > 10)
+        {
+            y = 10;
+        }
+        print x2;
+    };
+    
+    z = f(0) + 5;
+    bar(0);
 };
 
 print b(0);

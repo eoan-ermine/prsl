@@ -5,9 +5,9 @@
 n = 5;
 
 while (n--)
-	print n;
-	
+    print n;
+    
 else
 {
-	print 0;
+    print 0;
 }
