@@ -1,5 +1,6 @@
 #include "prsl/Parser/Parser.hpp"
 #include "prsl/AST/NodeTypes.hpp"
+#include "prsl/Debug/Errors.hpp"
 
 #include <charconv>
 
@@ -365,13 +366,15 @@ ExprPtrVariant Parser::scopeExpr() {
 
   if (statements.size() &&
       std::holds_alternative<AST::ExprStmtPtr>(statements.back())) {
-    if (std::holds_alternative<AST::FuncExprPtr>(
-            std::get<AST::ExprStmtPtr>(statements.back())->expression)) {
-      throw error("Can not return a function from the function");
-    }
-
     auto expr =
         std::move(std::get<AST::ExprStmtPtr>(statements.back())->expression);
+
+    if (std::holds_alternative<AST::FuncExprPtr>(expr)) {
+      const auto &func = std::get<AST::FuncExprPtr>(expr);
+      throw Errors::reportParseError(
+          logger, func->token, "Can not return a function from the function");
+    }
+
     statements.back() =
         AST::createReturnSPV(returnToken, std::move(expr), isFunction);
   } else if (!hasReturn) {
