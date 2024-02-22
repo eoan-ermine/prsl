@@ -155,7 +155,7 @@ void Scanner::skipWhitespace() {
       break;
     case '\n':
       line++;
-      col = -1;
+      col = 0;
       advance();
       break;
     default:
@@ -166,9 +166,9 @@ void Scanner::skipWhitespace() {
 
 Token Scanner::makeToken(Token::Type type) {
   size_t tokenLength = static_cast<size_t>(current - start);
-  auto e_pos =
+  auto s_pos =
       Utils::FilePos{filename, line, static_cast<int>(col - tokenLength)};
-  auto s_pos = Utils::FilePos{filename, line, col};
+  auto e_pos = Utils::FilePos{filename, line, col};
   return {type, std::string_view{start, tokenLength}, s_pos, e_pos};
 }
 
