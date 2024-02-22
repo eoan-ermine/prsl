@@ -2,7 +2,7 @@ name: Linux (gcc)
 
 on:
   workflow_run:
-    workflows: ["PVS-Studio analyze changes"]
+    workflows: ["PVS-Studio analysis"]
     types:
       - completed
 

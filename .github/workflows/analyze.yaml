@@ -1,7 +1,14 @@
 name: PVS-Studio analysis
-on: workflow_dispatch
+
+on:
+  workflow_run:
+    workflows: ["Cppcheck"]
+    types:
+      - completed
+
 jobs:
   build-analyze:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

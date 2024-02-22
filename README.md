@@ -1,6 +1,6 @@
 # prsl
 
-![](https://github.com/eoan-ermine/prsl/actions/workflows/style.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/cppcheck.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/analyze-changes.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/linux-gcc.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/linux-clang.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/documentation.yaml/badge.svg)
+![](https://github.com/eoan-ermine/prsl/actions/workflows/style.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/cppcheck.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/analyze.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/linux-gcc.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/linux-clang.yaml/badge.svg) ![](https://github.com/eoan-ermine/prsl/actions/workflows/documentation.yaml/badge.svg)
 
 ParaCL language interpreter & transpiler (to LLVM IR)
 
