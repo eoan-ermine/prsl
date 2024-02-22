@@ -1,16 +1,18 @@
 #include "prsl/Parser/Scanner.hpp"
+#include "prsl/Utils/Utils.hpp"
 
 namespace prsl::Scanner {
 
-Scanner::Scanner(std::string_view source)
-    : start(source.data()), current(source.data()) {}
+Scanner::Scanner(std::string_view filename, std::string_view source)
+    : filename(filename), start(source.data()), current(source.data()) {}
 
 std::vector<Token> Scanner::tokenize() {
   std::vector<Token> tokens;
   while (!isEOL()) {
     tokens.emplace_back(tokenizeOne());
   }
-  tokens.emplace_back(Token::Type::EOF_, "", line);
+  auto eof_pos = Utils::FilePos::UNKNOWN(filename);
+  tokens.emplace_back(Token::Type::EOF_, "", eof_pos, eof_pos);
   return tokens;
 }
 
@@ -120,7 +122,10 @@ Token Scanner::number() {
 
 bool Scanner::isEOL() { return *current == '\0'; }
 
-char Scanner::advance() { return *(current++); }
+char Scanner::advance() {
+  col += 1;
+  return *(current++);
+}
 
 char Scanner::peek() { return *current; }
 
@@ -150,6 +155,7 @@ void Scanner::skipWhitespace() {
       break;
     case '\n':
       line++;
+      col = -1;
       advance();
       break;
     default:
@@ -159,12 +165,16 @@ void Scanner::skipWhitespace() {
 }
 
 Token Scanner::makeToken(Token::Type type) {
-  return {type, std::string_view{start, static_cast<size_t>(current - start)},
-          line};
+  size_t tokenLength = static_cast<size_t>(current - start);
+  auto e_pos =
+      Utils::FilePos{filename, line, static_cast<int>(col - tokenLength)};
+  auto s_pos = Utils::FilePos{filename, line, col};
+  return {type, std::string_view{start, tokenLength}, s_pos, e_pos};
 }
 
 Token Scanner::makeError(std::string_view message) const {
-  return {Token::Type::ERROR, message, line};
+  auto pos = Utils::FilePos{filename, line, col};
+  return {Token::Type::ERROR, message, pos, pos};
 }
 
 } // namespace prsl::Scanner

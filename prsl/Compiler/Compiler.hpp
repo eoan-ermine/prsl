@@ -9,7 +9,8 @@ namespace fs = std::filesystem;
 
 class Compiler {
 public:
-  explicit Compiler(Errors::Logger &logger, CompilerFlags *flags) : logger(logger), flags(flags) {}
+  explicit Compiler(Errors::Logger &logger, CompilerFlags *flags)
+      : logger(logger), flags(flags) {}
   ~Compiler() = default;
 
   void run(const fs::path &);

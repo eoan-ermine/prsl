@@ -4,6 +4,7 @@
 
 #include <boost/program_options.hpp>
 #include <iostream>
+#include <cstdlib>
 
 namespace fs = std::filesystem;
 namespace po = boost::program_options;
@@ -32,6 +33,7 @@ int main(int argc, char *argv[]) {
     ("filetype", po::value<std::string>()->value_name("<type>"), "Set type of output file. [asm, bc, obj, ll]")
     ("reloc", po::value<std::string>()->value_name("<model>"), "Set relocation model. [default, static, pic]")
     ("target", po::value<std::string>()->value_name("<triple>"), "Target triple for cross compilation.")
+    ("no-diagnostics-color", "Do not colorize diagnostics")
     (",o", po::value<std::string>()->value_name("<filename>")->default_value("output"), "Name of the output file")
   ;
   hidden.add_options()
@@ -51,7 +53,7 @@ int main(int argc, char *argv[]) {
                   .run(),
               vm);
   } catch (po::error &e) {
-    logger.error(-1, e.what());
+    logger.error("prsl", e.what());
     return EXIT_FAILURE;
   }
   po::notify(vm);
@@ -94,7 +96,7 @@ int main(int argc, char *argv[]) {
         flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O3);
         break;
       default:
-        logger.error(-1, "unknown optimization level");
+        logger.error("prsl", "unknown optimization level");
         return EXIT_FAILURE;
       }
     }
@@ -109,7 +111,7 @@ int main(int argc, char *argv[]) {
       } else if (type == "obj") {
         flags->setFileType(prsl::Compiler::OutputFileType::ObjectFile);
       } else {
-        logger.error(-1, "unknown file type");
+        logger.error("prsl", "unknown file type");
         return EXIT_FAILURE;
       }
     }
@@ -126,6 +128,19 @@ int main(int argc, char *argv[]) {
     if (vm.count("target")) {
       flags->setTargetTriple(vm["target"].as<std::string>());
     }
+
+    // Detect NO_COLOR=1 environment variable
+    std::string noColorEnv = []() {
+      auto s = std::getenv("NO_COLOR");
+      if (!s)
+        return std::string{};
+      return std::string{s};
+    }();
+    if (noColorEnv == "1" || vm.count("no-diagnostics-color")) {
+      flags->setNoDiagnosticsColor(true);
+      logger.setColor(false);
+    }
+
     if (vm.count("-o")) {
       flags->setOutputFile(vm["-o"].as<std::string>());
     }
@@ -140,7 +155,7 @@ int main(int argc, char *argv[]) {
     auto compiler = std::make_unique<prsl::Compiler::Compiler>(logger, flags.get());
     compiler->run(path);
   } else {
-    logger.error(-1, "no input file");
+    logger.error("prsl", "no input file");
     return EXIT_FAILURE;
   }
 }

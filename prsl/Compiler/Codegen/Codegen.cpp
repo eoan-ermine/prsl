@@ -15,8 +15,7 @@
 namespace prsl::Codegen {
 
 Codegen::Codegen(Compiler::CompilerFlags *flags, Logger &logger)
-    : flags(flags), logger(logger),
-      context(std::make_unique<LLVMContext>()),
+    : flags(flags), logger(logger), context(std::make_unique<LLVMContext>()),
       module(std::make_unique<Module>("prsl", *context)),
       builder(std::make_unique<IRBuilder<>>(*context)),
       envManager(this->logger), intType(llvm::Type::getInt32Ty(*context)) {
@@ -172,8 +171,7 @@ Value *Codegen::visitBinaryExpr(const BinaryExprPtr &expr) {
     break;
   }
 
-  throw reportRuntimeError(logger, expr->op,
-                           "Illegal operator in expression");
+  throw reportRuntimeError(logger, expr->op, "Illegal operator in expression");
 }
 
 Value *Codegen::postfixExpr(const Token &op, Value *obj, Value *res) {
@@ -267,8 +265,7 @@ Value *Codegen::visitCallExpr(const CallExprPtr &expr) {
     throw reportRuntimeError(logger, expr->ident, "Not a function");
 
   if (func->arg_size() != expr->arguments.size()) {
-    throw reportRuntimeError(logger, expr->ident,
-                             "Wrong number of arguments");
+    throw reportRuntimeError(logger, expr->ident, "Wrong number of arguments");
   }
 
   std::vector<Value *> args;

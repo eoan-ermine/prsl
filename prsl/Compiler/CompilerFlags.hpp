@@ -16,7 +16,8 @@ class CompilerFlags {
 public:
   CompilerFlags()
       : type(OutputFileType::ObjectFile), level(OptimizationLevel::O0),
-        model(RelocationModel::DEFAULT), executionMode(ExecutionMode::PARSE){};
+        model(RelocationModel::DEFAULT), executionMode(ExecutionMode::PARSE),
+        noDiagnosticsColor(false){};
   ~CompilerFlags() = default;
 
   void setOutputFile(std::string file);
@@ -37,6 +38,9 @@ public:
   void setExecutionMode(ExecutionMode mode);
   [[nodiscard]] ExecutionMode getExecutionMode() const;
 
+  void setNoDiagnosticsColor(bool flag);
+  [[nodiscard]] bool getNoDiagnosticsColor() const;
+
 private:
   std::string outFile;
   std::string target;
@@ -44,6 +48,7 @@ private:
   OptimizationLevel level;
   RelocationModel model;
   ExecutionMode executionMode;
+  bool noDiagnosticsColor;
 };
 
 } // namespace prsl::Compiler

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "prsl/Debug/Logger.hpp"
 #include "prsl/Debug/Errors.hpp"
+#include "prsl/Debug/Logger.hpp"
 #include "prsl/Parser/Token.hpp"
 
 #include <exception>

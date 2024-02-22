@@ -10,8 +10,7 @@ using prsl::Types::Token;
 using AST::ExprPtrVariant;
 using AST::StmtPtrVariant;
 
-Parser::Parser(const std::vector<Token> &tokens,
-               Errors::Logger &logger)
+Parser::Parser(const std::vector<Token> &tokens, Errors::Logger &logger)
     : tokens(tokens), logger(logger) {
   this->currentIter = this->tokens.begin();
 }
@@ -360,6 +359,10 @@ ExprPtrVariant Parser::scopeExpr() {
     statements.push_back(std::move(declaration));
   }
 
+  auto unknownPos = Utils::FilePos::UNKNOWN();
+  auto returnToken =
+      Token{Token::Type::RETURN, "return", unknownPos, unknownPos};
+
   if (statements.size() &&
       std::holds_alternative<AST::ExprStmtPtr>(statements.back())) {
     if (std::holds_alternative<AST::FuncExprPtr>(
@@ -369,12 +372,11 @@ ExprPtrVariant Parser::scopeExpr() {
 
     auto expr =
         std::move(std::get<AST::ExprStmtPtr>(statements.back())->expression);
-    statements.back() = AST::createReturnSPV(
-        Token{Token::Type::RETURN, "return", -1}, std::move(expr), isFunction);
+    statements.back() =
+        AST::createReturnSPV(returnToken, std::move(expr), isFunction);
   } else if (!hasReturn) {
-    statements.emplace_back(
-        AST::createReturnSPV(Token{Token::Type::RETURN, "return", -1},
-                             AST::createLiteralEPV(0), isFunction));
+    statements.emplace_back(AST::createReturnSPV(
+        returnToken, AST::createLiteralEPV(0), isFunction));
   }
 
   consumeOrError(Token::Type::RIGHT_BRACE, "Expect '}' after scope");
@@ -435,40 +437,52 @@ void Parser::advance() noexcept {
   if (!isEOF())
     ++currentIter;
 }
+
 Token Parser::getTokenAdvance() noexcept {
   Token token = peek();
   advance();
   return token;
 }
+
 Token Parser::consumeOrError(Token::Type tType, std::string_view errorMessage) {
   if (getCurrentTokenType() == tType)
     return getTokenAdvance();
   throw error(std::string(errorMessage) + ", got: " + peek().toString());
 }
+
 [[nodiscard]] Token::Type Parser::getCurrentTokenType() const noexcept {
   return currentIter->getType();
 }
+
 [[nodiscard]] bool Parser::isEOF() const noexcept {
   return peek().getType() == Token::Type::EOF_;
 }
+
 [[nodiscard]] bool Parser::match(Token::Type type) const noexcept {
   if (type == getCurrentTokenType()) {
     return true;
   }
   return false;
 }
+
 [[nodiscard]] bool
 Parser::match(std::initializer_list<Token::Type> types) const noexcept {
   auto currentType = getCurrentTokenType();
   return std::any_of(types.begin(), types.end(),
                      [currentType](const auto &x) { return x == currentType; });
 }
+
 [[nodiscard]] bool Parser::matchNext(Token::Type type) noexcept {
   advance();
   bool res = match(type);
   --currentIter;
   return res;
 }
+
 [[nodiscard]] Token Parser::peek() const noexcept { return *currentIter; };
+
+Errors::ParseError Parser::error(const std::string &msg) {
+  return Errors::reportParseError(logger, peek(), msg);
+}
 
 } // namespace prsl::Parser

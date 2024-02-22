@@ -12,7 +12,7 @@ using prsl::Types::Token;
 
 class Scanner {
 public:
-  explicit Scanner(std::string_view source);
+  explicit Scanner(std::string_view filename, std::string_view source);
   std::vector<Token> tokenize();
   Token tokenizeOne();
 
@@ -33,7 +33,8 @@ private:
 private:
   const char *start;
   const char *current;
-  int line{1};
+  std::string_view filename;
+  int line{1}, col{-1};
 
   std::unordered_map<std::string_view, Token::Type> keywords = {
       {"if", Token::Type::IF},       {"else", Token::Type::ELSE},

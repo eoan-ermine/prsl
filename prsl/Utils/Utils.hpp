@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string_view>
+
 namespace prsl::Utils {
 
 // Не все компиляторы еще поддерживают стандартный unreachable,
@@ -17,6 +19,18 @@ namespace prsl::Utils {
 
 template <class... Ts> struct select : Ts... {
   using Ts::operator()...;
+};
+
+struct FilePos {
+  std::string_view filename;
+  int line;
+  int col;
+
+  static FilePos UNKNOWN() { return FilePos{"", -1, -1}; }
+
+  static FilePos UNKNOWN(std::string_view filename) {
+    return FilePos{filename, -1, -1};
+  }
 };
 
 } // namespace prsl::Utils

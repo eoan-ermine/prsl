@@ -23,8 +23,7 @@ using Type = Types::Token::Type;
 
 class Interpreter : public ASTVisitor<PrslObject> {
 public:
-  explicit Interpreter(Compiler::CompilerFlags *flags,
-                       Logger &logger);
+  explicit Interpreter(Compiler::CompilerFlags *flags, Logger &logger);
   bool dump(const std::filesystem::path &path) const;
 
 private:

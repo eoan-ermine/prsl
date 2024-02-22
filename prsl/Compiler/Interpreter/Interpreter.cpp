@@ -7,8 +7,7 @@
 
 namespace prsl::Interpreter {
 
-Interpreter::Interpreter(Compiler::CompilerFlags *flags,
-                         Logger &logger)
+Interpreter::Interpreter(Compiler::CompilerFlags *flags, Logger &logger)
     : flags(flags), logger(logger), envManager(logger) {}
 
 bool Interpreter::dump(const std::filesystem::path &path) const {
@@ -193,8 +192,7 @@ PrslObject Interpreter::visitCallExpr(const CallExprPtr &expr) {
   if (size_t paramsCount = func->paramsCount(),
       argsCount = expr->arguments.size();
       paramsCount != argsCount) {
-    throw reportRuntimeError(logger, expr->ident,
-                             "Wrong number of arguments");
+    throw reportRuntimeError(logger, expr->ident, "Wrong number of arguments");
   }
 
   // Evaluate arguments

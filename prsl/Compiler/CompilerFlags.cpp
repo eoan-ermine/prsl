@@ -36,4 +36,10 @@ void CompilerFlags::setExecutionMode(ExecutionMode mode) {
 
 ExecutionMode CompilerFlags::getExecutionMode() const { return executionMode; }
 
+void CompilerFlags::setNoDiagnosticsColor(bool flag) {
+  this->noDiagnosticsColor = flag;
+}
+
+bool CompilerFlags::getNoDiagnosticsColor() const { return noDiagnosticsColor; }
+
 } // namespace prsl::Compiler

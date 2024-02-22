@@ -1,5 +1,7 @@
 #pragma once
 
+#include "prsl/Utils/Utils.hpp"
+
 #include <functional>
 #include <string>
 #include <string_view>
@@ -48,13 +50,15 @@ public:
    * @param type the type of the token
    * @param str the string representation of the token
    * @param line the line number where the token appears
+   * @param line the char number where the token appears
    *
    * @return None
    *
    * @throws None
    */
-  constexpr Token(Type type, std::string_view str, int line) noexcept
-      : type(type), lexeme(str), line(line) {}
+  constexpr Token(Type type, std::string_view str, Utils::FilePos s_pos,
+                  Utils::FilePos e_pos) noexcept
+      : type(type), lexeme(str), s_pos(s_pos), e_pos(e_pos) {}
 
   /**
    * Check if the token represents an error.
@@ -84,13 +88,22 @@ public:
   constexpr std::string_view getLexeme() const noexcept { return lexeme; }
 
   /**
-   * Get the line number where the token appears.
+   * Get the start position of the token.
    *
-   * @return the line number
+   * @return the position of the token
    *
    * @throws None
    */
-  constexpr int getLine() const noexcept { return line; }
+  constexpr Utils::FilePos getStartPos() const noexcept { return s_pos; }
+
+  /**
+   * Get the end position of the token.
+   *
+   * @return the position of the token
+   *
+   * @throws None
+   */
+  constexpr Utils::FilePos getEndPos() const noexcept { return e_pos; }
 
   /**
    * Converts the token to a string.
@@ -113,7 +126,7 @@ public:
 
 private:
   std::string_view lexeme;
-  int line;
+  Utils::FilePos s_pos, e_pos;
   Type type;
 };
 

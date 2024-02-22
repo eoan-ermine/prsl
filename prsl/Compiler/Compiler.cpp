@@ -2,8 +2,8 @@
 #include "prsl/Compiler/Codegen/Codegen.hpp"
 #include "prsl/Compiler/Executor.hpp"
 #include "prsl/Compiler/Interpreter/Interpreter.hpp"
-#include "prsl/Debug/Logger.hpp"
 #include "prsl/Debug/Errors.hpp"
+#include "prsl/Debug/Logger.hpp"
 #include "prsl/Parser/Parser.hpp"
 #include "prsl/Parser/Scanner.hpp"
 #include "prsl/Semantics/Semantics.hpp"
@@ -14,8 +14,9 @@
 
 namespace prsl::Compiler {
 
-auto parse(std::string_view source, prsl::Errors::Logger &logger) {
-  prsl::Scanner::Scanner scanner(source);
+auto parse(std::string_view filename, std::string_view source,
+           prsl::Errors::Logger &logger) {
+  prsl::Scanner::Scanner scanner(filename, source);
   auto tokens = scanner.tokenize();
   prsl::Parser::Parser parser(tokens, logger);
   return parser.parse();
@@ -46,7 +47,7 @@ void Compiler::run(const fs::path &file) {
   }
 
   try {
-    auto stmt = parse(source, logger);
+    auto stmt = parse(inputPath.filename().string(), source, logger);
     if (logger.getErrorCount()) {
       return;
     }

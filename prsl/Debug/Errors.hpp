@@ -10,10 +10,11 @@ using namespace std::string_literals;
 
 namespace prsl::Errors {
 
-template<typename T>
+template <typename T>
 T reportError(Logger &logger, const prsl::Types::Token &token,
-    const std::string &message) noexcept {
-  logger.error(token.getLine(), "at '"s + token.toString() + "': "s + message);
+              const std::string &message) noexcept {
+  logger.error(token.getStartPos(),
+               "at '"s + token.toString() + "': "s + message);
   return T{};
 }
 
@@ -24,9 +25,7 @@ ParseError reportParseError(Logger &logger, const prsl::Types::Token &token,
 
 class RuntimeError : public std::exception {};
 
-RuntimeError reportRuntimeError(Logger &logger,
-                                const prsl::Types::Token &token,
+RuntimeError reportRuntimeError(Logger &logger, const prsl::Types::Token &token,
                                 const std::string &message) noexcept;
 
 } // namespace prsl::Errors
-

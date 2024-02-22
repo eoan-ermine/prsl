@@ -17,8 +17,7 @@ using AST::StmtPtrVariant;
 
 class Parser {
 public:
-  explicit Parser(const std::vector<Token> &tokens,
-                  Errors::Logger &logger);
+  explicit Parser(const std::vector<Token> &tokens, Errors::Logger &logger);
 
   StmtPtrVariant parse();
 
@@ -57,9 +56,6 @@ private:
   void advance() noexcept;
   Token getTokenAdvance() noexcept;
   Token consumeOrError(Token::Type tType, std::string_view errorMessage);
-  Errors::ParseError error(const std::string &msg) {
-    return Errors::reportParseError(logger, peek(), msg);
-  }
   [[nodiscard]] Token::Type getCurrentTokenType() const noexcept;
   [[nodiscard]] bool isEOF() const noexcept;
   [[nodiscard]] bool match(Token::Type type) const noexcept;
@@ -68,6 +64,9 @@ private:
   [[nodiscard]] bool matchNext(Token::Type type) noexcept;
   [[nodiscard]] Token peek() const noexcept;
 
+  Errors::ParseError error(const std::string &msg);
+
+private:
   const std::vector<Token> &tokens;
   std::vector<Token>::const_iterator currentIter;
   prsl::Errors::Logger &logger;
