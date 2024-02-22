@@ -111,10 +111,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af66250cb165e3660e9a5c1ba585a63ee"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Compiler.html#af66250cb165e3660e9a5c1ba585a63ee">parse</a> (std::string_view source, <a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a> &amp;eReporter)</td></tr>
-<tr class="separator:af66250cb165e3660e9a5c1ba585a63ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a4f65f9d91a6484addbf70906078077"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Compiler.html#a8a4f65f9d91a6484addbf70906078077">resolve</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">prsl::AST::StmtPtrVariant</a> &amp;stmt, <a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a> &amp;eReporter)</td></tr>
-<tr class="separator:a8a4f65f9d91a6484addbf70906078077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca2840b42f7fc1166645aeeb0ab3d1e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Compiler.html#a4ca2840b42f7fc1166645aeeb0ab3d1e">parse</a> (std::string_view filename, std::string_view source, <a class="el" href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a> &amp;logger)</td></tr>
+<tr class="separator:a4ca2840b42f7fc1166645aeeb0ab3d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a401b82cb6644d03bdde2fe055693ec78"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Compiler.html#a401b82cb6644d03bdde2fe055693ec78">resolve</a> (const <a class="el" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">prsl::AST::StmtPtrVariant</a> &amp;stmt, <a class="el" href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a> &amp;logger)</td></tr>
+<tr class="separator:a401b82cb6644d03bdde2fe055693ec78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a74c1a5d575fdac458e3547d34b173db0"></a>
@@ -228,8 +228,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af66250cb165e3660e9a5c1ba585a63ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af66250cb165e3660e9a5c1ba585a63ee">&#9670;&nbsp;</a></span>parse()</h2>
+<a id="a4ca2840b42f7fc1166645aeeb0ab3d1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca2840b42f7fc1166645aeeb0ab3d1e">&#9670;&nbsp;</a></span>parse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,13 +238,19 @@ Functions</h2></td></tr>
           <td class="memname">auto prsl::Compiler::parse </td>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>source</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a> &amp;&#160;</td>
-          <td class="paramname"><em>eReporter</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a> &amp;&#160;</td>
+          <td class="paramname"><em>logger</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -256,19 +262,20 @@ Functions</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_cgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_cgraph" alt=""/></div>
-<map name="anamespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_cgraph" id="anamespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_cgraph">
+<div class="center"><img src="namespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_cgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_cgraph" alt=""/></div>
+<map name="anamespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_cgraph" id="anamespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_cgraph">
 <area shape="rect" title=" " alt="" coords="5,46,163,73"/>
 <area shape="rect" href="classprsl_1_1Parser_1_1Parser.html#a029fa7a517352c146f1e3d1fdfa8ab62" title=" " alt="" coords="223,5,365,47"/>
 <area shape="rect" href="classprsl_1_1Scanner_1_1Scanner.html#a037306cb4ba0c2aee0905fe2bbe7c3b8" title=" " alt="" coords="211,71,377,112"/>
-<area shape="rect" href="classprsl_1_1Scanner_1_1Scanner.html#afc33f9fbb9091c8f3c777d6323e39121" title=" " alt="" coords="425,71,592,112"/>
+<area shape="rect" href="classprsl_1_1Scanner_1_1Scanner.html#afc33f9fbb9091c8f3c777d6323e39121" title=" " alt="" coords="425,37,592,79"/>
+<area shape="rect" href="structprsl_1_1Utils_1_1FilePos.html#a2ab5c4ad207fd254e596a66b5bcde149" title=" " alt="" coords="439,103,578,144"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_icgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_icgraph" alt=""/></div>
-<map name="anamespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_icgraph" id="anamespaceprsl_1_1Compiler_af66250cb165e3660e9a5c1ba585a63ee_icgraph">
+<div class="center"><img src="namespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_icgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_icgraph" alt=""/></div>
+<map name="anamespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_icgraph" id="anamespaceprsl_1_1Compiler_a4ca2840b42f7fc1166645aeeb0ab3d1e_icgraph">
 <area shape="rect" title=" " alt="" coords="263,5,420,32"/>
 <area shape="rect" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c" title=" " alt="" coords="5,5,215,32"/>
 </map>
@@ -276,8 +283,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8a4f65f9d91a6484addbf70906078077"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a4f65f9d91a6484addbf70906078077">&#9670;&nbsp;</a></span>resolve()</h2>
+<a id="a401b82cb6644d03bdde2fe055693ec78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a401b82cb6644d03bdde2fe055693ec78">&#9670;&nbsp;</a></span>resolve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,8 +298,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a> &amp;&#160;</td>
-          <td class="paramname"><em>eReporter</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a> &amp;&#160;</td>
+          <td class="paramname"><em>logger</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -304,8 +311,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_cgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_cgraph" alt=""/></div>
-<map name="anamespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_cgraph" id="anamespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_cgraph">
+<div class="center"><img src="namespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_cgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_cgraph" alt=""/></div>
+<map name="anamespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_cgraph" id="anamespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_cgraph">
 <area shape="rect" title=" " alt="" coords="5,274,175,301"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#aff2dc5f0626867bf3557d51c2ea15989" title=" " alt="" coords="223,267,376,308"/>
 <area shape="rect" href="classprsl_1_1AST_1_1ASTVisitor.html#a9072644894650933777333f6586e0703" title=" " alt="" coords="424,5,577,47"/>
@@ -322,8 +329,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_icgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_icgraph" alt=""/></div>
-<map name="anamespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_icgraph" id="anamespaceprsl_1_1Compiler_a8a4f65f9d91a6484addbf70906078077_icgraph">
+<div class="center"><img src="namespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_icgraph.png" border="0" usemap="#anamespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_icgraph" alt=""/></div>
+<map name="anamespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_icgraph" id="anamespaceprsl_1_1Compiler_a401b82cb6644d03bdde2fe055693ec78_icgraph">
 <area shape="rect" title=" " alt="" coords="263,5,432,32"/>
 <area shape="rect" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c" title=" " alt="" coords="5,5,215,32"/>
 </map>

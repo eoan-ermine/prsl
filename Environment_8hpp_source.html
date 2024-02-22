@@ -72,8 +72,8 @@ $(function() {
 <div class="contents">
 <a href="Environment_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ErrorReporter_8hpp.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="RuntimeError_8hpp.html">prsl/Debug/RuntimeError.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Errors_8hpp.html">prsl/Debug/Errors.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Logger_8hpp.html">prsl/Debug/Logger.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Token_8hpp.html">prsl/Parser/Token.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
@@ -82,7 +82,7 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespaceprsl_1_1Types.html">   11</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl_1_1Types.html">prsl::Types</a> {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using</span> <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using</span> <a class="code" href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
@@ -153,8 +153,8 @@ $(function() {
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1EnvironmentManager.html#aecf9a7cd8c74ea54bf8707101bfa6657">   82</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classprsl_1_1Types_1_1Environment.html">EnvType</a> = <a class="code" href="classprsl_1_1Types_1_1Environment.html">Environment&lt;VarValue&gt;</a>;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1EnvironmentManager.html#ac1fb4a6f73834e97f93f2bcf7b02ec98">   84</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Types_1_1EnvironmentManager.html#ac1fb4a6f73834e97f93f2bcf7b02ec98">EnvironmentManager</a>(<a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      : eReporter(eReporter),</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1EnvironmentManager.html#abaf5a7bcac6242ec11e0692e553d09fd">   84</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Types_1_1EnvironmentManager.html#abaf5a7bcac6242ec11e0692e553d09fd">EnvironmentManager</a>(<a class="code" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      : logger(logger),</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        curEnv(std::make_shared&lt;<a class="code" href="classprsl_1_1Types_1_1Environment.html">Environment</a>&lt;VarValue&gt;&gt;(nullptr)) {}</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classprsl_1_1Types_1_1EnvironmentManager.html#af053c3603164c76bb91ad5542da34722">   88</a></span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt; <span class="keywordtype">void</span> <a class="code" href="classprsl_1_1Types_1_1EnvironmentManager.html#af053c3603164c76bb91ad5542da34722">withNewEnviron</a>(F &amp;&amp;action) {</div>
@@ -177,7 +177,7 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">try</span> {</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      curEnv-&gt;assign(token, std::move(<span class="keywordtype">object</span>));</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> UndefVarAccess &amp;e) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">Errors::reportRuntimeError</a>(eReporter, token,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceprsl_1_1Errors.html#a19c3119df60f07b0d428265209a46222">Errors::reportRuntimeError</a>(logger, token,</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                       <span class="stringliteral">&quot;Attempt to access an undef variable&quot;</span>);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  }</div>
@@ -190,10 +190,10 @@ $(function() {
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">try</span> {</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="keywordflow">return</span> curEnv-&gt;get(token);</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> UndefVarAccess &amp;e) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">Errors::reportRuntimeError</a>(eReporter, token,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceprsl_1_1Errors.html#a19c3119df60f07b0d428265209a46222">Errors::reportRuntimeError</a>(logger, token,</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                                       <span class="stringliteral">&quot;Attempt to access an undef variable&quot;</span>);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> UninitVarAccess &amp;e) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">Errors::reportRuntimeError</a>(eReporter, token,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceprsl_1_1Errors.html#a19c3119df60f07b0d428265209a46222">Errors::reportRuntimeError</a>(logger, token,</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                       <span class="stringliteral">&quot;Attempt to access an uninit variable&quot;</span>);</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
@@ -215,21 +215,21 @@ $(function() {
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  }</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  ErrorReporter &amp;eReporter;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  Logger &amp;logger;</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1Environment.html#a8249500ffd0bf94fe793fe351579c281">Environment&lt;VarValue&gt;::EnvironmentPtr</a> curEnv;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;};</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}; <span class="comment">// namespace prsl::Types</span></div>
-<div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
-<div class="ttc" id="aRuntimeError_8hpp_html"><div class="ttname"><a href="RuntimeError_8hpp.html">RuntimeError.hpp</a></div></div>
+<div class="ttc" id="aErrors_8hpp_html"><div class="ttname"><a href="Errors_8hpp.html">Errors.hpp</a></div></div>
+<div class="ttc" id="aLogger_8hpp_html"><div class="ttname"><a href="Logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aToken_8hpp_html"><div class="ttname"><a href="Token_8hpp.html">Token.hpp</a></div></div>
-<div class="ttc" id="aclassprsl_1_1Errors_1_1ErrorReporter_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Errors_1_1Logger_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a></div><div class="ttdef"><b>Definition:</b> Logger.hpp:18</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html">prsl::Types::EnvironmentManager</a></div><div class="ttdef"><b>Definition:</b> Environment.hpp:80</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_a7c017098c87a226e8a5f7c81e7fe27b8"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#a7c017098c87a226e8a5f7c81e7fe27b8">prsl::Types::EnvironmentManager::withNewEnviron</a></div><div class="ttdeci">void withNewEnviron(std::shared_ptr&lt; Environment&lt; VarValue &gt;&gt; environ, F &amp;&amp;action)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:96</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_a9e2791c6a34dcfb84d120f2b380479e0"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#a9e2791c6a34dcfb84d120f2b380479e0">prsl::Types::EnvironmentManager::define</a></div><div class="ttdeci">void define(const Types::Token &amp;token, VarValue object)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:113</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_a9e86b4e6eb33f33069c44a294dd37d7a"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#a9e86b4e6eb33f33069c44a294dd37d7a">prsl::Types::EnvironmentManager::contains</a></div><div class="ttdeci">bool contains(const Types::Token &amp;token) const noexcept</div><div class="ttdef"><b>Definition:</b> Environment.hpp:129</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_aafd17486946807dccc54c2e207ab1c8e"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#aafd17486946807dccc54c2e207ab1c8e">prsl::Types::EnvironmentManager::assign</a></div><div class="ttdeci">void assign(const Types::Token &amp;token, VarValue object)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:104</div></div>
-<div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_ac1fb4a6f73834e97f93f2bcf7b02ec98"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#ac1fb4a6f73834e97f93f2bcf7b02ec98">prsl::Types::EnvironmentManager::EnvironmentManager</a></div><div class="ttdeci">EnvironmentManager(ErrorReporter &amp;eReporter)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:84</div></div>
+<div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_abaf5a7bcac6242ec11e0692e553d09fd"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#abaf5a7bcac6242ec11e0692e553d09fd">prsl::Types::EnvironmentManager::EnvironmentManager</a></div><div class="ttdeci">EnvironmentManager(Logger &amp;logger)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:84</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_ad29ddcf6ffe90a5511ac2b9cabea2c44"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#ad29ddcf6ffe90a5511ac2b9cabea2c44">prsl::Types::EnvironmentManager::get</a></div><div class="ttdeci">VarValue get(const Types::Token &amp;token) const</div><div class="ttdef"><b>Definition:</b> Environment.hpp:117</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html_af053c3603164c76bb91ad5542da34722"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html#af053c3603164c76bb91ad5542da34722">prsl::Types::EnvironmentManager::withNewEnviron</a></div><div class="ttdeci">void withNewEnviron(F &amp;&amp;action)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:88</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1Environment_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Environment.html">prsl::Types::Environment</a></div><div class="ttdef"><b>Definition:</b> Environment.hpp:23</div></div>
@@ -241,8 +241,8 @@ $(function() {
 <div class="ttc" id="aclassprsl_1_1Types_1_1Environment_html_a97e9c8b211e76d161a52b46b28464f68"><div class="ttname"><a href="classprsl_1_1Types_1_1Environment.html#a97e9c8b211e76d161a52b46b28464f68">prsl::Types::Environment::defineOrAssign</a></div><div class="ttdeci">void defineOrAssign(const Types::Token &amp;token, VarValue object)</div><div class="ttdef"><b>Definition:</b> Environment.hpp:42</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1Environment_html_a99aa510f042692b86a8bb45529ddb09d"><div class="ttname"><a href="classprsl_1_1Types_1_1Environment.html#a99aa510f042692b86a8bb45529ddb09d">prsl::Types::Environment::getParentEnv</a></div><div class="ttdeci">EnvironmentPtr getParentEnv() const noexcept</div><div class="ttdef"><b>Definition:</b> Environment.hpp:71</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1Environment_html_ae1d5e21c834c2a9b969878e42519cb70"><div class="ttname"><a href="classprsl_1_1Types_1_1Environment.html#ae1d5e21c834c2a9b969878e42519cb70">prsl::Types::Environment::contains</a></div><div class="ttdeci">bool contains(const Types::Token &amp;token) const noexcept</div><div class="ttdef"><b>Definition:</b> Environment.hpp:62</div></div>
-<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:9</div></div>
-<div class="ttc" id="anamespaceprsl_1_1Errors_html_aadb63e5f0168e301f2c7496076102fe2"><div class="ttname"><a href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">prsl::Errors::reportRuntimeError</a></div><div class="ttdeci">RuntimeError reportRuntimeError(ErrorReporter &amp;eReporter, const prsl::Types::Token &amp;token, const std::string &amp;message) noexcept</div><div class="ttdef"><b>Definition:</b> RuntimeError.cpp:5</div></div>
+<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:11</div></div>
+<div class="ttc" id="anamespaceprsl_1_1Errors_html_a19c3119df60f07b0d428265209a46222"><div class="ttname"><a href="namespaceprsl_1_1Errors.html#a19c3119df60f07b0d428265209a46222">prsl::Errors::reportRuntimeError</a></div><div class="ttdeci">RuntimeError reportRuntimeError(Logger &amp;logger, const prsl::Types::Token &amp;token, const std::string &amp;message) noexcept</div><div class="ttdef"><b>Definition:</b> Errors.cpp:10</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Types_html"><div class="ttname"><a href="namespaceprsl_1_1Types.html">prsl::Types</a></div><div class="ttdef"><b>Definition:</b> Environment.hpp:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

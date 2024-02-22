@@ -72,7 +72,7 @@ $(function() {
 <div class="contents">
 <a href="Executor_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="NodeTypes_8hpp.html">prsl/AST/NodeTypes.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="CompilerFlags_8hpp.html">prsl/Compiler/CompilerFlags.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ErrorReporter_8hpp.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Logger_8hpp.html">prsl/Debug/Logger.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl_1_1Compiler.html">prsl::Compiler</a> {</div>
@@ -80,10 +80,10 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Executor.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Compiler_1_1Executor.html">Executor</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Executor.html#aefa426972ff0608cfe65226c7d915375">   11</a></span>&#160;  <span class="keyword">static</span> std::unique_ptr&lt;Executor&gt; <a class="code" href="classprsl_1_1Compiler_1_1Executor.html#aefa426972ff0608cfe65226c7d915375">Create</a>(<a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">CompilerFlags</a> *flags,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                          <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">Errors::ErrorReporter</a> &amp;eReporter) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Executor.html#a2502c95a6b9efa7b2531857b742afd32">   11</a></span>&#160;  <span class="keyword">static</span> std::unique_ptr&lt;Executor&gt; <a class="code" href="classprsl_1_1Compiler_1_1Executor.html#a2502c95a6b9efa7b2531857b742afd32">Create</a>(<a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">CompilerFlags</a> *flags,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                          <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Errors::Logger</a> &amp;logger) {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;Executor&gt;(</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        std::make_unique&lt;holder&lt;T&gt;&gt;(flags, eReporter));</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        std::make_unique&lt;holder&lt;T&gt;&gt;(flags, logger));</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  }</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
@@ -103,8 +103,8 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span>holder : base_holder {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    T executor;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    holder(CompilerFlags *flags, Errors::ErrorReporter &amp;eReporter)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        : executor(flags, eReporter) {}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    holder(CompilerFlags *flags, Errors::Logger &amp;logger)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        : executor(flags, logger) {}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classprsl_1_1Compiler_1_1Executor.html#a74d166dbf1e9d0ee455ba122b91d9038">visitStmt</a>(<span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">AST::StmtPtrVariant</a> &amp;stmt)<span class="keyword"> override </span>{</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      executor.visitStmt(stmt);</div>
@@ -120,15 +120,15 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace prsl::Compiler</span></div>
 <div class="ttc" id="aCompilerFlags_8hpp_html"><div class="ttname"><a href="CompilerFlags_8hpp.html">CompilerFlags.hpp</a></div></div>
-<div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
+<div class="ttc" id="aLogger_8hpp_html"><div class="ttname"><a href="Logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aNodeTypes_8hpp_html"><div class="ttname"><a href="NodeTypes_8hpp.html">NodeTypes.hpp</a></div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1CompilerFlags_html"><div class="ttname"><a href="classprsl_1_1Compiler_1_1CompilerFlags.html">prsl::Compiler::CompilerFlags</a></div><div class="ttdef"><b>Definition:</b> CompilerFlags.hpp:15</div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1Executor_html"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Executor.html">prsl::Compiler::Executor</a></div><div class="ttdef"><b>Definition:</b> Executor.hpp:8</div></div>
+<div class="ttc" id="aclassprsl_1_1Compiler_1_1Executor_html_a2502c95a6b9efa7b2531857b742afd32"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Executor.html#a2502c95a6b9efa7b2531857b742afd32">prsl::Compiler::Executor::Create</a></div><div class="ttdeci">static std::unique_ptr&lt; Executor &gt; Create(CompilerFlags *flags, Errors::Logger &amp;logger)</div><div class="ttdef"><b>Definition:</b> Executor.hpp:11</div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1Executor_html_a5a8a4285cff613009e1bae316fc3923e"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Executor.html#a5a8a4285cff613009e1bae316fc3923e">prsl::Compiler::Executor::Executor</a></div><div class="ttdeci">Executor(std::unique_ptr&lt; T &gt; ptr)</div><div class="ttdef"><b>Definition:</b> Executor.hpp:18</div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1Executor_html_a74d166dbf1e9d0ee455ba122b91d9038"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Executor.html#a74d166dbf1e9d0ee455ba122b91d9038">prsl::Compiler::Executor::visitStmt</a></div><div class="ttdeci">void visitStmt(const AST::StmtPtrVariant &amp;stmt)</div><div class="ttdef"><b>Definition:</b> Executor.hpp:20</div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1Executor_html_ad1e80174934cf5dfec030c3e21af0695"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Executor.html#ad1e80174934cf5dfec030c3e21af0695">prsl::Compiler::Executor::dump</a></div><div class="ttdeci">void dump(const std::filesystem::path &amp;path) const</div><div class="ttdef"><b>Definition:</b> Executor.hpp:22</div></div>
-<div class="ttc" id="aclassprsl_1_1Compiler_1_1Executor_html_aefa426972ff0608cfe65226c7d915375"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Executor.html#aefa426972ff0608cfe65226c7d915375">prsl::Compiler::Executor::Create</a></div><div class="ttdeci">static std::unique_ptr&lt; Executor &gt; Create(CompilerFlags *flags, Errors::ErrorReporter &amp;eReporter)</div><div class="ttdef"><b>Definition:</b> Executor.hpp:11</div></div>
-<div class="ttc" id="aclassprsl_1_1Errors_1_1ErrorReporter_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Errors_1_1Logger_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a></div><div class="ttdef"><b>Definition:</b> Logger.hpp:18</div></div>
 <div class="ttc" id="anamespaceprsl_1_1AST_html_a899912730376f8af0b8b5bef708b6c6f"><div class="ttname"><a href="namespaceprsl_1_1AST.html#a899912730376f8af0b8b5bef708b6c6f">prsl::AST::StmtPtrVariant</a></div><div class="ttdeci">std::variant&lt; VarStmtPtr, IfStmtPtr, WhileStmtPtr, PrintStmtPtr, ExprStmtPtr, FunctionStmtPtr, BlockStmtPtr, ReturnStmtPtr, NullStmtPtr &gt; StmtPtrVariant</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:79</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Compiler_html"><div class="ttname"><a href="namespaceprsl_1_1Compiler.html">prsl::Compiler</a></div><div class="ttdef"><b>Definition:</b> Compiler.cpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->

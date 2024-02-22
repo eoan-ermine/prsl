@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['op_515',['op',['../structprsl_1_1AST_1_1UnaryExpr.html#afbe526e364e027b60809ea62e0858870',1,'prsl::AST::UnaryExpr::op()'],['../structprsl_1_1AST_1_1BinaryExpr.html#a8a2ee13a3800b326d0e25e6c86167b95',1,'prsl::AST::BinaryExpr::op()'],['../structprsl_1_1AST_1_1PostfixExpr.html#a81cf735401ca2b03d4fd9e629f83997a',1,'prsl::AST::PostfixExpr::op()']]]
+  ['name_554',['name',['../structprsl_1_1AST_1_1FuncExpr.html#aff18f3ca063f10ee221bb8eb9d90a220',1,'prsl::AST::FuncExpr::name()'],['../namespacelit.html#ac8984ff1d09b2d4f07f2ba56484afe31',1,'lit.name()']]]
 ];

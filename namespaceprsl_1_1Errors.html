@@ -77,26 +77,39 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Errors_1_1ParseError.html">ParseError</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a6ecbafacb5bc620a683abb22d8181e12"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Errors.html#a6ecbafacb5bc620a683abb22d8181e12">PrslStatus</a> { <a class="el" href="namespaceprsl_1_1Errors.html#a6ecbafacb5bc620a683abb22d8181e12ae0aa021e21dddbd6d8cecec71e9cf564">OK</a>
-, <a class="el" href="namespaceprsl_1_1Errors.html#a6ecbafacb5bc620a683abb22d8181e12abb1ca97ec761fc37101737ba0aa2e7c5">ERROR</a>
+<tr class="memitem:a389dc1d1376f336da138b64aefe9c1ba"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1ba">LogLevel</a> { <br />
+&#160;&#160;<a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1baadc30ec20708ef7b0f641ef78b7880a15">DEBUG</a> = 1
+, <a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1baa551b723eafd6a31d444fcb2f5920fbd3">INFO</a> = 2
+, <a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1baa059e9861e0400dfbe05c98a841f3f96b">WARNING</a> = 3
+, <a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1baabb1ca97ec761fc37101737ba0aa2e7c5">ERROR</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1baa1b4462755110ae77a3bb7e319f6544fa">QUIET</a> = 5
+<br />
  }</td></tr>
-<tr class="separator:a6ecbafacb5bc620a683abb22d8181e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a389dc1d1376f336da138b64aefe9c1ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aadb63e5f0168e301f2c7496076102fe2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Errors.html#aadb63e5f0168e301f2c7496076102fe2">reportRuntimeError</a> (<a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter, const <a class="el" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;token, const std::string &amp;message) noexcept</td></tr>
-<tr class="separator:aadb63e5f0168e301f2c7496076102fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab728442aa80125a17bfd3e44a9ad4abe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Errors_1_1ParseError.html">ParseError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Errors.html#ab728442aa80125a17bfd3e44a9ad4abe">reportParseError</a> (<a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger, const <a class="el" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;token, const std::string &amp;message) noexcept</td></tr>
+<tr class="separator:ab728442aa80125a17bfd3e44a9ad4abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c3119df60f07b0d428265209a46222"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Errors.html#a19c3119df60f07b0d428265209a46222">reportRuntimeError</a> (<a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger, const <a class="el" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;token, const std::string &amp;message) noexcept</td></tr>
+<tr class="separator:a19c3119df60f07b0d428265209a46222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42eb0d5faaaa053806ea5680609d174"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad42eb0d5faaaa053806ea5680609d174"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceprsl_1_1Errors.html#ad42eb0d5faaaa053806ea5680609d174">reportError</a> (<a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger, const <a class="el" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;token, const std::string &amp;message) noexcept</td></tr>
+<tr class="separator:ad42eb0d5faaaa053806ea5680609d174"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a6ecbafacb5bc620a683abb22d8181e12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ecbafacb5bc620a683abb22d8181e12">&#9670;&nbsp;</a></span>PrslStatus</h2>
+<a id="a389dc1d1376f336da138b64aefe9c1ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a389dc1d1376f336da138b64aefe9c1ba">&#9670;&nbsp;</a></span>LogLevel</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -105,7 +118,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespaceprsl_1_1Errors.html#a6ecbafacb5bc620a683abb22d8181e12">prsl::Errors::PrslStatus</a></td>
+          <td class="memname">enum <a class="el" href="namespaceprsl_1_1Errors.html#a389dc1d1376f336da138b64aefe9c1ba">prsl::Errors::LogLevel</a></td>
         </tr>
       </table>
   </td>
@@ -115,15 +128,104 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6ecbafacb5bc620a683abb22d8181e12ae0aa021e21dddbd6d8cecec71e9cf564"></a>OK&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6ecbafacb5bc620a683abb22d8181e12abb1ca97ec761fc37101737ba0aa2e7c5"></a>ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a389dc1d1376f336da138b64aefe9c1baadc30ec20708ef7b0f641ef78b7880a15"></a>DEBUG&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a389dc1d1376f336da138b64aefe9c1baa551b723eafd6a31d444fcb2f5920fbd3"></a>INFO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a389dc1d1376f336da138b64aefe9c1baa059e9861e0400dfbe05c98a841f3f96b"></a>WARNING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a389dc1d1376f336da138b64aefe9c1baabb1ca97ec761fc37101737ba0aa2e7c5"></a>ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a389dc1d1376f336da138b64aefe9c1baa1b4462755110ae77a3bb7e319f6544fa"></a>QUIET&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aadb63e5f0168e301f2c7496076102fe2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadb63e5f0168e301f2c7496076102fe2">&#9670;&nbsp;</a></span>reportRuntimeError()</h2>
+<a id="ad42eb0d5faaaa053806ea5680609d174"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42eb0d5faaaa053806ea5680609d174">&#9670;&nbsp;</a></span>reportError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T prsl::Errors::reportError </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;&#160;</td>
+          <td class="paramname"><em>logger</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab728442aa80125a17bfd3e44a9ad4abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab728442aa80125a17bfd3e44a9ad4abe">&#9670;&nbsp;</a></span>reportParseError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classprsl_1_1Errors_1_1ParseError.html">ParseError</a> prsl::Errors::reportParseError </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;&#160;</td>
+          <td class="paramname"><em>logger</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a> &amp;&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a19c3119df60f07b0d428265209a46222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19c3119df60f07b0d428265209a46222">&#9670;&nbsp;</a></span>reportRuntimeError()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,8 +236,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classprsl_1_1Errors_1_1RuntimeError.html">RuntimeError</a> prsl::Errors::reportRuntimeError </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;&#160;</td>
-          <td class="paramname"><em>eReporter</em>, </td>
+          <td class="paramtype"><a class="el" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;&#160;</td>
+          <td class="paramname"><em>logger</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -164,8 +266,8 @@ Functions</h2></td></tr>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceprsl_1_1Errors_aadb63e5f0168e301f2c7496076102fe2_icgraph.png" border="0" usemap="#anamespaceprsl_1_1Errors_aadb63e5f0168e301f2c7496076102fe2_icgraph" alt=""/></div>
-<map name="anamespaceprsl_1_1Errors_aadb63e5f0168e301f2c7496076102fe2_icgraph" id="anamespaceprsl_1_1Errors_aadb63e5f0168e301f2c7496076102fe2_icgraph">
+<div class="center"><img src="namespaceprsl_1_1Errors_a19c3119df60f07b0d428265209a46222_icgraph.png" border="0" usemap="#anamespaceprsl_1_1Errors_a19c3119df60f07b0d428265209a46222_icgraph" alt=""/></div>
+<map name="anamespaceprsl_1_1Errors_a19c3119df60f07b0d428265209a46222_icgraph" id="anamespaceprsl_1_1Errors_a19c3119df60f07b0d428265209a46222_icgraph">
 <area shape="rect" title=" " alt="" coords="236,39,431,80"/>
 <area shape="rect" href="classprsl_1_1Types_1_1EnvironmentManager.html#aafd17486946807dccc54c2e207ab1c8e" title=" " alt="" coords="5,5,188,47"/>
 <area shape="rect" href="classprsl_1_1Types_1_1EnvironmentManager.html#ad29ddcf6ffe90a5511ac2b9cabea2c44" title=" " alt="" coords="5,71,188,112"/>

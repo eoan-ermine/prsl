@@ -71,31 +71,36 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="Compiler_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="CompilerFlags_8hpp.html">prsl/Compiler/CompilerFlags.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl_1_1Compiler.html">prsl::Compiler</a> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>fs = std::filesystem;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Compiler.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Compiler_1_1Compiler.html">Compiler</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Compiler.html#a91c8db7d20017ade9e6db300042daf18">   11</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Compiler_1_1Compiler.html#a91c8db7d20017ade9e6db300042daf18">Compiler</a>(<a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">CompilerFlags</a> *flags) : flags(flags) {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Compiler.html#ac6689680c1f39cc61ce4f1645eeaa289">   12</a></span>&#160;  <a class="code" href="classprsl_1_1Compiler_1_1Compiler.html#ac6689680c1f39cc61ce4f1645eeaa289">~Compiler</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c">run</a>(<span class="keyword">const</span> fs::path &amp;);</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Logger_8hpp.html">prsl/Debug/Logger.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceprsl_1_1Compiler.html">prsl::Compiler</a> {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>fs = std::filesystem;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Compiler.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Compiler_1_1Compiler.html">Compiler</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Compiler.html#a779e469757a485e102fae556b7eb561f">   12</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Compiler_1_1Compiler.html#a779e469757a485e102fae556b7eb561f">Compiler</a>(<a class="code" href="classprsl_1_1Errors_1_1Logger.html">Errors::Logger</a> &amp;logger, <a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">CompilerFlags</a> *flags)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;      : logger(logger), flags(flags) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classprsl_1_1Compiler_1_1Compiler.html#ac6689680c1f39cc61ce4f1645eeaa289">   14</a></span>&#160;  <a class="code" href="classprsl_1_1Compiler_1_1Compiler.html#ac6689680c1f39cc61ce4f1645eeaa289">~Compiler</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">CompilerFlags</a> *flags;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace prsl::Compiler</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c">run</a>(<span class="keyword">const</span> fs::path &amp;);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Errors::Logger</a> &amp;logger;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">CompilerFlags</a> *flags;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace prsl::Compiler</span></div>
 <div class="ttc" id="aCompilerFlags_8hpp_html"><div class="ttname"><a href="CompilerFlags_8hpp.html">CompilerFlags.hpp</a></div></div>
+<div class="ttc" id="aLogger_8hpp_html"><div class="ttname"><a href="Logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1CompilerFlags_html"><div class="ttname"><a href="classprsl_1_1Compiler_1_1CompilerFlags.html">prsl::Compiler::CompilerFlags</a></div><div class="ttdef"><b>Definition:</b> CompilerFlags.hpp:15</div></div>
-<div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html">prsl::Compiler::Compiler</a></div><div class="ttdef"><b>Definition:</b> Compiler.hpp:9</div></div>
-<div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html_a91c8db7d20017ade9e6db300042daf18"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html#a91c8db7d20017ade9e6db300042daf18">prsl::Compiler::Compiler::Compiler</a></div><div class="ttdeci">Compiler(CompilerFlags *flags)</div><div class="ttdef"><b>Definition:</b> Compiler.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html">prsl::Compiler::Compiler</a></div><div class="ttdef"><b>Definition:</b> Compiler.hpp:10</div></div>
+<div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html_a779e469757a485e102fae556b7eb561f"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html#a779e469757a485e102fae556b7eb561f">prsl::Compiler::Compiler::Compiler</a></div><div class="ttdeci">Compiler(Errors::Logger &amp;logger, CompilerFlags *flags)</div><div class="ttdef"><b>Definition:</b> Compiler.hpp:12</div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html_ac6689680c1f39cc61ce4f1645eeaa289"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html#ac6689680c1f39cc61ce4f1645eeaa289">prsl::Compiler::Compiler::~Compiler</a></div><div class="ttdeci">~Compiler()=default</div></div>
-<div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html_af627071c75ea9a56128c2c6c6543472c"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c">prsl::Compiler::Compiler::run</a></div><div class="ttdeci">void run(const fs::path &amp;)</div><div class="ttdef"><b>Definition:</b> Compiler.cpp:30</div></div>
+<div class="ttc" id="aclassprsl_1_1Compiler_1_1Compiler_html_af627071c75ea9a56128c2c6c6543472c"><div class="ttname"><a href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c">prsl::Compiler::Compiler::run</a></div><div class="ttdeci">void run(const fs::path &amp;)</div><div class="ttdef"><b>Definition:</b> Compiler.cpp:31</div></div>
+<div class="ttc" id="aclassprsl_1_1Errors_1_1Logger_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a></div><div class="ttdef"><b>Definition:</b> Logger.hpp:18</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Compiler_html"><div class="ttname"><a href="namespaceprsl_1_1Compiler.html">prsl::Compiler</a></div><div class="ttdef"><b>Definition:</b> Compiler.cpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

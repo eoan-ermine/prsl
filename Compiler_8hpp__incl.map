@@ -1,6 +1,11 @@
 <map id="prsl/Compiler/Compiler.hpp" name="prsl/Compiler/Compiler.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="117,5,315,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="247,5,446,32"/>
 <area shape="rect" id="node2" href="$CompilerFlags_8hpp.html" title=" " alt="" coords="5,80,240,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="264,80,355,107"/>
+<area shape="rect" id="node4" href="$Logger_8hpp.html" title=" " alt="" coords="263,80,430,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="455,80,545,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="93,155,152,181"/>
+<area shape="rect" id="node5" href="$Utils_8hpp.html" title=" " alt="" coords="177,155,319,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="344,155,400,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="424,155,504,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="199,229,297,256"/>
 </map>

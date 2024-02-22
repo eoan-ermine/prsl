@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['prslstatus_560',['PrslStatus',['../namespaceprsl_1_1Errors.html#a6ecbafacb5bc620a683abb22d8181e12',1,'prsl::Errors']]]
+  ['optimizationlevel_599',['OptimizationLevel',['../namespaceprsl_1_1Compiler.html#a7f486744e5a46fffdc70415a0e01851b',1,'prsl::Compiler']]],
+  ['outputfiletype_600',['OutputFileType',['../namespaceprsl_1_1Compiler.html#ad6fc48a3d30a7ed5266b1fcdd3894309',1,'prsl::Compiler']]]
 ];

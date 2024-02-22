@@ -1,9 +1,10 @@
 <map id="prsl/Parser/Scanner.hpp" name="prsl/Parser/Scanner.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="222,5,395,32"/>
-<area shape="rect" id="node2" href="$Token_8hpp.html" title=" " alt="" coords="63,80,221,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="207,155,304,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="297,80,421,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="445,80,508,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,92,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="117,155,175,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="394,5,567,32"/>
+<area shape="rect" id="node2" href="$Token_8hpp.html" title=" " alt="" coords="188,80,347,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="137,229,235,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="469,80,593,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="617,80,680,107"/>
+<area shape="rect" id="node3" href="$Utils_8hpp.html" title=" " alt="" coords="5,155,148,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="224,155,311,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="335,155,394,181"/>
 </map>

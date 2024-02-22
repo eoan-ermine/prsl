@@ -76,7 +76,7 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="TreeWalkerVisitor_8hpp.html">prsl/AST/TreeWalkerVisitor.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Environment_8hpp.html">prsl/Compiler/Common/Environment.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="FunctionsManager_8hpp.html">prsl/Compiler/Common/FunctionsManager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ErrorReporter_8hpp.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Logger_8hpp.html">prsl/Debug/Logger.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
@@ -86,7 +86,7 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classprsl_1_1Semantics_1_1Semantics.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Semantics_1_1Semantics.html">Semantics</a> : <span class="keyword">public</span> <a class="code" href="classprsl_1_1AST_1_1TreeWalkerVisitor.html">TreeWalkerVisitor</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Semantics_1_1Semantics.html">Semantics</a>(<a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">Errors::ErrorReporter</a> &amp;eReporter);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Semantics_1_1Semantics.html">Semantics</a>(<a class="code" href="classprsl_1_1Errors_1_1Logger.html">Errors::Logger</a> &amp;logger);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">bool</span> dump(<span class="keyword">const</span> std::filesystem::path &amp;path) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
@@ -102,7 +102,7 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">void</span> visitReturnStmt(<span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1AST.html#ab77140a8ceb6bd4b4692ad92219d1c97">ReturnStmtPtr</a> &amp;stmt) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">Errors::ErrorReporter</a> &amp;eReporter;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Errors::Logger</a> &amp;logger;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1EnvironmentManager.html">Types::EnvironmentManager&lt;bool&gt;</a> envManager;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html">Types::FunctionsManager&lt;bool&gt;</a> functionsManager;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">bool</span> inFunction = <span class="keyword">false</span>;</div>
@@ -110,12 +110,12 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace prsl::Semantics</span></div>
 <div class="ttc" id="aEnvironment_8hpp_html"><div class="ttname"><a href="Environment_8hpp.html">Environment.hpp</a></div></div>
-<div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
 <div class="ttc" id="aFunctionsManager_8hpp_html"><div class="ttname"><a href="FunctionsManager_8hpp.html">FunctionsManager.hpp</a></div></div>
+<div class="ttc" id="aLogger_8hpp_html"><div class="ttname"><a href="Logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aNodeTypes_8hpp_html"><div class="ttname"><a href="NodeTypes_8hpp.html">NodeTypes.hpp</a></div></div>
 <div class="ttc" id="aTreeWalkerVisitor_8hpp_html"><div class="ttname"><a href="TreeWalkerVisitor_8hpp.html">TreeWalkerVisitor.hpp</a></div></div>
 <div class="ttc" id="aclassprsl_1_1AST_1_1TreeWalkerVisitor_html"><div class="ttname"><a href="classprsl_1_1AST_1_1TreeWalkerVisitor.html">prsl::AST::TreeWalkerVisitor</a></div><div class="ttdef"><b>Definition:</b> TreeWalkerVisitor.hpp:7</div></div>
-<div class="ttc" id="aclassprsl_1_1Errors_1_1ErrorReporter_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Errors_1_1Logger_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a></div><div class="ttdef"><b>Definition:</b> Logger.hpp:18</div></div>
 <div class="ttc" id="aclassprsl_1_1Semantics_1_1Semantics_html"><div class="ttname"><a href="classprsl_1_1Semantics_1_1Semantics.html">prsl::Semantics::Semantics</a></div><div class="ttdef"><b>Definition:</b> Semantics.hpp:15</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html">prsl::Types::EnvironmentManager&lt; bool &gt;</a></div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html">prsl::Types::FunctionsManager&lt; bool &gt;</a></div></div>

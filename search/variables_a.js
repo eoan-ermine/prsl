@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['statements_522',['statements',['../structprsl_1_1AST_1_1ScopeExpr.html#aefb70e152b1356696c7531ebe26b3df5',1,'prsl::AST::ScopeExpr::statements()'],['../structprsl_1_1AST_1_1BlockStmt.html#aa5ff74897b9f59a7b1dde80e080e67c7',1,'prsl::AST::BlockStmt::statements()']]],
-  ['suffixes_523',['suffixes',['../namespacelit.html#a1e5ad2ed2894f2b3b850612264fdd235',1,'lit']]]
+  ['retexpr_558',['retExpr',['../structprsl_1_1AST_1_1FuncExpr.html#a41fbdaae6972e99b78c50cd43dc07517',1,'prsl::AST::FuncExpr']]],
+  ['rettoken_559',['retToken',['../structprsl_1_1AST_1_1ReturnStmt.html#a23432bfe306e8a496db06b0629bdb65e',1,'prsl::AST::ReturnStmt']]],
+  ['retvalue_560',['retValue',['../structprsl_1_1AST_1_1ReturnStmt.html#a9445e89433651318566874109fcc095d',1,'prsl::AST::ReturnStmt']]],
+  ['rhsexpression_561',['rhsExpression',['../structprsl_1_1AST_1_1BinaryExpr.html#a2395dbc8547c604dc025e699fa107397',1,'prsl::AST::BinaryExpr']]]
 ];

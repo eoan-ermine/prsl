@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lhsexpression_512',['lhsExpression',['../structprsl_1_1AST_1_1BinaryExpr.html#a62b280aa315d860e6b979891aa583375',1,'prsl::AST::BinaryExpr']]],
-  ['literalval_513',['literalVal',['../structprsl_1_1AST_1_1LiteralExpr.html#ad8a9b32b1cba207ab50bc8cff99ce9c3',1,'prsl::AST::LiteralExpr']]]
+  ['ident_548',['ident',['../structprsl_1_1AST_1_1VarExpr.html#a7f56ae9b33b8409dac76e46be9408b7c',1,'prsl::AST::VarExpr::ident()'],['../structprsl_1_1AST_1_1CallExpr.html#aa5011e476022ceaf1323c8c0e6c9aa43',1,'prsl::AST::CallExpr::ident()']]],
+  ['initializer_549',['initializer',['../structprsl_1_1AST_1_1AssignmentExpr.html#a54dbfd4e421879b5c5bb6ba0e9ceb12e',1,'prsl::AST::AssignmentExpr::initializer()'],['../structprsl_1_1AST_1_1VarStmt.html#aefec5139cfb6f054dacfd63baa9e3a13',1,'prsl::AST::VarStmt::initializer()']]],
+  ['isfunction_550',['isFunction',['../structprsl_1_1AST_1_1ReturnStmt.html#a195f15982ddd22097ccf9ffc9318825c',1,'prsl::AST::ReturnStmt']]]
 ];

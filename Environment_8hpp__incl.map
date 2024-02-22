@@ -1,14 +1,15 @@
 <map id="prsl/Compiler/Common/Environment.hpp" name="prsl/Compiler/Common/Environment.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="335,5,507,47"/>
-<area shape="rect" id="node2" href="$ErrorReporter_8hpp.html" title=" " alt="" coords="5,169,216,196"/>
-<area shape="rect" id="node6" href="$RuntimeError_8hpp.html" title=" " alt="" coords="149,95,358,121"/>
-<area shape="rect" id="node7" href="$Token_8hpp.html" title=" " alt="" coords="291,169,450,196"/>
-<area shape="rect" id="node10" title=" " alt="" coords="474,169,561,196"/>
-<area shape="rect" id="node11" title=" " alt="" coords="484,95,561,121"/>
-<area shape="rect" id="node12" title=" " alt="" coords="586,95,710,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="100,244,175,271"/>
-<area shape="rect" id="node4" title=" " alt="" coords="224,244,283,271"/>
-<area shape="rect" id="node5" title=" " alt="" coords="13,244,75,271"/>
-<area shape="rect" id="node8" title=" " alt="" coords="437,244,523,271"/>
-<area shape="rect" id="node9" title=" " alt="" coords="315,244,413,271"/>
+<area shape="rect" id="node1" title=" " alt="" coords="351,5,523,47"/>
+<area shape="rect" id="node2" href="$Errors_8hpp.html" title=" " alt="" coords="212,95,375,121"/>
+<area shape="rect" id="node3" href="$Logger_8hpp.html" title=" " alt="" coords="329,169,495,196"/>
+<area shape="rect" id="node9" href="$Token_8hpp.html" title=" " alt="" coords="94,169,253,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="519,169,606,196"/>
+<area shape="rect" id="node12" title=" " alt="" coords="500,95,577,121"/>
+<area shape="rect" id="node13" title=" " alt="" coords="602,95,726,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="301,244,360,271"/>
+<area shape="rect" id="node4" href="$Utils_8hpp.html" title=" " alt="" coords="134,244,277,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="384,244,440,271"/>
+<area shape="rect" id="node7" title=" " alt="" coords="464,244,544,271"/>
+<area shape="rect" id="node5" title=" " alt="" coords="46,319,143,345"/>
+<area shape="rect" id="node10" title=" " alt="" coords="23,244,110,271"/>
 </map>

@@ -77,7 +77,7 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Environment_8hpp.html">prsl/Compiler/Common/Environment.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="FunctionsManager_8hpp.html">prsl/Compiler/Common/FunctionsManager.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="CompilerFlags_8hpp.html">prsl/Compiler/CompilerFlags.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ErrorReporter_8hpp.html">prsl/Debug/ErrorReporter.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Logger_8hpp.html">prsl/Debug/Logger.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Token_8hpp.html">prsl/Parser/Token.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;llvm/IR/Function.h&quot;</span></div>
@@ -97,14 +97,14 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">using namespace </span>AST;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">using</span> Errors::ErrorReporter;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">using</span> Errors::Logger;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">using</span> Types::Token;</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Type</a> = <a class="code" href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">Types::Token::Type</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classprsl_1_1Codegen_1_1Codegen.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="classprsl_1_1Codegen_1_1Codegen.html">Codegen</a> : <span class="keyword">public</span> <a class="code" href="classprsl_1_1AST_1_1ASTVisitor.html">ASTVisitor</a>&lt;Value *&gt; {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Codegen_1_1Codegen.html">Codegen</a>(<a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">Compiler::CompilerFlags</a> *flags, <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classprsl_1_1Codegen_1_1Codegen.html">Codegen</a>(<a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">Compiler::CompilerFlags</a> *flags, <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">bool</span> dump(<span class="keyword">const</span> std::filesystem::path &amp;path) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
@@ -143,7 +143,7 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="namespaceprsl_1_1Compiler.html#a7f486744e5a46fffdc70415a0e01851b">llvm::OptimizationLevel</a> optLevel;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  llvm::TargetMachine *targetMachine{<span class="keyword">nullptr</span>};</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1ErrorReporter.html">ErrorReporter</a> &amp;eReporter;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  std::unique_ptr&lt;LLVMContext&gt; context;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  std::unique_ptr&lt;IRBuilder&lt;&gt;&gt; builder;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  std::unique_ptr&lt;Module&gt; module;</div>
@@ -161,18 +161,18 @@ $(function() {
 <div class="ttc" id="aASTVisitor_8hpp_html"><div class="ttname"><a href="ASTVisitor_8hpp.html">ASTVisitor.hpp</a></div></div>
 <div class="ttc" id="aCompilerFlags_8hpp_html"><div class="ttname"><a href="CompilerFlags_8hpp.html">CompilerFlags.hpp</a></div></div>
 <div class="ttc" id="aEnvironment_8hpp_html"><div class="ttname"><a href="Environment_8hpp.html">Environment.hpp</a></div></div>
-<div class="ttc" id="aErrorReporter_8hpp_html"><div class="ttname"><a href="ErrorReporter_8hpp.html">ErrorReporter.hpp</a></div></div>
 <div class="ttc" id="aFunctionsManager_8hpp_html"><div class="ttname"><a href="FunctionsManager_8hpp.html">FunctionsManager.hpp</a></div></div>
+<div class="ttc" id="aLogger_8hpp_html"><div class="ttname"><a href="Logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aNodeTypes_8hpp_html"><div class="ttname"><a href="NodeTypes_8hpp.html">NodeTypes.hpp</a></div></div>
 <div class="ttc" id="aToken_8hpp_html"><div class="ttname"><a href="Token_8hpp.html">Token.hpp</a></div></div>
 <div class="ttc" id="aclassprsl_1_1AST_1_1ASTVisitor_html"><div class="ttname"><a href="classprsl_1_1AST_1_1ASTVisitor.html">prsl::AST::ASTVisitor</a></div><div class="ttdef"><b>Definition:</b> ASTVisitor.hpp:9</div></div>
 <div class="ttc" id="aclassprsl_1_1Codegen_1_1Codegen_html"><div class="ttname"><a href="classprsl_1_1Codegen_1_1Codegen.html">prsl::Codegen::Codegen</a></div><div class="ttdef"><b>Definition:</b> Codegen.hpp:33</div></div>
 <div class="ttc" id="aclassprsl_1_1Compiler_1_1CompilerFlags_html"><div class="ttname"><a href="classprsl_1_1Compiler_1_1CompilerFlags.html">prsl::Compiler::CompilerFlags</a></div><div class="ttdef"><b>Definition:</b> CompilerFlags.hpp:15</div></div>
-<div class="ttc" id="aclassprsl_1_1Errors_1_1ErrorReporter_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1ErrorReporter.html">prsl::Errors::ErrorReporter</a></div><div class="ttdef"><b>Definition:</b> ErrorReporter.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Errors_1_1Logger_html"><div class="ttname"><a href="classprsl_1_1Errors_1_1Logger.html">prsl::Errors::Logger</a></div><div class="ttdef"><b>Definition:</b> Logger.hpp:18</div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1EnvironmentManager_html"><div class="ttname"><a href="classprsl_1_1Types_1_1EnvironmentManager.html">prsl::Types::EnvironmentManager&lt; Value * &gt;</a></div></div>
 <div class="ttc" id="aclassprsl_1_1Types_1_1FunctionsManager_html"><div class="ttname"><a href="classprsl_1_1Types_1_1FunctionsManager.html">prsl::Types::FunctionsManager&lt; Function * &gt;</a></div></div>
-<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:9</div></div>
-<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html_a94719ecf049862452cf96ee503cd2030"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">prsl::Types::Token::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> Token.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html">prsl::Types::Token</a></div><div class="ttdef"><b>Definition:</b> Token.hpp:11</div></div>
+<div class="ttc" id="aclassprsl_1_1Types_1_1Token_html_a94719ecf049862452cf96ee503cd2030"><div class="ttname"><a href="classprsl_1_1Types_1_1Token.html#a94719ecf049862452cf96ee503cd2030">prsl::Types::Token::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> Token.hpp:13</div></div>
 <div class="ttc" id="anamespacelit_html_ac8984ff1d09b2d4f07f2ba56484afe31"><div class="ttname"><a href="namespacelit.html#ac8984ff1d09b2d4f07f2ba56484afe31">lit.name</a></div><div class="ttdeci">name</div><div class="ttdef"><b>Definition:</b> lit.cfg.py:4</div></div>
 <div class="ttc" id="anamespaceprsl_1_1AST_html_a085626df75b320da3c625c1e251907c6"><div class="ttname"><a href="namespaceprsl_1_1AST.html#a085626df75b320da3c625c1e251907c6">prsl::AST::InputExprPtr</a></div><div class="ttdeci">std::unique_ptr&lt; InputExpr &gt; InputExprPtr</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:22</div></div>
 <div class="ttc" id="anamespaceprsl_1_1AST_html_a1145e1cf3e07a008b1eaa499271453d4"><div class="ttname"><a href="namespaceprsl_1_1AST.html#a1145e1cf3e07a008b1eaa499271453d4">prsl::AST::PostfixExprPtr</a></div><div class="ttdeci">std::unique_ptr&lt; PostfixExpr &gt; PostfixExprPtr</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:34</div></div>

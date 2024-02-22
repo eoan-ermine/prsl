@@ -78,16 +78,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ada718fb93c54941cc8f5c49fbceddfb4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Scanner_1_1Scanner.html#ada718fb93c54941cc8f5c49fbceddfb4">Scanner</a> (std::string_view source)</td></tr>
-<tr class="separator:ada718fb93c54941cc8f5c49fbceddfb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac17c82ca94405325c1f52e7c7d8adc0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Scanner_1_1Scanner.html#ac17c82ca94405325c1f52e7c7d8adc0e">Scanner</a> (std::string_view filename, std::string_view source)</td></tr>
+<tr class="separator:ac17c82ca94405325c1f52e7c7d8adc0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a037306cb4ba0c2aee0905fe2bbe7c3b8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Scanner_1_1Scanner.html#a037306cb4ba0c2aee0905fe2bbe7c3b8">tokenize</a> ()</td></tr>
 <tr class="separator:a037306cb4ba0c2aee0905fe2bbe7c3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc33f9fbb9091c8f3c777d6323e39121"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classprsl_1_1Types_1_1Token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classprsl_1_1Scanner_1_1Scanner.html#afc33f9fbb9091c8f3c777d6323e39121">tokenizeOne</a> ()</td></tr>
 <tr class="separator:afc33f9fbb9091c8f3c777d6323e39121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ada718fb93c54941cc8f5c49fbceddfb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada718fb93c54941cc8f5c49fbceddfb4">&#9670;&nbsp;</a></span>Scanner()</h2>
+<a id="ac17c82ca94405325c1f52e7c7d8adc0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac17c82ca94405325c1f52e7c7d8adc0e">&#9670;&nbsp;</a></span>Scanner()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -99,8 +99,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">prsl::Scanner::Scanner::Scanner </td>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>source</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -132,8 +142,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_cgraph.png" border="0" usemap="#aclassprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_cgraph" alt=""/></div>
 <map name="aclassprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_cgraph" id="aclassprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,172,47"/>
+<area shape="rect" title=" " alt="" coords="5,39,172,80"/>
 <area shape="rect" href="classprsl_1_1Scanner_1_1Scanner.html#afc33f9fbb9091c8f3c777d6323e39121" title=" " alt="" coords="220,5,387,47"/>
+<area shape="rect" href="structprsl_1_1Utils_1_1FilePos.html#a2ab5c4ad207fd254e596a66b5bcde149" title=" " alt="" coords="234,71,373,112"/>
 </map>
 </div>
 <div class="dynheader">
@@ -142,7 +153,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_icgraph.png" border="0" usemap="#aclassprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_icgraph" alt=""/></div>
 <map name="aclassprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_icgraph" id="aclassprsl_1_1Scanner_1_1Scanner_a037306cb4ba0c2aee0905fe2bbe7c3b8_icgraph">
 <area shape="rect" title=" " alt="" coords="468,5,635,47"/>
-<area shape="rect" href="namespaceprsl_1_1Compiler.html#af66250cb165e3660e9a5c1ba585a63ee" title=" " alt="" coords="263,13,420,39"/>
+<area shape="rect" href="namespaceprsl_1_1Compiler.html#a4ca2840b42f7fc1166645aeeb0ab3d1e" title=" " alt="" coords="263,13,420,39"/>
 <area shape="rect" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c" title=" " alt="" coords="5,13,215,39"/>
 </map>
 </div>
@@ -170,7 +181,7 @@ Here is the caller graph for this function:</div>
 <map name="aclassprsl_1_1Scanner_1_1Scanner_afc33f9fbb9091c8f3c777d6323e39121_icgraph" id="aclassprsl_1_1Scanner_1_1Scanner_afc33f9fbb9091c8f3c777d6323e39121_icgraph">
 <area shape="rect" title=" " alt="" coords="683,5,849,47"/>
 <area shape="rect" href="classprsl_1_1Scanner_1_1Scanner.html#a037306cb4ba0c2aee0905fe2bbe7c3b8" title=" " alt="" coords="468,5,635,47"/>
-<area shape="rect" href="namespaceprsl_1_1Compiler.html#af66250cb165e3660e9a5c1ba585a63ee" title=" " alt="" coords="263,13,420,39"/>
+<area shape="rect" href="namespaceprsl_1_1Compiler.html#a4ca2840b42f7fc1166645aeeb0ab3d1e" title=" " alt="" coords="263,13,420,39"/>
 <area shape="rect" href="classprsl_1_1Compiler_1_1Compiler.html#af627071c75ea9a56128c2c6c6543472c" title=" " alt="" coords="5,13,215,39"/>
 </map>
 </div>
