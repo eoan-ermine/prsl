@@ -13,6 +13,17 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get list of changed source files
+        uses: tj-actions/changed-files@v42
+        with:
+          write_output_files: true
+
+      - name: Verify the contents of the .github/outputs/all_changed_files.txt file
+        run: |
+          cat .github/outputs/all_changed_files.txt
 
       - name: Setup
         run: |
@@ -40,13 +51,6 @@ jobs:
           sudo apt install pvs-studio
           pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
 
-      - name: Get list of changed source files
-        run: |
-          echo "$(git diff --name-only \
-            ${{ github.event.before }} ${{ github.sha }})" \
-            > source-files.txt
-          cat source-files.txt
-
       - name: Build
         run: |
           cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On -B build .
@@ -58,7 +62,7 @@ jobs:
       - name: Analyze
         run: |
           pvs-studio-analyzer analyze -f build/compile_commands.json \
-                                      -S source-files.txt -j 4
+                                      -S .github/outputs/all_changed_files.txt -j 4
 
       - name: Convert report
         run: |
