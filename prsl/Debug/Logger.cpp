@@ -1,4 +1,5 @@
 #include "prsl/Debug/Logger.hpp"
+#include <config.hpp>
 
 #include <iostream>
 #include <string>
@@ -54,7 +55,7 @@ void Logger::error(const Utils::FilePos &pos, const string &msg) {
 
 void Logger::error(const string &fileName, const string &msg) {
   if (fileName.empty()) {
-    log(LogLevel::ERROR, "prsl", msg);
+    log(LogLevel::ERROR, PROJECT_NAME, msg);
   } else {
     log(LogLevel::ERROR, fileName, msg);
   }
@@ -66,7 +67,7 @@ void Logger::warning(const Utils::FilePos &pos, const string &msg) {
 
 void Logger::warning(const string &fileName, const string &msg) {
   if (fileName.empty()) {
-    log(LogLevel::WARNING, "prsl", msg);
+    log(LogLevel::WARNING, PROJECT_NAME, msg);
   } else {
     log(LogLevel::WARNING, fileName, msg);
   }

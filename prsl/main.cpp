@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
                   .run(),
               vm);
   } catch (po::error &e) {
-    logger.error("prsl", e.what());
+    logger.error(PROJECT_NAME, e.what());
     return EXIT_FAILURE;
   }
   po::notify(vm);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
         flags->setOptimizationLevel(prsl::Compiler::OptimizationLevel::O3);
         break;
       default:
-        logger.error("prsl", "unknown optimization level");
+        logger.error(PROJECT_NAME, "unknown optimization level");
         return EXIT_FAILURE;
       }
     }
@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
       } else if (type == "obj") {
         flags->setFileType(prsl::Compiler::OutputFileType::ObjectFile);
       } else {
-        logger.error("prsl", "unknown file type");
+        logger.error(PROJECT_NAME, "unknown file type");
         return EXIT_FAILURE;
       }
     }
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
     auto compiler = std::make_unique<prsl::Compiler::Compiler>(logger, flags.get());
     compiler->run(path);
   } else {
-    logger.error("prsl", "no input file");
+    logger.error(PROJECT_NAME, "no input file");
     return EXIT_FAILURE;
   }
 }

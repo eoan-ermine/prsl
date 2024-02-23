@@ -2,6 +2,7 @@
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
 #include "prsl/Debug/Errors.hpp"
+#include <config.hpp>
 
 #include "llvm/Bitcode/BitcodeWriter.h"
 #include "llvm/IR/BasicBlock.h"
@@ -19,7 +20,7 @@ namespace prsl::Codegen {
 
 Codegen::Codegen(Compiler::CompilerFlags *flags, Logger &logger)
     : flags(flags), logger(logger), context(std::make_unique<LLVMContext>()),
-      module(std::make_unique<Module>("prsl", *context)),
+      module(std::make_unique<Module>(PROJECT_NAME, *context)),
       builder(std::make_unique<IRBuilder<>>(*context)),
       envManager(this->logger), intType(llvm::Type::getInt32Ty(*context)) {
   InitializeAllTargetInfos();
@@ -51,7 +52,7 @@ Codegen::Codegen(Compiler::CompilerFlags *flags, Logger &logger)
   std::string error;
   auto target = TargetRegistry::lookupTarget(triple, error);
   if (!target) {
-    logger.error("prsl", error);
+    logger.error(PROJECT_NAME, error);
     throw Errors::RuntimeError{};
   }
 
