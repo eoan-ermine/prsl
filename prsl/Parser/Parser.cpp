@@ -349,10 +349,10 @@ ExprPtrVariant Parser::inputExpr() {
 // <scopeExpr> ::=
 //   "{" <program> "}"
 ExprPtrVariant Parser::scopeExpr() {
-  #pragma warning(push)
-  #pragma warning (disable:821)
+#pragma warning(push)
+#pragma warning(disable : 821)
   auto beginBrace = peek(); // For diagnostics purposes
-  #pragma warning(pop)
+#pragma warning(pop)
   advance();
   std::vector<StmtPtrVariant> statements;
   bool hasReturn{false};
