@@ -18,9 +18,9 @@ Logger::Logger(LogLevel level, ostream &out, ostream &err)
 
 void Logger::log(const LogLevel logLevel, std::string_view filename, int line,
                  int col, const string &msg) {
-  counts[(unsigned int)level]++;
+  counts[(unsigned int)logLevel]++;
   if (logLevel >= level) {
-    ostream &outStream = (level == LogLevel::ERROR) ? err : out;
+    ostream &outStream = (logLevel == LogLevel::ERROR) ? err : out;
     if (!filename.empty()) {
       outStream << filename;
       if (line >= 0) {
@@ -32,9 +32,9 @@ void Logger::log(const LogLevel logLevel, std::string_view filename, int line,
       outStream << ": ";
     }
 
-    outStream << (color ? colors[(size_t)level].first : "")
-              << messages[(size_t)level]
-              << (color ? colors[(size_t)level].second : "");
+    outStream << (color ? colors[(size_t)logLevel].first : "")
+              << messages[(size_t)logLevel]
+              << (color ? colors[(size_t)logLevel].second : "");
     outStream << msg << (color ? "\u001b[0m" : "") << std::endl;
   }
 }
