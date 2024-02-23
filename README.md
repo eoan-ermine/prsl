@@ -85,6 +85,8 @@ sudo pacman -S cppcheck
     * The `format` target (i.e `ninja format`) will run clang-format on all project files
     * The `check-format` target (i.e `ninja check-format`) will verify that project's code follows formatting conventions
     * The `docs` target (i.e `ninja docs`) will generate documentation using doxygen
+    * The `cppcheck` target (i.e `ninja cppcheck`) will run cppcheck on all project files
+    * The `pvs-studio` target (i.e `ninja pvs-studio`) will run PVS-Studio on all project files
 
 ## Usage
 
