@@ -137,27 +137,29 @@ $(function() {
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  Function *getFunction(<span class="keyword">const</span> <a class="code" href="classprsl_1_1Types_1_1Token.html">Token</a> &amp;ident);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  Value *evaluateScope(<span class="keyword">const</span> <a class="code" href="namespaceprsl_1_1AST.html#a24b374db88781e2de34569ef1c6ef5ff">ScopeExprPtr</a> &amp;stmt);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">Compiler::CompilerFlags</a> *flags{<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="namespaceprsl_1_1Compiler.html#ad6fc48a3d30a7ed5266b1fcdd3894309">Compiler::OutputFileType</a> type;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  llvm::PassBuilder passBuilder;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="namespaceprsl_1_1Compiler.html#a7f486744e5a46fffdc70415a0e01851b">llvm::OptimizationLevel</a> optLevel;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  llvm::TargetMachine *targetMachine{<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  std::unique_ptr&lt;LLVMContext&gt; context;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  std::unique_ptr&lt;IRBuilder&lt;&gt;&gt; builder;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  std::unique_ptr&lt;Module&gt; module;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1EnvironmentManager.html">Types::EnvironmentManager&lt;Value *&gt;</a> envManager;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html">Types::FunctionsManager&lt;Function *&gt;</a> functionsManager;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <a class="code" href="namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0">llvm::Type</a> *intType;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">struct </span>RetVal {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Value *value;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">bool</span> isFunction;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  };</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  std::stack&lt;RetVal&gt; returnStack;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace prsl::Codegen</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> initOpt() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="classprsl_1_1Compiler_1_1CompilerFlags.html">Compiler::CompilerFlags</a> *flags{<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="namespaceprsl_1_1Compiler.html#ad6fc48a3d30a7ed5266b1fcdd3894309">Compiler::OutputFileType</a> type;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keyword">mutable</span> llvm::PassBuilder passBuilder;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <a class="code" href="namespaceprsl_1_1Compiler.html#a7f486744e5a46fffdc70415a0e01851b">llvm::OptimizationLevel</a> optLevel;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  llvm::TargetMachine *targetMachine{<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <a class="code" href="classprsl_1_1Errors_1_1Logger.html">Logger</a> &amp;logger;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  std::unique_ptr&lt;LLVMContext&gt; context;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  std::unique_ptr&lt;IRBuilder&lt;&gt;&gt; builder;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  std::unique_ptr&lt;Module&gt; module;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1EnvironmentManager.html">Types::EnvironmentManager&lt;Value *&gt;</a> envManager;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <a class="code" href="classprsl_1_1Types_1_1FunctionsManager.html">Types::FunctionsManager&lt;Function *&gt;</a> functionsManager;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <a class="code" href="namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0">llvm::Type</a> *intType;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">struct </span>RetVal {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Value *value;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">bool</span> isFunction;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  };</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  std::stack&lt;RetVal&gt; returnStack;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace prsl::Codegen</span></div>
 <div class="ttc" id="aASTVisitor_8hpp_html"><div class="ttname"><a href="ASTVisitor_8hpp.html">ASTVisitor.hpp</a></div></div>
 <div class="ttc" id="aCompilerFlags_8hpp_html"><div class="ttname"><a href="CompilerFlags_8hpp.html">CompilerFlags.hpp</a></div></div>
 <div class="ttc" id="aEnvironment_8hpp_html"><div class="ttname"><a href="Environment_8hpp.html">Environment.hpp</a></div></div>
@@ -194,7 +196,7 @@ $(function() {
 <div class="ttc" id="anamespaceprsl_1_1AST_html_abf292b92fd4f5aa699ac6d2152a0cdc3"><div class="ttname"><a href="namespaceprsl_1_1AST.html#abf292b92fd4f5aa699ac6d2152a0cdc3">prsl::AST::BinaryExprPtr</a></div><div class="ttdeci">std::unique_ptr&lt; BinaryExpr &gt; BinaryExprPtr</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:31</div></div>
 <div class="ttc" id="anamespaceprsl_1_1AST_html_aede4014297edd5636292f341d8e68813"><div class="ttname"><a href="namespaceprsl_1_1AST.html#aede4014297edd5636292f341d8e68813">prsl::AST::FuncExprPtr</a></div><div class="ttdeci">std::unique_ptr&lt; FuncExpr &gt; FuncExprPtr</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:40</div></div>
 <div class="ttc" id="anamespaceprsl_1_1AST_html_af7728d59ded8469f2d90c855ed882351"><div class="ttname"><a href="namespaceprsl_1_1AST.html#af7728d59ded8469f2d90c855ed882351">prsl::AST::ExprStmtPtr</a></div><div class="ttdeci">std::unique_ptr&lt; ExprStmt &gt; ExprStmtPtr</div><div class="ttdef"><b>Definition:</b> NodeTypes.hpp:63</div></div>
-<div class="ttc" id="anamespaceprsl_1_1Codegen_html"><div class="ttname"><a href="namespaceprsl_1_1Codegen.html">prsl::Codegen</a></div><div class="ttdef"><b>Definition:</b> Codegen.cpp:15</div></div>
+<div class="ttc" id="anamespaceprsl_1_1Codegen_html"><div class="ttname"><a href="namespaceprsl_1_1Codegen.html">prsl::Codegen</a></div><div class="ttdef"><b>Definition:</b> Codegen.cpp:19</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Codegen_html_a895dfebc57df2f70674dfc65363640d0"><div class="ttname"><a href="namespaceprsl_1_1Codegen.html#a895dfebc57df2f70674dfc65363640d0">prsl::Codegen::Type</a></div><div class="ttdeci">Types::Token::Type Type</div><div class="ttdef"><b>Definition:</b> Codegen.hpp:31</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Compiler_html_a7f486744e5a46fffdc70415a0e01851b"><div class="ttname"><a href="namespaceprsl_1_1Compiler.html#a7f486744e5a46fffdc70415a0e01851b">prsl::Compiler::OptimizationLevel</a></div><div class="ttdeci">OptimizationLevel</div><div class="ttdef"><b>Definition:</b> CompilerFlags.hpp:9</div></div>
 <div class="ttc" id="anamespaceprsl_1_1Compiler_html_ad6fc48a3d30a7ed5266b1fcdd3894309"><div class="ttname"><a href="namespaceprsl_1_1Compiler.html#ad6fc48a3d30a7ed5266b1fcdd3894309">prsl::Compiler::OutputFileType</a></div><div class="ttdeci">OutputFileType</div><div class="ttdef"><b>Definition:</b> CompilerFlags.hpp:7</div></div>
