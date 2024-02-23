@@ -9,7 +9,7 @@ ParaCL language interpreter & transpiler (to LLVM IR)
 | Package              | Version |
 | -------------------- | ------- |
 | Boost.ProgramOptions | >=1.74  |
-| LLVM                 | >=17    |
+| LLVM                 | >=18    |
 
 **Development dependencies**
 
@@ -34,7 +34,7 @@ sudo apt install libboost-program-options-dev
 # Install LLVM
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
-sudo ./llvm.sh 17
+sudo ./llvm.sh 18
 ```
 
 **Development dependencies**:
