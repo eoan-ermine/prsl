@@ -363,8 +363,8 @@ void Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
   Function *func_printf = module->getFunction("printf");
 
   if (!func_printf) {
-    std::vector<llvm::Type *> ints(1, intType);
-    FunctionType *funcType = FunctionType::get(intType, ints, false);
+    std::vector<llvm::Type *> params = {llvm::PointerType::get(*context, 0), intType};
+    FunctionType *funcType = FunctionType::get(intType, params, false);
     func_printf = Function::Create(funcType, Function::ExternalLinkage,
                                    "printf", module.get());
     func_printf->setCallingConv(CallingConv::C);
