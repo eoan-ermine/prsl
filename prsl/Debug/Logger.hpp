@@ -17,7 +17,7 @@ enum class LogLevel { DEBUG = 1, INFO = 2, WARNING = 3, ERROR = 4, QUIET = 5 };
 
 class Logger {
 public:
-  Logger() : Logger(LogLevel::ERROR, cout, cerr) {}
+  Logger() : Logger(LogLevel::WARNING, cout, cerr) {}
   Logger(LogLevel level, ostream &out) : Logger(level, out, out){};
   Logger(LogLevel level, ostream &out, ostream &err);
   Logger(const Logger &) = delete;

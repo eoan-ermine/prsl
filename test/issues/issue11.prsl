@@ -1,0 +1,9 @@
+// RUN: %edir/prsl --codegen %s | filecheck %s --match-full-lines
+// RUN: %edir/prsl %s | filecheck %s --match-full-lines
+// CHECK: issue11.prsl:5:5: warning: Scope expression implicitly returns 0
+
+x = {
+   y = 18;
+   x = { y + 5; }
+};
+print x;

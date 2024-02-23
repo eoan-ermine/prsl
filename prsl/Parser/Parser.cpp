@@ -349,6 +349,7 @@ ExprPtrVariant Parser::inputExpr() {
 // <scopeExpr> ::=
 //   "{" <program> "}"
 ExprPtrVariant Parser::scopeExpr() {
+  auto beginBrace = peek(); // For diagnostics purposes
   advance();
   std::vector<StmtPtrVariant> statements;
   bool hasReturn{false};
@@ -378,6 +379,7 @@ ExprPtrVariant Parser::scopeExpr() {
     statements.back() =
         AST::createReturnSPV(returnToken, std::move(expr), isFunction);
   } else if (!hasReturn) {
+    logger.warning(beginBrace.getStartPos(), "Scope expression implicitly returns 0");
     statements.emplace_back(AST::createReturnSPV(
         returnToken, AST::createLiteralEPV(0), isFunction));
   }
