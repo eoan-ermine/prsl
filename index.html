@@ -103,7 +103,7 @@ Ubuntu</h3>
 <div class="line"># Install LLVM</div>
 <div class="line">wget https://apt.llvm.org/llvm.sh</div>
 <div class="line">chmod +x llvm.sh</div>
-<div class="line">sudo ./llvm.sh 17</div>
+<div class="line">sudo ./llvm.sh 18</div>
 </div><!-- fragment --><p><b>Development dependencies</b>:</p>
 <div class="fragment"><div class="line">pip install lit</div>
 <div class="line">pip install filecheck</div>
@@ -143,6 +143,8 @@ Getting the Source Code and Building prsl</h1>
 <li>The <code>format</code> target (i.e <code>ninja format</code>) will run clang-format on all project files</li>
 <li>The <code>check-format</code> target (i.e <code>ninja check-format</code>) will verify that project's code follows formatting conventions</li>
 <li>The <code>docs</code> target (i.e <code>ninja docs</code>) will generate documentation using doxygen</li>
+<li>The <code>cppcheck</code> target (i.e <code>ninja cppcheck</code>) will run cppcheck on all project files</li>
+<li>The <code>pvs-studio</code> target (i.e <code>ninja pvs-studio</code>) will run PVS-Studio on all project files</li>
 </ul>
 </li>
 </ul>
