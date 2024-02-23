@@ -1,8 +1,11 @@
 #include "prsl/Compiler/Codegen/Codegen.hpp"
 #include "prsl/AST/NodeTypes.hpp"
 #include "prsl/Compiler/CompilerFlags.hpp"
+#include "prsl/Debug/Errors.hpp"
 
+#include "llvm/Bitcode/BitcodeWriter.h"
 #include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IR/Verifier.h"
 #include <llvm/IR/CallingConv.h>
 #include <llvm/IR/Instructions.h>
@@ -24,7 +27,6 @@ Codegen::Codegen(Compiler::CompilerFlags *flags, Logger &logger)
   InitializeAllTargetMCs();
   InitializeAllAsmParsers();
   InitializeAllAsmPrinters();
-  targetMachine = nullptr;
 
   type = flags->getFileType();
   switch (flags->getOptimizationLevel()) {
@@ -48,39 +50,116 @@ Codegen::Codegen(Compiler::CompilerFlags *flags, Logger &logger)
 
   std::string error;
   auto target = TargetRegistry::lookupTarget(triple, error);
-  // TODO: Handle error
-  if (target) {
-    std::string cpu = "generic";
-    std::string features;
-    TargetOptions opt;
-    auto model = std::optional<Reloc::Model>();
-    switch (flags->getRelocationModel()) {
-    case Compiler::RelocationModel::STATIC:
-      model = Reloc::Static;
-      break;
-    case Compiler::RelocationModel::PIC:
-      model = Reloc::Model::PIC_;
-      break;
-    case Compiler::RelocationModel::DEFAULT:
-    default:
-      break;
-    }
-    targetMachine =
-        target->createTargetMachine(triple, cpu, features, opt, model);
+  if (!target) {
+    logger.error("prsl", error);
+    throw Errors::RuntimeError{};
+  }
 
-    module->setDataLayout(targetMachine->createDataLayout());
-    module->setTargetTriple(targetMachine->getTargetTriple().getTriple());
+  std::string cpu = "generic";
+  std::string features;
+  TargetOptions opt;
+  auto model = std::optional<Reloc::Model>();
+  switch (flags->getRelocationModel()) {
+  case Compiler::RelocationModel::STATIC:
+    model = Reloc::Static;
+    break;
+  case Compiler::RelocationModel::PIC:
+    model = Reloc::Model::PIC_;
+    break;
+  case Compiler::RelocationModel::DEFAULT:
+  default:
+    break;
+  }
+  targetMachine =
+      target->createTargetMachine(triple, cpu, features, opt, model);
+
+  module->setDataLayout(targetMachine->createDataLayout());
+  module->setTargetTriple(targetMachine->getTargetTriple().getTriple());
+}
+
+void Codegen::initOpt() const {
+  if (optLevel != llvm::OptimizationLevel::O0) {
+    LoopAnalysisManager lam;
+    FunctionAnalysisManager fam;
+    CGSCCAnalysisManager cgam;
+    ModuleAnalysisManager mam;
+
+    passBuilder.registerModuleAnalyses(mam);
+    passBuilder.registerCGSCCAnalyses(cgam);
+    passBuilder.registerFunctionAnalyses(fam);
+    passBuilder.registerLoopAnalyses(lam);
+    passBuilder.crossRegisterProxies(lam, fam, cgam, mam);
+
+    auto mpm = passBuilder.buildPerModuleDefaultPipeline(optLevel);
+    mpm.run(*module.get(), mam);
   }
 }
 
 bool Codegen::dump(const std::filesystem::path &path) const {
-  std::error_code ec;
-  auto fileStream = llvm::raw_fd_ostream(path.string(), ec,
-                                         llvm::sys::fs::OpenFlags::OF_None);
-  if (ec)
-    return false;
+  initOpt();
 
-  module->print(fileStream, nullptr);
+  std::string ext;
+  switch (type) {
+  case Compiler::OutputFileType::AsmFile:
+    ext = "s";
+    break;
+  case Compiler::OutputFileType::BitCodeFile:
+    ext = "bc";
+    break;
+  case Compiler::OutputFileType::LLVMIRFile:
+    ext = "ll";
+    break;
+  default:
+#if (defined(_WIN32) || defined(_WIN64)) && !defined(__MINGW32__)
+    ext = "obj";
+#else
+    ext = "o";
+#endif
+    break;
+  }
+
+  std::string name = auto{path}.replace_extension(ext).string();
+
+  std::error_code ec;
+  raw_fd_ostream output(name, ec, sys::fs::OF_None);
+  if (ec) {
+    logger.error(path.string(), ec.message());
+    return false;
+  }
+
+  module->setSourceFileName(path.string());
+  if (type == Compiler::OutputFileType::LLVMIRFile) {
+    module->print(output, nullptr);
+    output.flush();
+    return true;
+  }
+
+  if (type == Compiler::OutputFileType::BitCodeFile) {
+    WriteBitcodeToFile(*module, output);
+    output.flush();
+    return true;
+  }
+
+  CodeGenFileType fileType;
+  switch (type) {
+  case Compiler::OutputFileType::AsmFile:
+    fileType = CodeGenFileType::AssemblyFile;
+    break;
+  default:
+    fileType = CodeGenFileType::ObjectFile;
+    break;
+  }
+
+  legacy::PassManager pass;
+  if (targetMachine->addPassesToEmitFile(pass, output, nullptr, fileType,
+                                         false)) {
+    logger.error(path.string(),
+                 "target machine cannot emit a file of this type.");
+    return false;
+  }
+  pass.run(*module);
+  output.flush();
+
   return true;
 }
 
@@ -363,7 +442,8 @@ void Codegen::visitPrintStmt(const PrintStmtPtr &stmt) {
   Function *func_printf = module->getFunction("printf");
 
   if (!func_printf) {
-    std::vector<llvm::Type *> params = {llvm::PointerType::get(*context, 0), intType};
+    std::vector<llvm::Type *> params = {llvm::PointerType::get(*context, 0),
+                                        intType};
     FunctionType *funcType = FunctionType::get(intType, params, false);
     func_printf = Function::Create(funcType, Function::ExternalLinkage,
                                    "printf", module.get());

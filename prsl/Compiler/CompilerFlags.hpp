@@ -15,7 +15,7 @@ enum class ExecutionMode { PARSE, COMPILE, INTERPRET };
 class CompilerFlags {
 public:
   CompilerFlags()
-      : type(OutputFileType::ObjectFile), level(OptimizationLevel::O0),
+      : type(OutputFileType::LLVMIRFile), level(OptimizationLevel::O0),
         model(RelocationModel::DEFAULT), executionMode(ExecutionMode::PARSE),
         noDiagnosticsColor(false){};
   ~CompilerFlags() = default;

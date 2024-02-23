@@ -65,9 +65,11 @@ private:
   Function *getFunction(const Token &ident);
   Value *evaluateScope(const ScopeExprPtr &stmt);
 
+  void initOpt() const;
+
   Compiler::CompilerFlags *flags{nullptr};
   Compiler::OutputFileType type;
-  llvm::PassBuilder passBuilder;
+  mutable llvm::PassBuilder passBuilder;
   llvm::OptimizationLevel optLevel;
   llvm::TargetMachine *targetMachine{nullptr};
 
